@@ -3,7 +3,7 @@
 	"description": "Telegram Image to PDF Bot",
 	"repository": "https://github.com/nabilanavab/ilovepdf",
 	"env": {
-		"BOT_TOKEN": {
+		"API_TOKEN": {
 			"description": "BOT TOKEN from @botfather"
 		}
 	},
