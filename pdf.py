@@ -22,7 +22,7 @@ def strt(message):
 def strtMsgEdt(call):
 	edit = call.data
 	if edit == 'strtDevEdt':
-		aboutDev = f'About Dev. \n\nOwNeR By: @nabiIanavab 😜\nUpdate Channel: @nabiIanavab 😇\n\nSource Code:\n\nJoin @nabiIanavab , if you ❤ this bot. 😃'
+		aboutDev = f'About Dev. \n\nOwNeR By: @nabiIanavab 😜\nUpdate Channel: @nabiIanavab 😇\n\nSource Code: https://github.com/nabilanavab/ilovepdf\n\nJoin @nabiIanavab , if you ❤ this bot. 😃'
 		bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text = aboutDev)
 	elif edit == 'strtHlpEdt':
 		hlpMsg = f'When you finished sending images use:\n\n🤞 /generate - to get your pdf (By Default: Your pdf name = your Telegram Id) : to find your id hit 👉 /id \n\n🤞 If you want to rename your pdf file..\nSend 👉 /generate fileName\nEg: /generate @nabilanavab✓\n\n🤞To delete your current Queue use:\n👉 /cancel (delete\'s all images from server..🙊)\n\n\nAll the images send to this bot will be sequentially ordered in the generated PDF 😉\n\nSend me an image to get start..😅'
