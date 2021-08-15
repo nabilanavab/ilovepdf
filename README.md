@@ -38,7 +38,8 @@
           pip install pyTelegramBotAPI
           pip install pillow
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nabilanavab/ilovepdf)
 
 ## ConfigVar/EnvVar:<br>
 
