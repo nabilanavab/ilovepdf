@@ -16,13 +16,11 @@
      ◍ Zero Additional Compression
 
 ## Commands:<br>
-
      /start - Check wheather bot alive.
      /help - for more help
      /id - Get Ur Id (default pdf name)
      /cancel - Delete's old queue
      /generate - long tap to set a pdf name
-
 
 ## Source code:<br>
      Developed by: @nabilanavab, Kerala
@@ -34,19 +32,17 @@
 
 ## how to Create your Own pDf bot:<br>
 
-     ◍ Host on Heroku 
-     ◍ Host on Qovery 
+     ◍ Heroku (Supported)
+     ◍ Qovery (Soon)
      ◍ Local Host
           pip install pyTelegramBotAPI
           pip install pillow
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-
 ## ConfigVar/EnvVar:<br>
 
      This bot only requires your Telegram Bot Token as (API_TOKEN)
-
 
 ## LICENSE:<br>
      Apache License 2.0
