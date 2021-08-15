@@ -93,7 +93,7 @@ def generate(message):
 		fileName = f"{message.chat.id}" + ".pdf"
 	path = os.path.join(f'./{message.chat.id}', fileName)
 	images[0].save(path, save_all=True, append_images=images[1:])
-	bot.send_document(message.chat.id, open(path, 'rb'), caption = f"[{message.from_user.first_name}](tg://user?id={msg.from_user.id}) your pDf😉", parse_mode="Markdown")
+	bot.send_document(message.chat.id, open(path, 'rb'), caption = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) your pDf😉", parse_mode="Markdown")
 	shutil.rmtree(f'./{message.chat.id}')
 	bot.edit_message_text(chat_id= message.chat.id, text = f'`Successfully Uploaded 🤫`', message_id = gnrtMsgId.message_id)
 	
