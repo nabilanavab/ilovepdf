@@ -8,7 +8,7 @@
      You can customize Ur PDF name(/help for more)
         
 
-<a href="https://t.me/ilovepdf_bot">Demo Bot</a> (free for ever 😅)
+<a href="https://telegram.dog/ilovepdf_bot">Demo Bot</a> (free for ever 😅)
 
 ## features:
      ◍ Rename PDF(During /generate)
