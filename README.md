@@ -12,6 +12,7 @@
 
 ## features:
      ◍ Rename PDF(During /generate)
+     ◍ .jpg, .jpeg, .png files supposed
      ◍ Image-sequence will be considered
      ◍ Zero Additional Compression
 
