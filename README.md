@@ -11,10 +11,14 @@
 <a href="https://telegram.dog/ilovepdf_bot">Demo Bot</a> (free for ever 😅)
 
 ## features:
+     ◍ IMAGES TO PDF
      ◍ Rename PDF(During /generate)
      ◍ .jpg, .jpeg, .png files supposed
      ◍ Image-sequence will be considered
      ◍ Zero Additional Compression
+     ◍ PDF TO IMAGES
+     ◍ .epub TO PDF
+     ◍ FILES TO PDF
 
 ## Commands:<br>
      /start - Check wheather bot alive.
