@@ -87,6 +87,7 @@ Images to pdf :
  ◍ `/id` - to get your telegram ID 🤫
  
  ◍ RENAME YOUR PDF:
+ 
 	- By default, your telegram ID will be treated as your pdf name..🙂
 	- `/generate fileName` - to change pdf name to fileName🤞
 	- `/generate name` - to get pdf with your telegram name
@@ -209,7 +210,6 @@ def UsrId(message):
 
 @bot.message_handler(commands=["help"])
 def hlp(message):
-	
 	try:
 		bot.send_chat_action(message.chat.id, "typing")
 		hlpMsg = f'''
@@ -241,7 +241,6 @@ media = {}
 
 @bot.message_handler(content_types=['photo'])
 def pic(message):
-	
 	try:
 		bot.send_chat_action(message.chat.id, "typing")
 		picMsgId = bot.reply_to(message, "`Downloading your Image..⏳`",)
@@ -278,6 +277,7 @@ def fls(message):
 		
 		fileNm, fileExt = os.path.splitext(isPdfOrImg)
 		suprtedFile = ['.jpg','.jpeg','.png']
+		suprtedPdfFile = ['.epub', '.xps', '.oxps', '.cbz', '.fb2']
 		
 		if fileExt in suprtedFile and fileSize <= 10000000:
 		
@@ -290,12 +290,7 @@ def fls(message):
 				file_info = bot.get_file(message.document.file_id)
 				downloaded_file = bot.download_file(file_info.file_path)
 				
-				try:
-					os.makedirs(f'./{message.chat.id}/imgs')
-				
-				except:
-					pass
-				
+				os.makedirs(f'./{message.chat.id}/imgs')
 				with open(f'./{message.chat.id}/imgs/{message.chat.id}{isPdfOrImg}', 'wb') as new_file:
 					new_file.write(downloaded_file)
 				
@@ -323,70 +318,82 @@ def fls(message):
 				file_info = bot.get_file(message.document.file_id)
 				downloaded_file = bot.download_file(file_info.file_path)
 				
-				os.makedirs(f'./{message.message_id}pdf{message.chat.id}')
-				with open(f'./{message.message_id}pdf{message.chat.id}/{message.chat.id}.pdf', 'wb') as new_file:
+				os.mkdir(f'./{message.message_id}pdf{message.chat.id}')
+				with open(f'./{message.message_id}pdf{message.chat.id}/pdf.pdf', 'wb') as new_file:
 					new_file.write(downloaded_file)
 				
-				doc = fitz.open(f'./{message.message_id}pdf{message.chat.id}/{message.chat.id}.pdf')
+				doc = fitz.open(f'./{message.message_id}pdf{message.chat.id}/pdf.pdf')
 				zoom = 1
 				mat = fitz.Matrix(zoom, zoom)
 				noOfPages = doc.pageCount
+				percNo = 0
 				
 				bot.edit_message_text(chat_id = message.chat.id, text = f'`Total pages: {noOfPages}`', message_id = pdfMsgId.message_id)
+				totalPgList = list(range(0, noOfPages))
 				
-				for pageNo in range(noOfPages):
+				for i in range(0, noOfPages, 10):
+					pgList = totalPgList[i:i+10]
+					os.mkdir(f'./{message.message_id}pdf{message.chat.id}/pgs')
 					
-					page = doc.loadPage(pageNo)
-					pix = page.getPixmap(matrix = mat)
-					cnvrtpg = pageNo + 1
-					bot.edit_message_text(chat_id = message.chat.id, text = f'`Converted: {cnvrtpg}/{noOfPages} pgs`', message_id = pdfMsgId.message_id)
+					for pageNo in pgList:
+						page = doc.loadPage(pageNo)
+						pix = page.getPixmap(matrix = mat)
+						cnvrtpg = pageNo + 1
+						
+						bot.edit_message_text(chat_id = message.chat.id, text = f'`Converted: {cnvrtpg}/{noOfPages} pgs`', message_id = pdfMsgId.message_id)
+						
+						with open(f'./{message.message_id}pdf{message.chat.id}/pgs/{pageNo}.jpg','wb') as f:
+							pix.writePNG(f'./{message.message_id}pdf{message.chat.id}/pgs/{pageNo}.jpg')
+						
+					directory = f'./{message.message_id}pdf{message.chat.id}/pgs'
+					imag = [os.path.join(directory, file) for file in os.listdir(directory)]
+					imag.sort(key=os.path.getctime)
 					
-					with open(f'./{message.message_id}pdf{message.chat.id}/{pageNo}.jpg','wb') as f:
-						pix.writePNG(f'./{message.message_id}pdf{message.chat.id}/{pageNo}.jpg')
-				
-				os.remove(f'./{message.message_id}pdf{message.chat.id}/{message.chat.id}.pdf')
-				bot.edit_message_text(chat_id = message.chat.id, text = f'`started Uploading..💜`', message_id = pdfMsgId.message_id)
-				percNo = 0
-				LrgFileNo = 0
-				
-				directory = f'./{message.message_id}pdf{message.chat.id}/'
-				imag = [os.path.join(directory, file) for file in os.listdir(directory)]
-				imag.sort(key=os.path.getctime)
-				
-				for i in range(0, len(imag), 10):
-					
-					imags = imag[i:i+10]
+					percNo = percNo + len(imag)
 					media[message.chat.id] = []
-					for file in imags:
-						
-						percNo += 1
-						percent = (percNo/noOfPages)*100
-						bot.edit_message_text(chat_id = message.chat.id, text = f'`Uploaded: {percent:.2f}%`', message_id = pdfMsgId.message_id)
-						
+					LrgFileNo = 0
+					percentage = (percNo*100)/noOfPages
+					
+					bot.edit_message_text(chat_id = message.chat.id, text = f'`Uploaded : {percentage:.2f}%`', message_id = pdfMsgId.message_id)
+					
+					for file in imag:
 						if os.path.getsize(file) >= 1000000:
 							
-							LrgFileNo += 1
 							picture = Image.open(file)
-							CmpImg = f'./{message.message_id}pdf{message.chat.id}/temp{LrgFileNo}.jpeg'
+							CmpImg = f'./{message.message_id}pdf{message.chat.id}/pgs/temp{LrgFileNo}.jpeg'
 							picture.save(CmpImg, "JPEG", optimize=True, quality=50) 
 							
+							LrgFileNo += 1
 							if os.path.getsize(CmpImg) >= 1000000:
 								continue
 							
-							fi = open(CmpImg, "rb")
-							media[message.chat.id].append(InputMediaPhoto (fi))
-							
-							continue
+							else:
+								fi = open(CmpImg, "rb")
+								media[message.chat.id].append(InputMediaPhoto (fi))
+								continue
 						
 						fi = open(file, "rb")
 						media[message.chat.id].append(InputMediaPhoto (fi))
 						
+					shutil.rmtree(f'./{message.message_id}pdf{message.chat.id}/pgs')
+					sleep(3)
 					bot.send_chat_action(message.chat.id, "upload_photo")
 					bot.send_media_group(message.chat.id, media[message.chat.id])
 					del media[message.chat.id]
-				
+					
 				bot.edit_message_text(chat_id = message.chat.id, text = f'`Uploading Completed.. 💛`', message_id = pdfMsgId.message_id)
+				
 				shutil.rmtree(f'./{message.message_id}pdf{message.chat.id}')
+				
+				sleep(10)
+				bot.send_chat_action(message.chat.id, "typing")
+				feedbackMsg = f'''
+[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
+'''
+				bot.send_message(message.chat.id, feedbackMsg, disable_web_page_preview=True)
+				
+				os.remove(f'./{message.message_id}pdf{message.chat.id}/pdf.pdf')
+				bot.edit_message_text(chat_id = message.chat.id, text = f'`started Uploading..💜`', message_id = pdfMsgId.message_id)
 				
 			except Exception as e:
 				
@@ -400,11 +407,10 @@ def fls(message):
 					sleep(15)
 					bot.delete_message(chat_id = message.chat.id, message_id = pdfMsgId.message_id)
 					bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
-				
 				except:
 					pass
 		
-		elif fileExt not in suprtedFile and fileSize <= 10000000:
+		elif fileExt.lower() in suprtedPdfFile and fileSize <= 10000000:
 			
 			try:
 				
@@ -414,13 +420,9 @@ def fls(message):
 				file_info = bot.get_file(message.document.file_id)
 				downloaded_file = bot.download_file(file_info.file_path)
 				
-				try:
-					os.makedirs(f'./{message.message_id}pdf{message.chat.id}')
-					with open(f'./{message.message_id}pdf{message.chat.id}/{isPdfOrImg}', 'wb') as new_file:
-						new_file.write(downloaded_file)
-				
-				except:
-					pass
+				os.mkdir(f'./{message.message_id}pdf{message.chat.id}')
+				with open(f'./{message.message_id}pdf{message.chat.id}/{isPdfOrImg}', 'wb') as new_file:
+					new_file.write(downloaded_file)
 				
 				bot.edit_message_text(chat_id = message.chat.id, text = f'Creating pdf..💛', message_id = pdfMsgId.message_id)
 				Document = fitz.open(f'./{message.message_id}pdf{message.chat.id}/{isPdfOrImg}')
@@ -435,7 +437,13 @@ def fls(message):
 				bot.edit_message_text(chat_id = message.chat.id, text = f'Uploading Completed..❤️', message_id = pdfMsgId.message_id)
 				
 				shutil.rmtree(f'./{message.message_id}pdf{message.chat.id}')
-			
+				sleep(10)
+				bot.send_chat_action(message.chat.id, "typing")
+				feedbackMsg = f'''
+[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
+'''
+				bot.send_message(message.chat.id, feedbackMsg, disable_web_page_preview=True)
+		
 			except Exception as e:
 				
 				try:
@@ -447,7 +455,6 @@ def fls(message):
 					sleep(15)
 					bot.delete_message(chat_id = message.chat.id, message_id = pdfMsgId.message_id)
 					bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
-				
 				except:
 					pass
 		
@@ -457,11 +464,10 @@ def fls(message):
 				bot.send_chat_action(message.chat.id, "typing")
 				unSuprtd = bot.send_message(message.chat.id, f'''`please Send me a file less than 10mb Size`😪
 
-Or Create pdf bot your Own link in bio''')
+Or Create pdf bot your Own.. link in bio''')
 				sleep(15)
 				bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
 				bot.delete_message(chat_id = message.chat.id, message_id = unSuprtd.message_id)
-			
 			except:
 				pass
 			
@@ -470,10 +476,8 @@ Or Create pdf bot your Own link in bio''')
 	
 @bot.message_handler(commands=["cancel"])
 def delQueue(message):
-	
-	bot.send_chat_action(message.chat.id, "typing")
-	
 	try:
+		bot.send_chat_action(message.chat.id, "typing")
 		shutil.rmtree(f'./{message.chat.id}')
 		bot.reply_to(message, "`Queue deleted Successfully..`🤧")
 		try:
@@ -484,16 +488,8 @@ def delQueue(message):
 	except:
 		bot.reply_to(message, "`No Queue founded`😲")
 	
-	try:
-		shutil.rmtree(f'./{message.message_id}pdf{message.chat.id}')
-		bot.reply_to(message, f'`current PDF 🔄 Image cancelled..`🤙')
-		
-	except:
-		pass
-
 @bot.message_handler(commands=["generate"])
 def generate(message):
-	
 	try:
 		bot.send_chat_action(message.chat.id, "typing")
 		newName = message.text.replace('/generate', '')
@@ -534,20 +530,24 @@ def generate(message):
 		bot.edit_message_text(chat_id= message.chat.id, text = f'`Successfully Uploaded 🤫`', message_id = gnrtMsgId.message_id)
 		
 		shutil.rmtree(f'./{message.chat.id}')
+		sleep(10)
+		bot.send_chat_action(message.chat.id, "typing")
+		feedbackMsg = f'''
+[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
+'''
+		bot.send_message(message.chat.id, feedbackMsg, disable_web_page_preview=True)
 	
 	except:
 		pass
 	
 @bot.message_handler(content_types=['text', 'audio', 'sticker', 'video', 'video_note', 'voice', 'location', 'contact'])
 def unSuprtd(message):
-	
 	try:
 		bot.send_chat_action(message.chat.id, "typing")
 		unSuprtd = bot.send_message(message.chat.id, f'`unsupported file.. please send me an image..😬`')
 		sleep(5)
 		bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
 		bot.delete_message(chat_id = message.chat.id, message_id = unSuprtd.message_id)
-	
 	except:
 		pass
 	
