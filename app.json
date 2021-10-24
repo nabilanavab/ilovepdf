@@ -1,29 +1,27 @@
 {
-    "name": "ilovepdf_bot",
-    "description": "A Telegram Bot that helps you to domany this with pdf.",
-    "keywords": [
-        "Telegram", "Telegram Bot", "pdf bot"
-        "ilovepdf", "nabilabavab", "python"
-        "ilovepdf_bot", "complete pdf bot"
-    ]
-    "website": "https://github.com/nabilanavab/ilovepdf",
-    "repository": "https://github.com/nabilanavab/ilovepdf",
-    "logo": "https://te.legra.ph/file/b659b2e306bb766a44537.jpg",
-    "success_url": "https://github.com/nabilanavab/ilovepdf",
-    "stack": "heroku-20",
-    "env": {
-        "API_TOKEN": {
-            "description": "BOT TOKEN from @botfather"
-            "required": true
-        },
-        "CONVERT_API": {
-            "description": "ConvertAPI secret token"
-            "required": false
-        }
-    },
-    "buildpacks": [
-        {
-            "url": "heroku/python"
-        }
-    ]
+	"name": "ilovepdf_bot",
+	"description": "A Telegram Bot that helps you to domany this with pdf.",
+	"keywords": [
+		"Telegram", "Telegram Bot", "pdf bot",
+		"ilovepdf", "nabilabavab", "python",
+		"ilovepdf_bot", "complete pdf bot"
+	],
+	"website": "https://github.com/nabilanavab/ilovepdf",
+	"repository": "https://github.com/nabilanavab/ilovepdf",
+	"logo": "https://te.legra.ph/file/b659b2e306bb766a44537.jpg",
+	"success_url": "https://github.com/nabilanavab/ilovepdf",
+	"stack": "heroku-20",
+	"env": {
+		"API_TOKEN": {
+			"description": "BOT TOKEN from @botfather",
+			"required": true
+		},
+		"CONVERT_API": {
+			"description": "ConvertAPI secret token",
+			"required": false
+		}
+	},
+	"buildpacks": [{
+		"url": "heroku/python"
+	}]
 }
