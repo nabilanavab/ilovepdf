@@ -1,5 +1,8 @@
 # About ILovePdf
 
+<meta name="Telegram pdf bot" content="simple telegram bot that helps to handle pdf manipulation">
+<meta name="nabilanavab" content="ilovepdf, nabil a navab, nabil-a-navab, pdf, telegram, pdf bot, nabil, Telegram bot">
+
 ## Enjoy the API
 
 <i>ilovePDF is an, easy-to-use open-source Telegram PDF bot written in python language 🐍</i>
