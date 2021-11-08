@@ -2,21 +2,25 @@
 # !/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# packages Used:
-# pip install pyTelegramBotAPI
+# packages Used (dependencies):
 # pip install pillow
+# pip install PyPDF2
 # pip install pyMuPdf
 # pip install convertapi
+# pip install pyTelegramBotAPI
+
 
 import os
-import telebot
-from telebot import types
-from telebot.types import InputMediaPhoto, InputMediaDocument
-from PIL import Image
-import shutil
-from time import sleep
 import fitz
+import shutil
+import telebot
 import convertapi
+from PIL import Image
+from time import sleep
+from telebot import types
+from PyPDF2 import PdfFileWriter, PdfFileReader
+from telebot.types import InputMediaPhoto, InputMediaDocument
+
 
 #Creating an instance (telebot)
 API_TOKEN = os.getenv("API_TOKEN")
@@ -24,27 +28,17 @@ bot = telebot.TeleBot(API_TOKEN, parse_mode="Markdown")
 
 #Creating an instance (convertapi)
 if os.getenv("CONVERT_API") is not None:
-    convertapi.api_secret = os.getenv("CONVERT_API")
+    try:
+        convertapi.api_secret = os.getenv("CONVERT_API")
+    except Exception:
+        pass
 
 
 #message replies
-strtMsg = f"""Hey ..!! This bot will helps you to do many things with pdf's 🥳
-
-Some of the main features are:
-◍ `Convert images to PDF`
-◍ `Convert PDF to images`
-◍ `Convert files to pdf`
-
-Update Channel: @ilovepdf\_bot 🤩
-
-[Source Code 🏆](https://github.com/nabilanavab/ilovepdf)
-[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"""
-
-
 aboutDev = """About Dev:
 
 OwNeD By: @nabilanavab 😜
-Update Channel: @ilovepdf\_bot 😇
+Update Channel: @ilovepdf\_bot 😇                                                                
 
 Lang Used: Python🐍
 [Source Code](https://github.com/nabilanavab/ilovepdf)
@@ -54,8 +48,7 @@ Join @ilovepdf\_bot, if you ❤ this
 [Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"""
 
 
-expMsg1 = """
-Images to pdf :
+I2PMsg = """Images to pdf :
 
         Just Send/forward me some images. When you are finished; use /generate to get your pdf..😉
 
@@ -63,7 +56,7 @@ Images to pdf :
  ◍ For better quality pdfs(send images without Compression) 🤧
  
  ◍ `/delete` - Delete's the current Queue 😒
- ◍ `/id` - to get your telegram ID 🤫
+ ◍ `/id` - to get your telegram ID 🤫                                                            
  
  ◍ RENAME YOUR PDF:
  
@@ -76,8 +69,7 @@ For bot updates join @ilovepdf\_bot 💎
 [Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"""
 
 
-expMsg2 = """
-PDF to images:
+P2IMsg = """PDF to images:
 
         Just Send/forward me a pdf file.
 
@@ -85,7 +77,7 @@ PDF to images:
  ◍ if Multiple pages in pdf(send as albums) 😌
  ◍ Page numbers are sequentially ordered 😬
  ◍ Send images faster than anyother bots 😋
- ◍ /cancel : to cancel a pdf to image work
+ ◍ /cancel : to cancel a pdf to image work                                                       
 
 1st bot on telegram wich send images without converting entire pdf to images
 
@@ -94,8 +86,7 @@ For bot updates join @ilovepdf\_bot 💎
 [Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"""
 
 
-expMsg3 = """
-Files to PDF:
+F2PMsg = """Files to PDF:
 
         Just Send/forward me a Supported file.. I will convert it to pdf and send it to you..😎
 
@@ -105,13 +96,12 @@ Files to PDF:
 ◍ added 30+ new file formats that can be converted to pdf..
 API LIMITS..😕
 
-For bot updates join @ilovepdf\_bot 💎
+For bot updates join @ilovepdf\_bot 💎                                                           
 
 [Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"""
 
 
-expMsg4 = """
-WARNING MESSAGE ⚠️:
+warningMessage = """WARNING MESSAGE ⚠️:
 
 ◍ This bot is completely free to use so please dont spam here 🙏
 
@@ -119,26 +109,24 @@ WARNING MESSAGE ⚠️:
 
 IF THERE IS ANY KIND OF REPORTING, BUGS, REQUESTS, AND SUGGESTIONS PLEASE CONTACT @nabilanavab
 
-For bot updates join @ilovepdf\_bot 💎
+For bot updates join @ilovepdf\_bot 💎                                                           
 
 [Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"""
 
 
-strtMsgCb = """
-Hey..!! This bot will helps you to do many things with pdf's 🥳
+back2Start = """Hey..!! This bot will helps you to do many things with pdf's 🥳
 
 Some of the main features are:
 ◍ `Convert images to PDF`
 ◍ `Convert PDF to images`
 ◍ `Convert files to pdf`
 
-For bot updates join @ilovepdf\_bot 💎
+For bot updates join @ilovepdf\_bot 💎                                                           
 
 [Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"""
 
 
-feedbackMsg = f"""
-For bot updates join @ilovepdf\_bot 💎
+feedbackMsg = """For bot updates.. join @ilovepdf\_bot 💎
 
 [Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"""
 
@@ -146,7 +134,7 @@ For bot updates join @ilovepdf\_bot 💎
 #global Variables
 PDF = {}   # for generating pdf
 media = {}    # for sending group images(pdf 2 img)
-PDF2IMG = {}    # saves file id of each use for later uses
+PDF2IMG = {}    # saves file id of each user for later uses
 PROCESS = []    # to check current process
 mediaDoc = {}    # for sending group document(pdf 2 img)
 PAGENOINFO = {}    # saves no.of pages that the user send last
@@ -160,21 +148,37 @@ def strt(message):
     try:
         bot.send_chat_action(message.chat.id, "typing")
         
+        strtMsg = f"""Hey [{message.from_user.first_name}](tg://user?id={message.chat.id})..!! This bot will helps you to do many things with pdf's 🥳
+
+Some of the main features are:
+◍ `Convert images to PDF`
+◍ `Convert PDF to images`
+◍ `Convert files to pdf`                                                                         
+
+Update Channel: @ilovepdf\_bot 🤩
+
+[Source Code 🏆](https://github.com/nabilanavab/ilovepdf)
+[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
+"""
         key = types.InlineKeyboardMarkup()
         key.add(
-            types.InlineKeyboardButton("Source Code ❤️", callback_data="strtDevEdt"),
-            types.InlineKeyboardButton("Explore More 🥳", callback_data="imgsToPdfEdit"),
+            types.InlineKeyboardButton("Source Code ❤️", callback_data = "strtDevEdt"),
+            types.InlineKeyboardButton("Explore More 🥳", callback_data = "imgsToPdfEdit"),
         )
+        key.add(
+            types.InlineKeyboardButton("Close 🚶", callback_data = "close")
+        )
+        
         bot.send_message(
             message.chat.id,
-            strtMsg, 
-            disable_web_page_preview=True,
-            reply_markup=key
+            f"{strtMsg}", 
+            disable_web_page_preview = True,
+            reply_markup = key
         )
         
         bot.delete_message(
-            chat_id=message.chat.id,
-            message_id=message.message_id
+            chat_id = message.chat.id,
+            message_id = message.message_id
         )
         
     except Exception:
@@ -201,7 +205,7 @@ def feedback(message):
         bot.send_message(
             message.chat.id,
             feedbackMsg,
-            disable_web_page_preview=True
+            disable_web_page_preview = True
         )
         
     except Exception:
@@ -271,17 +275,18 @@ def pic(message):
         
         PDF[message.chat.id].append(img)
         bot.edit_message_text(
-            chat_id=message.chat.id,
-            text=f"""`Added {len(PDF[message.chat.id])} page/'s to your pdf..`🤓
+            chat_id = message.chat.id,
+            text = f"""`Added {len(PDF[message.chat.id])} page/'s to your pdf..`🤓
 
 /generate to generate PDF 🤞""",
-            message_id=picMsgId.message_id,
+            message_id = picMsgId.message_id,
         )
     
     except Exception:
         pass
 
 
+# Reply to documents
 @bot.message_handler(content_types=["document"])
 def fls(message):
     
@@ -337,16 +342,19 @@ def fls(message):
                     """
 Due to Overload, bot supports only 20mb files
 
-`please Send me a file less than 20mb Size`😪
+`please Send me a file less than 20mb Size`🙃
 """,
                 )
+                
                 sleep(15)
                 bot.delete_message(
-                    chat_id=message.chat.id, message_id=message.message_id
+                    chat_id = message.chat.id, message_id = message.message_id
                 )
+                
                 bot.delete_message(
-                    chat_id=message.chat.id, message_id=unSuprtd.message_id
+                    chat_id = message.chat.id, message_id = unSuprtd.message_id
                 )
+                
             except Exception:
                 pass
         
@@ -381,30 +389,32 @@ Due to Overload, bot supports only 20mb files
                 
                 PDF[message.chat.id].append(img)
                 bot.edit_message_text(
-                    chat_id=message.chat.id,
-                    text=f"""`Added {len(PDF[message.chat.id])} page/'s to your pdf..`🤓
+                    chat_id = message.chat.id,
+                    text = f"""`Added {len(PDF[message.chat.id])} page/'s to your pdf..`🤓
 
 /generate to generate PDF 🤞""",
-                    message_id=picMsgId.message_id,
+                    message_id = picMsgId.message_id,
                 )
             
             except Exception as e:
                 
                 bot.edit_message_text(
-                    chat_id=message.chat.id,
-                    text=f"""Something went wrong..😐
+                    chat_id = message.chat.id,
+                    text = f"""Something went wrong..😐
 
 `ERROR: {e}`
 
 For bot updates join @ilovepdf\_bot 💎""",
-                    message_id=picMsgId.message_id,
+                    message_id = picMsgId.message_id,
                 )
+                
                 sleep(5)
                 bot.delete_message(
-                    chat_id=message.chat.id, message_id=picMsgId.message_id
+                    chat_id = message.chat.id, message_id = picMsgId.message_id
                 )
+                
                 bot.delete_message(
-                    chat_id=message.chat.id, message_id=message.message_id
+                    chat_id = message.chat.id, message_id = message.message_id
                 )
         
         elif fileExt.lower() == ".pdf":
@@ -440,8 +450,8 @@ For bot updates join @ilovepdf\_bot 💎""",
                 PDF2IMGPGNO[message.chat.id] = noOfPages
                 
                 bot.delete_message(
-                    chat_id=message.chat.id,
-                    message_id=pdfMsgId.message_id
+                    chat_id = message.chat.id,
+                    message_id = pdfMsgId.message_id
                 )
                 
                 bot.send_chat_action(message.chat.id, "typing")
@@ -457,8 +467,12 @@ reply:
 /extract `pgNo` - _go get a specific page_
 /extract `start:end` - _go get all the images b/w_
 
+/encrypt `password` - to set password
+/decrypt `password` - to delete password
+/text - to extract text from pdf
+
 Join Update Channel @ilovepdf\_bot, More features soon 🔥""",
-                    reply_markup=markup)
+                    reply_markup = markup)
                 
                 doc.close()
                 shutil.rmtree(f'./{message.message_id}')
@@ -470,6 +484,7 @@ Join Update Channel @ilovepdf\_bot, More features soon 🔥""",
                         message.chat.id,
                         f"{e}"
                     )
+                    
                     PROCESS.remove(message.chat.id)
                     doc.close()
                     shutil.rmtree(f'./{message.message_id}')
@@ -497,53 +512,53 @@ Join Update Channel @ilovepdf\_bot, More features soon 🔥""",
                     new_file.write(downloaded_file)
                 
                 bot.edit_message_text(
-                    chat_id=message.chat.id,
-                    text="`Creating pdf..`💛",
-                    message_id=pdfMsgId.message_id,
+                    chat_id = message.chat.id,
+                    text = "`Creating pdf..`💛",
+                    message_id = pdfMsgId.message_id,
                 )
                 
                 Document = fitz.open(
                     f"./{message.message_id}pdf{message.chat.id}/{isPdfOrImg}"
                 )
+                
                 b = Document.convert_to_pdf()
                 
                 pdf = fitz.open("pdf", b)
                 pdf.save(
                     f"./{message.message_id}pdf{message.chat.id}/{fileNm}.pdf",
-                    garbage=4,
-                    deflate=True,
+                    garbage = 4,
+                    deflate = True,
                 )
                 
                 pdf.close()
                 bot.edit_message_text(
-                    chat_id=message.chat.id,
-                    text="`Started Uploading..`💚",
-                    message_id=pdfMsgId.message_id,
+                    chat_id = message.chat.id,
+                    text = "`Started Uploading..`🏋️",
+                    message_id = pdfMsgId.message_id,
                 )
                 
                 sendfile = open(
                     f"./{message.message_id}pdf{message.chat.id}/{fileNm}.pdf", "rb"
                 )
+                
                 bot.send_document(
-                    message.chat.id, sendfile, caption=f"` Converted: {fileExt} to pdf`"
+                    message.chat.id, sendfile, 
+                    caption = f"`Converted: {fileExt} to pdf`"
                 )
+                
                 bot.edit_message_text(
-                    chat_id=message.chat.id,
-                    text="`Uploading Completed..❤️`",
-                    message_id=pdfMsgId.message_id,
+                    chat_id = message.chat.id,
+                    text = "`Uploading Completed..❤️`",
+                    message_id = pdfMsgId.message_id,
                 )
                 
                 shutil.rmtree(f"./{message.message_id}pdf{message.chat.id}")
                 
                 sleep(10)
                 bot.send_chat_action(message.chat.id, "typing")
-                feedbackMsg = """
-For bot updates join @ilovepdf\_bot 💎
-
-[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
-"""
                 bot.send_message(
-                    message.chat.id, feedbackMsg, disable_web_page_preview=True
+                    message.chat.id, feedbackMsg,
+                    disable_web_page_preview = True
                 )
 
             except Exception as e:
@@ -551,22 +566,22 @@ For bot updates join @ilovepdf\_bot 💎
                 try:
                     shutil.rmtree(f"./{message.message_id}pdf{message.chat.id}")
                     bot.edit_message_text(
-                        chat_id=message.chat.id,
-                        text=f"""Something went wrong..😐
+                        chat_id = message.chat.id,
+                        text = f"""Something went wrong..😐
 
 `ERROR: {e}`
 
 For bot updates join @ilovepdf\_bot 💎
 """,
-                        message_id=pdfMsgId.message_id,
+                        message_id = pdfMsgId.message_id,
                     )
                     
                     sleep(15)
                     bot.delete_message(
-                        chat_id=message.chat.id, message_id=pdfMsgId.message_id
+                        chat_id = message.chat.id, message_id = pdfMsgId.message_id
                     )
                     bot.delete_message(
-                        chat_id=message.chat.id, message_id=message.message_id
+                        chat_id = message.chat.id, message_id = message.message_id
                     )
                     
                 except Exception:
@@ -582,7 +597,8 @@ For bot updates join @ilovepdf\_bot 💎
                 )
                 sleep(15)
                 bot.delete_message(
-                    chat_id=message.chat.id, message_id=pdfMsgId.message_id
+                    chat_id = message.chat.id,
+                    message_id = pdfMsgId.message_id
                 )
             
             else:
@@ -605,58 +621,57 @@ For bot updates join @ilovepdf\_bot 💎
                         new_file.write(downloaded_file)
                     
                     bot.edit_message_text(
-                        chat_id=message.chat.id,
-                        text="`Creating pdf..`💛",
-                        message_id=pdfMsgId.message_id,
+                        chat_id = message.chat.id,
+                        text = "`Creating pdf..`💛",
+                        message_id = pdfMsgId.message_id,
                     )
-                    convertapi.convert(
-                        "pdf",
-                        {
-                            "File": f"./{message.message_id}pdf{message.chat.id}/{isPdfOrImg}"
-                        },
-                        from_format=fileExt[1:],
-                    ).save_files(
-                        f"./{message.message_id}pdf{message.chat.id}/{fileNm}.pdf"
-                    )
+                    
+                    try:
+                        convertapi.convert(
+                            "pdf",
+                            {
+                                "File": f"./{message.message_id}pdf{message.chat.id}/{isPdfOrImg}"
+                            },
+                            from_format = fileExt[1:],
+                        ).save_files(
+                            f"./{message.message_id}pdf{message.chat.id}/{fileNm}.pdf"
+                        )
+                        
+                    except Exception:
+                        try:
+                            shutil.rmtree(f"./{message.message_id}pdf{message.chat.id}")
+                            bot.edit_message_text(
+                                chat_id = message.chat.id,
+                                text = """ConvertAPI limit reaches.. contact Owner""",
+                                message_id = pdfMsgId.message_id,
+                            )
+                        except Exception:
+                            pass
+                        
                     bot.edit_message_text(
-                        chat_id=message.chat.id,
-                        text="`Uploading Completed..`❤️",
-                        message_id=pdfMsgId.message_id,
+                        chat_id = message.chat.id,
+                        text = "`Uploading Completed..`🏌️",
+                        message_id = pdfMsgId.message_id,
                     )
                     sendfile = open(
                         f"./{message.message_id}pdf{message.chat.id}/{fileNm}.pdf", "rb"
                     )
                     bot.send_document(
-                        message.chat.id,
-                        sendfile,
-                        caption=f"`Converted: {fileExt} to pdf`",
+                        message.chat.id, sendfile,
+                        caption = f"`Converted: {fileExt} to pdf`",
                     )
                     
                     shutil.rmtree(f"./{message.message_id}pdf{message.chat.id}")
                     
                     sleep(10)
                     bot.send_chat_action(message.chat.id, "typing")
-                    feedbackMsg = """
-For bot updates join @ilovepdf\_bot 💎
-
-[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
-"""
                     bot.send_message(
-                        message.chat.id, feedbackMsg, disable_web_page_preview=True
+                        message.chat.id, feedbackMsg,
+                        disable_web_page_preview = True
                     )
                 
                 except Exception:
-                    
-                    try:
-                        shutil.rmtree(f"./{message.message_id}pdf{message.chat.id}")
-                        bot.edit_message_text(
-                            chat_id=message.chat.id,
-                            text="""ConvertAPI limit reaches.. contact Owner""",
-                            message_id=pdfMsgId.message_id,
-                        )
-                        
-                    except Exception:
-                        pass
+                    pass
         
         else:
             
@@ -667,10 +682,10 @@ For bot updates join @ilovepdf\_bot 💎
                 )
                 sleep(15)
                 bot.delete_message(
-                    chat_id=message.chat.id, message_id=message.message_id
+                    chat_id = message.chat.id, message_id = message.message_id
                 )
                 bot.delete_message(
-                    chat_id=message.chat.id, message_id=unSuprtd.message_id
+                    chat_id = message.chat.id, message_id = unSuprtd.message_id
                 )
             except Exception:
                 pass
@@ -726,6 +741,7 @@ def extract(message):
                                 "`Syntax Error: errorInEndingPageNumber 😅`"
                             )
                             return
+                        
                     else:
                         bot.send_message(
                             message.chat.id,
@@ -771,10 +787,10 @@ def extract(message):
                 key = types.InlineKeyboardMarkup()
                 key.add(
                     types.InlineKeyboardButton(
-                        "Images 🖼️", callback_data="multipleImgAsImages"
+                        "Images 🖼️", callback_data = "multipleImgAsImages"
                     ),
                     types.InlineKeyboardButton(
-                        "Document 📁 ", callback_data="multipleImgAsDocument"
+                        "Document 📁 ", callback_data = "multipleImgAsDocument"
                     )
                 )
                 
@@ -782,17 +798,17 @@ def extract(message):
                 bot.send_message(
                     message.chat.id,
                     question,
-                    reply_markup=key
+                    reply_markup = key
                 )
                 
             if PAGENOINFO[message.chat.id][0] == True:
                 key = types.InlineKeyboardMarkup()
                 key.add(
                     types.InlineKeyboardButton(
-                        "Images 🖼️", callback_data="asImages"
+                        "Images 🖼️", callback_data = "asImages"
                     ),
                     types.InlineKeyboardButton(
-                        "Document 📂", callback_data="asDocument"
+                        "Document 📂", callback_data = "asDocument"
                     )
                 )
                 
@@ -800,7 +816,7 @@ def extract(message):
                 bot.send_message(
                     message.chat.id,
                     question,
-                    reply_markup=key
+                    reply_markup = key
                 )
                 
     except Exception:
@@ -815,6 +831,443 @@ def extract(message):
             pass
 
 
+# Reply to /extract 
+@bot.message_handler(commands=["text"])
+def extract(message):
+    try:
+        
+        if message.chat.id in PROCESS:
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.reply_to(
+                message,
+                "`Doing Some Work..🥵`"
+            )
+            return
+        
+        if message.chat.id not in PDF2IMG:
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.send_message(
+                message.chat.id,
+                "`send me a pdf first..🤥`"
+            )
+            return
+        
+        else:
+            
+            key = types.InlineKeyboardMarkup()
+            key.add(
+                types.InlineKeyboardButton(
+                    "Text ✍️", callback_data = "txtMsg"
+                ),
+                types.InlineKeyboardButton(
+                    "Txt File 🗂️", callback_data = "txtFile"
+                )
+            )
+            key.add(
+                types.InlineKeyboardButton(
+                    "Html 🌐", callback_data = "txtHtml"
+                ),
+                types.InlineKeyboardButton(
+                    "Json 🔖", callback_data = "txtJson"
+                )
+            )
+            
+            
+            question = f"Send Extracted Text As:"
+            bot.send_message(
+                message.chat.id, question,
+                reply_markup = key
+            )
+            
+    except Exception:
+        
+        try:
+            del PAGENOINFO[message.chat.id]
+            PROCESS.remove(message.chat.id)
+            
+        except Exception:
+            pass
+
+
+# Reply to /encrypt
+@bot.message_handler(commands=["encrypt"])
+def encrypt(message):
+    try:
+        
+        if message.chat.id in PROCESS:
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.reply_to(
+                message,
+                "`Doing Some Work..🥵`"
+            )
+            return
+        
+        if message.chat.id not in PDF2IMG:
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.send_message(
+                message.chat.id,
+                "`send me a pdf first..🤥`"
+            )
+            return
+        
+        password = message.text.replace('/encrypt ', '')
+        
+        if password == '/encrypt':
+            bot.send_message(message.chat.id, "`can't find a password..`🐹")
+            return
+        
+        PROCESS.append(message.chat.id)
+        
+        bot.send_chat_action(message.chat.id, "typing")
+        pdfMsgId = bot.send_message(
+            message.chat.id,
+            "`Downloading your pdf..`🕐"
+        )
+        
+        file_info = bot.get_file(PDF2IMG[message.chat.id])
+        downloaded_file = bot.download_file(file_info.file_path)
+        
+        os.mkdir(f"./{message.message_id}")
+        
+        with open(
+            f"./{message.message_id}/pdf.pdf", "wb"
+        ) as new_file:
+            new_file.write(downloaded_file)
+        
+        bot.edit_message_text(
+            chat_id = message.chat.id,
+            text = "`Encrypting pdf.. `🔐",
+            message_id = pdfMsgId.message_id,
+        )
+                
+        outputFileObj = PdfFileWriter()
+        inputFile = PdfFileReader(f"./{message.message_id}/pdf.pdf")
+        pgNmbr = inputFile.numPages
+        
+        if pgNmbr > 150:
+            bot.send_message(
+                message.chat.id,
+                f"send me a pdf less than 150pgs..👀"
+            )
+            return
+        
+        for i in range(pgNmbr):
+            
+            if pgNmbr >= 50:
+                if i % 10 == 0:
+                    bot.edit_message_text(
+                        chat_id = message.chat.id,
+                        text = f"`Encrypted {i}/{pgNmbr} pages..`🔑",
+                        message_id = pdfMsgId.message_id
+                    )
+            
+            page = inputFile.getPage(i)
+            outputFileObj.addPage(page)
+            
+        outputFileObj.encrypt(password)
+        
+        bot.edit_message_text(
+            chat_id = message.chat.id,
+            text = "`Started Uploading..`🏋️",
+            message_id = pdfMsgId.message_id,
+        )
+        bot.send_chat_action(message.chat.id, "upload_document")
+        
+        with open(
+            f"./{message.message_id}/Encrypted.pdf", "wb"
+        ) as f:
+            outputFileObj.write(f)
+        
+        sendfile = open(
+            f"./{message.message_id}/Encrypted.pdf", "rb"
+        )
+        
+        if message.chat.id not in PROCESS:
+            try:
+                shutil.rmtree(f'./{message.message_id}')
+                return
+            
+            except Exception:
+                return
+        
+        bot.send_document(
+            message.chat.id, sendfile,
+            #thumb = open('./thumbnail/encrypted.jpg', 'rb'),
+            caption = f"""file Name: `Encrypted.pdf`
+Page Number: {pgNmbr}
+key 🔐: `{password}`"""
+        )
+        
+        bot.edit_message_text(
+            chat_id = message.chat.id,
+            text = "`Uploading Completed..`🏌️",
+            message_id = pdfMsgId.message_id,
+        )
+        
+        shutil.rmtree(f"./{message.message_id}")
+        
+        del PDF2IMG[message.chat.id]
+        PROCESS.remove(message.chat.id)
+        
+        sleep(10)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_message(
+            message.chat.id, feedbackMsg, disable_web_page_preview=True
+        )
+
+    except Exception as e:
+        
+        try:
+            bot.send_message(message.chat.id, f"{e}")
+            shutil.rmtree(f"./{message.message_id}")
+            
+            PROCESS.remove(message.chat.id)
+            
+            bot.edit_message_text(
+                chat_id = message.chat.id,
+                text = f"""Something went wrong..😐
+
+`ERROR: {e}`
+
+For bot updates join @ilovepdf\_bot 💎
+""",
+                message_id = pdfMsgId.message_id
+            )
+            
+        except Exception:
+            pass
+
+
+# Reply to /decrypt
+@bot.message_handler(commands=["decrypt"])
+def decrypt(message):
+    try:
+        
+        if message.chat.id in PROCESS:
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.reply_to(
+                message,
+                "`Doing Some Work..🥵`"
+            )
+            return
+        
+        if message.chat.id not in PDF2IMG:
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.send_message(
+                message.chat.id,
+                "`send me a pdf first..`🤥"
+            )
+            return
+        
+        password = message.text.replace('/decrypt ', '')
+        
+        if password == '/decrypt':
+            bot.send_message(message.chat.id, "`can't find a password..`🐹")
+            return
+        
+        PROCESS.append(message.chat.id)
+        
+        bot.send_chat_action(message.chat.id, "typing")
+        pdfMsgId = bot.send_message(
+            message.chat.id,
+            "`Downloading your pdf..`🕐"
+        )
+        
+        file_info = bot.get_file(PDF2IMG[message.chat.id])
+        downloaded_file = bot.download_file(file_info.file_path)
+        
+        os.mkdir(f"./{message.message_id}")
+        
+        with open(
+            f"./{message.message_id}/pdf.pdf", "wb"
+        ) as new_file:
+            new_file.write(downloaded_file)
+        
+        bot.edit_message_text(
+            chat_id = message.chat.id,
+            text = "`Decrypting pdf.. `🔐",
+            message_id = pdfMsgId.message_id,
+        )
+        
+        outputFileObj = PdfFileWriter()
+        inputFile = PdfFileReader(f"./{message.message_id}/pdf.pdf")
+        pgNmbr = inputFile.numPages
+        
+        # check is encrypted
+        if inputFile.isEncrypted:
+            
+            inputFile.decrypt(password)
+            for i in range(pgNmbr):
+                
+                page = inputFile.getPage(i)
+                outputFileObj.addPage(page)
+                
+                with open(
+                    f"./{message.message_id}/Decrypted.pdf", "wb"
+                ) as f:
+                    outputFileObj.write(f)
+            
+        # if no encryption
+        else:
+            
+            bot.edit_message_text(
+                chat_id = message.chat.id,
+                text = f"`File already decrypted..`🙂",
+                message_id = pdfMsgId.message_id
+            )
+            return
+        
+        bot.edit_message_text(
+            chat_id = message.chat.id,
+            text = "`Started Uploading..`🏋️",
+            message_id = pdfMsgId.message_id,
+        )
+        
+        sendfile = open(
+            f"./{message.message_id}/Decrypted.pdf", "rb"
+        )
+        
+        bot.send_document(
+            message.chat.id, sendfile,
+            #thumb = open('./thumbnail/decrypted.jpg', 'rb'),
+            caption = f"""file Name: `Decrypted.pdf`
+Page Number: {pgNmbr}"""
+        )
+        
+        bot.edit_message_text(
+            chat_id = message.chat.id,
+            text = "`Uploading Completed..`🏌️",
+            message_id = pdfMsgId.message_id,
+        )
+        
+        shutil.rmtree(f"./{message.message_id}")
+        
+        del PDF2IMG[message.chat.id]
+        PROCESS.remove(message.chat.id)
+        
+        sleep(10)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_message(
+            message.chat.id, feedbackMsg, disable_web_page_preview=True
+        )
+
+    except Exception as e:
+        
+        try:
+            bot.edit_message_text(
+                chat_id = message.chat.id,
+                text = f"""Something went wrong..😐
+
+`ERROR: {e}`
+
+For bot updates join @ilovepdf\_bot 💎
+""",
+                message_id = pdfMsgId.message_id
+            )
+            
+            shutil.rmtree(f"./{message.message_id}")
+            PROCESS.remove(message.chat.id)
+            
+        except Exception:
+            pass
+
+
+# Reply to /generate 
+@bot.message_handler(commands=["generate"])
+def generate(message):
+    try:
+        newName = message.text.replace("/generate", "")
+        images = PDF.get(message.chat.id)
+        
+        if isinstance(images, list):
+            pgnmbr = len(PDF[message.chat.id])
+            del PDF[message.chat.id]
+        
+        if not images:
+            bot.send_chat_action(message.chat.id, "typing")
+            ntFnded = bot.reply_to(message, "`No image founded.!!`😒")
+            sleep(5)
+            bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
+            bot.delete_message(chat_id = message.chat.id, message_id = ntFnded.message_id)
+            return
+        
+        gnrtMsgId = bot.send_message(message.chat.id, f"`Generating pdf..`💚")
+        
+        if newName == " name":
+            fileName = f"{message.from_user.first_name}" + ".pdf"
+        
+        elif len(newName) > 1 and len(newName) <= 15:
+            fileName = f"{newName}" + ".pdf"
+        
+        elif len(newName) > 15:
+            fileName = f"{message.from_user.first_name}" + ".pdf"
+        
+        else:
+            fileName = f"{message.chat.id}" + ".pdf"
+        
+        path = os.path.join(f"./{message.chat.id}", fileName)
+        images[0].save(path, save_all = True, append_images = images[1:])
+        
+        bot.edit_message_text(
+            chat_id = message.chat.id,
+            text = "`Uploading pdf... `🏋️",
+            message_id = gnrtMsgId.message_id,
+        )
+        bot.send_chat_action(message.chat.id, "upload_document")
+        
+        sendfile = open(path, "rb")
+        bot.send_document(
+            message.chat.id, sendfile,
+            caption = f"file Name: `{fileName}`\n\n`Total pg's: {pgnmbr}`",
+        )
+        bot.edit_message_text(
+            chat_id = message.chat.id,
+            text = "`Successfully Uploaded.. `🤫",
+            message_id = gnrtMsgId.message_id,
+        )
+        
+        shutil.rmtree(f"./{message.chat.id}")
+        
+        sleep(10)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_message(
+            message.chat.id, feedbackMsg,
+            disable_web_page_preview = True
+        )
+        
+    except Exception:
+        pass
+
+
+# delete spam messages
+@bot.message_handler(
+    content_types=[
+        "text",
+        "audio",
+        "sticker",
+        "video",
+        "video_note",
+        "voice",
+        "location",
+        "contact",
+    ]
+)
+def unSuprtd(message):
+
+    try:
+        bot.send_chat_action(message.chat.id, "typing")
+        unSuprtd = bot.send_message(
+            message.chat.id,
+            "`unsupported file..`🏌️"
+        )
+        sleep(5)
+        bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
+        bot.delete_message(chat_id = message.chat.id, message_id = unSuprtd.message_id)
+
+    except Exception:
+        pass
+
+
 # callback
 @bot.callback_query_handler(func=lambda call: call.data)
 def strtMsgEdt(call):
@@ -826,14 +1279,18 @@ def strtMsgEdt(call):
             
             key = types.InlineKeyboardMarkup()
             key.add(
-                types.InlineKeyboardButton("🔙 Home 🏡", callback_data="back")
+                types.InlineKeyboardButton("🔙 Home 🏡", callback_data = "back")
             )
+            key.add(
+                types.InlineKeyboardButton("Close 🚶", callback_data = "close")
+            )
+            
             bot.edit_message_text(
-                chat_id=call.message.chat.id,
-                message_id=call.message.message_id,
-                text=aboutDev,
-                disable_web_page_preview=True,
-                reply_markup=key,
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id,
+                text = aboutDev,
+                disable_web_page_preview = True,
+                reply_markup = key,
             )
         
         except Exception:
@@ -845,18 +1302,22 @@ def strtMsgEdt(call):
             key = types.InlineKeyboardMarkup()
             key.add(
                 types.InlineKeyboardButton(
-                    "🔙 Home 🏡", callback_data="back"
+                    "🔙 Home 🏡", callback_data = "back"
                 ),
                 types.InlineKeyboardButton(
-                    "PDF to images ➡️", callback_data="pdfToImgsEdit"
-                ),
+                    "PDF to images ➡️", callback_data = "pdfToImgsEdit"
+                )
             )
+            key.add(
+                types.InlineKeyboardButton("Close 🚶", callback_data = "close")
+            )
+            
             bot.edit_message_text(
-                chat_id=call.message.chat.id,
-                message_id=call.message.message_id,
-                text=expMsg1,
-                disable_web_page_preview=True,
-                reply_markup=key,
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id,
+                text = I2PMsg,
+                disable_web_page_preview = True,
+                reply_markup = key,
             )
         
         except Exception:
@@ -869,19 +1330,23 @@ def strtMsgEdt(call):
             key = types.InlineKeyboardMarkup()
             key.add(
                 types.InlineKeyboardButton(
-                    "🔙 Imgs To Pdf", callback_data="imgsToPdfEdit"
+                    "🔙 Imgs To Pdf", callback_data = "imgsToPdfEdit"
                 ),
-                types.InlineKeyboardButton("Home 🏡", callback_data="back"),
+                types.InlineKeyboardButton("Home 🏡", callback_data = "back"),
                 types.InlineKeyboardButton(
-                    "file to Pdf ➡️", callback_data="filsToPdfEdit"
+                    "file to Pdf ➡️", callback_data = "filsToPdfEdit"
                 ),
             )
+            key.add(
+                types.InlineKeyboardButton("Close 🚶", callback_data = "close")
+            )
+            
             bot.edit_message_text(
-                chat_id=call.message.chat.id,
-                message_id=call.message.message_id,
-                text=expMsg2,
-                disable_web_page_preview=True,
-                reply_markup=key,
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id,
+                text = P2IMsg,
+                disable_web_page_preview = True,
+                reply_markup = key,
             )
         
         except Exception:
@@ -893,19 +1358,23 @@ def strtMsgEdt(call):
             key = types.InlineKeyboardMarkup()
             key.add(
                 types.InlineKeyboardButton(
-                    "🔙 PDF to imgs", callback_data="imgsToPdfEdit"
+                    "🔙 PDF to imgs", callback_data = "imgsToPdfEdit"
                 ),
-                types.InlineKeyboardButton("Home 🏡", callback_data="back"),
+                types.InlineKeyboardButton("Home 🏡", callback_data = "back"),
                 types.InlineKeyboardButton(
-                    "WARNING ⚠️", callback_data="warningEdit"
+                    "WARNING ⚠️", callback_data = "warningEdit"
                 ),
             )
+            key.add(
+                types.InlineKeyboardButton("Close 🚶", callback_data = "close")
+            )
+            
             bot.edit_message_text(
-                chat_id=call.message.chat.id,
-                message_id=call.message.message_id,
-                text=expMsg3,
-                disable_web_page_preview=True,
-                reply_markup=key,
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id,
+                text = F2PMsg,
+                disable_web_page_preview = True,
+                reply_markup = key,
             )
         
         except Exception:
@@ -917,16 +1386,20 @@ def strtMsgEdt(call):
             key = types.InlineKeyboardMarkup()
             key.add(
                 types.InlineKeyboardButton(
-                    "🔙 WARNING ⚠️", callback_data="warningEdit"
+                    "🔙 WARNING ⚠️", callback_data = "warningEdit"
                 ),
-                types.InlineKeyboardButton("Home 🏡", callback_data="back"),
+                types.InlineKeyboardButton("Home 🏡", callback_data = "back"),
             )
+            key.add(
+                types.InlineKeyboardButton("Close 🚶", callback_data = "close")
+            )
+            
             bot.edit_message_text(
-                chat_id=call.message.chat.id,
-                message_id=call.message.message_id,
-                text=expMsg4,
-                disable_web_page_preview=True,
-                reply_markup=key,
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id,
+                text = warningMessage,
+                disable_web_page_preview = True,
+                reply_markup = key,
             )
         
         except Exception:
@@ -938,31 +1411,46 @@ def strtMsgEdt(call):
             key = types.InlineKeyboardMarkup()
             key.add(
                 types.InlineKeyboardButton(
-                    "Source Code ❤️", callback_data="strtDevEdt"
+                    "Source Code ❤️", callback_data = "strtDevEdt"
                 ),
                 types.InlineKeyboardButton(
-                    "Explore More 🥳", callback_data="imgsToPdfEdit"
+                    "Explore More 🥳", callback_data = "imgsToPdfEdit"
                 ),
             )
+            key.add(
+                types.InlineKeyboardButton("Close 🚶", callback_data = "close")
+            )
+            
             bot.edit_message_text(
-                chat_id=call.message.chat.id,
-                message_id=call.message.message_id,
-                text=strtMsg,
-                disable_web_page_preview=True,
-                reply_markup=key,
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id,
+                text = back2Start,
+                disable_web_page_preview = True,
+                reply_markup = key,
             )
         
         except Exception:
             pass
     
+    elif edit == "close":
+        
+        try:
+            bot.delete_message(
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id
+            )
+        
+        except Exception:
+            pass
+        
     elif edit in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:
         
         try:
             if (call.message.chat.id in PROCESS) or (call.message.chat.id not in PDF2IMG):
                 
                 bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
                     text = "Same work done before..🏃"
                 )
                 return
@@ -973,8 +1461,8 @@ def strtMsgEdt(call):
                 
                 bot.send_chat_action(call.message.chat.id, "typing")
                 bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
                     text = "`Downloading your pdf..⏳`"
                 )
             
@@ -1004,8 +1492,8 @@ def strtMsgEdt(call):
                 percNo = 0
                 
                 bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
                     text = f"`Total pages: {int(PAGENOINFO[call.message.chat.id][2])+1 - int(PAGENOINFO[call.message.chat.id][1])}..⏳`"
                 )
                 totalPgList = range(int(PAGENOINFO[call.message.chat.id][1]), int(PAGENOINFO[call.message.chat.id][2] + 1))
@@ -1022,8 +1510,8 @@ def strtMsgEdt(call):
                         cnvrtpg += 1
                         
                         bot.edit_message_text(
-                            chat_id=call.message.chat.id,
-                            message_id=call.message.message_id,
+                            chat_id = call.message.chat.id,
+                            message_id = call.message.message_id,
                             text = f"`Converted: {cnvrtpg}/{int((PAGENOINFO[call.message.chat.id][2])+1 - int(PAGENOINFO[call.message.chat.id][1]))} pages.. 🤞`"
                         )
                         
@@ -1031,8 +1519,8 @@ def strtMsgEdt(call):
                             try:
                                 
                                 bot.edit_message_text(
-                                    chat_id=call.message.chat.id,
-                                    message_id=call.message.message_id,
+                                    chat_id = call.message.chat.id,
+                                    message_id = call.message.message_id,
                                     text = f"`Canceled at {cnvrtpg}/{int((PAGENOINFO[call.message.chat.id][2])+1 - int(PAGENOINFO[call.message.chat.id][1]))} pages.. 🙄`"
                                 )
                                 shutil.rmtree(f'./{call.message.message_id}')
@@ -1061,7 +1549,7 @@ def strtMsgEdt(call):
                             
                             picture = Image.open(file)
                             CmpImg = f'./{call.message.message_id}/pgs/temp{LrgFileNo}.jpeg'
-                            picture.save(CmpImg, "JPEG", optimize=True, quality=50) 
+                            picture.save(CmpImg, "JPEG", optimize=True, quality = 50) 
                             
                             LrgFileNo += 1
                             
@@ -1133,27 +1621,25 @@ def strtMsgEdt(call):
                 doc.close()
                 
                 bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
-                    text = f'`Uploading Completed.. 🤫`'
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
+                    text = f'`Uploading Completed.. `🏌️'
                 )
                 shutil.rmtree(f'./{call.message.message_id}')
                 
                 sleep(10)
                 bot.send_chat_action(call.message.chat.id, "typing")
-                feedbackMsg = f'''
-Join Update Channel @ilovepdf\_bot, More features soon 🔥
-
-[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
-'''
-                bot.send_message(call.message.chat.id, feedbackMsg, disable_web_page_preview=True)
+                bot.send_message(
+                    call.message.chat.id, feedbackMsg,
+                    disable_web_page_preview=True
+                )
             
             if edit == "asImages" or edit == "asDocument":
                 
                 bot.send_chat_action(call.message.chat.id, "typing")
                 bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
                     text = "`Downloading your pdf..⏳`"
                 )
                 
@@ -1175,16 +1661,16 @@ Join Update Channel @ilovepdf\_bot, More features soon 🔥
                 noOfPages = doc.pageCount
                         
                 bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
                     text = f"`Fetching page Number:{PAGENOINFO[call.message.chat.id][3]} 🤧`"
                 )
                 
                 page = doc.loadPage(int(PAGENOINFO[call.message.chat.id][3])-1)
                 pix = page.getPixmap(matrix = mat)
                 bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
                     text = f"`Successfully Converted your page..✌️`"
                 )
                 
@@ -1204,8 +1690,8 @@ Join Update Channel @ilovepdf\_bot, More features soon 🔥
                     picture.save(
                         CmpImg,
                         "JPEG",
-                        optimize=True,
-                        quality=50
+                        optimize = True,
+                        quality = 50
                     )
                     file = CmpImg
                     
@@ -1233,9 +1719,9 @@ Join Update Channel @ilovepdf\_bot, More features soon 🔥
                     )
                     
                 bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
-                    text = f'`Uploading Completed.. 🤫`'
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
+                    text = f'`Uploading Completed.. `🏌️'
                 )
                 
                 PROCESS.remove(call.message.chat.id)
@@ -1244,16 +1730,11 @@ Join Update Channel @ilovepdf\_bot, More features soon 🔥
                 
                 shutil.rmtree(f'./{call.message.message_id}')
                 sleep(10)
+                
                 bot.send_chat_action(call.message.chat.id, "typing")
-                feedbackMsg = f'''
-Join Update Channel @ilovepdf\_bot, More features soon 🔥
-
-[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
-'''
                 bot.send_message(
-                    call.message.chat.id,
-                    feedbackMsg,
-                    disable_web_page_preview=True
+                    call.message.chat.id, feedbackMsg,
+                    disable_web_page_preview = True
                 )
                 
         except Exception as e:
@@ -1266,107 +1747,142 @@ Join Update Channel @ilovepdf\_bot, More features soon 🔥
             
             except Exception:
                 pass
-
-
-# Reply to /generate 
-@bot.message_handler(commands=["generate"])
-def generate(message):
-    try:
-        bot.send_chat_action(message.chat.id, "typing")
-        newName = message.text.replace("/generate", "")
-        images = PDF.get(message.chat.id)
+            
+    elif edit in ["txtFile", "txtMsg", "txtHtml", "txtJson"]:
         
-        if isinstance(images, list):
-            pgnmbr = len(PDF[message.chat.id])
-            del PDF[message.chat.id]
-        
-        if not images:
-            ntFnded = bot.reply_to(message, "`No image founded.!!`😒")
-            sleep(5)
-            bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-            bot.delete_message(chat_id=message.chat.id, message_id=ntFnded.message_id)
-            return
-        
-        gnrtMsgId = bot.send_message(message.chat.id, f"`Generating pdf..`💚")
-        
-        if newName == " name":
-            fileName = f"{message.from_user.first_name}" + ".pdf"
-        
-        elif len(newName) > 1 and len(newName) <= 15:
-            fileName = f"{newName}" + ".pdf"
-        
-        elif len(newName) > 15:
-            fileName = f"{message.from_user.first_name}" + ".pdf"
-        
-        else:
-            fileName = f"{message.chat.id}" + ".pdf"
-        
-        path = os.path.join(f"./{message.chat.id}", fileName)
-        images[0].save(path, save_all=True, append_images=images[1:])
-        bot.edit_message_text(
-            chat_id=message.chat.id,
-            text="`Uploading pdf... `♥️",
-            message_id=gnrtMsgId.message_id,
-        )
-        bot.send_chat_action(message.chat.id, "upload_document")
-        
-        sendfile = open(path, "rb")
-        bot.send_document(
-            message.chat.id,
-            sendfile,
-            caption=f"file Name: `{fileName}`\n\n`Total pg's: {pgnmbr}`",
-        )
-        bot.edit_message_text(
-            chat_id=message.chat.id,
-            text="`Successfully Uploaded.. `🤫",
-            message_id=gnrtMsgId.message_id,
-        )
-        
-        shutil.rmtree(f"./{message.chat.id}")
-        
-        sleep(10)
-        bot.send_chat_action(message.chat.id, "typing")
-        feedbackMsg = """
-For bot updates join @ilovepdf\_bot 💎
-
-[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)
-"""
-        bot.send_message(
-            message.chat.id,
-            feedbackMsg,
-            disable_web_page_preview=True
-        )
-        
-    except Exception:
-        pass
-
-
-# delete spam messages
-@bot.message_handler(
-    content_types=[
-        "text",
-        "audio",
-        "sticker",
-        "video",
-        "video_note",
-        "voice",
-        "location",
-        "contact",
-    ]
-)
-def unSuprtd(message):
-
-    try:
-        bot.send_chat_action(message.chat.id, "typing")
-        unSuprtd = bot.send_message(
-            message.chat.id,
-            "`unsupported file..`🏌️"
-        )
-        sleep(5)
-        bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-        bot.delete_message(chat_id=message.chat.id, message_id=unSuprtd.message_id)
-
-    except Exception:
-        pass
-
-bot.infinity_polling(timeout=10, long_polling_timeout = 5)
+        try:
+            if (call.message.chat.id in PROCESS) or (call.message.chat.id not in PDF2IMG):
+                
+                bot.edit_message_text(
+                    chat_id = call.message.chat.id,
+                    message_id = call.message.message_id,
+                    text = "Same work done before..🏃"
+                )
+                return
+                
+            PROCESS.append(call.message.chat.id)
+            
+            bot.edit_message_text(
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id,
+                text = "`Downloading your pdf..⏳`"
+            )
+            
+            file_info = bot.get_file(PDF2IMG[call.message.chat.id])
+            downloaded_file = bot.download_file(file_info.file_path)
+            
+            os.mkdir(f'./{call.message.message_id}')
+            
+            with open(
+                f'./{call.message.message_id}/pdf.pdf', 'wb'
+            ) as new_file:
+                new_file.write(downloaded_file)
+            
+            del PDF2IMG[call.message.chat.id]
+            del PDF2IMGPGNO[call.message.chat.id]
+            
+            doc = fitz.open(f'./{call.message.message_id}/pdf.pdf') # open document
+            
+            if edit == "txtFile":
+                
+                out = open(f'./{call.message.message_id}/pdf.txt', "wb") # open text output
+                
+                for page in doc: # iterate the document pages
+                    text = page.get_text().encode("utf8") # get plain text (is in UTF-8)
+                    out.write(text) # write text of page()
+                    out.write(bytes((12,))) # write page delimiter (form feed 0x0C)
+                
+                out.close()
+                
+                bot.send_chat_action(call.message.chat.id, "upload_document")
+                
+                file = f'./{call.message.message_id}/pdf.txt'
+                sendfile = open(file,'rb')
+                bot.send_document(
+                    call.message.chat.id,
+                    sendfile
+                )
+                
+                sendfile.close()
+            
+            if edit == "txtMsg":
+                
+                for page in doc: # iterate the document pages
+                    text = page.get_text().encode("utf8") # get plain text (is in UTF-8)
+                    if 1 <= len(text) <= 1000:
+                        
+                        if call.message.chat.id not in PROCESS:
+                            
+                            try:
+                                bot.send_chat_action(call.message.chat.id, "typing")
+                                bot.send_message(
+                                    call.message.chat.id, text
+                                )
+                                
+                            except Exception:
+                                return
+            
+            if edit == "txtHtml":
+                
+                out = open(f'./{call.message.message_id}/pdf.html', "wb") # open text output
+                
+                for page in doc: # iterate the document pages
+                    text = page.get_text("html").encode("utf8") # get plain text as html(is in UTF-8)
+                    out.write(text) # write text of page()
+                    out.write(bytes((12,))) # write page delimiter (form feed 0x0C)
+                
+                out.close()
+                
+                bot.send_chat_action(call.message.chat.id, "upload_document")
+                
+                file = f'./{call.message.message_id}/pdf.html'
+                sendfile = open(file,'rb')
+                
+                bot.send_document(
+                    call.message.chat.id,
+                    sendfile
+                )
+                sendfile.close()
+            
+            if edit == "txtJson":
+                
+                out = open(f'./{call.message.message_id}/pdf.json', "wb") # open text output
+                
+                for page in doc: # iterate the document pages
+                    text = page.get_text("json").encode("utf8") # get plain text as html(is in UTF-8)
+                    out.write(text) # write text of page()
+                    out.write(bytes((12,))) # write page delimiter (form feed 0x0C)
+                
+                out.close()
+                
+                bot.send_chat_action(call.message.chat.id, "upload_document")
+                
+                file = f'./{call.message.message_id}/pdf.json'
+                sendfile = open(file,'rb')
+                bot.send_document(
+                    call.message.chat.id,
+                    sendfile
+                )
+                sendfile.close()
+            
+            bot.edit_message_text(
+                chat_id = call.message.chat.id,
+                message_id = call.message.message_id,
+                text = "`Completed my task..😉`"
+            )
+            
+            PROCESS.remove(call.message.chat.id)
+            shutil.rmtree(f'./{call.message.message_id}')
+            
+        except Exception as e:
+            
+            try:
+                bot.send_message(call.message.chat.id, f'{e}')
+                shutil.rmtree(f'./{call.message.message_id}')
+                PROCESS.remove(call.message.chat.id)
+                doc.close()
+            
+            except Exception:
+                pass
+       
+bot.infinity_polling(timeout = 10, long_polling_timeout = 5)
