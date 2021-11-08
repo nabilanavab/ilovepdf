@@ -2,3 +2,4 @@ pyTelegramBotAPI
 pillow
 pyMuPdf
 convertapi
+PyPDF2
