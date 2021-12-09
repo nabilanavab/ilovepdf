@@ -1,15 +1,19 @@
-# About ILovePdf
+<div align="center">
+<h1><b>About ILovePdf</b></h1>
 
 ## Enjoy the API
 
-<i>ilovePDF is an, easy-to-use open-source Telegram PDF bot written in python language 🐍</i>
+<i>ilovePDF is an, easy-to-use open-source Telegram PDF bot fully written in python language 🐍</i>
 <br><br>
+<b>Released Under Apache License.</b><br>
 it was specially developed for creating PDF's from images.. And Now, Bot Supports many other features for PDF manipulation 🦾
-
+</div>
 <a href="https://telegram.dog/ilovepdf_bot">Demo Bot</a>
 
-# features:
-## Images to PDF
+<div align="center">
+<h1><i>features:</i></h1>
+<h3>Images to PDF</h3>
+</div>
 
      ◍ This bot will helps you to convert multiple
      images to pdf
@@ -21,30 +25,25 @@ it was specially developed for creating PDF's from images.. And Now, Bot Support
      ◍ /cancel - deletes the current queue
      ◍ you can Rename your pdf at the time of /generate
           - /generate name     {pdf with your name}
-          - /generate id       {pdf with your id}
+          - /generate          {pdf with your id}
           - /generate FileName {pdf with file name}
-           By Default: your pdf FileName = your ID
       ◍ /id to get your id
 
-## PDF to images
+<h3 align="center">PDF to images</h3>
 
      ◍ Unlike other bots, this bot extract images 
      from your pdf files without converting the entire
-     pdf to pages.. always shows 100% speed 🥳
-     
-     
-     Below feature has been removed for some reasons..
-
+     pdf to pages..So always shows 100% speed 😉
      ◍ You can also fetch a single image or a list
      of images from any part of your pdf 
      ◍ Sequence will be considered
-     ◍ For better quality images bot support sending
+     ◍ For better quality images, bot support sending
      images as documents (files)
      
-<b>This bot is using a different protocol for uploading 
-the extracted PDF-images ..</b>
+<em align="center">This bot is using a different protocol for uploading 
+the extracted PDF-images..</em>
 
-## Files to PDF 
+<h3 align="center">Files to PDF</h3>
 
      In addition,
      ◍ About 40+ popular file formats can also be
@@ -60,8 +59,23 @@ the extracted PDF-images ..</b>
      
      No need to specify file formats..✌️
 
+<h3 align="center">Pdf to text</h3>
 
-## Commands:<br>
+     ◍ Convert pdf to text, .txt file
+     ◍ It also supports html(to view pdfs on browsers), json files
+
+<h3 align="center">Split pdf</h3>
+
+     ◍ Now you can Split your pdf in to smaller Ones
+     ◍ /extract start:end
+     ◍ supports single pages too..
+
+<h3 align="center">Encrypt pdf</h3>
+
+    ◍ Pdf Encryption Supported
+    ◍ /encrypt pdf
+
+<h3 align="center">Commands:</h3>
 
      /start - Check wheather bot alive.
      /help - for more help
@@ -69,12 +83,14 @@ the extracted PDF-images ..</b>
      /cancel - Delete's old queue
      /generate - long tap to set a pdf name
      /extract - to get images from pdf
+     /encrypt - pdf Encryption
+     /text - converts pdf to text, .txt, html, json files
 
-## Source code:<br>
+<h3 align="center">Source code:</h3>
 
      Developed by: @nabilanavab, Kerala
 
-## Privacy & Security:<br>
+<h3 align="center">Privacy & Security:</h3>
 
      Ones the necessary task is completed,
      all your images including the pdf file
@@ -86,14 +102,22 @@ the extracted PDF-images ..</b>
 # how to Create your Own pDf bot:<br>
 ## Quick start for developers
 
-<i>Being a python library; To run this bot, python must be installed on your machine</i>
+<i>Being a python library; To run this code, python must be installed on your machine</i>
 
 ### Packages/Library Installation
-    Local Host
-        pip install pyTelegramBotAPI
-        pip install pillow
-        pip install pymupdf
-        pip install convertapi
+
+    ╭─────Local Host──〄
+    │
+    ├───pip install PyPDF2
+    ├───pip install pillow
+    ├───pip install pymupdf
+    ├───pip install tgcrypt
+    ├───pip install pyrogram
+    ├───pip install convertapi
+    │
+    ├─────Heroku──〄
+    ├─────Qovery──〄
+    ╰────Railways──〄
 
 ### deploy on heroku:
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nabilanavab/ilovepdf)
@@ -108,18 +132,20 @@ the extracted PDF-images ..</b>
      For a Better experience U can add convertAPI 
      secret key as (CONVERT_API)
 
-
    NB: <i>The API keys are personal & must be kept secret </i>
    
 ## Config Var:
 
-<a href="https://telegram.dog/botfather">Get bot token</a><br>
-   <a href="https://www.convertapi.com/a/signup">Get ConvertAPI token</a>
+<a href="https://my.telegram.org">Get API\_ID, API\_HASH</a><br>
+<a href="https://telegram.dog/botfather">Get API_TOKEN</a><br>
+<a href="https://www.convertapi.com/a/signup">Get CONVERT_API</a>
 
-     API_TOKEN
-     CONVERT_API
+     API_ID, API_HASH, API_TOKEN
+     CONVERT_API, UPDATE_CHANNEL
+     MAX_FILE_SIZE
 
 ## About LICENSE:
+
      Apache License 2.0
      Copyright 2021 nabilanavab
      
