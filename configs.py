@@ -59,10 +59,7 @@ hit on "retry ♻️" after joining.. 😅
 """
     
     
-    foolRefresh = """I Like your Smartness,
-
-But Don't be Oversmart 🤧
-"""
+    foolRefresh = """വിളച്ചിലെടുക്കല്ലേ കേട്ടോ 😐"""
     
     
     fullPdfSplit = """If you want to split a pdf,
