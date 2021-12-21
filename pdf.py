@@ -963,7 +963,7 @@ async def encrypt(bot, message):
             "`Downloading your pdf..`🕐"
         )
         
-        bot.download_media(
+        await bot.download_media(
             PDF2IMG[message.chat.id],
             f"{message.message_id}/pdf.pdf"
         )
