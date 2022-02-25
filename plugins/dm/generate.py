@@ -11,6 +11,9 @@ from time import sleep
 from pyrogram import filters
 from Configs.dm import Config
 from pyrogram import Client as ILovePDF
+from pyrogram.types import InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup
+
 
 
 
