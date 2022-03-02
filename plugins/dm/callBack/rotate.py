@@ -134,8 +134,8 @@ async def _rot(bot, callbackQuery):
         #ADD TO PROCESS
         PROCESS.append(callbackQuery.message.chat.id)
         # STARTED DOWNLOADING
-        downloadMessage = await callbackQuery.message.reply_to_message.reply(
-            "`Downloding your pdf..`⏳",
+        downloadMessage = await callbackQuery.message.reply_text(
+            "`Downloding your pdf..`⏳", quotes=True
         )
         input_file = f"{callbackQuery.message.message_id}/input.pdf"
         output_file = f"{callbackQuery.message.message_id}/rotate.pdf"
