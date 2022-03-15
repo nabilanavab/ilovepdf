@@ -1,4 +1,4 @@
-# fileName : plugins/forceSub.py
+# fileName : plugins/fileSize.py
 # copyright ©️ 2021 nabilanavab
 
 #--------------->
