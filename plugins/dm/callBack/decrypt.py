@@ -1,9 +1,7 @@
 # fileName : plugins/dm/callBack/decrypt.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
+import os
 import time
 import fitz
 import shutil
@@ -17,9 +15,6 @@ from pyrogram.types import ForceReply
 from pyrogram import Client as ILovePDF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-
-
-
 #--------------->
 #--------> LOCAL VARIABLES
 #------------------->
@@ -32,7 +27,6 @@ PDF_THUMBNAIL = Config.PDF_THUMBNAIL
 
 decrypts = ["decrypt", "Kdecrypt"]
 decrypt = filters.create(lambda _, __, query: query.data.startswith(tuple(decrypts)))
-
 
 @ILovePDF.on_callback_query(decrypt)
 async def _decrypt(bot, callbackQuery):
@@ -66,10 +60,12 @@ async def _decrypt(bot, callbackQuery):
         downloadMessage=await callbackQuery.message.reply_text(
             "`Downloding your pdf..` ⏳", quote=True
         )
-        input_file = f"{callbackQuery.message.message_id}/pdf.pdf"
-        output_pdf = f"{callbackQuery.message.message_id}/Decrypted.pdf"
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
+        input_file=f"{callbackQuery.message.message_id}/pdf.pdf"
+        output_pdf=f"{callbackQuery.message.message_id}/Decrypted.pdf"
+        file_id=callbackQuery.message.reply_to_message.document.file_id
+        fileSize=callbackQuery.message.reply_to_message.document.file_size
+        fileNm=callbackQuery.message.reply_to_message.document.file_name
+        fileNm, fileExt=os.path.splitext(fileNm)        # seperates name & extension
         # STARTED DOWNLOADING
         c_time=time.time()
         downloadLoc=await bot.download_media(
@@ -91,7 +87,7 @@ async def _decrypt(bot, callbackQuery):
         )
         if data[0] != "K":
             checked = await checkPdf(f"{callbackQuery.message.message_id}/pdf.pdf", callbackQuery)
-            if not(checked == "encrypted"):
+            if not(checked=="encrypted"):
                 await downloadMessage.edit(
                     "File Not Encrypted..🙏🏻"
                 )
@@ -122,8 +118,10 @@ async def _decrypt(bot, callbackQuery):
             callbackQuery.message.chat.id, "upload_document"
         )
         await callbackQuery.message.reply_document(
+            file_name=f"{fileNm}.pdf",
             document=open(output_pdf, "rb"),
             thumb=PDF_THUMBNAIL,
+            caption="__Decrpted Pdf__",
             quote=True
         )
         await downloadMessage.delete()
@@ -136,6 +134,5 @@ async def _decrypt(bot, callbackQuery):
             shutil.rmtree(f"{callbackQuery.message.message_id}")
         except Exception:
             pass
-
 
 #                                                                                  Telegram: @nabilanavab
