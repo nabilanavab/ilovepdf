@@ -1,9 +1,6 @@
 # fileName : plugins/dm/callBack/compress.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import os
 import time
 import shutil
@@ -17,9 +14,6 @@ from pyrogram import Client as ILovePDF
 from plugins.fileSize import get_size_format as gSF
 from PDFNetPython3.PDFNetPython import PDFDoc, Optimizer, SDFDoc, PDFNet
 
-
-
-
 #--------------->
 #--------> LOCAL VARIABLES
 #------------------->
@@ -29,7 +23,6 @@ Compressed Size : {}
 
 Ratio : {:.2f} %`"""
 
-
 PDF_THUMBNAIL=Config.PDF_THUMBNAIL
 
 #--------------->
@@ -37,7 +30,6 @@ PDF_THUMBNAIL=Config.PDF_THUMBNAIL
 #------------------->
 
 compress = filters.create(lambda _, __, query: query.data in ["compress", "Kcompress"])
-
 
 @ILovePDF.on_callback_query(compress)
 async def _compress(bot, callbackQuery):
@@ -56,16 +48,20 @@ async def _compress(bot, callbackQuery):
         downloadMessage = await callbackQuery.message.reply_text(
             "`Downloding your pdf..` ⏳", quote=True
         )
-        input_file = f"{callbackQuery.message.message_id}/inCompress.pdf"
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
+        input_file=f"{callbackQuery.message.message_id}/inCompress.pdf"
+        output_file = f"{callbackQuery.message.message_id}/compressed.pdf"
+        file_id=callbackQuery.message.reply_to_message.document.file_id
+        fileSize=callbackQuery.message.reply_to_message.document.file_size
+        fileNm=callbackQuery.message.reply_to_message.document.file_name
+        fileNm, fileExt=os.path.splitext(fileNm)        # seperates name & extension
+        
         # STARTED DOWNLOADING
-        c_time = time.time()
-        downloadLoc = await bot.download_media(
-            message = file_id,
-            file_name = input_file,
-            progress = progress,
-            progress_args = (
+        c_time=time.time()
+        downloadLoc=await bot.download_media(
+            message=file_id,
+            file_name=input_file,
+            progress=progress,
+            progress_args=(
                 fileSize,
                 downloadMessage,
                 c_time
@@ -80,13 +76,10 @@ async def _compress(bot, callbackQuery):
         )
         # CHECK PDF OR NOT(HERE compressed, SO PG UNKNOWN)
         if data == "compress":
-            checked = await checkPdf(input_file, callbackQuery)
-            if not(checked == "pass"):
+            checked=await checkPdf(input_file, callbackQuery)
+            if not(checked=="pass"):
                 await downloadMessage.delete()
                 return
-        # OUTPUT FILE
-        output_file = f"{callbackQuery.message.message_id}/compressed.pdf"
-        
         # Initialize the library
         PDFNet.Initialize()
         doc = PDFDoc(input_file)
@@ -101,9 +94,9 @@ async def _compress(bot, callbackQuery):
         doc.Close()
         
         # FILE SIZE COMPARISON (RATIO)
-        initialSize = os.path.getsize(input_file)
-        compressedSize = os.path.getsize(output_file)
-        ratio = (1 - (compressedSize/initialSize)) * 100
+        initialSize=os.path.getsize(input_file)
+        compressedSize=os.path.getsize(output_file)
+        ratio=(1 - (compressedSize/initialSize)) * 100
         await bot.send_chat_action(
             callbackQuery.message.chat.id, "upload_document"
         )
@@ -111,7 +104,7 @@ async def _compress(bot, callbackQuery):
             "`Started Uploading..` 🏋️"
         )
         await callbackQuery.message.reply_document(
-            file_name="nabil.pdf", quote=True,
+            file_name=f"{fileNm}.pdf", quote=True,
             document=open(output_file, "rb"),
             thumb=PDF_THUMBNAIL,
             caption=compressedCaption.format(
@@ -128,6 +121,5 @@ async def _compress(bot, callbackQuery):
             PROCESS.remove(callbackQuery.message.chat.id)
         except Exception:
             pass
-
 
 #                                                                                  Telegram: @nabilanavab
