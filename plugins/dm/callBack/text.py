@@ -1,9 +1,6 @@
 # fileName : plugins/dm/callBack/text.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import time
 import fitz
 import shutil
@@ -15,9 +12,6 @@ from plugins.progress import progress
 from pyrogram import Client as ILovePDF
 from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
-
-
 
 #--------------->
 #--------> LOCAL VARIABLES
@@ -71,37 +65,19 @@ async def _toText(bot, callbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(
-                            "Messages 📜",
-                            callback_data="M"
-                        ),
-                        InlineKeyboardButton(
-                            "Txt file 🧾",
-                            callback_data="T"
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "Html 🌐",
-                            callback_data="H"
-                        ),
-                        InlineKeyboardButton(
-                            "Json 🎀",
-                            callback_data="J"
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "« Back «",
-                            callback_data="BTPM"
-                        )
+                        InlineKeyboardButton("Messages 📜", callback_data="M"),
+                        InlineKeyboardButton("Txt file 🧾", callback_data="T")
+                    ],[
+                        InlineKeyboardButton("Html 🌐", callback_data="H"),
+                        InlineKeyboardButton("Json 🎀", callback_data="J")
+                    ],[
+                        InlineKeyboardButton("« Back «", callback_data="BTPM")
                     ]
                 ]
             )
         )
     except Exception:
         pass
-
 
 # pdf to images (with known page Number)
 @ILovePDF.on_callback_query(KtoText)
@@ -113,37 +89,19 @@ async def _KtoText(bot, callbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(
-                            "Messages 📜",
-                            callback_data="KM"
-                        ),
-                        InlineKeyboardButton(
-                            "Txt file 🧾",
-                            callback_data="KT"
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "Html 🌐",
-                            callback_data="KH"
-                        ),
-                        InlineKeyboardButton(
-                            "Json 🎀",
-                            callback_data="KJ"
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "« Back «",
-                            callback_data=f"KBTPM|{number_of_pages}"
-                        )
+                        InlineKeyboardButton("Messages 📜", callback_data="KM"),
+                        InlineKeyboardButton("Txt file 🧾", callback_data="KT")
+                    ],[
+                        InlineKeyboardButton("Html 🌐", callback_data="KH"),
+                        InlineKeyboardButton("Json 🎀", callback_data="KJ")
+                    ],[
+                        InlineKeyboardButton("« Back «", callback_data=f"KBTPM|{number_of_pages}")
                     ]
                 ]
             )
         )
     except Exception:
         pass
-
 
 # to Text file (with unknown pdf page number)
 @ILovePDF.on_callback_query(T)
@@ -157,20 +115,20 @@ async def _T(bot, callbackQuery):
             return
         # ADD TO PROCESS
         PROCESS.append(callbackQuery.message.chat.id)
-        data = callbackQuery.data
+        data=callbackQuery.data
         # DOWNLOAD MESSAGE
         downloadMessage = await callbackQuery.message.reply_text(
             "`Downloding your pdf..` ⏳", quote=True
         )
         # DOWNLOAD PROGRESS
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
-        c_time = time.time()
+        file_id=callbackQuery.message.reply_to_message.document.file_id
+        fileSize=callbackQuery.message.reply_to_message.document.file_size
+        c_time=time.time()
         downloadLoc = await bot.download_media(
-            message = file_id,
-            file_name = f"{callbackQuery.message.message_id}/pdf.pdf",
-            progress = progress,
-            progress_args = (
+            message=file_id,
+            file_name=f"{callbackQuery.message.message_id}/pdf.pdf",
+            progress=progress,
+            progress_args=(
                 fileSize,
                 downloadMessage,
                 c_time
@@ -185,28 +143,20 @@ async def _T(bot, callbackQuery):
         if data == "T":
             checked = await checkPdf(f'{callbackQuery.message.message_id}/pdf.pdf', callbackQuery)
             if not(checked == "pass"):
-                await bot.delete_messages(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_ids = downloadMessage.message.message_id
-                )
+                await downloadMessage.delete()
                 return
         with fitz.open(f'{callbackQuery.message.message_id}/pdf.pdf') as doc:
             number_of_pages = doc.pageCount
             with open(f'{callbackQuery.message.message_id}/pdf.txt', "wb") as out: # open text output
                 for page in doc:                               # iterate the document pages
-                    text = page.get_text().encode("utf8")      # get plain text (is in UTF-8)
+                    text=page.get_text().encode("utf8")        # get plain text (is in UTF-8)
                     out.write(text)                            # write text of page()
                     out.write(bytes((12,)))                    # write page delimiter (form feed 0x0C)
-        await bot.send_chat_action(
-            callbackQuery.message.chat.id,
-            "upload_document"
-        )
-        await bot.send_document(
-            chat_id = callbackQuery.message.chat.id,
-            reply_to_message_id = callbackQuery.message.reply_to_message.message_id,
-            thumb = PDF_THUMBNAIL,
-            document = f"{callbackQuery.message.message_id}/pdf.txt",
-            caption = "__Txt file__"
+        await callbackQuery.message.reply_chat_action("upload_document")
+        await callbackQuery.message.reply_document(
+            file_name="PDF.txt", thumb = PDF_THUMBNAIL,
+            document=f"{callbackQuery.message.message_id}/pdf.txt",
+            caption="__Txt file__"
         )
         await downloadMessage.delete()
         PROCESS.remove(callbackQuery.message.chat.id)
@@ -219,7 +169,6 @@ async def _T(bot, callbackQuery):
         except Exception:
             pass
 
-
 # to Text message (with unknown pdf page number)
 @ILovePDF.on_callback_query(M)
 async def _M(bot, callbackQuery):
@@ -230,20 +179,18 @@ async def _M(bot, callbackQuery):
             )
             return
         PROCESS.append(callbackQuery.message.chat.id)
-        data = callbackQuery.data
-        downloadMessage = await bot.send_message(
-            chat_id = callbackQuery.message.chat.id,
-            reply_to_message_id = callbackQuery.message.reply_to_message.message_id,
-            text = "`Downloding your pdf..` ⏳"
+        data=callbackQuery.data
+        downloadMessage = await callbackQuery.message.reply_text(
+            text="`Downloding your pdf..` ⏳", quote=True
         )
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
-        c_time = time.time()
+        file_id=callbackQuery.message.reply_to_message.document.file_id
+        fileSize=callbackQuery.message.reply_to_message.document.file_size
+        c_time=time.time()
         downloadLoc = await bot.download_media(
-            message = file_id,
-            file_name = f"{callbackQuery.message.message_id}/pdf.pdf",
-            progress = progress,
-            progress_args = (
+            message=file_id,
+            file_name=f"{callbackQuery.message.message_id}/pdf.pdf",
+            progress=progress,
+            progress_args=(
                 fileSize,
                 downloadMessage,
                 c_time
@@ -258,10 +205,7 @@ async def _M(bot, callbackQuery):
         if data == "M":
             checked = await checkPdf(f'{callbackQuery.message.message_id}/pdf.pdf', callbackQuery)
             if not(checked == "pass"):
-                await bot.delete_messages(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_ids = downloadMessage.message.message_id
-                )
+                await downloadMessage.delete()
                 return
         with fitz.open(f'{callbackQuery.message.message_id}/pdf.pdf') as doc:
             number_of_pages = doc.pageCount
@@ -284,7 +228,6 @@ async def _M(bot, callbackQuery):
         except Exception:
             pass
 
-
 # to Html file (with unknown pdf page number)
 @ILovePDF.on_callback_query(H)
 async def _H(bot, callbackQuery):
@@ -295,20 +238,18 @@ async def _H(bot, callbackQuery):
             )
             return
         PROCESS.append(callbackQuery.message.chat.id)
-        data = callbackQuery.data
-        downloadMessage = await bot.send_message(
-            chat_id = callbackQuery.message.chat.id,
-            reply_to_message_id = callbackQuery.message.reply_to_message.message_id,
-            text = "`Downloding your pdf..` ⏳"
+        data=callbackQuery.data
+        downloadMessage = await callbackQuery.message.reply_text(
+            text="`Downloding your pdf..` ⏳", quote=True
         )
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
-        c_time = time.time()
+        file_id=callbackQuery.message.reply_to_message.document.file_id
+        fileSize=callbackQuery.message.reply_to_message.document.file_size
+        c_time=time.time()
         downloadLoc = await bot.download_media(
-            message = file_id,
-            file_name = f"{callbackQuery.message.message_id}/pdf.pdf",
-            progress = progress,
-            progress_args = (
+            message=file_id,
+            file_name=f"{callbackQuery.message.message_id}/pdf.pdf",
+            progress=progress,
+            progress_args=(
                 fileSize,
                 downloadMessage,
                 c_time
@@ -323,10 +264,7 @@ async def _H(bot, callbackQuery):
         if data == "H":
             checked = await checkPdf(f'{callbackQuery.message.message_id}/pdf.pdf', callbackQuery)
             if not(checked == "pass"):
-                await bot.delete_messages(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_ids = downloadMessage.message.message_id
-                )
+                await downloadMessage.delete()
                 return
         with fitz.open(f'{callbackQuery.message.message_id}/pdf.pdf') as doc:
             number_of_pages = doc.pageCount
@@ -335,16 +273,11 @@ async def _H(bot, callbackQuery):
                     text = page.get_text("html").encode("utf8") # get plain text (is in UTF-8)
                     out.write(text)                             # write text of page()
                     out.write(bytes((12,)))                     # write page delimiter (form feed 0x0C)
-        await bot.send_chat_action(
-            callbackQuery.message.chat.id,
-            "upload_document"
-        )
-        await bot.send_document(
-            chat_id = callbackQuery.message.chat.id,
-            reply_to_message_id = callbackQuery.message.reply_to_message.message_id,
-            thumb = PDF_THUMBNAIL,
-            document = f"{callbackQuery.message.message_id}/pdf.html",
-            caption = "__Html file : helps to view pdf on any browser..__ 😉"
+        await callbackQuery.message.reply_chat_action("upload_document")
+        await callbackQuery.message.reply_document(
+            file_name="PDF.html", thumb=PDF_THUMBNAIL,
+            document=f"{callbackQuery.message.message_id}/pdf.html",
+            caption="__Html file : helps to view pdf on any browser..__ 😉"
         )
         await downloadMessage.delete()
         PROCESS.remove(callbackQuery.message.chat.id)
@@ -357,7 +290,6 @@ async def _H(bot, callbackQuery):
         except Exception:
             pass
 
-
 # to Text file (with unknown pdf page number)
 @ILovePDF.on_callback_query(J)
 async def _J(bot, callbackQuery):
@@ -368,20 +300,18 @@ async def _J(bot, callbackQuery):
             )
             return
         PROCESS.append(callbackQuery.message.chat.id)
-        data = callbackQuery.data
-        downloadMessage = await bot.send_message(
-            chat_id = callbackQuery.message.chat.id,
-            reply_to_message_id = callbackQuery.message.reply_to_message.message_id,
-            text = "`Downloding your pdf..` ⏳"
+        data=callbackQuery.data
+        downloadMessage = await callbackQuery.message.reply_text(
+            text="`Downloding your pdf..` ⏳", quote=True
         )
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
-        c_time = time.time()
+        file_id=callbackQuery.message.reply_to_message.document.file_id
+        fileSize=callbackQuery.message.reply_to_message.document.file_size
+        c_time=time.time()
         downloadLoc = await bot.download_media(
-            message = file_id,
-            file_name = f"{callbackQuery.message.message_id}/pdf.pdf",
-            progress = progress,
-            progress_args = (
+            message=file_id,
+            file_name=f"{callbackQuery.message.message_id}/pdf.pdf",
+            progress=progress,
+            progress_args=(
                 fileSize,
                 downloadMessage,
                 c_time
@@ -396,10 +326,7 @@ async def _J(bot, callbackQuery):
         if data == "J":
             checked = await checkPdf(f'{callbackQuery.message.message_id}/pdf.pdf', callbackQuery)
             if not(checked == "pass"):
-                await bot.delete_messages(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_ids = downloadMessage.message.message_id
-                )
+                await downloadMessage.delete()
                 return
         with fitz.open(f'{callbackQuery.message.message_id}/pdf.pdf') as doc:
             number_of_pages = doc.pageCount
@@ -408,16 +335,11 @@ async def _J(bot, callbackQuery):
                     text = page.get_text("json").encode("utf8") # get plain text (is in UTF-8)
                     out.write(text)                             # write text of page()
                     out.write(bytes((12,)))                     # write page delimiter (form feed 0x0C)
-        await bot.send_chat_action(
-            callbackQuery.message.chat.id,
-            "upload_document"
-        )
+        await callbackQuery.message.reply_chat_action("upload_document")
         await bot.send_document(
-            chat_id = callbackQuery.message.chat.id,
-            reply_to_message_id = callbackQuery.message.reply_to_message.message_id,
-            thumb = PDF_THUMBNAIL,
-            document = f"{callbackQuery.message.message_id}/pdf.json",
-            caption = "__Json File__"
+            file_name="PDF.json", thumb=PDF_THUMBNAIL,
+            document=f"{callbackQuery.message.message_id}/pdf.json",
+            caption="__Json File__"
         )
         await downloadMessage.delete()
         PROCESS.remove(callbackQuery.message.chat.id)
@@ -429,6 +351,5 @@ async def _J(bot, callbackQuery):
             shutil.rmtree(f"{callbackQuery.message.message_id}")
         except Exception:
             pass
-
 
 #                                                                                  Telegram: @nabilanavab
