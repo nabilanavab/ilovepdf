@@ -21,7 +21,10 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 
-#----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+#--------------->
+#--------> LOCAL VARIABLES
+#------------------->
+
 """
 ____VARIABLES____
 
@@ -51,8 +54,9 @@ r = red, g = green, b = blue
 
 PDF_THUMBNAIL = Config.PDF_THUMBNAIL
 
-# ----- ----- ----- ----- ----- -----  --- CALLBACK FOR PDF STAMPS ----- ----- ----- ----- ----- ----- ----- ----- -----
-
+#--------------->
+#--------> PDF COMPRESSION
+#------------------->
 
 # pdfMessage to stamp --> "stamp"(stampselect)
 stamp = filters.create(lambda _, __, query: query.data == "stamp")
@@ -232,6 +236,8 @@ async def _color(bot, callbackQuery):
         input_file=f"{callbackQuery.message.message_id}/pdf.pdf"
         file_id=callbackQuery.message.reply_to_message.document.file_id
         fileSize=callbackQuery.message.reply_to_message.document.file_size
+        fileNm = callbackQuery.message.reply_to_message.document.file_name
+        fileNm, fileExt = os.path.splitext(fileNm)        # seperates name & extension
         # DOWNLOAD PROGRESS
         c_time=time.time()
         downloadLoc=await bot.download_media(
@@ -295,8 +301,9 @@ async def _color(bot, callbackQuery):
         )
         # SEND DOCUMENT
         await callbackQuery.message.reply_document(
+            file_name=f"{fileNm}.pdf",
             document=open(output_file, "rb"),
-            thumb=PDF_THUMBNAIL,
+            thumb=PDF_THUMBNAIL, quote=True,
             caption="stamped pdf"
         )
         # DELETE DOWNLOAD MESSAGE
@@ -312,3 +319,6 @@ async def _color(bot, callbackQuery):
             await downloadMessage.delete()
         except Exception:
             pass
+
+
+#                                                                                  Telegram: @nabilanavab
