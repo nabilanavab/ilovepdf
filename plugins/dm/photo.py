@@ -1,9 +1,6 @@
 # fileName : Plugins/dm/photo.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import os
 from pdf import PDF
 from PIL import Image
@@ -12,9 +9,6 @@ from pyrogram import filters
 from Configs.dm import Config
 from pyrogram import Client as ILovePDF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
-
-
 
 #--------------->
 #--------> Config var.
@@ -31,11 +25,9 @@ ADMINS=Config.ADMINS
 
 UCantUse = "For Some Reason You Can't Use This Bot 🛑"
 
-
 imageAdded = """`Added {} page/'s to your pdf..`🤓
 
 /generate to generate PDF 🤞"""
-
 
 forceSubMsg = """Wait [{}](tg://user?id={})..!!
 
@@ -44,7 +36,6 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
 hit on "retry ♻️" after joining.. 😅"""
-
 
 button=InlineKeyboardMarkup(
         [
@@ -61,14 +52,11 @@ button=InlineKeyboardMarkup(
 #--------> REPLY TO IMAGES
 #------------------->
 
-
 @ILovePDF.on_message(filters.private & ~filters.edited & filters.photo)
 async def images(bot, message):
     try:
         global invite_link
-        await bot.send_chat_action(
-            message.chat.id, "typing"
-        )
+        await message.reply_chat_action("typing")
         # CHECK USER IN CHANNEL (IF UPDATE_CHANNEL ADDED)
         if UPDATE_CHANNEL:
             try:
@@ -80,8 +68,7 @@ async def images(bot, message):
                     invite_link=await bot.create_chat_invite_link(
                         int(UPDATE_CHANNEL)
                     )
-                await bot.send_message(
-                    message.chat.id,
+                await message.reply_text(
                     forceSubMsg.format(
                         message.from_user.first_name, message.chat.id
                     ),
@@ -108,14 +95,11 @@ async def images(bot, message):
             (ADMIN_ONLY) and (message.chat.id not in ADMINS)
         ):
             await message.reply_text(
-                UCantUse,
-                reply_markup=button
+                UCantUse, reply_markup=button
             )
             return
-        imageReply = await bot.send_message(
-            message.chat.id,
-            "`Downloading your Image..⏳`",
-            reply_to_message_id = message.message_id
+        imageReply = await message.reply_text(
+            "`Downloading your Image..⏳`", quote=True
         )
         if not isinstance(PDF.get(message.chat.id), list):
             PDF[message.chat.id] = []
