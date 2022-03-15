@@ -1,9 +1,6 @@
 # fileName : plugins/dm/callBack/stamp.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import os
 import time
 import fitz
@@ -17,9 +14,6 @@ from plugins.progress import progress
 from pyrogram import Client as ILovePDF
 from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
-
-
 
 #--------------->
 #--------> LOCAL VARIABLES
@@ -70,8 +64,6 @@ Kstmp = filters.create(lambda _, __, query: query.data.startswith("Kstmp"))
 colors = ["color", "Kcolor"]
 color = filters.create(lambda _, __, query: query.data.startswith(tuple(colors)))
 
-
-
 # stamp selet message(with unknown pdf page number)
 @ILovePDF.on_callback_query(stamp)
 async def _stamp(bot, callbackQuery):
@@ -110,7 +102,6 @@ async def _stamp(bot, callbackQuery):
         )
     except Exception:
         pass
-
 
 # Stamp select message (with known pdf page number)
 @ILovePDF.on_callback_query(Kstamp)
@@ -152,7 +143,6 @@ async def _Kstamp(bot, callbackQuery):
     except Exception:
         pass
 
-
 # Stamp color message (with unknown pdf page number)
 @ILovePDF.on_callback_query(stmp)
 async def _stmp(bot, callbackQuery):
@@ -183,7 +173,6 @@ async def _stmp(bot, callbackQuery):
     except Exception:
         pass
 
-
 # Stamp color message (with known pdf page number)
 @ILovePDF.on_callback_query(Kstmp)
 async def _Kstmp(bot, callbackQuery):
@@ -213,7 +202,6 @@ async def _Kstmp(bot, callbackQuery):
         )
     except Exception:
         pass
-
 
 @ILovePDF.on_callback_query(color)
 async def _color(bot, callbackQuery):
@@ -319,6 +307,5 @@ async def _color(bot, callbackQuery):
             await downloadMessage.delete()
         except Exception:
             pass
-
 
 #                                                                                  Telegram: @nabilanavab
