@@ -1,9 +1,7 @@
 # fileName : plugins/dm/callBack/encrypt.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
+import os
 import time
 import fitz
 import shutil
@@ -17,15 +15,11 @@ from pyrogram.types import ForceReply
 from pyrogram import Client as ILovePDF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-
-
-
 #--------------->
 #--------> LOCAL VARIABLES
 #------------------->
 
 encryptedFileCaption = "Page Number : {}\nkey 🔐 : ||{}||"
-
 
 pdfInfoMsg = """`What shall i wanted to do with this file.?`
 
@@ -35,7 +29,6 @@ File Size: `{}`
 `Number of Pages: {}`✌️
 """
 
-
 PDF_THUMBNAIL = Config.PDF_THUMBNAIL
 
 #--------------->
@@ -44,7 +37,6 @@ PDF_THUMBNAIL = Config.PDF_THUMBNAIL
 
 encrypts = ["encrypt", "Kencrypt|"]
 encrypt = filters.create(lambda _, __, query: query.data.startswith(tuple(encrypts)))
-
 
 @ILovePDF.on_callback_query(encrypt)
 async def _encrypt(bot, callbackQuery):
@@ -89,17 +81,19 @@ async def _encrypt(bot, callbackQuery):
         downloadMessage=await callbackQuery.message.reply_text(
             "`Downloding your pdf..` ⏳", quote=True
         )
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        input_file = f"{callbackQuery.message.message_id}/pdf.pdf"
-        output_pdf = f"{callbackQuery.message.message_id}/Encrypted.pdf"
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
+        file_id=callbackQuery.message.reply_to_message.document.file_id
+        input_file=f"{callbackQuery.message.message_id}/pdf.pdf"
+        output_pdf=f"{callbackQuery.message.message_id}/Encrypted.pdf"
+        fileSize=callbackQuery.message.reply_to_message.document.file_size
+        fileNm=callbackQuery.message.reply_to_message.document.file_name
+        fileNm, fileExt=os.path.splitext(fileNm)        # seperates name & extension
         # STARTED DOWNLOADING
-        c_time = time.time()
-        downloadLoc = await bot.download_media(
-            message = file_id,
-            file_name = input_file,
-            progress = progress,
-            progress_args = (
+        c_time=time.time()
+        downloadLoc=await bot.download_media(
+            message=file_id,
+            file_name=input_file,
+            progress=progress,
+            progress_args=(
                 fileSize,
                 downloadMessage,
                 c_time
@@ -129,7 +123,7 @@ async def _encrypt(bot, callbackQuery):
                 return
         # ENCRYPTION USING STRONG ALGORITHM (fitz/pymuPdf)
         with fitz.open(input_file) as encrptPdf:
-            number_of_pages = encrptPdf.pageCount
+            number_of_pages=encrptPdf.pageCount
             if int(number_of_pages) <= 5000:
                 encrptPdf.save(
                     output_pdf,
@@ -161,7 +155,7 @@ async def _encrypt(bot, callbackQuery):
         )
         # SEND ENCRYPTED PDF (AS REPLY)
         await callbackQuery.message.reply_document(
-            file_name="encrypted.pdf",
+            file_name=f"{fileNm}.pdf",
             document=open(output_pdf, "rb"),
             thumb=PDF_THUMBNAIL,
             caption=encryptedFileCaption.format(
@@ -179,6 +173,5 @@ async def _encrypt(bot, callbackQuery):
             shutil.rmtree(f"{callbackQuery.message.message_id}")
         except Exception:
             pass
-
 
 #                                                                                  Telegram: @nabilanavab
