@@ -1,9 +1,6 @@
 # fileName : plugins/dm/document.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import os
 import fitz
 import shutil
@@ -18,15 +15,12 @@ from pyrogram import Client as ILovePDF
 from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-
-
-
 #--------------->
 #--------> convertAPI instance
 #------------------->
 
 if Config.CONVERT_API is not None:
-    convertapi.api_secret = os.getenv("CONVERT_API")
+    convertapi.api_secret = Config.CONVERT_API
 
 #--------------->
 #--------> MAXIMUM FILE SIZE (IF IN config var.)
@@ -71,22 +65,18 @@ suprtedPdfFile2 = [
 
 UCantUse = "For Some Reason You Can't Use This Bot 🛑"
 
-
 pdfReplyMsg = """`What shall i wanted to do with this file.?`
 
 File Name : `{}`
 File Size : `{}`"""
 
-
 bigFileUnSupport = """Due to Overload, Owner limits {}mb for pdf files 🙇
 
 `please Send me a file less than {}mb Size` 🙃"""
 
-
 imageAdded = """`Added {} page/'s to your pdf..`🤓
 
 /generate to generate PDF 🤞"""
-
 
 errorEditMsg = """Something went wrong..😐
 
@@ -94,9 +84,7 @@ ERROR: `{}`
 
 For bot updates join @ilovepdf_bot"""
 
-
 feedbackMsg = "[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"
-
 
 forceSubMsg = """Wait [{}](tg://user?id={})..!!
 
@@ -105,7 +93,6 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
 hit on "retry ♻️" after joining.. 😅"""
-
 
 button=InlineKeyboardMarkup(
         [
@@ -125,64 +112,28 @@ button=InlineKeyboardMarkup(
 pdfReply=InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                    "⭐ get page No & info ⭐",
-                    callback_data="pdfInfo"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "To Images 🖼️",
-                    callback_data="toImage"
-                ),
-                InlineKeyboardButton(
-                    "To Text ✏️",
-                    callback_data="toText"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "Encrypt 🔐",
-                    callback_data="encrypt"
-                ),
-                InlineKeyboardButton(
-                    "Decrypt 🔓",
-                    callback_data="decrypt"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "Compress 🗜️",
-                    callback_data="compress"
-                ),
-                InlineKeyboardButton(
-                    "Rotate 🤸",
-                    callback_data="rotate"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "Split ✂️",
-                    callback_data="split"
-                ),
-                InlineKeyboardButton(
-                    "Merge 🧬",
-                    callback_data="merge"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "Stamp ™️",
-                    callback_data="stamp"
-                ),
-                InlineKeyboardButton(
-                    "Rename ✏️",
-                    callback_data="rename"
-                )
+                InlineKeyboardButton("⭐ META£ATA ⭐", callback_data="pdfInfo"),
+                InlineKeyboardButton("🗳️ PREVIEW 🗳️", callback_data="preview")
+            ],[
+                InlineKeyboardButton("🖼️ toIMAGES 🖼️", callback_data="toImage"),
+                InlineKeyboardButton("✏️ toTEXT ✏️", callback_data="toText")
+            ],[
+                InlineKeyboardButton("🔐 ENCRYPT 🔐", callback_data="encrypt"),
+                InlineKeyboardButton("🔒 DECRYPT 🔓",callback_data="decrypt")
+            ],[
+                InlineKeyboardButton("🗜️ COMPRESS 🗜️", callback_data="compress"),
+                InlineKeyboardButton("🤸 ROTATE 🤸", callback_data="rotate")
+            ],[
+                InlineKeyboardButton("✂️ SPLIT ✂️", callback_data="split"),
+                InlineKeyboardButton("🧬 MERGE 🧬", callback_data="merge")
+            ],[
+                InlineKeyboardButton("™️ STAMP ™️", callback_data="stamp"),
+                InlineKeyboardButton("✏️ RENAME ✏️", callback_data="rename")
+            ],[
+                InlineKeyboardButton("🚫 CLOSE 🚫", callback_data="closeALL")
             ]
         ]
     )
-
 
 #--------------->
 #--------> Config var.
@@ -197,14 +148,11 @@ ADMINS=Config.ADMINS
 #--------> REPLY TO DOCUMENTS/FILES
 #------------------->
 
-
 @ILovePDF.on_message(filters.private & filters.document & ~filters.edited)
 async def documents(bot, message):
     try:
         global invite_link
-        await bot.send_chat_action(
-            message.chat.id, "typing"
-        )
+        await message.reply_chat_action("typing")
         # CHECK USER IN CHANNEL (IF UPDATE_CHANNEL ADDED)
         if UPDATE_CHANNEL:
             try:
@@ -224,16 +172,9 @@ async def documents(bot, message):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton(
-                                    "🌟 JOIN CHANNEL 🌟",
-                                    url=invite_link.invite_link
-                                )
-                            ],
-                            [
-                                InlineKeyboardButton(
-                                    "Refresh ♻️",
-                                    callback_data="refresh"
-                                )
+                                InlineKeyboardButton("🌟 JOIN CHANNEL 🌟", url=invite_link.invite_link)
+                            ],[
+                                InlineKeyboardButton("Refresh ♻️", callback_data="refresh")
                             ]
                         ]
                     )
@@ -339,6 +280,7 @@ async def documents(bot, message):
                     message.chat.id, "upload_document"
                 )
                 await message.reply_document(
+                    file_name=f"{fileNm}.pdf",
                     document=open(f"{message.message_id}/{fileNm}.pdf", "rb"),
                     thumb=PDF_THUMBNAIL,
                     caption=f"`Converted: {fileExt} to pdf`",
@@ -365,7 +307,7 @@ async def documents(bot, message):
         
         # FILES TO PDF (CONVERTAPI)
         elif fileExt.lower() in suprtedPdfFile2:
-            if os.getenv("CONVERT_API") is None:
+            if Config.CONVERT_API is None:
                 pdfMsgId = await message.reply_text(
                     "`Owner Forgot to add ConvertAPI.. contact Owner 😒`",
                     quote=True
@@ -405,6 +347,7 @@ async def documents(bot, message):
                         message.chat.id, "upload_document"
                     )
                     await message.reply_document(
+                        file_name=f"{fileNm}.pdf",
                         document=open(f"{message.message_id}/{fileNm}.pdf", "rb"),
                         thumb=PDF_THUMBNAIL,
                         caption=f"`Converted: {fileExt} to pdf`",
@@ -427,13 +370,12 @@ async def documents(bot, message):
         else:
             try:
                 await message.reply_text(
-                    "`unsupported file..🙄`", quotes=True
+                    "`unsupported file..🙄`", quote=True
                 )
             except Exception:
                 pass
     
     except Exception as e:
         print("plugins/dm/document : ", e)
-
 
 #                                                                                  Telegram: @nabilanavab
