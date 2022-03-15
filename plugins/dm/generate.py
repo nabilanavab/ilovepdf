@@ -1,9 +1,6 @@
 # fileName : plugins/dm/generate.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import os
 import shutil
 from pdf import PDF
@@ -13,10 +10,6 @@ from Configs.dm import Config
 from pyrogram import Client as ILovePDF
 from pyrogram.types import InlineKeyboardButton
 from pyrogram.types import InlineKeyboardMarkup
-
-
-
-
 
 #--------------->
 #--------> Config var.
@@ -32,9 +25,7 @@ ADMINS=Config.ADMINS
 
 UCantUse = "For Some Reason You Can't Use This Bot 🛑"
 
-
 feedbackMsg = "[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"
-
 
 button=InlineKeyboardMarkup(
         [
@@ -50,7 +41,6 @@ button=InlineKeyboardMarkup(
 #--------------->
 #--------> REPLY TO /generate MESSAGE
 #------------------->
-
 
 @ILovePDF.on_message(filters.private & filters.command(["generate"]) & ~filters.edited)
 async def generate(bot, message):
@@ -74,9 +64,7 @@ async def generate(bot, message):
         
         # IF NO IMAGES SEND BEFORE
         if not images:
-            await bot.send_chat_action(
-                message.chat.id, "typing"
-            )
+            await message.reply_chat_action("typing")
             imagesNotFounded = await message.reply_text(
                 "`No image founded.!!`😒"
             )
@@ -102,10 +90,8 @@ async def generate(bot, message):
         await gnrtMsgId.edit(
             "`Uploading pdf.. `🏋️",
         )
-        await bot.send_chat_action(
-            message.chat.id, "upload_document"
-        )
-        await bot.send_document(
+        await message.reply_chat_action("upload_document")
+        generated = await bot.send_document(
             chat_id=message.chat.id,
             document=open(fileName, "rb"),
             thumb=Config.PDF_THUMBNAIL,
@@ -117,20 +103,15 @@ async def generate(bot, message):
         os.remove(fileName)
         shutil.rmtree(f"{message.chat.id}")
         sleep(5)
-        await bot.send_chat_action(
-            message.chat.id, "typing"
+        await message.reply_chat_action("typing")
+        await message.reply_text(
+            feedbackMsg, disable_web_page_preview = True
         )
-        await bot.send_message(
-            message.chat.id, feedbackMsg,
-            disable_web_page_preview = True
-        )
-        
     except Exception:
         try:
             os.remove(fileName)
             shutil.rmtree(f"{message.chat.id}")
         except Exception:
             pass
-
 
 #                                                                                  Telegram: @nabilanavab
