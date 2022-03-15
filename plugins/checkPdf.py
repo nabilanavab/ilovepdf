@@ -1,9 +1,6 @@
 # fileName : plugins/checkPdf.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import fitz
 import shutil
 from pdf import PROCESS
@@ -11,9 +8,6 @@ from pyrogram.types import Message
 from plugins.toKnown import toKnown
 from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
-
-
 
 #--------------->
 #--------> LOCAL VAR.
@@ -26,7 +20,6 @@ File Size: `{}`
 
 `Number of Pages: {}`✌️"""
 
-
 codecMsg = """__I don't do anything with this file__ 😏
 
 🐉  `CODEC ERROR`  🐉"""
@@ -34,7 +27,6 @@ codecMsg = """__I don't do anything with this file__ 😏
 #--------------->
 #--------> CHECKS PDF CODEC, IS ENCRYPTED OR NOT
 #------------------->
-
 
 async def checkPdf(file_path, callbackQuery):
     try:
@@ -58,7 +50,7 @@ async def checkPdf(file_path, callbackQuery):
                         [
                             [
                                 InlineKeyboardButton(
-                                    "DECRYPT 🔓",
+                                    "🔓 DECRYPT 🔓",
                                     callback_data = "Kdecrypt"
                                 )
                             ]
@@ -99,6 +91,5 @@ async def checkPdf(file_path, callbackQuery):
         except Exception:
             pass
         return "notPdf"
-
 
 #                                                                                  Telegram: @nabilanavab
