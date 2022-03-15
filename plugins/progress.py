@@ -1,17 +1,11 @@
 # fileName : plugins/progress.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import time, math
 from pyrogram.types import Message
 from pyrogram import Client, filters
 from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
-
-
 
 #--------------->
 #--------> DOWNLOAD PROGRESS
@@ -57,7 +51,6 @@ async def progress(current, t, total, message, start):
 #--------> TIME FORMATTER
 #------------------->
 
-
 def TimeFormatter(milliseconds: int) -> str:
     seconds, milliseconds = divmod(int(milliseconds), 1000)
     minutes, seconds = divmod(seconds, 60)
@@ -69,6 +62,5 @@ def TimeFormatter(milliseconds: int) -> str:
         ((str(seconds) + "s, ") if seconds else "") + \
         ((str(milliseconds) + "ms, ") if milliseconds else "")
     return tmp[:-2]
-
 
 #                                                                                  Telegram: @nabilanavab
