@@ -157,7 +157,7 @@ async def _splitROrS(bot, callbackQuery):
         if nabilanavab == True:
             PROCESS.remove(callbackQuery.message.chat.id)
         if nabilanavab == False:
-            downloadMessage = await callback_data.message.reply_text(
+            downloadMessage = await callbackQuery.message.reply_text(
                 text="`Downloding your pdf..` ⏳", quote=True
             )
             file_id=callbackQuery.message.reply_to_message.document.file_id
