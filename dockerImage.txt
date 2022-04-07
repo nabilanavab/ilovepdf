@@ -1,0 +1,10 @@
+pyrogram==1.4.8
+TgCrypto==1.2.3
+pillow==9.0.1
+PyMuPdf==1.19.6
+PyPDF2==1.26.0
+convertapi==1.4.0
+PDFNetPython3==8.1.0
+pyromod==1.5
+fpdf==1.7.2
+ocrmypdf==13.4.0
