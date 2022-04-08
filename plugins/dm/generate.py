@@ -3,6 +3,7 @@
 
 import os
 import shutil
+import asyncio
 from pdf import PDF
 from time import sleep
 from pyrogram import filters
@@ -102,7 +103,7 @@ async def generate(bot, message):
         )
         os.remove(fileName)
         shutil.rmtree(f"{message.chat.id}")
-        sleep(5)
+        await asyncio.sleep(5)
         await message.reply_chat_action("typing")
         await message.reply_text(
             feedbackMsg, disable_web_page_preview = True
