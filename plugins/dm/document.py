@@ -266,9 +266,7 @@ async def documents(bot, message):
                 await message.download(
                     f"{message.message_id}/{isPdfOrImg}"
                 )
-                await pdfMsgId.edit(
-                    "`Creating pdf..`💛"
-                )
+                await pdfMsgId.edit("`Work in Progress.. It might take some time.. 💛`")
                 Document=fitz.open(
                     f"{message.message_id}/{isPdfOrImg}"
                 )
@@ -328,11 +326,9 @@ async def documents(bot, message):
                     await message.download(
                         f"{message.message_id}/{isPdfOrImg}"
                     )
-                    await pdfMsgId.edit(
-                        "`Creating pdf..`💛"
-                    )
+                    await pdfMsgId.edit("`Work in Progress.. It might take some time`💛")
                     try:
-                        await convertapi.convert(
+                        convertapi.convert(
                             "pdf",
                             {
                                 "File": f"{message.message_id}/{isPdfOrImg}"
