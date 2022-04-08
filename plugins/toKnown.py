@@ -51,6 +51,12 @@ async def toKnown(callbackQuery, number_of_pages):
                         InlineKeyboardButton("™️ STAMP ™️",callback_data=f"Kstamp|{number_of_pages}"),
                         InlineKeyboardButton("✏️ RENAME ✏️",callback_data="rename")
                     ],[
+                        InlineKeyboardButton("📝 OCR 📝", callback_data=f"Kocr|{number_of_pages}"),
+                        InlineKeyboardButton("🥷 A4 FORMAT 🥷", callback_data=f"Kformat|{number_of_pages}")
+                    ],[
+                        InlineKeyboardButton("🤐 ZIP 🤐", callback_data=f"Kzip|{number_of_pages}"),
+                        InlineKeyboardButton("🎯 TAR 🎯", callback_data=f"Ktar|{number_of_pages}")
+                    ],[
                         InlineKeyboardButton("🚫 CLOSE 🚫", callback_data="closeALL")
                     ]
                 ]
