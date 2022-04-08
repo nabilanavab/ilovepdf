@@ -48,21 +48,19 @@ async def _preview(bot, callbackQuery):
         # ADD USER TO PROCESS
         PROCESS.append(callbackQuery.message.chat.id)
         # DOWNLOAD MESSAGE
-        downloadMessage = await callbackQuery.message.reply_text(
+        downloadMessage=await callbackQuery.message.reply_text(
             "`Downloding your pdf..` ⏳", quote=True
         )
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
+        file_id=callbackQuery.message.reply_to_message.document.file_id
+        fileSize=callbackQuery.message.reply_to_message.document.file_size
         # DOWNLOAD PROGRESS
         c_time=time.time()
-        downloadLoc = await bot.download_media(
+        downloadLoc=await bot.download_media(
             message=file_id,
             file_name=f"{callbackQuery.message.message_id}/pdf.pdf",
             progress=progress,
             progress_args=(
-                fileSize,
-                downloadMessage,
-                c_time
+                fileSize, downloadMessage, c_time
             )
         )
         # CHECK DOWNLOAD COMPLETED/CANCELLED
@@ -78,25 +76,25 @@ async def _preview(bot, callbackQuery):
                 await downloadMessage.delete()
                 return
         # OPEN PDF WITH FITZ
-        doc = fitz.open(f'{callbackQuery.message.message_id}/pdf.pdf')
-        number_of_pages = doc.pageCount
+        doc=fitz.open(f'{callbackQuery.message.message_id}/pdf.pdf')
+        number_of_pages=doc.pageCount
         if number_of_pages == 1:
             totalPgList=[1]
             caption="Image Preview:\n__START: 1__"
         elif number_of_pages == 2:
-            totalPgList = [1, 2]
+            totalPgList=[1, 2]
             caption="Image Preview:\n__START: 1__,\n__END: 2__"
         elif number_of_pages == 3:
-            totalPgList = [1, 2, 3]
+            totalPgList=[1, 2, 3]
             caption="Image Preview:\n__START: 1__,\n__MIDDLE: 2__,\n__END: 3__"
         else:
-            totalPgList = [1, number_of_pages//2, number_of_pages]
+            totalPgList=[1, number_of_pages//2, number_of_pages]
             caption=f"Image Preview:\n__START: 1__,\n__MIDDLE: {number_of_pages//2}__,__\nEND: {number_of_pages}__"
         await downloadMessage.edit(
             f"`Total pages: {len(totalPgList)}..⏳`"
         )
         zoom=2
-        mat = fitz.Matrix(zoom, zoom)
+        mat=fitz.Matrix(zoom, zoom)
         os.mkdir(f'{callbackQuery.message.message_id}/pgs')
         for pageNo in totalPgList:
             page=doc.loadPage(int(pageNo)-1)
