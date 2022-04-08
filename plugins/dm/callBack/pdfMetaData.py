@@ -108,8 +108,7 @@ async def _pdfInfo(bot, callbackQuery):
                             InlineKeyboardButton("To Text ✏️", callback_data=f"KtoText|{number_of_pages}")
                         ],[
                             InlineKeyboardButton("Encrypt 🔐",callback_data=f"Kencrypt|{number_of_pages}"),
-                            InlineKeyboardButton("Decrypt 🔓", callback_data=f"notEncrypted"
-                            )
+                            InlineKeyboardButton("Decrypt 🔓", callback_data=f"notEncrypted")
                         ],[
                             InlineKeyboardButton("Compress 🗜️", callback_data=f"Kcompress"),
                             InlineKeyboardButton("Rotate 🤸", callback_data=f"Krotate|{number_of_pages}")
@@ -119,6 +118,12 @@ async def _pdfInfo(bot, callbackQuery):
                         ],[
                             InlineKeyboardButton("Stamp ™️", callback_data=f"Kstamp|{number_of_pages}"),
                             InlineKeyboardButton("Rename ✏️", callback_data="rename")
+                        ],[
+                            InlineKeyboardButton("📝 OCR 📝", callback_data=f"Kocr|{number_of_pages}"),
+                            InlineKeyboardButton("🥷 A4 FORMAT 🥷", callback_data=f"Kformat|{number_of_pages}")
+                        ],[
+                            InlineKeyboardButton("🤐 ZIP 🤐", callback_data=f"Kzip|{number_of_pages}"),
+                            InlineKeyboardButton("🎯 TAR 🎯", callback_data=f"Ktar|{number_of_pages}")
                         ],[
                             InlineKeyboardButton("🚫 CLOSE 🚫", callback_data="closeALL")
                         ]
