@@ -31,6 +31,12 @@ pdfReply = InlineKeyboardMarkup(
                 InlineKeyboardButton("™️ STAMP ™️", callback_data="stamp"),
                 InlineKeyboardButton("✏️ RENAME ✏️", callback_data="rename")
             ],[
+                InlineKeyboardButton("📝 OCR 📝", callback_data="ocr"),
+                InlineKeyboardButton("🥷 A4 FORMAT 🥷", callback_data="format")
+            ],[
+                InlineKeyboardButton("🤐 ZIP 🤐", callback_data="zip"),
+                InlineKeyboardButton("🎯 TAR 🎯", callback_data="tar")
+            ],[
                 InlineKeyboardButton("🚫 CLOSE 🚫",callback_data="closeALL")
             ]
         ]
@@ -267,6 +273,12 @@ async def _KBTPM(bot, callbackQuery):
                     ],[
                         InlineKeyboardButton("™️ STAMP ™️", callback_data=f"Kstamp|{number_of_pages}"),
                         InlineKeyboardButton("✏️ RENAME ✏️", callback_data="rename")
+                    ],[
+                        InlineKeyboardButton("📝 OCR 📝", callback_data=f"Kocr|{number_of_pages}"),
+                        InlineKeyboardButton("🥷 A4 FORMAT 🥷", callback_data=f"Kformat|{number_of_pages}")
+                    ],[
+                        InlineKeyboardButton("🤐 ZIP 🤐", callback_data=f"Kzip|{number_of_pages}"),
+                        InlineKeyboardButton("🎯 TAR 🎯", callback_data=f"Ktar|{number_of_pages}")
                     ],[
                         InlineKeyboardButton("🚫 CLOSE 🚫", callback_data="closeALL")
                     ]
