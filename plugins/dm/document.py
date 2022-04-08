@@ -64,43 +64,50 @@ suprtedPdfFile2 = [
 #--------> LOCAL VARIABLES
 #------------------->
 
-UCantUse = "For Some Reason You Can't Use This Bot 🛑"
 
-pdfReplyMsg = """`What shall i wanted to do with this file.?`
+UCantUse = "لا يمكنك استخدام هذا الروبوت لبعض الأسباب"
 
-File Name : `{}`
-File Size : `{}`"""
 
-bigFileUnSupport = """Due to Overload, Owner limits {}mb for pdf files 🙇
+pdfReplyMsg = """`ماذا تريد أن أفعل بهذا الملف.؟`
 
-`please Send me a file less than {}mb Size` 🙃"""
+اسم الملف : `{}`
+حجم ملف : `{}`"""
 
-imageAdded = """`Added {} page/'s to your pdf..`🤓
 
-/generate to generate PDF 🤞"""
+bigFileUnSupport = """بسبب التحميل الزائد ، حد المطور {} ميغابايت لملفات pdf
 
-errorEditMsg = """Something went wrong..😐
+`من فضلك أرسل لي ملف حجمه أقل من {} ميغا بايت` 🙃"""
 
-ERROR: `{}`
 
-For bot updates join @ilovepdf_bot"""
+imageAdded = """`تمت إضافة {} صفحة / إلى ملف pdf ..`🤓
 
-feedbackMsg = "[Write a feedback 📋](https://t.me/nabilanavabchannel/17?comment=10)"
+/generate  اضغط لإنشاء ملف PDF 🤞"""
 
-forceSubMsg = """Wait [{}](tg://user?id={})..!!
 
-Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
+errorEditMsg = """حدث خطأ ما ..😐
 
-This Means You Need To Join The Below Mentioned Channel for Using Me!
+خطا: `{}`
 
-hit on "retry ♻️" after joining.. 😅"""
+Dev&eng: @ta_ja199 👨‍💻"""
+
+
+feedbackMsg = "[🌟تقييم البوت من فضلك 🌟](https://t.me/tlgrmcbot?start=i2pdfbot)"
+
+
+forceSubMsg = """انتظر [{}](tg://user?id={}) 🤚🏻..!!
+يجيب اولاً انضمام للقناة البوت لمتابعة كافة تحديثات البوت 📢 🚶
+
+هذا يعني أنك بحاجة إلى الانضمام إلى القناة المذكورة أدناه لاستخدامي😁😇!
+
+◍ `اضغط على " تحديث ♻️" بعد الانضمام .. 😅😇`"""
+
 
 button=InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(
-                    "😉 Create your Own 😉",
-                    url="https://github.com/nabilanavab/ilovepdf"
+                    "😉 موقع بوت 😉",
+                    url="https://electrical-engineer-cc40b.web.app/"
                 )
             ]
        ]
@@ -113,34 +120,35 @@ button=InlineKeyboardMarkup(
 pdfReply=InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("⭐ META£ATA ⭐", callback_data="pdfInfo"),
-                InlineKeyboardButton("🗳️ PREVIEW 🗳️", callback_data="preview")
+                InlineKeyboardButton("⭐ معلومات ⭐", callback_data="pdfInfo"),
+                InlineKeyboardButton("🗳️ معاينة 🗳️", callback_data="preview")
             ],[
-                InlineKeyboardButton("🖼️ toIMAGES 🖼️", callback_data="toImage"),
-                InlineKeyboardButton("✏️ toTEXT ✏️", callback_data="toText")
+                InlineKeyboardButton("🖼️ الى صور 🖼️", callback_data="toImage"),
+                InlineKeyboardButton("✏️ الى نص ✏️", callback_data="toText")
             ],[
-                InlineKeyboardButton("🔐 ENCRYPT 🔐", callback_data="encrypt"),
-                InlineKeyboardButton("🔒 DECRYPT 🔓",callback_data="decrypt")
+                InlineKeyboardButton("🔐 تشفير 🔐", callback_data="encrypt"),
+                InlineKeyboardButton("🔒 فك تشفير 🔓",callback_data="decrypt")
             ],[
-                InlineKeyboardButton("🗜️ COMPRESS 🗜️", callback_data="compress"),
-                InlineKeyboardButton("🤸 ROTATE 🤸", callback_data="rotate")
+                InlineKeyboardButton("🗜️ ضغط 🗜️", callback_data="compress"),
+                InlineKeyboardButton("🤸 استدارة 🤸", callback_data="rotate")
             ],[
-                InlineKeyboardButton("✂️ SPLIT ✂️", callback_data="split"),
-                InlineKeyboardButton("🧬 MERGE 🧬", callback_data="merge")
+                InlineKeyboardButton("✂️ تقسيم ✂️", callback_data="split"),
+                InlineKeyboardButton("🧬 دمج 🧬", callback_data="merge")
             ],[
-                InlineKeyboardButton("™️ STAMP ™️", callback_data="stamp"),
-                InlineKeyboardButton("✏️ RENAME ✏️", callback_data="rename")
+                InlineKeyboardButton("™️ ختم ™️", callback_data="stamp"),
+                InlineKeyboardButton("✏️ إعادة تسمية ✏️", callback_data="rename")
             ],[
-                InlineKeyboardButton("📝 OCR 📝", callback_data="ocr"),
-                InlineKeyboardButton("🥷 A4 FORMAT 🥷", callback_data="format")
+                InlineKeyboardButton("📝 مسح ضوئي 📝", callback_data="ocr"),
+                InlineKeyboardButton("🥷 A4 تنسيق 🥷", callback_data="format")
             ],[
                 InlineKeyboardButton("🤐 ZIP 🤐", callback_data="zip"),
                 InlineKeyboardButton("🎯 TAR 🎯", callback_data="tar")
             ],[
-                InlineKeyboardButton("🚫 CLOSE 🚫", callback_data="closeALL")
+                InlineKeyboardButton("🚫 أغلق 🚫", callback_data="closeALL")
             ]
         ]
     )
+
 
 #--------------->
 #--------> Config var.
@@ -209,8 +217,8 @@ async def documents(bot, message):
                     [
                         [
                             InlineKeyboardButton(
-                                "💎 Create 2Gb Support Bot 💎",
-                                url="https://github.com/nabilanavab/ilovepdf"
+                                "💎موقع البوت 💎",
+                                url="https://electrical-engineer-cc40b.web.app/"
                             )
                         ]
                     ]
@@ -245,7 +253,7 @@ async def documents(bot, message):
         elif fileExt.lower() == ".pdf":
             try:
                 pdfMsgId = await message.reply_text(
-                    "Processing..🚶", quote=True
+                    "المعالجة..🚶", quote=True
                 )
                 await asyncio.sleep(0.5)
                 await pdfMsgId.edit(
@@ -261,12 +269,12 @@ async def documents(bot, message):
         elif fileExt.lower() in suprtedPdfFile:
             try:
                 pdfMsgId = await message.reply_text(
-                    "`Downloading your file..⏳`", quote=True
+                    "`تحميل ملفك ..⏳`", quote=True
                 )
                 await message.download(
                     f"{message.message_id}/{isPdfOrImg}"
                 )
-                await pdfMsgId.edit("`Work in Progress.. It might take some time.. 💛`")
+                await pdfMsgId.edit("`جاري العمل .. قد يستغرق بعض الوقت .. 💛`")
                 Document=fitz.open(
                     f"{message.message_id}/{isPdfOrImg}"
                 )
@@ -279,7 +287,7 @@ async def documents(bot, message):
                 )
                 pdf.close()
                 await pdfMsgId.edit(
-                    "`Started Uploading..`🏋️"
+                    "`بدأ التحميل ..`🏋️"
                 )
                 await bot.send_chat_action(
                     message.chat.id, "upload_document"
@@ -288,7 +296,7 @@ async def documents(bot, message):
                     file_name=f"{fileNm}.pdf",
                     document=open(f"{message.message_id}/{fileNm}.pdf", "rb"),
                     thumb=PDF_THUMBNAIL,
-                    caption=f"`Converted: {fileExt} to pdf`",
+                    caption=f"`📗 تم تحويل ملفك : {fileExt} إالى pdf`",
                     quote=True
                 )
                 await pdfMsgId.delete()
@@ -314,19 +322,19 @@ async def documents(bot, message):
         elif fileExt.lower() in suprtedPdfFile2:
             if Config.CONVERT_API is None:
                 pdfMsgId = await message.reply_text(
-                    "`Owner Forgot to add ConvertAPI.. contact Owner 😒`",
+                    "`المالك نسيت إضافة ConvertAPI .. اتصل بالمالك 😒`",
                     quote=True
                 )
                 return
             else:
                 try:
                     pdfMsgId = await message.reply_text(
-                        "`Downloading your file..⏳`", quote=True
+                        "`تحميل ملفك ..⏳`", quote=True
                     )
                     await message.download(
                         f"{message.message_id}/{isPdfOrImg}"
                     )
-                    await pdfMsgId.edit("`Work in Progress.. It might take some time..`💛")
+                    await pdfMsgId.edit("`جاري العمل .. قد يستغرق بعض الوقت ..`💛")
                     try:
                         convertapi.convert(
                             "pdf",
@@ -341,7 +349,7 @@ async def documents(bot, message):
                         try:
                             shutil.rmtree(f"{message.message_id}")
                             await pdfMsgId.edit(
-                                "ConvertAPI limit reaches.. contact Owner"
+                                "يصل حد ConvertAPI .. اتصل بالمالك"
                             )
                             return
                         except Exception:
@@ -353,7 +361,7 @@ async def documents(bot, message):
                         file_name=f"{fileNm}.pdf",
                         document=open(f"{message.message_id}/{fileNm}.pdf", "rb"),
                         thumb=PDF_THUMBNAIL,
-                        caption=f"`Converted: {fileExt} to pdf`",
+                        caption=f"`📗 تم تحويل ملفك: {fileExt} إلى pdf`",
                         quote=True
                     )
                     await pdfMsgId.delete()
@@ -373,7 +381,7 @@ async def documents(bot, message):
         else:
             try:
                 await message.reply_text(
-                    "`unsupported file..🙄`", quote=True
+                    "`ملف غير مدعوم ..🙄`", quote=True
                 )
             except Exception:
                 pass
