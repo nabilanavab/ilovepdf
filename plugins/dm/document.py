@@ -4,6 +4,7 @@
 import os
 import fitz
 import shutil
+import asyncio
 import convertapi
 from pdf import PDF
 from PIL import Image
@@ -246,7 +247,7 @@ async def documents(bot, message):
                 pdfMsgId = await message.reply_text(
                     "Processing..🚶", quote=True
                 )
-                sleep(0.5)
+                await asyncio.sleep(0.5)
                 await pdfMsgId.edit(
                     text=pdfReplyMsg.format(
                         isPdfOrImg, await gSF(fileSize)
@@ -294,7 +295,7 @@ async def documents(bot, message):
                 )
                 await pdfMsgId.delete()
                 shutil.rmtree(f"{message.message_id}")
-                sleep(5)
+                await asyncio.sleep(5)
                 await bot.send_chat_action(
                     message.chat.id, "typing"
                 )
@@ -361,7 +362,7 @@ async def documents(bot, message):
                     )
                     await pdfMsgId.delete()
                     shutil.rmtree(f"{message.message_id}")
-                    sleep(5)
+                    await asyncio.sleep(5)
                     await bot.send_chat_action(
                         message.chat.id, "typing"
                     )
