@@ -1,4 +1,4 @@
-# fileName : plugins/dm/callBack/underDev.py
+# fileName : plugins/dm/callBack/blaBla.py
 # copyright ©️ 2021 nabilanavab
 
 from pdf import PROCESS
@@ -29,17 +29,15 @@ async def _underDev(bot, callbackQuery):
     except Exception:
         pass
 
-
+# Error in Codec
 @ILovePDF.on_callback_query(error)
 async def _error(bot, callbackQuery):
     try:
-        await callbackQuery.answer(
-            "Error annenn paranjille.. then what.. 😏"
-        )
+        await callbackQuery.answer("Error annenn paranjille.. then what.. 😏")
     except Exception:
         pass
 
-
+# Download Cancel 
 @ILovePDF.on_callback_query(closeme)
 async def _closeme(bot, callbackQuery):
     try:
@@ -47,42 +45,34 @@ async def _closeme(bot, callbackQuery):
             await callbackQuery.message.delete()
         except Exception:
             pass
-        await callbackQuery.answer(
-            "Process Canceled.. 😏"
-        )
+        await callbackQuery.answer("Process Canceled.. 😏")
         PROCESS.remove(callbackQuery.message.chat.id)
     except Exception:
         pass
 
-
+# File Not Encrypted callBack
 @ILovePDF.on_callback_query(notEncrypted)
 async def _notEncrypted(bot, callbackQuery):
     try:
-        await callbackQuery.answer(
-            "File Not Encrypted.. 👀"
-        )
+        await callbackQuery.answer("File Not Encrypted.. 👀")
     except Exception:
         pass
 
-
+# Close both Pdf Message + CB
 @ILovePDF.on_callback_query(closeALL)
 async def _closeALL(bot, callbackQuery):
     try:
         await callbackQuery.message.delete()
         await callbackQuery.message.reply_to_message.delete()
-    except Exception as e:
-        print(e)
+    except Exception:
+        pass
 
-
+# Cancel Pdf/Zip to Images
 @ILovePDF.on_callback_query(cancelP2I)
 async def _cancelP2I(bot, callbackQuery):
     try:
         await callbackQuery.message.edit_reply_markup(
-            InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton("💤 CANCELING.. 💤", callback_data="n")
-                ]]
-            )
+            InlineKeyboardMarkup([[InlineKeyboardButton("💤 CANCELING.. 💤", callback_data="n")]])
         )
         PROCESS.remove(callbackQuery.message.chat.id)
     except Exception:
@@ -92,9 +82,7 @@ async def _cancelP2I(bot, callbackQuery):
 @ILovePDF.on_callback_query(canceled)
 async def _canceled(bot, callbackQuery):
     try:
-        await callbackQuery.answer(
-            "Nothing Official About it.. 😅"
-        )
+        await callbackQuery.answer("Nothing Official About it.. 😅")
     except Exception:
         pass
 
@@ -102,8 +90,6 @@ async def _canceled(bot, callbackQuery):
 @ILovePDF.on_callback_query(completed)
 async def _completed(bot, callbackQuery):
     try:
-        await callbackQuery.answer(
-            "🎉 Completed.. 🏃"
-        )
+        await callbackQuery.answer("🎉 Completed.. 🏃")
     except Exception:
         pass
