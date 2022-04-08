@@ -26,29 +26,25 @@ PDF_THUMBNAIL = Config.PDF_THUMBNAIL
 
 mediaDoc={}; media={}
 
-cancel=InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("💤 CANCEL 💤", callback_data="cancelP2I")
-            ]
-        ]
-    )
+cancel=InlineKeyboardMarkup([[InlineKeyboardButton("💤 CANCEL 💤", callback_data="cancelP2I")]])
+canceled=InlineKeyboardMarkup([[InlineKeyboardButton("🍄 CANCELED 🍄", callback_data="canceled")]])
+completed=InlineKeyboardMarkup([[InlineKeyboardButton("😎 COMPLETED 😎", callback_data="completed")]])
 
-canceled=InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("🍄 CANCELED 🍄", callback_data="canceled")
-            ]
-        ]
-    )
+#--------------->
+#--------> CHECKS IF USER CANCEL PROCESS
+#------------------->
 
-completed=InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("😎 COMPLETED 😎", callback_data="completed")
-            ]
-        ]
-    )
+async def notInPROCESS(chat_id, message, current, total, deleteID):
+    if chat_id in PROCESS:
+        return False
+    else:
+        await message.edit(
+            text=f"`Canceled at {current}/{total} pages..` 🙄",
+            reply_markup=canceled
+        )
+        shutil.rmtree(f'{deleteID}')
+        doc.close()
+        return True
 
 #--------------->
 #--------> PDF TO IMAGES
@@ -57,6 +53,7 @@ completed=InlineKeyboardMarkup(
 KcbExtract = ["KIA|", "KIR|", "KDA|", "KDR|", "KIS|", "KDS|"]
 EXTRACT = filters.create(lambda _, __, query: query.data in ["IA", "DA", "IR", "DR", "IS", "DS"])
 KEXTRACT = filters.create(lambda _, __, query: query.data.startswith(tuple(KcbExtract)))
+
 
 # Extract pgNo (with unknown pdf page number)
 @ILovePDF.on_callback_query(EXTRACT)
@@ -72,6 +69,7 @@ async def _EXTRACT(bot, callbackQuery):
             return
         # ADD USER TO PROCESS
         PROCESS.append(callbackQuery.message.chat.id)
+        messageID=callbackQuery.message.message_id
         
         # ACCEPTING PAGE NUMBER
         if data in ["IA", "DA"]:
@@ -87,7 +85,7 @@ async def _EXTRACT(bot, callbackQuery):
                         "`5 attempt over.. Process canceled..`😏"
                     )
                     break
-                i += 1
+                i+=1
                 # PYROMOD ADD-ON (PG NO REQUEST)
                 needPages=await bot.ask(
                     text="__Pdf - Img›Doc » Pages:\nNow, Enter the range (start:end) :__\n\n/exit __to cancel__",
@@ -112,7 +110,7 @@ async def _EXTRACT(bot, callbackQuery):
                         "`Syntax Error: justNeedStartAndEnd `🚶"
                     )
                 # CORRECT FORMAT
-                elif len(pageStartAndEnd)==2:
+                elif len(pageStartAndEnd) == 2:
                     start=pageStartAndEnd[0]
                     end=pageStartAndEnd[1]
                     if start.isdigit() and end.isdigit():
@@ -177,7 +175,7 @@ async def _EXTRACT(bot, callbackQuery):
                     for i in singlePages:
                         if i.isdigit():
                             newList.append(i)
-                    if newList != []:
+                    if newList!=[]:
                         nabilanavab=False
                         break
                     # AFTER SORTING (IF NO DIGIT PAGES RETURN)
@@ -258,29 +256,26 @@ async def _EXTRACT(bot, callbackQuery):
                     pgList=totalPgList[i:i+10]
                     os.mkdir(f'{callbackQuery.message.message_id}/pgs')
                     for pageNo in pgList:
-                        page=doc.loadPage(pageNo-1)
-                        pix=page.getPixmap(matrix = mat)
+                        page=doc.load_page(pageNo-1)
+                        pix=page.get_pixmap(matrix = mat)
                         cnvrtpg+=1
-                        if cnvrtpg % 5 == 0:
+                        if cnvrtpg%5==0:
+                            if await notInPROCESS(
+                                callbackQuery.message.chat.id, downloadMessage, cnvrtpg, pageStartAndEnd[1], messageID
+                            ):
+                                return
                             await downloadMessage.edit(
                                 text=f"`Converted: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🤞`",
                                 reply_markup=cancel
                             )
-                        if callbackQuery.message.chat.id not in PROCESS:
-                            try:
-                                await downloadMessage.edit(
-                                    text=f"`Canceled at {cnvrtpg}/{int(int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0]))} pages.. 🙄`",
-                                    reply_markup=canceled
-                                )
-                                shutil.rmtree(f'{callbackQuery.message.message_id}')
-                                doc.close()
-                                return
-                            except Exception:
-                                return
                         with open(
                             f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg','wb'
                         ):
-                            pix.writePNG(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
+                            pix.save(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
+                    if await notInPROCESS(
+                        callbackQuery.message.chat.id, downloadMessage, cnvrtpg, pageStartAndEnd[1], messageID
+                    ):
+                        return
                     await downloadMessage.edit(
                         text=f"`Preparing an Album..` 🤹",
                         reply_markup=cancel
@@ -296,7 +291,7 @@ async def _EXTRACT(bot, callbackQuery):
                         qualityRate=95
                         for i in range(200):
                             if os.path.getsize(file) >= 1000000:
-                                picture = Image.open(file)
+                                picture=Image.open(file)
                                 picture.save(
                                     file, "JPEG",
                                     optimize=True,
@@ -317,10 +312,19 @@ async def _EXTRACT(bot, callbackQuery):
                                         InputMediaDocument(media=file)
                                     )
                                 break
-                    await downloadMessage.edit(
-                        text=f"`Uploading: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🐬`",
-                        reply_markup=cancel
-                    )
+                    if await notInPROCESS(
+                        callbackQuery.message.chat.id, downloadMessage, cnvrtpg, pageStartAndEnd[1], messageID
+                    ):
+                        return
+                    if callbackQuery.message.chat.id in PROCESS:
+                        await downloadMessage.edit(
+                            text=f"`Uploading: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🐬`",
+                            reply_markup=cancel
+                        )
+                    else:
+                        shutil.rmtree(f'{callbackQuery.message.message_id}')
+                        doc.close()
+                        return
                     if data in ["IA", "IR"]:
                         if callbackQuery.message.chat.id not in PROCESS:
                             try:
@@ -369,7 +373,7 @@ async def _EXTRACT(bot, callbackQuery):
                         disable_notification=True,
                         both_sides=True
                     )
-                totalPgList = []
+                totalPgList=[]
                 for i in newList:
                     if 1 <= int(i) <= number_of_pages:
                         totalPgList.append(i)
@@ -385,44 +389,38 @@ async def _EXTRACT(bot, callbackQuery):
                     text=f"`Total pages: {len(totalPgList)}..⏳`",
                     reply_markup=cancel
                 )
-                cnvrtpg = 0
+                cnvrtpg=0
                 for i in range(0, len(totalPgList), 10):
                     pgList = totalPgList[i:i+10]
                     os.mkdir(f'{callbackQuery.message.message_id}/pgs')
                     for pageNo in pgList:
                         if int(pageNo) <= int(number_of_pages):
-                            page=doc.loadPage(int(pageNo)-1)
-                            pix=page.getPixmap(matrix = mat)
+                            page=doc.load_page(int(pageNo)-1)
+                            pix=page.get_pixmap(matrix=mat)
                         else:
                             continue
                         cnvrtpg+=1
-                        if cnvrtpg % 5 == 0:
+                        if cnvrtpg%5==0:
                             await downloadMessage.edit(
                                 text=f"`Converted: {cnvrtpg}/{len(totalPgList)} pages.. 🤞`",
                                 reply_markup=cancel
                             )
-                        if callbackQuery.message.chat.id not in PROCESS:
-                            try:
-                                await downloadMessage.edit(
-                                    text=f"`Canceled at {cnvrtpg}/{len(totalPgList)} pages.. 🙄`",
-                                    reply_markup=canceled
-                                )
-                                shutil.rmtree(f'{callbackQuery.message.message_id}')
-                                doc.close()
-                                return
-                            except Exception:
+                            if await notInPROCESS(
+                                callbackQuery.message.chat.id, callbackQuery, cnvrtpg, totalPgList, messageID
+                            ):
                                 return
                         with open(
                             f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg','wb'
                         ):
-                            pix.writePNG(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
-                    try:
-                        await downloadMessage.edit(
-                            text=f"`Preparing an Album..` 🤹",
-                            reply_markup=cancel
-                        )
-                    except Exception:
-                        pass
+                            pix.save(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
+                    if await notInPROCESS(
+                        callbackQuery.message.chat.id, downloadMessage, cnvrtpg, totalPgList, messageID
+                    ):
+                        return
+                    await downloadMessage.edit(
+                        text=f"`Preparing an Album..` 🤹",
+                        reply_markup=cancel
+                    )
                     directory=f'{callbackQuery.message.message_id}/pgs'
                     imag=[os.path.join(directory, file) for file in os.listdir(directory)]
                     imag.sort(key=os.path.getctime)
@@ -455,11 +453,15 @@ async def _EXTRACT(bot, callbackQuery):
                                         InputMediaDocument(media=file)
                                     )
                                 break
+                    if await notInPROCESS(
+                        callbackQuery.message.chat.id, downloadMessage, cnvrtpg, totalPgList, messageID
+                    ):
+                        return
                     await downloadMessage.edit(
                         text=f"`Uploading: {cnvrtpg}/{len(totalPgList)} pages.. 🐬`",
                         reply_markup=cancel
                     )
-                    if data == "IS":
+                    if data=="IS":
                         if callbackQuery.message.chat.id not in PROCESS:
                             try:
                                 shutil.rmtree(f'{callbackQuery.message.message_id}')
@@ -475,7 +477,7 @@ async def _EXTRACT(bot, callbackQuery):
                             )
                         except Exception:
                             del media[callbackQuery.message.chat.id]
-                    if data == "DS":
+                    if data=="DS":
                         if callbackQuery.message.chat.id not in PROCESS:
                             try:
                                 shutil.rmtree(f'{callbackQuery.message.message_id}')
@@ -496,11 +498,7 @@ async def _EXTRACT(bot, callbackQuery):
                 doc.close()
                 await downloadMessage.edit(
                     text=f'`Uploading Completed.. `🏌️',
-                    callback_data=InlineKeyboardMarkup(
-                        [[
-                            InlineKeyboardButton("😎 COMPLETED 😎", callback_data="completed")
-                        ]]
-                    )
+                    reply_markup=completed
                 )
                 shutil.rmtree(f'{callbackQuery.message.message_id}')
     except Exception as e:
@@ -525,7 +523,7 @@ async def _KEXTRACT(bot, callbackQuery):
         _, number_of_pages=callbackQuery.data.split("|")
         PROCESS.append(callbackQuery.message.chat.id)
         if data in ["KIA", "KDA"]:
-            nabilanavab=False
+            nabilanavab = False
         elif data in ["KIR", "KDR"]:
             nabilanavab=True; i=0
             while(nabilanavab):
@@ -612,7 +610,7 @@ async def _KEXTRACT(bot, callbackQuery):
                     for i in singlePages:
                         if i.isdigit() and int(i) <= int(number_of_pages):
                             newList.append(i)
-                    if newList != []:
+                    if newList!=[]:
                         nabilanavab=False
                         break
                     elif newList==[]:
@@ -650,7 +648,7 @@ async def _KEXTRACT(bot, callbackQuery):
             if downloadLoc is None:
                 PROCESS.remove(callbackQuery.message.chat.id)
                 return
-            checked = await checkPdf(
+            checked=await checkPdf(
                 f'{callbackQuery.message.message_id}/pdf.pdf', callbackQuery
             )
             if not(checked=="pass"):
@@ -688,10 +686,10 @@ async def _KEXTRACT(bot, callbackQuery):
                     pgList=totalPgList[i:i+10]
                     os.mkdir(f'{callbackQuery.message.message_id}/pgs')
                     for pageNo in pgList:
-                        page=doc.loadPage(pageNo-1)
-                        pix=page.getPixmap(matrix = mat)
+                        page=doc.load_page(pageNo-1)
+                        pix=page.get_pixmap(matrix = mat)
                         cnvrtpg+=1
-                        if cnvrtpg % 5 == 0:
+                        if cnvrtpg%5==0:
                             await downloadMessage.edit(
                                 text=f"`Converted: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🤞`",
                                 reply_markup=cancel
@@ -710,7 +708,7 @@ async def _KEXTRACT(bot, callbackQuery):
                         with open(
                             f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg','wb'
                         ):
-                            pix.writePNG(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
+                            pix.save(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
                     try:
                         await downloadMessage.edit(
                             text=f"`Preparing an Album..` 🤹",
@@ -818,14 +816,14 @@ async def _KEXTRACT(bot, callbackQuery):
                     text=f"`Total pages: {len(totalPgList)}..⏳`",
                     reply_markup=cancel
                 )
-                cnvrtpg = 0
+                cnvrtpg=0
                 for i in range(0, len(totalPgList), 10):
-                    pgList = totalPgList[i:i+10]
+                    pgList=totalPgList[i:i+10]
                     os.mkdir(f'{callbackQuery.message.message_id}/pgs')
                     for pageNo in pgList:
                         if int(pageNo) <= int(number_of_pages):
-                            page=doc.loadPage(int(pageNo)-1)
-                            pix=page.getPixmap(matrix = mat)
+                            page=doc.load_page(int(pageNo)-1)
+                            pix=page.get_pixmap(matrix = mat)
                         else:
                             continue
                         cnvrtpg+=1
@@ -848,7 +846,7 @@ async def _KEXTRACT(bot, callbackQuery):
                         with open(
                             f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg','wb'
                         ):
-                            pix.writePNG(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
+                            pix.save(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
                     try:
                         await downloadMessage.edit(
                             text=f"`Preparing an Album..` 🤹",
