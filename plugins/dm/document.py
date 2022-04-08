@@ -326,7 +326,7 @@ async def documents(bot, message):
                     await message.download(
                         f"{message.message_id}/{isPdfOrImg}"
                     )
-                    await pdfMsgId.edit("`Work in Progress.. It might take some time`💛")
+                    await pdfMsgId.edit("`Work in Progress.. It might take some time..`💛")
                     try:
                         convertapi.convert(
                             "pdf",
