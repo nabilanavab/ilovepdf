@@ -1,15 +1,11 @@
 # fileName: Configs/dm.py
 # copyright ©️ 2021 nabilanavab
 
-
-
-
 import os
 
-
-
-
-#------------------------------------------- Config Variables -------------------------------------------
+#--------------->
+#--------> CONFIG VAR.
+#------------------->
 
 class Config(object):
     
@@ -49,3 +45,6 @@ class Config(object):
     
     # thumbnail
     PDF_THUMBNAIL = "./thumbnail.jpeg"
+
+
+#                                                                             Telegram: @nabilanavab
