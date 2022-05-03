@@ -6,7 +6,7 @@ import time
 import fitz
 import shutil
 try:
-    nabilanavab=False
+    nabilanavab=False # Change to False else never work
     import ocrmypdf
 except Exception:
     nabilanavab=True
@@ -34,12 +34,10 @@ ocr=filters.create(lambda _, __, query: query.data.startswith(tuple(ocrs)))
 @ILovePDF.on_callback_query(ocr)
 async def _ocr(bot, callbackQuery):
     try:
-        print('entered ocr')
         # CHECKS IF BOT DOING ANY WORK
         if nabilanavab==True:
             await callbackQuery.answer("Owner Restricted 😎🤏")
             return
-        await callbackQuery.answer("Just add text layer to pdf😎🤏")
         if callbackQuery.message.chat.id in PROCESS:
             await callbackQuery.answer("Work in progress.. 🙇")
             return
@@ -49,7 +47,7 @@ async def _ocr(bot, callbackQuery):
         if data[0]=="K":
             _, number_of_pages=callbackQuery.data.split("|")
             if int(number_of_pages)>=5:
-                await callbackQuery.answer("send a pdf file less than 5 pages` 🙄")
+                await callbackQuery.answer("send a pdf file less than 5 pages.. 🙄")
                 return
         # ADD TO PROCESS
         PROCESS.append(callbackQuery.message.chat.id)
@@ -80,7 +78,6 @@ async def _ocr(bot, callbackQuery):
             if not(checked=="pass"):
                 await downloadMessage.delete()
                 return
-        else:
             with fitz.open(input_file) as ocrPdf:
                 number_of_pages=ocrPdf.pageCount
                 if int(number_of_pages)>5:
