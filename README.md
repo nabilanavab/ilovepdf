@@ -156,7 +156,7 @@ the extracted PDF-images..</em>
 
      API_ID, API_HASH, API_TOKEN
      CONVERT_API, UPDATE_CHANNEL
-     MAX_FILE_SIZE
+     MAX_FILE_SIZE, ADMINS, BANNED_USERS
 
 ## About LICENSE:
 
