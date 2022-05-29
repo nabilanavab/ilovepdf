@@ -9,7 +9,7 @@
 	"website": "https://github.com/aakash2021-cap/ilovepdf1",
 	"repository": "https://github.com/aakash2021-cap/ilovepdf1",
 	"logo": "https://te.legra.ph/file/b659b2e306bb766a44537.jpg",
-	"success_url": "https://github.com/nabilanavab/ilovepdf",
+	"success_url": "https://github.com/aakash2021-cap/ilovepdf1",
 	"stack": "heroku-20",
 	"env": {
 		"API_TOKEN": {
