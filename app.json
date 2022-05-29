@@ -1,13 +1,13 @@
 {
-	"name": "ilovepdf_bot",
+	"name": "ilovemy",
 	"description": "A Telegram Bot that helps you to domany this with pdf.",
 	"keywords": [
 		"Telegram", "Telegram Bot", "pdf bot",
 		"ilovepdf", "nabilabavab", "python",
 		"ilovepdf_bot", "complete pdf bot"
 	],
-	"website": "https://github.com/nabilanavab/ilovepdf",
-	"repository": "https://github.com/nabilanavab/ilovepdf",
+	"website": "https://github.com/aakash2021-cap/ilovemy",
+	"repository": "https://github.com/aakash2021-cap/ilovemy",
 	"logo": "https://te.legra.ph/file/b659b2e306bb766a44537.jpg",
 	"success_url": "https://github.com/nabilanavab/ilovepdf",
 	"stack": "heroku-20",
