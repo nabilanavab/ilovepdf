@@ -37,7 +37,7 @@ if os.getenv("CONVERT_API") is not None:
 #message replies
 aboutDev = """About Dev:
 
-OwNeD By: @nabilanavab 😜
+OwNeD By: @FLIGHER
 Update Channel: @ilovepdf\_bot 😇                                                                
 
 Lang Used: Python🐍
