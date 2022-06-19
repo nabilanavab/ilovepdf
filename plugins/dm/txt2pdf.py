@@ -244,7 +244,7 @@ async def _pgSize(bot, callbackQuery):
                                                   thumb = PDF_THUMBNAIL
                                                   )
         await processMessage.delete(); PROCESS.remove(chat_id)
-        os.remove(f"{message_id}"); TXT.remove(chat_id)
+        os.remove(f"{message_id}.pdf"); TXT.remove(chat_id)
     except Exception as e:
         logger.exception(
                         "PAGE SIZE:CAUSES %(e)s ERROR",
