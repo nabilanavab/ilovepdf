@@ -64,13 +64,13 @@ async def thumbName(message, fileName):
         chat_type = message.chat.type
         fileNm, fileExt = os.path.splitext(fileName)
         if changeNAME:
-            DEFAULT_NAME = DEFAULT_NAME + fileExt
+            SET_DEFAULT_NAME = DEFAULT_NAME + fileExt
         
         # if no mongoDB return False [default thumbnail ]
         if not isMONGOexist:
             # id no DEFAULT_NAME, use current file name 
             if changeNAME:
-                return PDF_THUMBNAIL, DEFAULT_NAME
+                return PDF_THUMBNAIL, SET_DEFAULT_NAME
             else:
                 return PDF_THUMBNAIL, fileName
         
@@ -83,7 +83,7 @@ async def thumbName(message, fileName):
             thumbnail = PDF_THUMBNAIL
         
         if changeNAME:
-            return thumbnail, DEFAULT_NAME
+            return thumbnail, SET_DEFAULT_NAME
         else:
             return thumbnail, fileName
     
