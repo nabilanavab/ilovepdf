@@ -7,3 +7,7 @@ convertapi==1.4.0
 PDFNetPython3==8.1.0
 pyromod==1.5
 fpdf==1.7.2
+psutil==5.9.0
+motor==2.5.1
+pymongo[srv]
+hachoir

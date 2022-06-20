@@ -8,3 +8,7 @@ PDFNetPython3==8.1.0
 pyromod==1.5
 fpdf==1.7.2
 ocrmypdf==13.4.0
+motor==2.5.1
+psutil==5.9.0
+pymongo[srv]
+hachoir

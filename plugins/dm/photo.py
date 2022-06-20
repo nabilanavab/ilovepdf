@@ -1,33 +1,35 @@
 # fileName : Plugins/dm/photo.py
 # copyright ©️ 2021 nabilanavab
 
+# LOGGING INFO: INFO
+import logging
+logger=logging.getLogger(__name__)
+logging.basicConfig(
+                   level=logging.INFO,
+                   format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
+                   )
+
 import os
-from pdf import PDF
 from PIL import Image
-from pdf import invite_link
+from pyrogram.types import (
+                           InlineKeyboardButton,
+                           InlineKeyboardMarkup
+                           )
 from pyrogram import filters
-from Configs.dm import Config
+from configs.dm import Config
+from pdf import PDF, invite_link
 from pyrogram import Client as ILovePDF
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from configs.images import WELCOME_PIC, BANNED_PIC
 
-#--------------->
-#--------> Config var.
-#------------------->
-
-UPDATE_CHANNEL=Config.UPDATE_CHANNEL
-BANNED_USERS=Config.BANNED_USERS
-ADMIN_ONLY=Config.ADMIN_ONLY
-ADMINS=Config.ADMINS
+UPDATE_CHANNEL = Config.UPDATE_CHANNEL
 
 #--------------->
 #--------> LOCAL VARIABLES
 #------------------->
 
-UCantUse = "For Some Reason You Can't Use This Bot 🛑"
-
 imageAdded = """`Added {} page/'s to your pdf..`🤓
 
-/generate to generate PDF 🤞"""
+fileName: `{}.pdf` 🤞"""
 
 forceSubMsg = """Wait [{}](tg://user?id={})..!!
 
@@ -37,22 +39,16 @@ This Means You Need To Join The Below Mentioned Channel for Using Me!
 
 hit on "retry ♻️" after joining.. 😅"""
 
-button=InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton(
-                    "😉 Create your Own 😉",
-                    url="https://github.com/nabilanavab/ilovepdf"
-                )
-            ]
-       ]
-    )
-
 #--------------->
 #--------> REPLY TO IMAGES
 #------------------->
 
-@ILovePDF.on_message(filters.private & ~filters.edited & filters.photo)
+@ILovePDF.on_message(
+                    filters.photo &
+                    filters.private &
+                    ~filters.edited &
+                    filters.incoming
+                    )
 async def images(bot, message):
     try:
         global invite_link
@@ -60,61 +56,80 @@ async def images(bot, message):
         # CHECK USER IN CHANNEL (IF UPDATE_CHANNEL ADDED)
         if UPDATE_CHANNEL:
             try:
-                await bot.get_chat_member(
-                    str(UPDATE_CHANNEL), message.chat.id
-                )
+                userStatus = await bot.get_chat_member(
+                                                      str(UPDATE_CHANNEL),
+                                                      message.chat.id
+                                                      )
+                # IF USER BANNED FROM CHANNEL
+                if userStatus.status == 'banned':
+                     return await message.reply_photo(
+                                                     photo = BANNED_PIC, quote = True,
+                                                     caption = "For Some Reason You Can't Use This Bot"
+                                                               "\n\nContact Bot Owner 🤐",
+                                                     reply_markup = InlineKeyboardMarkup(
+                                                                          [[
+                                                                                 InlineKeyboardButton(
+                                                                                                     "Owner 🎊",
+                                                                                 url="https://t.me/nabilanavab")
+                                                                          ]]
+                                                                    )
+                                                     )
             except Exception:
                 if invite_link == None:
-                    invite_link=await bot.create_chat_invite_link(
-                        int(UPDATE_CHANNEL)
-                    )
-                await message.reply_text(
-                    forceSubMsg.format(
-                        message.from_user.first_name, message.chat.id
-                    ),
-                    reply_markup = InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    "🌟 JOIN CHANNEL 🌟",
-                                    url=invite_link.invite_link
-                                )
-                            ],
-                            [
-                                InlineKeyboardButton(
-                                    "Refresh ♻️",
-                                    callback_data="refresh"
-                                )
-                            ]
-                        ]
-                    )
-                )
-                return
-        # CHECKS IF USER BAN/ADMIN..
-        if (message.chat.id in BANNED_USERS) or (
-            (ADMIN_ONLY) and (message.chat.id not in ADMINS)
-        ):
-            await message.reply_text(
-                UCantUse, reply_markup=button
-            )
-            return
+                    invite_link = await bot.create_chat_invite_link(
+                                                                   int(UPDATE_CHANNEL)
+                                                                   )
+                return await message.reply_photo(
+                                         photo = WELCOME_PIC,
+                                         quote = True,
+                                         caption = forceSubMsg.format(
+                                             message.from_user.first_name, message.chat.id
+                                         ),
+                                         reply_markup = InlineKeyboardMarkup(
+                                             [[
+                                                 InlineKeyboardButton("🌟 JOIN CHANNEL 🌟",
+                                                             url = invite_link.invite_link)
+                                             ],[
+                                                 InlineKeyboardButton("Refresh ♻️",
+                                                              callback_data = "refreshImg")
+                                             ]]
+                                         ))
         imageReply = await message.reply_text(
-            "`Downloading your Image..⏳`", quote=True
-        )
+                                             "`Downloading your Image..⏳`",
+                                             quote=True
+                                             )
         if not isinstance(PDF.get(message.chat.id), list):
             PDF[message.chat.id] = []
         await message.download(
-            f"{message.chat.id}/{message.chat.id}.jpg"
-        )
+                              f"{message.chat.id}/{message.chat.id}.jpg"
+                              )
         img = Image.open(
             f"{message.chat.id}/{message.chat.id}.jpg"
         ).convert("RGB")
         PDF[message.chat.id].append(img)
         await imageReply.edit(
-            imageAdded.format(len(PDF[message.chat.id]))
-        )
-    except Exception:
-        pass
+                             imageAdded.format(
+                                              len(PDF[message.chat.id]),
+                                              message.chat.id
+                                              ),
+                             reply_markup = InlineKeyboardMarkup(
+                                                                [[
+                                                                    InlineKeyboardButton(
+                                                                                        "GENERATE 📚",
+                                                                                        callback_data="generate"
+                                                                                        ),
+                                                                    InlineKeyboardButton(
+                                                                                        "RENAME ✍️",
+                                                                                        callback_data="generateREN"
+                                                                                        )
+                                                                ]]
+                                            )
+                             )
+    
+    except Exception as e:
+        logger.exception(
+                        "PHOTO:CAUSES %(e)s ERROR",
+                        exc_info=True
+                        )
 
-
-#                                                                                  Telegram: @nabilanavab
+#                                                                                              Telegram: @nabilanavab
