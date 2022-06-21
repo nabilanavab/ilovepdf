@@ -45,14 +45,10 @@ canceled = InlineKeyboardMarkup([[InlineKeyboardButton("🍄 CANCELED 🍄", cal
 async def notInPROCESS(chat_id, message, deleteID):
     if chat_id in PROCESS:
         return False
-    else:
-        await message.edit(
-                          text = f"`Process Canceled..😏`",
-                          reply_markup = canceled
-                          )
-        shutil.rmtree(f'{deleteID}')
-        doc.close()
-        return True
+    await message.edit(text="`Process Canceled..😏`", reply_markup = canceled)
+    shutil.rmtree(f'{deleteID}')
+    doc.close()
+    return True
 
 #--------------->
 #--------> PDF TO IMAGES

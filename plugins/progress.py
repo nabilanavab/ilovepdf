@@ -20,8 +20,9 @@ reply_markup = InlineKeyboardMarkup(
 # Here t = 0; cauz downloading using bot.downlod_media cant fetch
 # total file size, so sharing file_size as function para.
 async def progress(current, t, total, message, start):
-    now = time.time(); diff = now - start
-    
+    now = time.time()
+    diff = now - start
+
     if round(diff % 10) in [0, 8] or current == total:
         # if round(current / total * 100, 0) % 10 == 0:
         percentage = current * 100 / total
@@ -36,16 +37,16 @@ async def progress(current, t, total, message, start):
             await gSF(current), await gSF(total), await gSF(speed),
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
-        
+
         await message.edit_text(
-            text = "DOWNLOADING.. 📥\n{}".format(tmp),
-            reply_markup = reply_markup
+            text=f"DOWNLOADING.. 📥\n{tmp}", reply_markup=reply_markup
         )
 
 
 async def uploadProgress(current, total, message, start):
-    now = time.time(); diff = now - start
-    
+    now = time.time()
+    diff = now - start
+
     if round(diff % 10) in [0, 8] or current == total:
         # if round(current / total * 100, 0) % 10 == 0:
         percentage = current * 100 / total
@@ -60,10 +61,9 @@ async def uploadProgress(current, total, message, start):
             await gSF(current), await gSF(total), await gSF(speed),
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
-        
+
         await message.edit_text(
-            text = "UPLOADING.. 📤\n{}".format(tmp),
-            reply_markup = reply_markup
+            text=f"UPLOADING.. 📤\n{tmp}", reply_markup=reply_markup
         )
 
 #--------------->
@@ -71,15 +71,18 @@ async def uploadProgress(current, total, message, start):
 #------------------->
 
 def TimeFormatter(milliseconds: int) -> str:
-    seconds, milliseconds=divmod(int(milliseconds), 1000)
+    seconds, milliseconds = divmod(milliseconds, 1000)
     minutes, seconds=divmod(seconds, 60)
     hours, minutes=divmod(minutes, 60)
     days, hours=divmod(hours, 24)
-    tmp=((str(days) + "d, ") if days else "") + \
-        ((str(hours) + "h, ") if hours else "") + \
-        ((str(minutes) + "m, ") if minutes else "") + \
-        ((str(seconds) + "s, ") if seconds else "") + \
-        ((str(milliseconds) + "ms, ") if milliseconds else "")
+    tmp = (
+        (f"{str(days)}d, " if days else "")
+        + (f"{str(hours)}h, " if hours else "")
+        + (f"{str(minutes)}m, " if minutes else "")
+        + (f"{str(seconds)}s, " if seconds else "")
+        + (f"{str(milliseconds)}ms, " if milliseconds else "")
+    )
+
     return tmp[:-2]
 
 #                                                                                  Telegram: @nabilanavab
