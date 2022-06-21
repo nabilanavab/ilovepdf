@@ -43,18 +43,18 @@ async def _thumbnail(bot, message):
                                quote = True
                                )
             return
-        if chat_type != "private":
-            if message.from_user.id in Config.ADMINS:
-                pass
-            else:
-                userStats = await bot.get_chat_member(
-                                               message.chat.id,
-                                               message.from_user.id
-                                               )
-                if userStats.status not in ["administrator", "creator"]:
-                    return await message.reply(
-                                              "U Can't do it Vroh.. 🤧"
-                                              )
+        if (
+            chat_type != "private"
+            and message.from_user.id not in Config.ADMINS
+        ):
+            userStats = await bot.get_chat_member(
+                                           message.chat.id,
+                                           message.from_user.id
+                                           )
+            if userStats.status not in ["administrator", "creator"]:
+                return await message.reply(
+                                          "U Can't do it Vroh.. 🤧"
+                                          )
         if message.reply_to_message and message.reply_to_message.photo:
             # set thumbnail
             if chat_type == "private":
@@ -81,7 +81,6 @@ async def _thumbnail(bot, message):
                 CUSTOM_THUMBNAIL_U.append(message.from_user.id)
             else:
                 CUSTOM_THUMBNAIL_C.append(message.chat.id)
-            return
         else:
             if (message.chat.id not in CUSTOM_THUMBNAIL_U) and (message.chat.id not in CUSTOM_THUMBNAIL_C):
                 return await message.reply(
@@ -98,7 +97,7 @@ async def _thumbnail(bot, message):
                 thumbnail = await db.get_group_thumb(
                                                     message.chat.id
                                                     )
-            
+
             await message.reply_photo(
                                      photo = thumbnail,
                                      caption = "Custom Thumbnail",
@@ -107,7 +106,7 @@ async def _thumbnail(bot, message):
                                             [[InlineKeyboardButton("Delete Thumbnail",
                                                    callback_data = "delThumb")]]
                                      ))
-            return
+        return
     except Exception as e:
         logger.exception(
                         "/THUMBNAIL:CAUSES %(e)s ERROR",
@@ -126,12 +125,11 @@ async def _getThumb(bot, callbackQuery):
             await callbackQuery.answer(
                                       "Can't Use This Feature 🤧"
                                       )
-            return
         else:
             await callbackQuery.answer(
                                       "wait.! Let me think.. 🤔"
                                       )
-            
+
             if callbackQuery.message.chat.id in CUSTOM_THUMBNAIL_U:
                 thumbnail = await db.get_thumbnail(
                                                   callbackQuery.message.chat.id
@@ -142,7 +140,7 @@ async def _getThumb(bot, callbackQuery):
                                                     )
             else:
                 thumbnail = False
-            
+
             if not thumbnail:
                 await callbackQuery.edit_message_media(InputMediaPhoto(PDF_THUMBNAIL))
                 if chat_type == "private":
@@ -185,7 +183,7 @@ async def _getThumb(bot, callbackQuery):
                                                               "/thumbnail :\n◍ To get current thumbnail\n"
                                                               "◍ Reply to a photo to set custom thumbnail",
                                                     reply_markup = reply_markup)
-            return
+        return
     except Exception as e:
         logger.exception(
                         "GET_THUMB:CAUSES %(e)s ERROR",
@@ -249,19 +247,19 @@ async def _delThumb(bot, callbackQuery):
     try:
         chat_type = callbackQuery.message.chat.type
         # if callbackQuery for [old delete thumb] messages
-        
-        if chat_type != "private":
-            if callbackQuery.from_user.id in Config.ADMINS:
-                pass
-            else:
-                userStats = await bot.get_chat_member(
-                                               callbackQuery.message.chat.id,
-                                               callbackQuery.from_user.id
-                                               )
-                if userStats.status not in ["administrator", "creator"]:
-                    return await callbackQuery.answer(
-                                              "U Can't do it Vroh.. 🤧"
-                                              )
+
+        if (
+            chat_type != "private"
+            and callbackQuery.from_user.id not in Config.ADMINS
+        ):
+            userStats = await bot.get_chat_member(
+                                           callbackQuery.message.chat.id,
+                                           callbackQuery.from_user.id
+                                           )
+            if userStats.status not in ["administrator", "creator"]:
+                return await callbackQuery.answer(
+                                          "U Can't do it Vroh.. 🤧"
+                                          )
         if (callbackQuery.message.chat.id not in CUSTOM_THUMBNAIL_U) and (
             callbackQuery.message.chat.id not in CUSTOM_THUMBNAIL_C):
             await callbackQuery.answer(
@@ -274,7 +272,7 @@ async def _delThumb(bot, callbackQuery):
         await callbackQuery.answer(
                                   "Deleting.. 🤬"
                                   )
-        
+
         if chat_type == "private":
             await callbackQuery.edit_message_media(InputMediaPhoto(WELCOME_PIC))
             await _back(bot, callbackQuery)

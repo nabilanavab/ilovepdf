@@ -38,23 +38,24 @@ async def _preview(bot, callbackQuery):
     try:
         if await header(bot, callbackQuery):
             return
-        
+
         chat_id = callbackQuery.message.chat.id
         message_id = callbackQuery.message.message_id
-        
+
         # CHECK USER PROCESS
         if chat_id in PROCESS:
             return await callbackQuery.answer(
                                       "WORK IN PROGRESS.. 🙇")
-        
+
         await callbackQuery.answer(
                                   "Send Some Random Pages with Metadata 😁"
                                   )
         # ↓ ADD TO PROCESS       ↓ CALLBACK DATA
-        PROCESS.append(chat_id); data=callbackQuery.data
+        PROCESS.append(chat_id)
+        data=callbackQuery.data
         input_file = f"{message_id}/inPut.pdf"
         output_file = f"{message_id}/outPut.pdf"
-        
+
         # DOWNLOAD MESSAGE
         downloadMessage = await callbackQuery.message.reply_text(
                                                                 "`Downloding your pdf..` 📥", 
@@ -84,7 +85,7 @@ async def _preview(bot, callbackQuery):
                                                      input_file,
                                                      callbackQuery
                                                      )
-            if not(checked == "pass"):
+            if checked != "pass":
                 await downloadMessage.delete()
                 return
         # OPEN PDF WITH FITZ
@@ -107,13 +108,13 @@ async def _preview(bot, callbackQuery):
         await downloadMessage.edit(
                                   f"`Total pages: {len(totalPgList)}..` 🤌"
                                   )
-        
+
         metaData = doc.metadata
         if metaData != None:
             for i in metaData:
                 if metaData[i] != "":
                     caption += f"`{i}: {metaData[i]}`\n"
-        
+
         zoom = 2
         mat = fitz.Matrix(
                          zoom, zoom
@@ -128,9 +129,7 @@ async def _preview(bot, callbackQuery):
             ):
                 pix.writePNG(f'{message_id}/pgs/{pageNo}.jpg')
         try:
-            await downloadMessage.edit(
-                                      f"`Preparing an Album..` 🤹"
-                                      )
+            await downloadMessage.edit("`Preparing an Album..` 🤹")
         except Exception: pass
         directory = f'{message_id}/pgs'
         # RELATIVE PATH TO ABS. PATH
@@ -143,7 +142,7 @@ async def _preview(bot, callbackQuery):
             # COMPRESSION QUALITY
             qualityRate = 95
             # JUST AN INFINITE LOOP
-            for i in range(200):
+            for _ in range(200):
                 # print("size: ",file, " ",os.path.getsize(file)) LOG MESSAGE
                 # FILES WITH 10MB+ SIZE SHOWS AN ERROR FROM TELEGRAM 
                 # SO COMPRESS UNTIL IT COMES LESS THAN 10MB.. :(
@@ -171,9 +170,7 @@ async def _preview(bot, callbackQuery):
                                                             media = file)
                                                             )
                     break
-        await downloadMessage.edit(
-                                  f"`Uploading: preview pages.. 🐬`"
-                                  )
+        await downloadMessage.edit("`Uploading: preview pages.. 🐬`")
         await callbackQuery.message.reply_chat_action(
                                                      "upload_photo"
                                                      )
@@ -181,7 +178,8 @@ async def _preview(bot, callbackQuery):
                                                      media[chat_id], quote = True
                                                      )
         await downloadMessage.delete()
-        doc.close; del media[chat_id]
+        doc.close
+        del media[chat_id]
         PROCESS.remove(chat_id)
         shutil.rmtree(f'{message_id}')
     except Exception as e:

@@ -187,7 +187,7 @@ async def documents(bot, message):
                                                       url="https://t.me/nabilanavab")]]
                                               ))
             except Exception:
-                if invite_link == None:
+                if invite_link is None:
                     invite_link = await bot.create_chat_invite_link(
                                                                    int(UPDATE_CHANNEL)
                                                                    )
@@ -205,21 +205,23 @@ async def documents(bot, message):
                                                     callback_data = "refreshAnalyse")
                                          ]]
                                     ))
-        
+
         if message.from_user.id in PROCESS:
             return await message.reply_to_message.reply(
-                                                       "WORK IN PROGRESS.. 🙇"
-                                                       "\nTry Again Later.. 😉"
-                                                       "\n\nRequest from: {}".format(message.from_user.mention),
-                                                       quote = True,
-                                                       reply_markup = InlineKeyboardMarkup(
-                                                             [[
-                                                                 InlineKeyboardButton(
-                                                                          "♻️ Try Again ♻️",
-                                                                 callback_data = "newGrupDoc")
-                                                             ]]
-                                                       ))
-        
+                f"WORK IN PROGRESS.. 🙇\nTry Again Later.. 😉\n\nRequest from: {message.from_user.mention}",
+                quote=True,
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                "♻️ Try Again ♻️", callback_data="newGrupDoc"
+                            )
+                        ]
+                    ]
+                ),
+            )
+
+
         status = await bot.get_chat_member(
                                            message.chat.id,
                                            myID.id
@@ -231,16 +233,14 @@ async def documents(bot, message):
                                       "__Please promote me as admin__ ☺️",
                                       quote = True
                                       )
-        
+
         if (not message.reply_to_message) or not(message.reply_to_message.document or message.reply_to_message.photo):
             return await message.reply(
                                       "Broh Please Reply to a Document or an Image..🤧",
                                       quote = True
                                       )
-        
-        if message.from_user.id in Config.ADMINS:
-            pass
-        else:
+
+        if message.from_user.id not in Config.ADMINS:
             isAdmin = await bot.get_chat_member(
                                          message.chat.id,
                                          message.from_user.id
@@ -255,7 +255,7 @@ async def documents(bot, message):
                     return await message.reply(
                                               "Please Reply to Your Message.. 🙂"
                                               )
-        
+
         if message.reply_to_message.photo:
             imageReply = await message.reply_to_message.reply_text(
                                              "`Downloading your Image..` 📥",
@@ -275,11 +275,11 @@ async def documents(bot, message):
                                                   len(PDF[message.chat.id])
                                                   )
                                  )
-        
+
         isPdfOrImg = message.reply_to_message.document.file_name        # file name
         fileSize = message.reply_to_message.document.file_size          # file size
         fileNm, fileExt = os.path.splitext(isPdfOrImg) # seperate name & extension
-        
+
         # REPLY TO LAGE FILES/DOCUMENTS
         if MAX_FILE_SIZE and fileSize >= int(MAX_FILE_SIZE_IN_kiB):
             await message.reply_to_message.reply_photo(
@@ -294,8 +294,7 @@ async def documents(bot, message):
                                            ]]
                                     ))
             return
-        
-        # IMAGE AS FILES (ADDS TO PDF FILE)
+
         elif fileExt.lower() in suprtedFile:
             try:
                 imageDocReply = await message.reply_to_message.reply_text(
@@ -320,8 +319,7 @@ async def documents(bot, message):
                 await imageDocReply.edit(
                                         errorEditMsg.format(e)
                                         )
-        
-        # REPLY TO .PDF FILE EXTENSION
+
         elif fileExt.lower() == ".pdf":
             pdfMsgId = await message.reply_to_message.reply_text(
                                                                 "⚙️ PROCESSING.",
@@ -340,8 +338,7 @@ async def documents(bot, message):
                                reply_markup = pdfReply
                                )
             await footer(message, message.reply_to_message)
-        
-        # FILES TO PDF (PYMUPDF/FITZ)
+
         elif fileExt.lower() in suprtedPdfFile:
             try:
                 PROCESS.append(message.from_user.id)
@@ -366,7 +363,7 @@ async def documents(bot, message):
                         deflate = True,
                         )
                 pdf.close()
-                
+
                 # Getting thumbnail
                 thumbnail, fileName = await thumbName(message, isPdfOrImg)
                 if PDF_THUMBNAIL != thumbnail:
@@ -375,7 +372,7 @@ async def documents(bot, message):
                                             file_name = f"{message.message_id}/thumbnail.jpeg"
                                             )
                     thumbnail = await formatThumb(f"{message.message_id}/thumbnail.jpeg")
-                
+
                 await pdfMsgId.edit(
                                    "`Started Uploading..` 📤"
                                    )
@@ -401,15 +398,14 @@ async def documents(bot, message):
                     PROCESS.remove(message.from_user.id)
                 except Exception:
                     pass
-        
-        # FILES TO PDF (CONVERTAPI)
+
         elif fileExt.lower() in suprtedPdfFile2:
             if Config.CONVERT_API is None:
                 pdfMsgId = await message.reply_text(
                                                    "`Owner Forgot to add ConvertAPI.. contact Owner 😒`",
                                                    quote = True
                                                    )
-                return 
+                return
             else:
                 try:
                     PROCESS.append(message.from_user.id)
@@ -442,7 +438,7 @@ async def documents(bot, message):
                             PROCESS.remove(message.from_user.id)
                             return
                         except Exception: pass
-                    
+
                     # Getting thumbnail
                     thumbnail, fileName = await thumbName(message, isPdfOrImg)
                     if PDF_THUMBNAIL != thumbnail:
@@ -469,9 +465,6 @@ async def documents(bot, message):
                     await footer(message, logFile)
                 except Exception:
                     PROCESS.remove(message.from_user.id)
-                    pass
-        
-        # UNSUPPORTED FILES
         else:
             try:
                 await message.reply_to_message.reply_text(

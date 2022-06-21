@@ -67,20 +67,20 @@ button = InlineKeyboardMarkup(
 #------------------->
 
 async def bannedUsers(_, __, message: Message):
-    if (message.from_user.id in BANNED_USERS) or (
-           (ADMIN_ONLY) and (message.from_user.id not in ADMINS)) or (
-               (isMONGOexist) and (message.from_user.id in BANNED_USR_DB)):
-        return True
-    return False
+    return bool(
+        (message.from_user.id in BANNED_USERS)
+        or ((ADMIN_ONLY) and (message.from_user.id not in ADMINS))
+        or ((isMONGOexist) and (message.from_user.id in BANNED_USR_DB))
+    )
 
 banned_user=filters.create(bannedUsers)
 
 async def bannedGroups(_, __, message: Message):
-    if (message.chat.id in BANNED_GROUP) or (
-           (ADMIN_GROUP_ONLY) and (message.chat.id not in ADMIN_GROUPS)) or (
-               (isMONGOexist) and (message.chat.id in BANNED_GRP_DB)):
-        return True
-    return False
+    return bool(
+        (message.chat.id in BANNED_GROUP)
+        or ((ADMIN_GROUP_ONLY) and (message.chat.id not in ADMIN_GROUPS))
+        or ((isMONGOexist) and (message.chat.id in BANNED_GRP_DB))
+    )
 
 banned_group=filters.create(bannedGroups)
 
@@ -96,11 +96,12 @@ async def bannedUsr(bot, message):
         if message.from_user.id in BANNED_USR_DB:
             ban = await db.get_ban_status(message.from_user.id)
             await message.reply_photo(
-                                     photo = BANNED_PIC,
-                                     caption = UCantUse.format(message.from_user.mention)+f'\n\nREASON: {ban["ban_reason"]}',
-                                     reply_markup = button,
-                                     quote = True
-                                     )
+                photo=BANNED_PIC,
+                caption=f'{UCantUse.format(message.from_user.mention)}\n\nREASON: {ban["ban_reason"]}',
+                reply_markup=button,
+                quote=True,
+            )
+
             return
         #IF USER BANNED FROM CONFIG.VAR
         await message.reply_photo(
@@ -126,11 +127,12 @@ async def bannedGrp(bot, message):
         if message.chat.id in BANNED_GRP_DB:
             ban = await db.get_ban_status(message.chat.id)
             toPin = await message.reply_photo(
-                                           photo = BANNED_PIC,
-                                           caption = GroupCantUse.format(message.chat.title)+f'\n\nREASON: {ban["ban_reason"]}',
-                                           reply_markup = button,
-                                           quote = True
-                                           )
+                photo=BANNED_PIC,
+                caption=f'{GroupCantUse.format(message.chat.title)}\n\nREASON: {ban["ban_reason"]}',
+                reply_markup=button,
+                quote=True,
+            )
+
         else:
             toPin = await message.reply_photo(
                                       photo = BANNED_PIC,
@@ -154,10 +156,9 @@ async def broadcast_messages(user_id, message, info):
     try:
         if info == "c":
             await message.copy(chat_id=user_id)
-            return True, "Success"
         else:
             await message.forward(chat_id=user_id)
-            return True, "Success"
+        return True, "Success"
     except FloodWait as e:
         await asyncio.sleep(e.x)
         return await broadcast_messages(user_id, message, info)
@@ -197,15 +198,14 @@ async def _broadcast(bot, message):
                                    "Sorry.! I can't remember my Userlist 😲"
                                    )
         await asyncio.sleep(1)
-        if len(message.command) == 2:
-            info = message.text.split(None, 2)[1]
-            if info not in ["f", "c"]:
-                return await procs.edit(
-                                       "🥴 Syntax Error:\n\n"
-                                       "`/broadcast f`: broadcast message [with quotes]\n"
-                                       "`/broadcast c`: broadcast as copy [without quotes]"
-                                       )
-        else:
+        if len(message.command) != 2:
+            return await procs.edit(
+                                   "🥴 Syntax Error:\n\n"
+                                   "`/broadcast f`: broadcast message [with quotes]\n"
+                                   "`/broadcast c`: broadcast as copy [without quotes]"
+                                   )
+        info = message.text.split(None, 2)[1]
+        if info not in ["f", "c"]:
             return await procs.edit(
                                    "🥴 Syntax Error:\n\n"
                                    "`/broadcast f`: broadcast message [with quotes]\n"
@@ -222,7 +222,11 @@ async def _broadcast(bot, message):
                         ))
         start_time = time.time()
         total_users = await db.total_users_count()
-        done = 0; blocked = 0; deleted = 0; failed = 0; success = 0
+        done = 0
+        blocked = 0
+        deleted = 0
+        failed = 0
+        success = 0
         async for user in users:
             iSuccess, feed = await broadcast_messages(int(user['id']), broadcast_msg, info)
             if iSuccess:

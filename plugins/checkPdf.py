@@ -34,11 +34,10 @@ async def checkPdf(file_path, callbackQuery):
         message_id = callbackQuery.message.message_id
         fileName = callbackQuery.message.reply_to_message.document.file_name
         fileSize = callbackQuery.message.reply_to_message.document.file_size
-        
+
         with fitz.open(file_path) as doc:
-            isEncrypted = doc.is_encrypted
             number_of_pages = doc.pageCount
-            if isEncrypted:
+            if isEncrypted := doc.is_encrypted:
                 await callbackQuery.edit_message_text(
                     encryptedMsg.format(
                         fileName, await gSF(fileSize), number_of_pages
@@ -57,11 +56,10 @@ async def checkPdf(file_path, callbackQuery):
                     except Exception:
                         pass
                 return "encrypted", number_of_pages
-            
+
             else:
                 await toKnown(callbackQuery, number_of_pages)
                 return "pass", number_of_pages
-    # CODEC ERROR
     except Exception:
         await callbackQuery.edit_message_text(
             text = codecMsg,
