@@ -757,7 +757,7 @@ async def _cancelP2I(bot, callbackQuery):
         await callbackQuery.message.edit_reply_markup(
              InlineKeyboardMarkup([[InlineKeyboardButton("💤 CANCELLING.. 💤", callback_data = "nabilanavab")]])
         )
-        PROCESS.remove(callbackQuery.message.from_user.id)
+        PROCESS.remove(callbackQuery.from_user.id)
     except Exception as e:
         logger.exception(
                         "CB/22:CAUSES %(e)s ERROR",
