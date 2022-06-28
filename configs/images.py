@@ -11,7 +11,7 @@ FEEDBACK = "https://t.me/kkhanyaseen"
 # ❌ DEFAULT THUMBNAIL ❌ [EDITABLE]
 # NB: Thumbnails can’t be reused and can be only uploaded as a new file.
 # from Configs.images import PDF_THUMBNAIL
-PDF_THUMBNAIL = "./images/thumbnail.jpeg"
+PDF_THUMBNAIL = "https://te.legra.ph/file/467c6fe1942991ebafccb.jpg"
 # PDF_THUMBNAIL="https://te.legra.ph/file/a780afd8b5cef866a388d.jpg"
 
 
@@ -24,13 +24,13 @@ WELCOME_PIC = "https://te.legra.ph/file/cba423d15873a0d852cc3.jpg"
 # ❌ BANNED IMAGE ❌ [EDITABLE]
 # from Configs.images import BANNED_PIC
 # BANNED_MESSAGE="./images/banned.jpeg"
-BANNED_PIC = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"
+BANNED_PIC = "https://te.legra.ph/file/cba423d15873a0d852cc3.jpg"
 
 
 # ❌ BIG FILE ❌ [EDITABLE]
 # from Configs.images import BIG_FILE
 #  = "./images/bigFile.jpeg"
-BIG_FILE = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"
+BIG_FILE = "https://te.legra.ph/file/cba423d15873a0d852cc3.jpg"
 
 
 # ❌ Load UsersId with custom thumbnail ❌
