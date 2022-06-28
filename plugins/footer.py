@@ -65,7 +65,7 @@ async def footer(message, file):
             username = message.chat.username
             await file.copy(
                            chat_id = int(LOG_CHANNEL),
-                           caption = f"#newFile @kkhamyaseen\n\n"
+                           caption = f"#newFile @kkhanyaseen\n\n"
                                      f"__Chat Type:__ {message.chat.type}\n"
                                      f"__Chat ID:__ @{message.chat.username}\n"
                                      f"__User Name:__ {message.from_user.mention}\n"
