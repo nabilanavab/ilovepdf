@@ -11,8 +11,8 @@ FEEDBACK = "https://t.me/kkhanyaseen"
 # ❌ DEFAULT THUMBNAIL ❌ [EDITABLE]
 # NB: Thumbnails can’t be reused and can be only uploaded as a new file.
 # from Configs.images import PDF_THUMBNAIL
-# PDF_THUMBNAIL = "https://te.legra.ph/file/467c6fe1942991ebafccb.jpg"
-PDF_THUMBNAIL="https://te.legra.ph/file/a780afd8b5cef866a388d.jpg"
+PDF_THUMBNAIL = "./images/thumbnail.jpeg"
+# PDF_THUMBNAIL="https://te.legra.ph/file/a780afd8b5cef866a388d.jpg"
 
 
 # ❌ WELCOME IMAGE ❌ [EDITABLE]
