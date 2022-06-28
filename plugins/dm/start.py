@@ -65,8 +65,8 @@ Some of the main features are:
 
 foolRefresh = "വിളച്ചിലെടുക്കല്ലേ കേട്ടോ 😐"
 
-LOG_TEXT = "#newUser @nabilanavab/ILovePDF\nID: {}\nView Profile: {}"
-LOG_TEXT_C = "#newChat @nabilanavab/ILovePDF\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
+LOG_TEXT = "#newUser @kkhanyaseen\nID: {}\nView Profile: {}"
+LOG_TEXT_C = "#newChat @kkhanyaseen\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
 
 button = InlineKeyboardMarkup(
         [[
