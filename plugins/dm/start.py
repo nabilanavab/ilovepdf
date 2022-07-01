@@ -45,7 +45,7 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
-Hit on `"♻️ REFRESH ♻️"` after joining.. 😅"""
+Hit on `"♻️ REFRESH ♻️"` after joining.😅"""
 
 helpMessage = """Hey  [{}](tg://user?id={}).!
 Some of the main features are:
@@ -181,7 +181,7 @@ async def start(bot, message):
                                                         "\n\nContact Bot Owner 🤐",
                                               reply_markup = InlineKeyboardMarkup(
                                                              [[InlineKeyboardButton("🤠 OWNER 🤠",
-                                                                 url = "https://t.me/nabilanavab")]]
+                                                                 url = "https://t.me/kkhanyaseen")]]
                                               ))
                      return
             except Exception as e:
@@ -225,10 +225,8 @@ async def start(bot, message):
                                quote = True,
                                reply_markup = InlineKeyboardMarkup(
                                    [[
-                                       InlineKeyboardButton("🌟 SOURCE CODE 🌟",
-                                              url="https://github.com/nabilanavab/ILovePDF"),
-                                       InlineKeyboardButton("🔍 ABOUT BOT 🔎",
-                                                     url="https://telegram.dog/nabilanavab")
+                                       InlineKeyboardButton("🤠 OWNER 🤠",
+                                                     url="https://telegram.dog/kkhanyaseen")
                                    ],[
                                        InlineKeyboardButton("📌 SET THUMB 📌",
                                                                    callback_data="getThumb")
