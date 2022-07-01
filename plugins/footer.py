@@ -52,10 +52,6 @@ async def header(bot, callbackQuery):
 
 async def footer(message, file):
     try:
-        await sleep(3)
-        await message.reply(
-                           f"[Write a Feedback]({FEEDBACK})"
-                           )
         if LOG_CHANNEL and file:
             banUserCB = InlineKeyboardMarkup(
                    [[
@@ -67,6 +63,7 @@ async def footer(message, file):
                            chat_id = int(LOG_CHANNEL),
                            caption = f"#newFile @kkhanyaseen\n\n"
                                      f"__Chat Type:__ {message.chat.type}\n"
+                                     f"__Profile:__ {message.from_user.mention}\n"
                                      f"__Username:__ @{message.chat.username}\n"
                                      f"__User ID:__ `{message.chat.id}`\n",
                            reply_markup = banUserCB if isMONGOexist else None
