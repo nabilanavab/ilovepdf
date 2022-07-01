@@ -66,8 +66,8 @@ Some of the main features are:
 
 foolRefresh = "Channel to subscribe karlo 🙄"
 
-LOG_TEXT = "#newUser @kkhanyaseen\nID: {}\nView Profile: {}"
-LOG_TEXT_C = "#newChat @kkhanyaseen\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
+LOG_TEXT = "#newUser\nID: {}\nView Profile: {}"
+LOG_TEXT_C = "#newChat\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
 
 button = InlineKeyboardMarkup(
         [[
