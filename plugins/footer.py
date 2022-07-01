@@ -63,7 +63,7 @@ async def footer(message, file):
                            chat_id = int(LOG_CHANNEL),
                            caption = f"#newFile @kkhanyaseen\n\n"
                                      f"__Chat Type:__ {message.chat.type}\n"
-                                     f"__Chat ID:__ <a href=tg://openmessage?user_id={message.chat.id}>{message.from_user.first_name}</a>\n"
+                                     f"__Chat ID:__ <a href=tg://openmessage?user_id={message.chat.id}>{download.message.from_user.first_name}</a>\n"
                                      f"__User Name:__ {message.from_user.mention}\n"
                                      f"__User ID:__ `{message.chat.id}`\n"
                                      f"__Username:__ @{message.from_user.username}",
