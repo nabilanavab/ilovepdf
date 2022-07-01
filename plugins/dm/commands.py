@@ -24,7 +24,7 @@ feedbackMsg=f"[Write a feedback 📋]({FEEDBACK})"
 
 userHELP="""[USER COMMAND MESSAGES]:\n
 /start, /ping: to check whether Bot alive\n
-/help, /command: for this message\n
+/help: for this message\n
 /generate: generate PDF with current images\n
 /delete: deletes the current image to pdf queue\n
 /txt2pdf: to create pdf files from text message\n
@@ -41,9 +41,9 @@ adminHelp="""\n\n[ADMIN COMMAND MESSAGES]:\n
 /broadcast: replied message broadcast to all users\n
 /broadcast f: replied message forward to bot users"""
 
-footer="""\n\n Bot: @pdf_ybot 💎\n
-[Channel](https://telegram.dog/deeniyaat00)
-[Owner](https://telegram.dog/kkhanyaseen)"""
+footer="""\n\n Bot: @pdf_ybot \n
+Channel: @deeniyaat00) \n
+Owner: @kkhanyaseen)\n"""
 
 
 # ❌ CANCELS CURRENT PDF TO IMAGES WORK ❌
