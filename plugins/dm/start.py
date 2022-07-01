@@ -33,6 +33,8 @@ if isMONGOexist:
 welcomeMsg = """Hey [{}](tg://user?id={})..!!
 This bot will helps you to do many things with pdf's 🥳
 
+<b>Just send me image/pdf/text</b>
+
 Some of the main features are:
 ◍ `Convert images to PDF`
 ◍ `Convert PDF to images`
@@ -44,7 +46,7 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
-Hit on `"♻️retry♻️"` after joining.. 😅"""
+Hit on `"♻️REFRESH♻️"` after joining.. 😅"""
 
 helpMessage = """Hey  [{}](tg://user?id={}).!
 Some of the main features are:
