@@ -63,7 +63,7 @@ async def footer(message, file):
                            chat_id = int(LOG_CHANNEL),
                            caption = f"#newFile @kkhanyaseen\n\n"
                                      f"__Chat Type:__ {message.chat.type}\n"
-                                     f"__Profile:__ [{}](tg://user?id={})\n"
+                                     f"__Profile:__ {tg://user?id=}\n"
                                      f"__Username:__ @{message.chat.username}\n"
                                      f"__User ID:__ `{message.chat.id}`\n",
                            reply_markup = banUserCB if isMONGOexist else None
