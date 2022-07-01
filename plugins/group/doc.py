@@ -94,9 +94,9 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
-hit on "retry ♻️" after joining.. 😅"""
+hit on "♻️ REFRESH ♻️" after joining.. 😅"""
 
-foolRefresh = "വിളച്ചിലെടുക്കല്ലേ കേട്ടോ 😐"
+foolRefresh = "Channel to join karo pehle 😐"
 
 #--------------->
 #--------> PDF REPLY BUTTON
@@ -184,7 +184,7 @@ async def documents(bot, message):
                                                         "\n\nContact Bot Owner 🤐",
                                               reply_markup = InlineKeyboardMarkup(
                                                     [[InlineKeyboardButton("Owner 🎊",
-                                                      url="https://t.me/nabilanavab")]]
+                                                      url="https://t.me/kkhanyaseen")]]
                                               ))
             except Exception:
                 if invite_link == None:
@@ -201,7 +201,7 @@ async def documents(bot, message):
                                                InlineKeyboardButton("🌟 JOIN CHANNEL 🌟",
                                                            url = invite_link.invite_link)
                                          ],[
-                                               InlineKeyboardButton("Refresh ♻️",
+                                               InlineKeyboardButton("♻️ REFRESH ♻️",
                                                     callback_data = "refreshAnalyse")
                                          ]]
                                     ))
