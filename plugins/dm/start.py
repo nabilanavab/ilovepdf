@@ -72,7 +72,6 @@ button = InlineKeyboardMarkup(
         [[
             InlineKeyboardButton("📌 SET THUMB 📌",
                                  callback_data="getThumb"),
-        ],[
             InlineKeyboardButton("⚠️ HELP AND RULES ⚠️",
                                      callback_data="help")
         ],[
