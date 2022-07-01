@@ -135,10 +135,10 @@ async def start(bot, message):
                         except Exception: pass
                 try:
                     return await message.reply(
-                                   f"Hi There.! 🖐️\n"
+                                   f"Assalamualaikum.! 🖐️\n"
                                    f"Im new here {message.chat.title}\n\n"
                                    f"Let me Introduce myself.. \n"
-                                   f"My Name is pdf_ybot, and i can help you to do many "
+                                   f"My Name is Pdf bot, and i can help you to do many things "
                                    f"Thanks @kkhanyaseen for this Awesome Bot 😅", quote=True,
                                    reply_markup = InlineKeyboardMarkup(
                                                                      [[InlineKeyboardButton("🤠 BOT OWNER 🤠",
