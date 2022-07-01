@@ -30,14 +30,16 @@ if isMONGOexist:
 #--------> LOCAL VARIABLES
 #------------------->
 
-welcomeMsg = """<b>Assalamualaikum</b> [{}](tg://user?id={})..!!
+welcomeMsg = """<b>Assalamualaikum</b> [{}](tg://user?id={})..!!\n
 This bot will helps you to do many things🥳
-<b>Just send me image/pdf/text</b>
+<b>Just send me image/pdf</b>
 
 Some of the main features are:
 ◍ `Convert images to PDF`
 ◍ `Convert PDF to images`
-◍ `Convert files to pdf`"""
+◍ `Convert files to pdf`
+◍ `Convert text to PDF`
+   use this /txt2pdf"""
 
 forceSubMsg = """Wait [{}](tg://user?id={})..!!
 
@@ -53,6 +55,9 @@ Some of the main features are:
 - Images to PDF:
     Images to PDF, [JPEG, png, JPG] files to PDF, Rename PDF at the Time Of Creation, Rename By Name
 
+- Text to PDF :
+     Use this command /txt2pdf
+
 - PDF Manipulation:
     PDF to Images, PDF to JPEG, Fetch metaData, Merge Multiple PDF's, Split PDF's to parts, PDF to (messages, text, html, json), Zip / Rar PDF pages, Encrypt/Decrypt PDF, Add Stamps, OCR PDF, A4 Fotmatter, text to PDF, Get PDF Preview, Fetch Data From Protected Channels & Groups
 
@@ -64,7 +69,7 @@ Some of the main features are:
 ◍ This Bot is Completely Free to Use. So, please dont spam here. Spamming is strictly prohibited and leads to permanent ban.🚶
 """
 
-foolRefresh = "Channel to subscribe karlo 🙄"
+foolRefresh = "Channel to join karlo pehle 🙄"
 
 LOG_TEXT = "#newUser\nID: {}\nView Profile: {}"
 LOG_TEXT_C = "#newChat\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
