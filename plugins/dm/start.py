@@ -71,7 +71,7 @@ Some of the main features are:
 
 foolRefresh = "Channel to join karlo pehle 🙄"
 
-LOG_TEXT = "#newUser\nID: {}\nView Profile: {}"
+LOG_TEXT = "#newUser\nID: `{}`\nView Profile: {}"
 LOG_TEXT_C = "#newChat\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
 
 button = InlineKeyboardMarkup(
@@ -164,7 +164,7 @@ async def start(bot, message):
                                               chat_id = LOG_CHANNEL,
                                               text = LOG_TEXT.format(
                                                                     message.from_user.id,
-                                                                    message.from_user.mention
+                                                                    <a href=tg://openmessage?user_id={message.chat.id}>{message.chat.first_name}</a>
                                                                     ),
                                               reply_markup = InlineKeyboardMarkup(
                                                           [[InlineKeyboardButton("« B@N «",
