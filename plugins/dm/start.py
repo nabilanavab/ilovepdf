@@ -164,7 +164,7 @@ async def start(bot, message):
                                               chat_id = LOG_CHANNEL,
                                               text = LOG_TEXT.format(
                                                                     message.from_user.id,
-                                                                    <a href=tg://openmessage?user_id={message.chat.id}>{message.chat.first_name}</a>
+                                                                    message.from_user.mention
                                                                     ),
                                               reply_markup = InlineKeyboardMarkup(
                                                           [[InlineKeyboardButton("« B@N «",
