@@ -30,7 +30,7 @@ if isMONGOexist:
 #--------> LOCAL VARIABLES
 #------------------->
 
-welcomeMsg = """Hey [{}](tg://user?id={})..!!
+welcomeMsg = """<b>Assalamualaikum</b> [{}](tg://user?id={})..!!
 This bot will helps you to do many things🥳
 <b>Just send me image/pdf/text</b>
 
@@ -45,9 +45,9 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
-Hit on `"♻️ REFRESH ♻️"` after joining.😅"""
+Hit on `"♻️REFRESH♻️"` after joining.😅"""
 
-helpMessage = """Hey  [{}](tg://user?id={}).!
+helpMessage = """<b>Assalamualaikum</b>  [{}](tg://user?id={}).!
 Some of the main features are:
 
 - Images to PDF:
@@ -129,7 +129,7 @@ async def start(bot, message):
                                                                           message.chat.username if message.chat.username else "❌"
                                                                           ),
                                                    reply_markup = InlineKeyboardMarkup(
-                                                          [[InlineKeyboardButton("« BAN «",
+                                                          [[InlineKeyboardButton("« B@N «",
                                                                  callback_data = f"banC|{message.chat.id}")]]
                                                    ))
                         except Exception: pass
