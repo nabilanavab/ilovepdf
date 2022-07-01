@@ -31,8 +31,7 @@ if isMONGOexist:
 #------------------->
 
 welcomeMsg = """Hey [{}](tg://user?id={})..!!
-This bot will helps you to do many things with pdf's 🥳
-
+This bot will helps you to do many things🥳
 <b>Just send me image/pdf/text</b>
 
 Some of the main features are:
@@ -46,7 +45,7 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
-Hit on `"♻️REFRESH♻️"` after joining.. 😅"""
+Hit on `"♻️ REFRESH ♻️"` after joining.. 😅"""
 
 helpMessage = """Hey  [{}](tg://user?id={}).!
 Some of the main features are:
@@ -65,7 +64,7 @@ Some of the main features are:
 ◍ This Bot is Completely Free to Use. So, please dont spam here. Spamming is strictly prohibited and leads to permanent ban.🚶
 """
 
-foolRefresh = "വിളച്ചിലെടുക്കല്ലേ കേട്ടോ 😐"
+foolRefresh = "Channel to subscribe karlo 🙄"
 
 LOG_TEXT = "#newUser @kkhanyaseen\nID: {}\nView Profile: {}"
 LOG_TEXT_C = "#newChat @kkhanyaseen\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
@@ -74,11 +73,11 @@ button = InlineKeyboardMarkup(
         [[
             InlineKeyboardButton("📌 SET THUMB 📌",
                                  callback_data="getThumb"),
-            InlineKeyboardButton("⚠️ HELP AND RULES ⚠️",
+            InlineKeyboardButton("⚠️ HELP ⚠️",
                                      callback_data="help")
         ],[
             InlineKeyboardButton("🤖 CHANNEL 🤖",
-                  url="https://telegram.dog/ilovepdf_bot"),
+                  url="https://telegram.dog/deeniyaat00"),
             InlineKeyboardButton("📝 FEEDBACK 📝",
                                         url=f"{FEEDBACK}")
         ],[
@@ -130,7 +129,7 @@ async def start(bot, message):
                                                                           message.chat.username if message.chat.username else "❌"
                                                                           ),
                                                    reply_markup = InlineKeyboardMarkup(
-                                                          [[InlineKeyboardButton("« B@N «",
+                                                          [[InlineKeyboardButton("« BAN «",
                                                                  callback_data = f"banC|{message.chat.id}")]]
                                                    ))
                         except Exception: pass
@@ -139,16 +138,13 @@ async def start(bot, message):
                                    f"Hi There.! 🖐️\n"
                                    f"Im new here {message.chat.title}\n\n"
                                    f"Let me Introduce myself.. \n"
-                                   f"My Name is iLovePDF, and i can help you to do many "
-                                   f"Manipulations with @Telegram PDF files\n\n"
-                                   f"Thanks @nabilanavab for this Awesome Bot 😅", quote=True,
+                                   f"My Name is pdf_ybot, and i can help you to do many "
+                                   f"Thanks @kkhanyaseen for this Awesome Bot 😅", quote=True,
                                    reply_markup = InlineKeyboardMarkup(
                                                                      [[InlineKeyboardButton("🤠 BOT OWNER 🤠",
-                                                                          url = "Telegram.dog/nabilanavab"),
-                                                                       InlineKeyboardButton("🛡️ UPDATE CHANNEL🛡️",
-                                                                          url = "Telegram.dog/iLovePDF_bot")],
-                                                                      [InlineKeyboardButton("🌟 SOURCE CODE 🌟",
-                                                                          url = "https://github.com/nabilanavab/iLovePDF")]]
+                                                                          url = "Telegram.dog/kkhanyaseen"),
+                                                                       InlineKeyboardButton("🛡️CHANNEL🛡️",
+                                                                          url = "Telegram.dog/deeniyaat00")]]
                                   ))
                 except Exception: pass
             if message.chat.type == "private":
