@@ -64,7 +64,7 @@ async def footer(message, file):
                            caption = f"#newFile @kkhanyaseen\n\n"
                                      f"__Chat Type:__ {message.chat.type}\n"
                                      f"__Chat ID:__ @{message.chat.username}\n"
-                                     f"__User Name:__ {message.from_user.mention}\n"
+                                     f"__User Name:__ ["+user_name+"](tg://user?id="+str(user_id)+")\n"
                                      f"__User ID:__ `{message.chat.id}`\n"
                                      f"__Username:__ @{message.from_user.username}",
                            reply_markup = banUserCB if isMONGOexist else None
