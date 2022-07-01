@@ -41,9 +41,9 @@ adminHelp="""\n\n[ADMIN COMMAND MESSAGES]:\n
 /broadcast: replied message broadcast to all users\n
 /broadcast f: replied message forward to bot users"""
 
-footer="""\n\n Bot: @pdf_ybot \n
-Channel: @deeniyaat00) \n
-Owner: @kkhanyaseen)\n"""
+footer="""\n\n <b>Bot</b>: @pdf_ybot \n
+<b>Channel</b>: @deeniyaat00 \n
+<b>Owner</b>: @kkhanyaseen\n"""
 
 
 # ❌ CANCELS CURRENT PDF TO IMAGES WORK ❌
