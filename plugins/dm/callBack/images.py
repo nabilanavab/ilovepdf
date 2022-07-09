@@ -15,17 +15,16 @@ import time
 import shutil
 import asyncio
 from PIL import Image
-from pdf import PROCESS
 from pyromod import listen
 from pyrogram import filters
-from pyrogram.errors import FloodWait
+from pdf import PROCESS, pyTgLovePDF
 from plugins.checkPdf import checkPdf
 from plugins.progress import progress
 from pyrogram.types import ForceReply
 from pyrogram import Client as ILovePDF
 from plugins.footer import footer, header
 from plugins.fileSize import get_size_format as gSF
-from pyrogram.types import InputMediaPhoto, InputMediaDocument
+from telebot.types import InputMediaPhoto, InputMediaDocument
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 #--------------->
@@ -36,17 +35,28 @@ mediaDoc = {}
 media = {}
 
 cancel = InlineKeyboardMarkup(
-                             [[InlineKeyboardButton("💤 CANCEL 💤",
-                                     callback_data = "cancelP2I")]]
-                             )
+             [[
+                 InlineKeyboardButton(
+                                     "💤 CANCEL 💤",
+                                     callback_data = "cancelP2I")
+             ]]
+         )
+
 canceled = InlineKeyboardMarkup(
-                               [[InlineKeyboardButton("🍄 CANCELED 🍄",
-                                            callback_data="canceled")]]
-                               )
+               [[
+                   InlineKeyboardButton(
+                                       "🍄 CANCELED 🍄",
+                                        callback_data = "canceled")
+               ]]
+           )
+
 completed = InlineKeyboardMarkup(
-                                [[InlineKeyboardButton("😎 COMPLETED 😎",
-                                             callback_data="completed")]]
-                                )
+                [[
+                    InlineKeyboardButton(
+                                        "😎 COMPLETED 😎",
+                                        callback_data = "completed")
+                ]]
+            )
 
 #--------------->
 #--------> CHECKS IF USER CANCEL PROCESS
@@ -84,16 +94,11 @@ async def _EXTRACT(bot, callbackQuery):
         message_id = callbackQuery.message.message_id
         
         if chat_id in PROCESS:
-            await callbackQuery.answer(
-                                      "Work in progress.. 🙇"
-                                      )
-            return
+            return await callbackQuery.answer("Work in progress.. 🙇")
         
         # ↓ ADD TO PROCESS       ↓ CALLBACK DATA
         PROCESS.append(chat_id); data = callbackQuery.data
-        await callbackQuery.answer(
-                                  "⚙️ Processing.."
-                                  )
+        await callbackQuery.answer("⚙️ Processing..")
         
         # ACCEPTING PAGE NUMBER
         if data in ["IA", "DA"]:
@@ -105,9 +110,7 @@ async def _EXTRACT(bot, callbackQuery):
             # 5 EXCEPTION, BREAK MERGE PROCESS
             while(nabilanavab):
                 if i >= 5:
-                    await callbackQuery.message.reply_text(
-                                                          "`5 attempt over.. Process canceled..`😏"
-                                                          )
+                    await callbackQuery.message.reply_text("`5 attempt over.. Process canceled..`😏")
                     break
                 i += 1
                 # PYROMOD ADD-ON (PG NO REQUEST)
@@ -131,9 +134,7 @@ async def _EXTRACT(bot, callbackQuery):
                 pageStartAndEnd = list(needPages.text.replace('-',':').split(':'))
                 # IF STRING HAVE MORE THAN 2 LIMITS
                 if len(pageStartAndEnd) > 2:
-                    await callbackQuery.message.reply_text(
-                                                          "`Syntax Error: justNeedStartAndEnd `🚶"
-                                                          )
+                    await callbackQuery.message.reply_text("`Syntax Error: justNeedStartAndEnd `🚶")
                 # CORRECT FORMAT
                 elif len(pageStartAndEnd) == 2:
                     start = pageStartAndEnd[0]
@@ -144,21 +145,13 @@ async def _EXTRACT(bot, callbackQuery):
                                 nabilanavab = False
                                 break
                             else:
-                                await callbackQuery.message.reply_text(
-                                                                      "`Syntax Error: errorInEndingPageNumber `🚶"
-                                                                      )
+                                await callbackQuery.message.reply_text("`Syntax Error: errorInEndingPageNumber `🚶")
                         else:
-                            await callbackQuery.message.reply_text(
-                                                                  "`Syntax Error: errorInStartingPageNumber `🚶"
-                                                                  )
+                            await callbackQuery.message.reply_text("`Syntax Error: errorInStartingPageNumber `🚶")
                     else:
-                        await callbackQuery.message.reply_text(
-                                                              "`Syntax Error: pageNumberMustBeADigit` 🧠"
-                                                              )
+                        await callbackQuery.message.reply_text("`Syntax Error: pageNumberMustBeADigit` 🧠")
                 else:
-                    await callbackQuery.message.reply_text(
-                                                          "`Syntax Error: noEndingPageNumber Or notADigit` 🚶"
-                                                          )
+                    await callbackQuery.message.reply_text("`Syntax Error: noEndingPageNumber Or notADigit` 🚶")
         # SINGLE PAGES
         else:
             newList = []
@@ -167,9 +160,7 @@ async def _EXTRACT(bot, callbackQuery):
             # 5 REQUEST LIMIT
             while(nabilanavab):
                 if i >= 5:
-                    await callbackQuery.message.reply_text(
-                                                          "`5 attempt over.. Process canceled..`😏"
-                                                          )
+                    await callbackQuery.message.reply_text("`5 attempt over.. Process canceled..`😏")
                     break
                 i += 1
                 # PYROMOD ADD-ON
@@ -202,14 +193,10 @@ async def _EXTRACT(bot, callbackQuery):
                         break
                     # AFTER SORTING (IF NO DIGIT PAGES RETURN)
                     elif newList == []:
-                        await callbackQuery.message.reply(
-                                                         "`Cant find any number..`😏"
-                                                         )
+                        await callbackQuery.message.reply("`Cant find any number..`😏")
                         continue
                 else:
-                    await callbackQuery.message.reply(
-                                                     "`Something went Wrong..`😅"
-                                                     )
+                    await callbackQuery.message.reply("`Something went Wrong..`😅")
         if nabilanavab == True:
             PROCESS.remove(chat_id)
             return
@@ -291,10 +278,10 @@ async def _EXTRACT(bot, callbackQuery):
                                                  message_id
                                                  ):
                                 return
-                            await downloadMessage.edit(
-                                                      text = f"`Converted: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🤞`",
-                                                      reply_markup = cancel
-                                                      )
+                            # await downloadMessage.edit(
+                            #                           text = f"`Converted: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🤞`",
+                            #                           reply_markup = cancel
+                            #                           )
                         with open(
                             f'{message_id}/pgs/{pageNo}.jpg','wb'
                         ):
@@ -307,10 +294,10 @@ async def _EXTRACT(bot, callbackQuery):
                                          message_id
                                          ):
                         return
-                    await downloadMessage.edit(
-                                              text = f"`Preparing an Album..` 🤹",
-                                              reply_markup = cancel
-                                              )
+                    # await downloadMessage.edit(
+                    #                           text = f"`Preparing an Album..` 🤹",
+                    #                           reply_markup = cancel
+                    #                           )
                     directory = f'{message_id}/pgs'
                     imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                     imag.sort(key = os.path.getctime)
@@ -329,16 +316,12 @@ async def _EXTRACT(bot, callbackQuery):
                                             optimize = True,
                                             quality = qualityRate
                                             )
-                                qualityRate -= 5; asyncio.sleep(1)
+                                qualityRate -= 5; await asyncio.sleep(0.5)
                             else:
                                 if data in ["IA", "IR"]:
-                                    media[chat_id].append(
-                                                         InputMediaPhoto(media = file)
-                                                         )
+                                    media[chat_id].append(InputMediaPhoto(open(file, "rb")))
                                 else:
-                                    mediaDoc[chat_id].append(
-                                                            InputMediaDocument(media = file)
-                                                            )
+                                    mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                                 break
                     if await notInPROCESS(
                                          chat_id,
@@ -349,62 +332,68 @@ async def _EXTRACT(bot, callbackQuery):
                                          ):
                         return
                     if chat_id in PROCESS:
-                        await downloadMessage.edit(
-                                                  text = f"`Uploading: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🐬`",
-                                                  reply_markup = cancel
-                                                  )
+                        try:
+                            await downloadMessage.edit(
+                                                      text = f"`Uploading: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🐬`",
+                                                      reply_markup = cancel
+                                                      )
+                        except Exception: pass
                     else:
                         shutil.rmtree(f'{message_id}')
                         doc.close()
                         return
                     if data in ["IA", "IR"]:
                         if chat_id not in PROCESS:
-                            try:
-                                shutil.rmtree(f'{message_id}'); doc.close()
-                                return
-                            except Exception:
-                                return
-                        await callbackQuery.message.reply_chat_action(
-                                                                     "upload_photo"
-                                                                     )
-                        for i in range(1,100):
-                            try:
-                                await callbackQuery.message.reply_media_group(
-                                                           media[chat_id]
-                                                           )
-                                break
-                            except FloodWait as e:
-                                await asyncio.sleep(e.x)
-                                await callbackQuery.message.reply_media_group(
-                                                               media[chat_id]
-                                                               )
-                    
+                            shutil.rmtree(f'{message_id}'); doc.close()
+                            return
+                        await callbackQuery.message.reply_chat_action("upload_photo")
+                        try:
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              media[chat_id]
+                                                              )
+                        except Exception as e:
+                            wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
+                            media[chat_id] = []
+                            for file in imag:
+                                media[chat_id].append(InputMediaPhoto(open(file, "rb")))
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              media[chat_id]
+                                                              )
                     if data in ["DA", "DR"]:
                         if chat_id not in PROCESS:
-                            try:
-                                shutil.rmtree(f'{message_id}')
-                                doc.close()
-                                return
-                            except Exception:
-                                return
-                        await callbackQuery.message.reply_chat_action(
-                                                                     "upload_document"
-                                                                     )
+                            shutil.rmtree(f'{message_id}')
+                            doc.close()
+                            return
+                        await callbackQuery.message.reply_chat_action("upload_document")
                         try:
-                            await callbackQuery.message.reply_media_group(
-                                                         mediaDoc[chat_id]
-                                                         )
-                        except FloodWait as e:
-                            await asyncio.sleep(e.x)
-                            await callbackQuery.message.reply_media_group(
-                                                         mediaDoc[chat_id]
-                                                         )
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              mediaDoc[chat_id]
+                                                              )
+                        except Exception as e:
+                            wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
+                            mediaDoc[chat_id] = []
+                            for file in imag:
+                                mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              mediaDoc[chat_id]
+                                                              )
                     shutil.rmtree(f'{message_id}/pgs')
                 PROCESS.remove(chat_id); doc.close()
-                await downloadMessage.edit(
-                                          text = f'`Uploading Completed.. `🏌️',
-                                          reply_markup = completed
-                                          )
+                try:
+                    await downloadMessage.edit(
+                                              text = f'`Uploading Completed.. `🏌️',
+                                              reply_markup = completed
+                                              )
+                except Exception:
+                    await asyncio.sleep(100)
+                    await downloadMessage.edit(
+                                              text = f'`Uploading Completed.. `🏌️',
+                                              reply_markup = completed
+                                              )
                 shutil.rmtree(f'{message_id}')
             if data in ["IS", "DS"]:
                 if int(len(newList)) >= 11:
@@ -417,9 +406,7 @@ async def _EXTRACT(bot, callbackQuery):
                     if 1 <= int(i) <= number_of_pages:
                         totalPgList.append(i)
                 if len(totalPgList) < 1:
-                    await downloadMessage.edit(
-                                              f"`PDF Only have {number_of_pages} page(s) `😏"
-                                              )
+                    await downloadMessage.edit(f"`PDF Only have {number_of_pages} page(s) `😏")
                     PROCESS.remove(chat_id); shutil.rmtree(f'{message_id}'); doc.close()
                     return
                 await downloadMessage.edit(
@@ -438,10 +425,10 @@ async def _EXTRACT(bot, callbackQuery):
                             continue
                         cnvrtpg += 1
                         if cnvrtpg % 5 == 0:
-                            await downloadMessage.edit(
-                                                      text = f"`Converted: {cnvrtpg}/{len(totalPgList)} pages.. 🤞`",
-                                                      reply_markup = cancel
-                                                      )
+                            # await downloadMessage.edit(
+                            #                           text = f"`Converted: {cnvrtpg}/{len(totalPgList)} pages.. 🤞`",
+                            #                           reply_markup = cancel
+                            #                           )
                             if await notInPROCESS(
                                                  chat_id,
                                                  callbackQuery,
@@ -462,10 +449,10 @@ async def _EXTRACT(bot, callbackQuery):
                                          message_id
                                          ):
                         return
-                    await downloadMessage.edit(
-                                              text = f"`Preparing an Album..` 🤹",
-                                              reply_markup = cancel
-                                              )
+                    # await downloadMessage.edit(
+                    #                           text = f"`Preparing an Album..` 🤹",
+                    #                           reply_markup = cancel
+                    #                           )
                     directory = f'{message_id}/pgs'
                     imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                     imag.sort(key = os.path.getctime)
@@ -484,12 +471,12 @@ async def _EXTRACT(bot, callbackQuery):
                                             optimize = True,
                                             quality = qualityRate
                                             )
-                                qualityRate -= 5; asyncio.sleep(1)
+                                qualityRate -= 5; await asyncio.sleep(0.5)
                             else:
                                 if data == "IS":
-                                    media[chat_id].append(InputMediaPhoto(media = file))
+                                    media[chat_id].append(InputMediaPhoto(open(file, "rb")))
                                 else:
-                                    mediaDoc[chat_id].append(InputMediaDocument(media = file))
+                                    mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                                 break
                     if await notInPROCESS(
                                          chat_id,
@@ -499,54 +486,63 @@ async def _EXTRACT(bot, callbackQuery):
                                          message_id
                                          ):
                         return
-                    await downloadMessage.edit(
-                                              text = f"`Uploading: {cnvrtpg}/{len(totalPgList)} pages.. 🐬`",
-                                              reply_markup = cancel
-                                              )
+                    try:
+                        await downloadMessage.edit(
+                                                  text = f"`Uploading: {cnvrtpg}/{len(totalPgList)} pages.. 🐬`",
+                                                  reply_markup = cancel
+                                                  )
+                    except Exception: pass
                     if data == "IS":
                         if chat_id not in PROCESS:
-                            try:
-                                shutil.rmtree(f'{message_id}'); doc.close()
-                                return
-                            except Exception:
-                                return
-                        await callbackQuery.message.reply_chat_action(
-                                                                     "upload_photo"
-                                                                     )
+                            shutil.rmtree(f'{message_id}'); doc.close()
+                            return
+                        await callbackQuery.message.reply_chat_action("upload_photo")
                         try:
-                            await callbackQuery.message.reply_media_group(
-                                                            media[chat_id]
-                                                            )
-                        except FloodWait as e:
-                            await asyncio.sleep(e.x)
-                            await callbackQuery.message.reply_media_group(
-                                                            media[chat_id]
-                                                            )
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              media[chat_id]
+                                                              )
+                        except Exception as e:
+                            wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
+                            media[chat_id] = []
+                            for file in imag:
+                                media[chat_id].append(InputMediaPhoto(open(file, "rb")))
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              media[chat_id]
+                                                              )
                     if data == "DS":
                         if chat_id not in PROCESS:
-                            try:
-                                shutil.rmtree(f'{message_id}'); doc.close()
-                                return
-                            except Exception:
-                                return
-                        await callbackQuery.message.reply_chat_action(
-                                                                     "upload_document"
-                                                                     )
+                            shutil.rmtree(f'{message_id}'); doc.close()
+                            return
+                        await callbackQuery.message.reply_chat_action("upload_document")
                         try:
-                            await callbackQuery.message.reply_media_group(
-                                                         mediaDoc[chat_id]
-                                                         )
-                        except FloodWait as e:
-                            await asyncio.sleep(e.x)
-                            await callbackQuery.message.reply_media_group(
-                                                         mediaDoc[chat_id]
-                                                         )
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              mediaDoc[chat_id]
+                                                              )
+                        except Exception as e:
+                            wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
+                            mediaDoc[chat_id] = []
+                            for file in imag:
+                                mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              mediaDoc[chat_id]
+                                                              )
                     shutil.rmtree(f'{message_id}/pgs')
                 PROCESS.remove(chat_id); doc.close()
-                await downloadMessage.edit(
-                                          text = f'`Uploading Completed.. `🏌️',
-                                          reply_markup = completed
-                                          )
+                try:
+                    await downloadMessage.edit(
+                                              text = f'`Uploading Completed.. `🏌️',
+                                              reply_markup = completed
+                                              )
+                except Exception:
+                    await asyncio.sleep(100)
+                    await downloadMessage.edit(
+                                              text = f'`Uploading Completed.. `🏌️',
+                                              reply_markup = completed
+                                              )
                 shutil.rmtree(f'{message_id}')
                 await footer(callbackQuery.message.reply_to_message, False)
     except Exception as e:
@@ -571,13 +567,8 @@ async def _KEXTRACT(bot, callbackQuery):
         message_id = callbackQuery.message.message_id
         
         if chat_id in PROCESS:
-            await callbackQuery.answer(
-                                      "Work in progress.. 🙇"
-                                      )
-            return
-        await callbackQuery.answer(
-                                  "⚙️ Processing.."
-                                  )
+            return await callbackQuery.answer("Work in progress.. 🙇")
+        await callbackQuery.answer("⚙️ Processing..")
         data = callbackQuery.data[:3]
         _, number_of_pages = callbackQuery.data.split("|")
         PROCESS.append(chat_id)
@@ -588,9 +579,7 @@ async def _KEXTRACT(bot, callbackQuery):
             i = 0
             while(nabilanavab):
                 if i >= 5:
-                    await callbackQuery.message.reply_text(
-                                                          "`5 attempt over.. Process canceled..`😏"
-                                                          )
+                    await callbackQuery.message.reply_text("`5 attempt over.. Process canceled..`😏")
                     break
                 i += 1
                 needPages = await bot.ask(
@@ -610,9 +599,7 @@ async def _KEXTRACT(bot, callbackQuery):
                     break
                 pageStartAndEnd = list(needPages.text.replace('-',':').split(':'))
                 if len(pageStartAndEnd) > 2:
-                    await callbackQuery.message.reply_text(
-                                                          "`Syntax Error: justNeedStartAndEnd `🚶"
-                                                          )
+                    await callbackQuery.message.reply_text("`Syntax Error: justNeedStartAndEnd `🚶")
                 elif len(pageStartAndEnd) == 2:
                     start = pageStartAndEnd[0]
                     end = pageStartAndEnd[1]
@@ -622,30 +609,20 @@ async def _KEXTRACT(bot, callbackQuery):
                                 nabilanavab = False
                                 break
                             else:
-                                await callbackQuery.message.reply_text(
-                                                                      "`Syntax Error: errorInEndingPageNumber `🚶"
-                                                                      )
+                                await callbackQuery.message.reply_text("`Syntax Error: errorInEndingPageNumber `🚶")
                         else:
-                            await callbackQuery.message.reply_text(
-                                                                  "`Syntax Error: errorInStartingPageNumber `🚶"
-                                                                  )
+                            await callbackQuery.message.reply_text("`Syntax Error: errorInStartingPageNumber `🚶")
                     else:
-                        await callbackQuery.message.reply_text(
-                                                              "`Syntax Error: pageNumberMustBeADigit` 🧠"
-                                                              )
+                        await callbackQuery.message.reply_text("`Syntax Error: pageNumberMustBeADigit` 🧠")
                 else:
-                    await callbackQuery.message.reply_text(
-                                                          "`Syntax Error: noEndingPageNumber Or notADigit` 🚶"
-                                                          )
+                    await callbackQuery.message.reply_text("`Syntax Error: noEndingPageNumber Or notADigit` 🚶")
         elif data in ["KIS", "KDS"]:
             newList = []
             nabilanavab = True
             i = 0
             while(nabilanavab):
                 if i >= 5:
-                    await callbackQuery.message.reply_text(
-                                                          "`5 attempt over.. Process canceled..`😏"
-                                                          )
+                    await callbackQuery.message.reply_text("`5 attempt over.. Process canceled..`😏")
                     break
                 i += 1
                 needPages = await bot.ask(
@@ -672,14 +649,10 @@ async def _KEXTRACT(bot, callbackQuery):
                         nabilanavab = False
                         break
                     elif newList == []:
-                        await callbackQuery.message.reply_text(
-                                                              "`Cant find any number..`😏"
-                                                              )
+                        await callbackQuery.message.reply_text("`Cant find any number..`😏")
                         continue
                 else:
-                    await callbackQuery.message.reply_text(
-                                                          "`100 page is enough..`😅"
-                                                          )
+                    await callbackQuery.message.reply_text("`100 page is enough..`😅")
         if nabilanavab == True:
             PROCESS.remove(chat_id)
             return
@@ -722,9 +695,7 @@ async def _KEXTRACT(bot, callbackQuery):
                 pageStartAndEnd = [1, int(number_of_pages)]
             if data in ["KIR", "KDR"]:
                 if not(int(pageStartAndEnd[1]) <= int(number_of_pages)):
-                    await downloadMessage.edit(
-                                              text = f"`PDF only have {number_of_pages} pages` 💩"
-                                              )
+                    await downloadMessage.edit(text = f"`PDF only have {number_of_pages} pages` 💩")
                     PROCESS.remove(chat_id)
                     shutil.rmtree(f"{message_id}")
                     return
@@ -750,32 +721,26 @@ async def _KEXTRACT(bot, callbackQuery):
                         pix = page.get_pixmap(matrix=mat)
                         cnvrtpg += 1
                         if cnvrtpg % 5 == 0:
-                            await downloadMessage.edit(
-                                                      text = f"`Converted: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🤞`",
-                                                      reply_markup = cancel
-                                                      )
-                        if chat_id not in PROCESS:
-                            try:
-                                await downloadMessage.edit(
-                                                          text = f"`Canceled at {cnvrtpg}/{int(int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0]))} pages.. 🙄`",
-                                                          reply_markup = canceled
-                                                          )
-                                shutil.rmtree(f'{message_id}')
-                                doc.close()
-                                return
-                            except Exception:
+                            # await downloadMessage.edit(
+                            #                           text = f"`Converted: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🤞`",
+                            #                           reply_markup = cancel
+                            #                           )
+                            if await notInPROCESS(
+                                                 chat_id,
+                                                 callbackQuery,
+                                                 cnvrtpg,
+                                                 totalPgList,
+                                                 message_id
+                                                 ):
                                 return
                         with open(
                             f'{message_id}/pgs/{pageNo}.jpg','wb'
                         ):
                             pix.save(f'{message_id}/pgs/{pageNo}.jpg')
-                    try:
-                        await downloadMessage.edit(
-                                                  text = f"`Preparing an Album..` 🤹",
-                                                  reply_markup = cancel 
-                                                  )
-                    except Exception:
-                        pass
+                    # await downloadMessage.edit(
+                    #                           text = f"`Preparing an Album..` 🤹",
+                    #                           reply_markup = cancel 
+                    #                           )
                     directory = f'{message_id}/pgs'
                     imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                     imag.sort(key = os.path.getctime)
@@ -795,68 +760,75 @@ async def _KEXTRACT(bot, callbackQuery):
                                             quality = qualityRate 
                                             )
                                 qualityRate -= 5
-                                asyncio.sleep(1)
+                                await asyncio.sleep(0.5)
                             else:
                                 if data in ["KIA", "KIR"]:
-                                    media[chat_id].append(
-                                                         InputMediaPhoto(media = file)
-                                                         )
+                                    media[chat_id].append(InputMediaPhoto(open(file, "rb")))
                                 else:
-                                    mediaDoc[chat_id].append(
-                                                            InputMediaDocument(media = file)
-                                                            )
+                                    mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                                 break
-                    await downloadMessage.edit(
-                                              text = f"`Uploading: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🐬`",
-                                              reply_markup = cancel
-                                              )
+                    try:
+                        await downloadMessage.edit(
+                                                  text = f"`Uploading: {cnvrtpg}/{int(pageStartAndEnd[1])+1 - int(pageStartAndEnd[0])} pages.. 🐬`",
+                                                  reply_markup = cancel
+                                                  )
+                    except Exception: pass
                     if data in ["KIA", "KIR"]:
                         if chat_id not in PROCESS:
-                            try:
-                                shutil.rmtree(f'{message_id}')
-                                doc.close()
-                                return
-                            except Exception:
-                                return
+                            shutil.rmtree(f'{message_id}')
+                            doc.close()
+                            return
                         await callbackQuery.message.reply_chat_action(
                                                                      "upload_photo"
                                                                      )
                         try:
-                            await callbackQuery.message.reply_media_group(
-                                                            media[chat_id]
-                                                            )
-                        except FloodWait as e:
-                            await asyncio.sleep(e.x)
-                            await callbackQuery.message.reply_media_group(
-                                                            media[chat_id]
-                                                            )
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              media[chat_id]
+                                                              )
+                        except Exception as e:
+                            wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
+                            media[chat_id] = []
+                            for file in imag:
+                                media[chat_id].append(InputMediaPhoto(open(file, "rb")))
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              media[chat_id]
+                                                              )
                     if data in ["KDA", "KDR"]:
                         if chat_id not in PROCESS:
-                            try:
-                                shutil.rmtree(f'{message_id}')
-                                doc.close()
-                                return
-                            except Exception:
-                                return
-                        await callbackQuery.message.reply_chat_action(
-                                                                     "upload_document"
-                                                                     )
+                            shutil.rmtree(f'{message_id}')
+                            doc.close()
+                            return
+                        await callbackQuery.message.reply_chat_action("upload_document")
                         try:
-                            await callbackQuery.message.reply_media_group(
-                                                         mediaDoc[chat_id]
-                                                         )
-                        except FloodWait as e:
-                            await asyncio.sleep(e.x)
-                            await callbackQuery.message.reply_media_group(
-                                                         mediaDoc[chat_id]
-                                                         )
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              mediaDoc[chat_id]
+                                                              )
+                        except Exception as e:
+                            wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
+                            mediaDoc[chat_id] = []
+                            for file in imag:
+                                mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              mediaDoc[chat_id]
+                                                              )
                     shutil.rmtree(f'{message_id}/pgs')
                 PROCESS.remove(chat_id)
                 doc.close()
-                await downloadMessage.edit(
-                                          text = f'`Uploading Completed.. `🏌️',
-                                          reply_markup = completed
-                                          )
+                try:
+                    await downloadMessage.edit(
+                                              text = f'`Uploading Completed.. `🏌️',
+                                              reply_markup = completed
+                                              )
+                except Exception:
+                    await asyncio.sleep(100)
+                    await downloadMessage.edit(
+                                              text = f'`Uploading Completed.. `🏌️',
+                                              reply_markup = completed
+                                              )
                 shutil.rmtree(f'{message_id}')
             if data in ["KIS", "KDS"]:
                 if int(len(newList)) >= 11:
@@ -869,9 +841,7 @@ async def _KEXTRACT(bot, callbackQuery):
                     if 1 <= int(i) <= number_of_pages:
                         totalPgList.append(i)
                 if len(totalPgList) < 1:
-                    await downloadMessage.edit(
-                                              text = f"`PDF Only have {number_of_pages} page(s) `😏"
-                                              )
+                    await downloadMessage.edit(text = f"`PDF Only have {number_of_pages} page(s) `😏")
                     PROCESS.remove(chat_id)
                     shutil.rmtree(f'{message_id}')
                     doc.close()
@@ -892,32 +862,26 @@ async def _KEXTRACT(bot, callbackQuery):
                             continue
                         cnvrtpg += 1
                         if cnvrtpg % 5 == 0:
-                            await downloadMessage.edit(
-                                                      text = f"`Converted: {cnvrtpg}/{len(totalPgList)} pages.. 🤞`",
-                                                      reply_markup = cancel
-                                                      )
-                        if chat_id not in PROCESS:
-                            try:
-                                await downloadMessage.edit(
-                                                          text = f"`Canceled at {cnvrtpg}/{len(totalPgList)} pages.. 🙄`",
-                                                          reply_markup = canceled
-                                                          )
-                                shutil.rmtree(f'{message_id}')
-                                doc.close()
-                                return
-                            except Exception:
+                            # await downloadMessage.edit(
+                            #                           text = f"`Converted: {cnvrtpg}/{len(totalPgList)} pages.. 🤞`",
+                            #                           reply_markup = cancel
+                            #                           )
+                            if await notInPROCESS(
+                                                 chat_id,
+                                                 callbackQuery,
+                                                 cnvrtpg,
+                                                 totalPgList,
+                                                 message_id
+                                                 ):
                                 return
                         with open(
                             f'{message_id}/pgs/{pageNo}.jpg','wb'
                         ):
                             pix.save(f'{message_id}/pgs/{pageNo}.jpg')
-                    try:
-                        await downloadMessage.edit(
-                                                  text=f"`Preparing an Album..` 🤹",
-                                                  reply_markup = cancel
-                                                  )
-                    except Exception:
-                        pass
+                    # await downloadMessage.edit(
+                    #                           text = f"`Preparing an Album..` 🤹",
+                    #                           reply_markup = cancel
+                    #                           )
                     directory = f'{message_id}/pgs'
                     imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                     imag.sort(key = os.path.getctime)
@@ -937,68 +901,73 @@ async def _KEXTRACT(bot, callbackQuery):
                                             quality = qualityRate 
                                             )
                                 qualityRate -= 5
-                                asyncio.sleep(1)
+                                await asyncio.sleep(0.5)
                             else:
                                 if data == "KIS":
-                                    media[chat_id].append(
-                                                         InputMediaPhoto(media = file)
-                                                         )
+                                    media[chat_id].append(InputMediaPhoto(open(file, "rb")))
                                 else:
-                                    mediaDoc[chat_id].append(
-                                                            InputMediaDocument(media=file)
-                                                            )
+                                    mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                                 break
-                    await downloadMessage.edit(
-                                              text = f"`Uploading: {cnvrtpg}/{len(totalPgList)} pages.. 🐬`",
-                                              reply_markup = cancel
-                                              )
+                    try:
+                        await downloadMessage.edit(
+                                                  text = f"`Uploading: {cnvrtpg}/{len(totalPgList)} pages.. 🐬`",
+                                                  reply_markup = cancel
+                                                  )
+                    except Exception: pass
                     if data== "KIS":
                         if chat_id not in PROCESS:
-                            try:
-                                shutil.rmtree(f'{message_id}')
-                                doc.close()
-                                return
-                            except Exception:
-                                return
-                        await callbackQuery.message.reply_chat_action(
-                                                                     "upload_photo"
-                                                                     )
+                            shutil.rmtree(f'{message_id}')
+                            doc.close()
+                            return
+                        await callbackQuery.message.reply_chat_action("upload_photo")
                         try:
-                            await callbackQuery.message.reply_media_group(
-                                                            media[chat_id]
-                                                            )
-                        except FloodWait as e:
-                            await asyncio.sleep(e.x)
-                            await callbackQuery.message.reply_media_group(
-                                                            media[chat_id]
-                                                            )
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              media[chat_id]
+                                                              )
+                        except Exception as e:
+                            wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
+                            media[chat_id] = []
+                            for file in imag:
+                                media[chat_id].append(InputMediaPhoto(open(file, "rb")))
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              media[chat_id]
+                                                              )
                     if data == "KDS":
                         if chat_id not in PROCESS:
-                            try:
-                                shutil.rmtree(f'{message_id}')
-                                doc.close()
-                                return
-                            except Exception:
-                                return
-                        await callbackQuery.message.reply_chat_action(
-                                                                     "upload_document"
-                                                                     )
+                            shutil.rmtree(f'{message_id}')
+                            doc.close()
+                            return
+                        await callbackQuery.message.reply_chat_action("upload_document")
                         try:
-                            await callbackQuery.message.reply_media_group(
-                                                         mediaDoc[chat_id]
-                                                         )
-                        except FloodWait as e:
-                            await asyncio.sleep(e.x)
-                            await callbackQuery.message.reply_media_group(
-                                                         mediaDoc[chat_id]
-                                                         )
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              mediaDoc[chat_id]
+                                                              )
+                        except Exception as e:
+                            wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
+                            mediaDoc[chat_id] = []
+                            for file in imag:
+                                mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
+                            await pyTgLovePDF.send_media_group(
+                                                              chat_id,
+                                                              mediaDoc[chat_id]
+                                                              )
                     shutil.rmtree(f'{message_id}/pgs')
                 PROCESS.remove(chat_id)
                 doc.close()
-                await downloadMessage.edit(
-                                          text = f'`Uploading Completed.. `🏌️',
-                                          reply_markup = completed
-                                          )
+                try:
+                    await downloadMessage.edit(
+                                              text = f'`Uploading Completed.. `🏌️',
+                                              reply_markup = completed
+                                              )
+                except Exception:
+                    await asyncio.sleep(100)
+                    await downloadMessage.edit(
+                                              text = f'`Uploading Completed.. `🏌️',
+                                              reply_markup = completed
+                                              )
                 shutil.rmtree(f'{message_id}')
                 await footer(callbackQuery.message.reply_to_message, False)
     except Exception as e:
