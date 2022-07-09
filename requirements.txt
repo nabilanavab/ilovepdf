@@ -11,3 +11,5 @@ psutil==5.9.0
 motor==2.5.1
 pymongo[srv]
 hachoir
+pytelegrambotapi
+aiohttp
