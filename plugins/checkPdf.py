@@ -39,16 +39,18 @@ async def checkPdf(file_path, callbackQuery):
             isEncrypted = doc.is_encrypted
             number_of_pages = doc.pageCount
             if isEncrypted:
-                await callbackQuery.edit_message_text(
-                    encryptedMsg.format(
-                        fileName, await gSF(fileSize), number_of_pages
-                    ),
-                    reply_markup = InlineKeyboardMarkup(
-                        [[
-                            InlineKeyboardButton("🔓 DECRYPT 🔓",callback_data=f"Kdecrypt|{number_of_pages}")
-                        ]]
+                try:
+                    await callbackQuery.edit_message_text(
+                        encryptedMsg.format(
+                            fileName, await gSF(fileSize), number_of_pages
+                        ),
+                        reply_markup = InlineKeyboardMarkup(
+                            [[
+                                InlineKeyboardButton("🔓 DECRYPT 🔓",callback_data=f"Kdecrypt")
+                            ]]
+                        )
                     )
-                )
+                except Exception: pass
                 if callbackQuery.data not in ["decrypt", "Kdecrypt"]:
                     PROCESS.remove(chat_id)
                     # try Coz(at the time of merge there is no such dir but checking)
