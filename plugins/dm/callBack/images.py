@@ -65,14 +65,13 @@ completed = InlineKeyboardMarkup(
 async def notInPROCESS(chat_id, message, current, total, deleteID):
     if chat_id in PROCESS:
         return False
-    else:
-        await message.edit(
-                          text = f"`Canceled at {current}/{total} pages..` 🙄",
-                          reply_markup = canceled
-                          )
-        shutil.rmtree(f'{deleteID}')
-        doc.close()
-        return True
+    await message.edit(
+                      text = f"`Canceled at {current}/{total} pages..` 🙄",
+                      reply_markup = canceled
+                      )
+    shutil.rmtree(f'{deleteID}')
+    doc.close()
+    return True
 
 #--------------->
 #--------> PDF TO IMAGES
