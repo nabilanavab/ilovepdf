@@ -133,7 +133,7 @@ async def _pdfInfo(bot, callbackQuery):
                                 callback_data=f"Kencrypt|{number_of_pages}",
                             ),
                             InlineKeyboardButton(
-                                "🔒 DECRYPT 🔓", callback_data=f"notEncrypted"
+                                "🔒 DECRYPT 🔓", callback_data="notEncrypted"
                             ),
                         ],
                         [
@@ -180,6 +180,7 @@ async def _pdfInfo(bot, callbackQuery):
                         ],
                     ]
                 )
+
 
                 await callbackQuery.edit_message_text(
                                                      pdfInfoMsg.format(
