@@ -39,7 +39,7 @@ async def checkPdf(file_path, callbackQuery):
             isEncrypted = doc.is_encrypted
             number_of_pages = doc.pageCount
             if isEncrypted:
-               try:
+                try:
                     await callbackQuery.edit_message_text(
                         encryptedMsg.format(
                             fileName, await gSF(fileSize), number_of_pages
