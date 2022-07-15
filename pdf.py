@@ -38,14 +38,11 @@ iLovePDF = '''
                          Telegram: @nabilanavab
 '''
 
-
-import asyncio
 import logging
 from pyromod import listen
 from configs.dm import Config
 from configs.db import isMONGOexist
 from pyrogram import Client as ILovePDF
-from telebot.async_telebot import AsyncTeleBot
 from configs.db import BANNED_USR_DB, BANNED_GRP_DB
 from configs.images import CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -70,15 +67,6 @@ myID = None
 PROCESS = []        # to check current process
 invite_link = None
 
-
-# TELEBOT (pyTelegramBotAPI) Asyncio
-pyTgLovePDF = AsyncTeleBot(
-                           Config.API_TOKEN,
-                           parse_mode = "Markdown"
-                           )
-pyTgLovePDF.polling()
-
-# PYROGRAM
 class Bot(ILovePDF):
     
     def __init__(self):
@@ -117,9 +105,6 @@ class Bot(ILovePDF):
                     f"BOT ID : {myID.id} | BOT NAME: {myID.first_name} |"
                     f" BOT USERNAME: {myID.username}\n\n"
                     f"BOT GETS STARTED..\n"
-                    f"Thanks @nabilanavab for this Awesome repo\n"
-                    f"Telegram Update Channel: @iLovePDF_bot\n\n"
-                    f"{iLovePDF}"
                     )
         # Bot Restarted Message to ADMINS
         for admin in Config.ADMINS:
