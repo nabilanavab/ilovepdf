@@ -30,7 +30,6 @@ myID = None
 PROCESS = []        # to check current process
 invite_link = None
 
-# TELEBOT (pyTelegramBotAPI) Asyncio
 pyTgLovePDF = AsyncTeleBot(
                            Config.API_TOKEN,
                            parse_mode = "Markdown"
