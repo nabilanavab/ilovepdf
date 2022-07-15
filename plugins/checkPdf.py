@@ -49,6 +49,7 @@ async def checkPdf(file_path, callbackQuery):
                                 InlineKeyboardButton("🔓 DECRYPT 🔓",callback_data=f"Kdecrypt")
                             ]]
                         )
+                    )
                 except Exception: pass
                 if callbackQuery.data not in ["decrypt", "Kdecrypt"]:
                     PROCESS.remove(chat_id)
