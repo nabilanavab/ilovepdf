@@ -80,7 +80,7 @@ async def _pdf(bot, callbackQuery):
         if await header(bot, callbackQuery):
             return
         
-        chat_id = callbackQuery.message.chat.id
+        chat_id = callbackQuery.from_user.id
         message_id = callbackQuery.message.message_id
         
         if callbackQuery.data == "rot360":
@@ -236,7 +236,6 @@ async def _pdf(bot, callbackQuery):
         if downloadLoc is None:
             PROCESS.remove(chat_id)
             return
-        
         await downloadMessage.edit(
                                   "⚙️ `Started Processing.. \nIt might take some time..`💛",
                                   reply_markup = cancelBtn
