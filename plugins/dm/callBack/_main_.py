@@ -242,10 +242,10 @@ async def _pdf(bot, callbackQuery):
                                   reply_markup = cancelBtn
                                   )
         # CHECK PDF OR NOT(HERE compressed, SO PG UNKNOWN)
-        if (data[0] != 'K') or not (data in ["rot180", "rot90", "rot270"]):
+        if (data.startswith("Kdecrypt")) or (data[0] != 'K') or not (data in ["rot180", "rot90", "rot270"]):
             # check file encryption, codec.
             checked, number_of_pages = await checkPdf(input_file, callbackQuery)
-            if data.startswith("decrypt"):
+            if data.startswith(tuple(["decrypt", "Kdecrypt"])):
                 if not(checked == "encrypted"):
                     await downloadMessage.edit(
                                               "`File Not Encrypted..`🙏🏻"
@@ -257,7 +257,7 @@ async def _pdf(bot, callbackQuery):
                     await downloadMessage.delete()
                     return
         
-        if chat_id in PROCESS:
+        if (chat_id in PROCESS) or (data.startswith("Kdecrypt")):
             if data.startswith(tuple(["compress", "Kcompress"])):
                 await downloadMessage.edit(
                                           "⚙️ `Started Compressing.. 🌡️\nIt might take some time..`💛", 
