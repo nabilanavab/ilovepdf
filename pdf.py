@@ -1,8 +1,10 @@
+import asyncio
 import logging
 from pyromod import listen
 from configs.dm import Config
 from configs.db import isMONGOexist
 from pyrogram import Client as ILovePDF
+from telebot.async_telebot import AsyncTeleBot
 from configs.db import BANNED_USR_DB, BANNED_GRP_DB
 from configs.images import CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
