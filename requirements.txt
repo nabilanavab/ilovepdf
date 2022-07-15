@@ -1,4 +1,4 @@
-RCpyrogram==1.4.8
+pyrogram==1.4.8
 TgCrypto==1.2.3
 pillow==9.0.1
 PyMuPdf==1.19.6
