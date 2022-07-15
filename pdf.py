@@ -1,3 +1,44 @@
+# This file is part of nabilanavab/iLovePDF [a completely free software]
+
+
+# Repository:  : [i💜PDF]
+# Author:      : nabilanavab
+# Email:       : nabilanavab@gmail.com
+# Telegram:    : https://telegram.dog/complete_pdf_bot
+# GitHub:      : https://github.com/nabilanavab/ILovePDF
+# Coding       : !/usr/bin/python3, utf-8, copyright ©️ 2021 nabilanavab
+
+
+# ABOUT SOURCE-CODE:
+#     Inspired from an old Telegram Bot [@JPG2PDFBot] by @spechide
+# 
+# When I released nabilanavab/ILovePDF in 2021-JUNE, It had Only 100 lines of code.
+# at that time, bot only supports images to PDF feature, Having worked on it for
+# a few more weeks, it made me more interesting In adding new features. Now, it
+# supports many manipulation over TELEGRAM PDF files..
+#                                       THANKS ALL MY COLLEGE'S FOR YOUR SUGGESTIONS 💚
+# 
+# Before blaming the source-code:
+#    ◍ I'm neither a Geek nor a Computer Science student
+#    ◍ Just Started Writing this Source-code when I was 19 :)
+#    ◍ Source-code was fully written using my Android phone [Nokia 2.2]
+#                      funFact: I never had hosted this program locally yet :(
+#
+#                                                     CURRENTLY A [BSC. PHYSICS STUDENT]
+#                                                          DATE:[1-JUNE-2022, Wednesday]
+
+
+iLovePDF = '''
+  _   _                  ___  ___  ____ ™
+ | | | |   _____ _____  | _ \|   \|  __| 
+ | | | |__/ _ \ V / -_) |  _/| |) |  _|  
+ |_| |___,\___/\_/\___| |_|  |___/|_|    
+                         [Nabil A Navab] 
+                         Email: nabilanavab@gmail.com
+                         Telegram: @nabilanavab
+'''
+
+
 import asyncio
 import logging
 from pyromod import listen
@@ -22,7 +63,6 @@ logging.basicConfig(
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 # SOMEONE TOLD ME PRO DEV. NEVER USE PRINT FOR TRACKING ERRORS. SO, import logging :|
 
-
 # GLOBAL VARIABLES
 
 PDF = {}            # save images for generating pdf
@@ -30,6 +70,8 @@ myID = None
 PROCESS = []        # to check current process
 invite_link = None
 
+
+# TELEBOT (pyTelegramBotAPI) Asyncio
 pyTgLovePDF = AsyncTeleBot(
                            Config.API_TOKEN,
                            parse_mode = "Markdown"
@@ -75,6 +117,9 @@ class Bot(ILovePDF):
                     f"BOT ID : {myID.id} | BOT NAME: {myID.first_name} |"
                     f" BOT USERNAME: {myID.username}\n\n"
                     f"BOT GETS STARTED..\n"
+                    f"Thanks @nabilanavab for this Awesome repo\n"
+                    f"Telegram Update Channel: @iLovePDF_bot\n\n"
+                    f"{iLovePDF}"
                     )
         # Bot Restarted Message to ADMINS
         for admin in Config.ADMINS:
