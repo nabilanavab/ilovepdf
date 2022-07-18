@@ -178,7 +178,7 @@ async def _pdf(bot, callbackQuery):
                 return
             else:
                 if newName.text[-4:] == ".pdf":
-                    fileNm = newName[-4:]
+                    fileNm = newName.text[-4:]
                 else:
                     fileNm = newName.text + ".pdf"
         
