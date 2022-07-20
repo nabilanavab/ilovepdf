@@ -198,32 +198,45 @@ async def _stmp(bot, callbackQuery):
         _, annot = callbackQuery.data.split("|")
         await callbackQuery.edit_message_text(
             "__Add Stamp » Select Color:\nTotal pages: unknown__ 😐",
-            reply_markup = InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton("Red ❤️",
-                        callback_data=f"color|{annot}|r"),
-                    InlineKeyboardButton("Blue 💙",
-                        callback_data=f"color|{annot}|b")
-                ],[
-                    InlineKeyboardButton("Green 💚",
-                        callback_data=f"color|{annot}|g"),
-                    InlineKeyboardButton("Yellow 💛",
-                       callback_data=f"color|{annot}|c1")
-                ],[
-                    InlineKeyboardButton("Pink 💜",
-                       callback_data=f"color|{annot}|c2"),
-                    InlineKeyboardButton("Hue 💚",
-                       callback_data=f"color|{annot}|c3")
-                ],[
-                    InlineKeyboardButton("White 🤍",
-                       callback_data=f"color|{annot}|c4"),
-                    InlineKeyboardButton("Black 🖤",
-                       callback_data=f"color|{annot}|c5")
-                ],[
-                    InlineKeyboardButton("« Back «",
-                                  callback_data=f"stamp")
-                ]]
-            ))
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            "Red ❤️", callback_data=f"color|{annot}|r"
+                        ),
+                        InlineKeyboardButton(
+                            "Blue 💙", callback_data=f"color|{annot}|b"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "Green 💚", callback_data=f"color|{annot}|g"
+                        ),
+                        InlineKeyboardButton(
+                            "Yellow 💛", callback_data=f"color|{annot}|c1"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "Pink 💜", callback_data=f"color|{annot}|c2"
+                        ),
+                        InlineKeyboardButton(
+                            "Hue 💚", callback_data=f"color|{annot}|c3"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "White 🤍", callback_data=f"color|{annot}|c4"
+                        ),
+                        InlineKeyboardButton(
+                            "Black 🖤", callback_data=f"color|{annot}|c5"
+                        ),
+                    ],
+                    [InlineKeyboardButton("« Back «", callback_data="stamp")],
+                ]
+            ),
+        )
+
     except Exception: pass
 
 # Stamp color message (with known pdf page number)
@@ -271,10 +284,10 @@ async def _color(bot, callbackQuery):
     try:
         if await header(bot, callbackQuery):
             return
-        
+
         chat_id = callbackQuery.message.chat.id
         message_id = callbackQuery.message.message_id
-        
+
         # CHECK IF USER IN PROCESS
         if chat_id in PROCESS:
             await callbackQuery.answer(
@@ -284,11 +297,12 @@ async def _color(bot, callbackQuery):
         _, annot, colr = callbackQuery.data.split("|")
         await callbackQuery.answer()
         # ↓ ADD TO PROCESS       ↓ CALLBACK DATA
-        PROCESS.append(chat_id); data = callbackQuery.data
+        PROCESS.append(chat_id)
+        data = callbackQuery.data
         # STARTED DOWNLOADING
         input_file = f"{message_id}/inPut.pdf"
         output_file = f"{message_id}/outPut.pdf"
-        
+
         downloadMessage = await callbackQuery.message.reply_text(
                                                                 "`Downloding your pdf..` 📥", 
                                                                 quote = True
@@ -308,7 +322,7 @@ async def _color(bot, callbackQuery):
                                                               c_time
                                                               )
                                               )
-        
+
         # COLOR CODE
         if colr=="r": color=(1, 0, 0)
         elif colr=="b": color=(0, 0, 1)
@@ -318,7 +332,7 @@ async def _color(bot, callbackQuery):
         elif colr=="c3": color=(0, 1, 1)
         elif colr=="c4": color=(1, 1, 1)
         elif colr=="c5": color=(0, 0, 0)
-        
+
         # CHECK DOWNLOAD COMPLETED OR CANCELED
         if downloadLoc is None:
             PROCESS.remove(chat_id)
@@ -329,7 +343,7 @@ async def _color(bot, callbackQuery):
                                   )
         if data.startswith("color"):
             checked = await checkPdf(input_file, callbackQuery)
-            if not(checked == "pass"):
+            if checked != "pass":
                 await downloadMessage.delete()
                 return
         r = fitz.Rect(72, 72, 440, 200)
@@ -351,7 +365,7 @@ async def _color(bot, callbackQuery):
                                     file_name = f"{callbackQuery.message.message_id}.jpeg"
                                     )
             thumbnail = await formatThumb(location)
-        
+
         await downloadMessage.edit(
                                   "⚙️ `Started Uploading..` 📤",
                                   reply_markup = cancel

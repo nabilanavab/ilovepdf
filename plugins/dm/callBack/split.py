@@ -33,7 +33,11 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 split = filters.create(lambda _, __, query: query.data == "split")
 Ksplit = filters.create(lambda _, __, query: query.data.startswith("Ksplit|"))
 
-splitProcess = filters.create(lambda _, __, query: query.data.startswith(tuple(["splitR", "splitS", "KsplitR|", "KsplitS"])))
+splitProcess = filters.create(
+    lambda _, __, query: query.data.startswith(
+        ("splitR", "splitS", "KsplitR|", "KsplitS")
+    )
+)
 
 @ILovePDF.on_callback_query(split)
 async def _split(bot, callbackQuery):

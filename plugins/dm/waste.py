@@ -29,10 +29,7 @@ async def _spam(bot, message):
         await message.reply_chat_action(
                                        "typing"
                                        )
-        await message.reply_text(
-                                f"`no one gonna to help you` 😏",
-                                quote = True
-                                )
+        await message.reply_text("`no one gonna to help you` 😏", quote = True)
     except Exception as e:
         logger.exception(
                         "/SERVER:CAUSES %(e)s ERROR",

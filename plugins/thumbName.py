@@ -25,18 +25,13 @@ from hachoir.metadata import extractMetadata
 if isMONGOexist:
     from database import db
 
-changeNAME = False
-if DEFAULT_NAME:
-   changeNAME = True
+changeNAME = bool(DEFAULT_NAME)
 
 # return thumbnail height
 async def thumbMeta(thumbPath: str):
     try:
         metadata = extractMetadata(createParser(thumbPath))
-        if metadata.has("height"):
-            return metadata.get("height")
-        else:
-            return 0
+        return metadata.get("height") if metadata.has("height") else 0
     except Exception as e:
         logger.exception(
                         "THUMB_META:CAUSES %(e)s ERROR",
@@ -65,15 +60,13 @@ async def thumbName(message, fileName):
         fileNm, fileExt = os.path.splitext(fileName)
         if changeNAME:
             SET_DEFAULT_NAME = DEFAULT_NAME + fileExt
-        
-        # if no mongoDB return False [default thumbnail ]
+
         if not isMONGOexist:
-            # id no DEFAULT_NAME, use current file name 
             if changeNAME:
                 return PDF_THUMBNAIL, SET_DEFAULT_NAME
             else:
                 return PDF_THUMBNAIL, fileName
-        
+
         # user with thumbnail
         if chat_type == "private" and message.chat.id in CUSTOM_THUMBNAIL_U:
             thumbnail = await db.get_thumbnail(message.chat.id)
@@ -81,12 +74,8 @@ async def thumbName(message, fileName):
             thumbnail = await db.get_group_thumb(message.chat.id)
         else:
             thumbnail = PDF_THUMBNAIL
-        
-        if changeNAME:
-            return thumbnail, SET_DEFAULT_NAME
-        else:
-            return thumbnail, fileName
-    
+
+        return (thumbnail, SET_DEFAULT_NAME) if changeNAME else (thumbnail, fileName)
     except Exception as e:
         logger.exception(
                         "THUMB_NAME:CAUSES %(e)s ERROR",

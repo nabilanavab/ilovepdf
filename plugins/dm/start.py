@@ -124,17 +124,25 @@ async def start(bot, message):
                                                                 message.chat.id
                                                                 )
                             await bot.send_message(
-                                              chat_id = LOG_CHANNEL,
-                                                  text = LOG_TEXT_C.format(
-                                                                          message.chat.id,
-                                                                          message.chat.title,
-                                                                          total,
-                                                                          message.chat.username if message.chat.username else "❌"
-                                                                          ),
-                                                   reply_markup = InlineKeyboardMarkup(
-                                                          [[InlineKeyboardButton("« B@N «",
-                                                                 callback_data = f"banC|{message.chat.id}")]]
-                                                   ))
+                                chat_id=LOG_CHANNEL,
+                                text=LOG_TEXT_C.format(
+                                    message.chat.id,
+                                    message.chat.title,
+                                    total,
+                                    message.chat.username or "❌",
+                                ),
+                                reply_markup=InlineKeyboardMarkup(
+                                    [
+                                        [
+                                            InlineKeyboardButton(
+                                                "« B@N «",
+                                                callback_data=f"banC|{message.chat.id}",
+                                            )
+                                        ]
+                                    ]
+                                ),
+                            )
+
                         except Exception: pass
                 try:
                     return await message.reply(
@@ -153,25 +161,26 @@ async def start(bot, message):
                                                                           url = "https://github.com/nabilanavab/iLovePDF")]]
                                   ))
                 except Exception: pass
-            if message.chat.type == "private":
-                if not await db.is_user_exist(message.from_user.id):
-                    await db.add_user(
-                                     message.from_user.id,
-                                     message.from_user.first_name
-                                     )
-                    if LOG_CHANNEL:
-                        try:
-                            await bot.send_message(
-                                              chat_id = LOG_CHANNEL,
-                                              text = LOG_TEXT.format(
-                                                                    message.from_user.id,
-                                                                    message.from_user.mention
-                                                                    ),
-                                              reply_markup = InlineKeyboardMarkup(
-                                                          [[InlineKeyboardButton("« B@N «",
-                                                          callback_data=f"banU|{message.from_user.id}")]]
-                                              ))
-                        except Exception: pass
+            if message.chat.type == "private" and not await db.is_user_exist(
+                message.from_user.id
+            ):
+                await db.add_user(
+                                 message.from_user.id,
+                                 message.from_user.first_name
+                                 )
+                if LOG_CHANNEL:
+                    try:
+                        await bot.send_message(
+                                          chat_id = LOG_CHANNEL,
+                                          text = LOG_TEXT.format(
+                                                                message.from_user.id,
+                                                                message.from_user.mention
+                                                                ),
+                                          reply_markup = InlineKeyboardMarkup(
+                                                      [[InlineKeyboardButton("« B@N «",
+                                                      callback_data=f"banU|{message.from_user.id}")]]
+                                          ))
+                    except Exception: pass
         # CHECK USER IN CHANNEL (IF UPDATE_CHANNEL ADDED)
         if UPDATE_CHANNEL:
             try:
@@ -191,7 +200,7 @@ async def start(bot, message):
                                               ))
                      return
             except Exception as e:
-                if invite_link == None:
+                if invite_link is None:
                     invite_link = await bot.create_chat_invite_link(
                                                                    int(UPDATE_CHANNEL)
                                                                    )

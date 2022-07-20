@@ -40,19 +40,25 @@ async def checkPdf(file_path, callbackQuery):
             if isEncrypted := doc.is_encrypted:
                 try:
                     await callbackQuery.edit_message_text(
+
                         encryptedMsg.format(
+
                             fileName, await gSF(fileSize), number_of_pages
+
                         ),
-                        reply_markup=InlineKeyboardMarkup(
-                            [
-                                [
-                                    InlineKeyboardButton(
-                                        "🔓 DECRYPT 🔓", callback_data="Kdecrypt"
-                                    )
-                                ]
-                            ]
-                        ),
+
+                        reply_markup = InlineKeyboardMarkup(
+
+                            [[
+
+                                InlineKeyboardButton("🔓 DECRYPT 🔓",callback_data=f"Kdecrypt")
+
+                            ]]
+
+                        )
+
                     )
+
 
                 except Exception: pass
                 if callbackQuery.data not in ["decrypt", "Kdecrypt"]:
