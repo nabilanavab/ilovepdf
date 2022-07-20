@@ -35,10 +35,10 @@ adminHelp="""\n\n[ADMIN COMMAND MESSAGES]:\n
 /ban `id/usrnm`: to ban a user\n
 /unban `id/usrnm`: to unban a banned user\n
 /deleteUser `id/usrnm`: delete user from database\n
-/forward `id/usrnm`: replied message forward to user\n
-/forward c `id/usrnm`: replied message forward as copy\n
+/message `id/usrnm`: replied message forward to user\n
+/message c `id/usrnm`: replied message forward as copy\n
 /users: get current bot users list\n
-/broadcast: replied message broadcast to all users\n
+/broadcast c: replied message broadcast to all users\n
 /broadcast f: replied message forward to bot users"""
 
 footer="""\n\nSource-Code: [i💜PDF](https://github.com/nabilanavab/iLovePDF)\n
