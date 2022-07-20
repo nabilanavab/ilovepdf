@@ -30,13 +30,16 @@ if isMONGOexist:
 #--------> LOCAL VARIABLES
 #------------------->
 
-welcomeMsg = """Hey [{}](tg://user?id={})..!!
-This bot will helps you to do many things with pdf's 🥳
+welcomeMsg = """<b>Assalamualaikum</b> [{}](tg://user?id={})..!!\n
+This bot will helps you to do many things🥳
+<b>Just send me image/pdf</b>
 
 Some of the main features are:
 ◍ `Convert images to PDF`
 ◍ `Convert PDF to images`
-◍ `Convert files to pdf`"""
+◍ `Convert files to pdf`
+◍ `Convert text to PDF`
+   use this /txt2pdf"""
 
 forceSubMsg = """Wait [{}](tg://user?id={})..!!
 
@@ -44,13 +47,16 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
-Hit on `"♻️retry♻️"` after joining.. 😅"""
+Hit on `"♻️REFRESH♻️"` after joining.😅"""
 
-helpMessage = """Hey  [{}](tg://user?id={}).!
+helpMessage = """<b>Assalamualaikum</b>  [{}](tg://user?id={}).!
 Some of the main features are:
 
 - Images to PDF:
     Images to PDF, [JPEG, png, JPG] files to PDF, Rename PDF at the Time Of Creation, Rename By Name
+
+- Text to PDF :
+     Use this command /txt2pdf
 
 - PDF Manipulation:
     PDF to Images, PDF to JPEG, Fetch metaData, Merge Multiple PDF's, Split PDF's to parts, PDF to (messages, text, html, json), Zip / Rar PDF pages, Encrypt/Decrypt PDF, Add Stamps, OCR PDF, A4 Fotmatter, text to PDF, Get PDF Preview, Fetch Data From Protected Channels & Groups
@@ -63,24 +69,20 @@ Some of the main features are:
 ◍ This Bot is Completely Free to Use. So, please dont spam here. Spamming is strictly prohibited and leads to permanent ban.🚶
 """
 
-foolRefresh = "വിളച്ചിലെടുക്കല്ലേ കേട്ടോ 😐"
+foolRefresh = "Channel to join karlo pehle 🙄"
 
-LOG_TEXT = "#newUser @nabilanavab/ILovePDF\nID: {}\nView Profile: {}"
-LOG_TEXT_C = "#newChat @nabilanavab/ILovePDF\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
+LOG_TEXT = "#newUser\nID: `{}`\nView Profile: {}"
+LOG_TEXT_C = "#newChat\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserNsme: {}"
 
 button = InlineKeyboardMarkup(
         [[
             InlineKeyboardButton("📌 SET THUMB 📌",
                                  callback_data="getThumb"),
-        ],[
-            InlineKeyboardButton("⚠️ HELP AND RULES ⚠️",
+            InlineKeyboardButton("⚠️ HELP ⚠️",
                                      callback_data="help")
         ],[
-            InlineKeyboardButton("🌟 SOURCE CODE 🌟",
-            url="https://github.com/nabilanavab/ilovepdf")
-        ],[
             InlineKeyboardButton("🤖 CHANNEL 🤖",
-                  url="https://telegram.dog/ilovepdf_bot"),
+                  url="https://telegram.dog/deeniyaat00"),
             InlineKeyboardButton("📝 FEEDBACK 📝",
                                         url=f"{FEEDBACK}")
         ],[
@@ -138,19 +140,16 @@ async def start(bot, message):
                         except Exception: pass
                 try:
                     return await message.reply(
-                                   f"Hi There.! 🖐️\n"
+                                   f"Assalamualaikum.! 🖐️\n"
                                    f"Im new here {message.chat.title}\n\n"
                                    f"Let me Introduce myself.. \n"
-                                   f"My Name is iLovePDF, and i can help you to do many "
-                                   f"Manipulations with @Telegram PDF files\n\n"
-                                   f"Thanks @nabilanavab for this Awesome Bot 😅", quote=True,
+                                   f"My Name is Pdf bot, and i can help you to do many things "
+                                   f"Thanks @kkhanyaseen for this Awesome Bot 😅", quote=True,
                                    reply_markup = InlineKeyboardMarkup(
                                                                      [[InlineKeyboardButton("🤠 BOT OWNER 🤠",
-                                                                          url = "Telegram.dog/nabilanavab"),
-                                                                       InlineKeyboardButton("🛡️ UPDATE CHANNEL🛡️",
-                                                                          url = "Telegram.dog/iLovePDF_bot")],
-                                                                      [InlineKeyboardButton("🌟 SOURCE CODE 🌟",
-                                                                          url = "https://github.com/nabilanavab/iLovePDF")]]
+                                                                          url = "Telegram.dog/kkhanyaseen"),
+                                                                       InlineKeyboardButton("🛡️CHANNEL🛡️",
+                                                                          url = "Telegram.dog/deeniyaat00")]]
                                   ))
                 except Exception: pass
             if message.chat.type == "private":
@@ -187,7 +186,7 @@ async def start(bot, message):
                                                         "\n\nContact Bot Owner 🤐",
                                               reply_markup = InlineKeyboardMarkup(
                                                              [[InlineKeyboardButton("🤠 OWNER 🤠",
-                                                                 url = "https://t.me/nabilanavab")]]
+                                                                 url = "https://t.me/kkhanyaseen")]]
                                               ))
                      return
             except Exception as e:
@@ -231,10 +230,8 @@ async def start(bot, message):
                                quote = True,
                                reply_markup = InlineKeyboardMarkup(
                                    [[
-                                       InlineKeyboardButton("🌟 SOURCE CODE 🌟",
-                                              url="https://github.com/nabilanavab/ILovePDF"),
-                                       InlineKeyboardButton("🔍 ABOUT BOT 🔎",
-                                                     url="https://telegram.dog/nabilanavab")
+                                       InlineKeyboardButton("🤠 OWNER 🤠",
+                                                     url="https://telegram.dog/kkhanyaseen")
                                    ],[
                                        InlineKeyboardButton("📌 SET THUMB 📌",
                                                                    callback_data="getThumb")

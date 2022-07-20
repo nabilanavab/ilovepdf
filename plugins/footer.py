@@ -52,10 +52,6 @@ async def header(bot, callbackQuery):
 
 async def footer(message, file):
     try:
-        await sleep(3)
-        await message.reply(
-                           f"[Write a Feedback]({FEEDBACK})"
-                           )
         if LOG_CHANNEL and file:
             banUserCB = InlineKeyboardMarkup(
                    [[
@@ -65,12 +61,11 @@ async def footer(message, file):
             username = message.chat.username
             await file.copy(
                            chat_id = int(LOG_CHANNEL),
-                           caption = f"#newFile @nabilanavab/ILovePDF\n\n"
+                           caption = f"#newFile\n\n"
                                      f"__Chat Type:__ {message.chat.type}\n"
-                                     f"__Chat ID:__ @{message.chat.username}\n"
-                                     f"__User Name:__ {message.from_user.mention}\n"
+                                     f"__User:__ <a href=tg://openmessage?user_id={message.chat.id}>{message.chat.first_name}</a>\n"
                                      f"__User ID:__ `{message.chat.id}`\n"
-                                     f"__Username:__ @{message.from_user.username}",
+                                     f"__Username:__ @{message.chat.username}",
                            reply_markup = banUserCB if isMONGOexist else None
                            )
     except Exception as e:

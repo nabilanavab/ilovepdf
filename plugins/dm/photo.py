@@ -37,7 +37,7 @@ Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶
 
 This Means You Need To Join The Below Mentioned Channel for Using Me!
 
-hit on "retry ♻️" after joining.. 😅"""
+hit on "♻️ REFRESH ♻️" after joining.. 😅"""
 
 #--------------->
 #--------> REPLY TO IMAGES
@@ -70,7 +70,7 @@ async def images(bot, message):
                                                                           [[
                                                                                  InlineKeyboardButton(
                                                                                                      "Owner 🎊",
-                                                                                 url="https://t.me/nabilanavab")
+                                                                                 url="https://t.me/kkhanyaseen")
                                                                           ]]
                                                                     )
                                                      )
@@ -90,7 +90,7 @@ async def images(bot, message):
                                                  InlineKeyboardButton("🌟 JOIN CHANNEL 🌟",
                                                              url = invite_link.invite_link)
                                              ],[
-                                                 InlineKeyboardButton("Refresh ♻️",
+                                                 InlineKeyboardButton("♻️ REFRESH ♻️",
                                                               callback_data = "refreshImg")
                                              ]]
                                          ))

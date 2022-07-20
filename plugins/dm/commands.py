@@ -24,11 +24,11 @@ feedbackMsg=f"[Write a feedback 📋]({FEEDBACK})"
 
 userHELP="""[USER COMMAND MESSAGES]:\n
 /start, /ping: to check whether Bot alive\n
-/help, /command: for this message\n
+/help: for this message\n
 /generate: generate PDF with current images\n
 /delete: deletes the current image to pdf queue\n
 /txt2pdf: to create pdf files from text message\n
-/feedback: to Write something about i💜PDF bot"""
+/feedback: to Write something about this bot"""
 
 adminHelp="""\n\n[ADMIN COMMAND MESSAGES]:\n
 /server: to get current bot, server status\n
@@ -41,9 +41,10 @@ adminHelp="""\n\n[ADMIN COMMAND MESSAGES]:\n
 /broadcast c: replied message broadcast to all users\n
 /broadcast f: replied message forward to bot users"""
 
-footer="""\n\nSource-Code: [i💜PDF](https://github.com/nabilanavab/iLovePDF)\n
-Bot: @complete_pdf_bot 💎\n
-[Support Channel](https://telegram.dog/iLovePDF_bot)"""
+footer="""\n\n
+<b>Bot</b>: @pdf_ybot \n
+<b>Channel</b>: @deeniyaat00 \n
+<b>Owner</b>: @kkhanyaseen\n"""
 
 
 # ❌ CANCELS CURRENT PDF TO IMAGES WORK ❌

@@ -5,7 +5,7 @@ import os
 
 
 # ❌ FEEDBACK LINK ❌ [EDITABLE]
-FEEDBACK = "https://telegram.dog/ilovepdf_bot"
+FEEDBACK = "https://t.me/kkhanyaseen"
 
 
 # ❌ DEFAULT THUMBNAIL ❌ [EDITABLE]
@@ -18,19 +18,19 @@ PDF_THUMBNAIL = "./images/thumbnail.jpeg"
 # ❌ WELCOME IMAGE ❌ [EDITABLE]
 # from Configs.images import WELCOME_PIC
 # WELCOME_IMAGE="./images/start.jpeg"
-WELCOME_PIC = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"
+WELCOME_PIC = "https://te.legra.ph/file/cba423d15873a0d852cc3.jpg"
 
 
 # ❌ BANNED IMAGE ❌ [EDITABLE]
 # from Configs.images import BANNED_PIC
 # BANNED_MESSAGE="./images/banned.jpeg"
-BANNED_PIC = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"
+BANNED_PIC = "https://te.legra.ph/file/cba423d15873a0d852cc3.jpg"
 
 
 # ❌ BIG FILE ❌ [EDITABLE]
 # from Configs.images import BIG_FILE
 #  = "./images/bigFile.jpeg"
-BIG_FILE = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"
+BIG_FILE = "https://te.legra.ph/file/cba423d15873a0d852cc3.jpg"
 
 
 # ❌ Load UsersId with custom thumbnail ❌

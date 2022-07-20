@@ -24,7 +24,7 @@ nabilanavab = False # Change to False else never work
 try:
     import ocrmypdf
 except Exception:
-    nabilanavab = True
+    nabilanavab = False
 
 #--------------->
 #--------> LOCAL VARIABLES

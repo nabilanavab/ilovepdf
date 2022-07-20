@@ -1,15 +1,15 @@
 {
-	"name": "ilovepdf_bot",
+	"name": "pdf_ybot",
 	"description": "A Telegram Bot that helps you to domany this with pdf.",
 	"keywords": [
 		"Telegram", "Telegram Bot", "pdf bot",
 		"ilovepdf", "nabilabavab", "python",
-		"ilovepdf_bot", "complete pdf bot"
+		"pdf_ybot", "complete pdf bot"
 	],
-	"website": "https://github.com/nabilanavab/ilovepdf",
-	"repository": "https://github.com/nabilanavab/ilovepdf",
+	"website": "https://github.com/kkhanyaseen/ilovepdf",
+	"repository": "https://github.com/kkhanyaseen/ilovepdf",
 	"logo": "https://te.legra.ph/file/b659b2e306bb766a44537.jpg",
-	"success_url": "https://github.com/nabilanavab/ilovepdf",
+	"success_url": "https://github.com/kkhanyaseen/ilovepdf",
 	"stack": "heroku-20",
 	"env": {
 		"API_ID": {
@@ -25,25 +25,53 @@
 			"required": true
 		},
 		"UPDATE_CHANNEL": {
-			"description": "ChannelId if you need force Subscription",
+			"description": "ChannelId, if force Subscription needed",
 			"required": false
 		},
-		"CONVERT_API": {
-			"description": "ConvertAPI secret token",
+		"ADMINS": {
+			"description": "ADMINs TELEGRAM ID (only the can manage bots)",
+			"required": false
+		},
+		"ADMIN_ONLY": {
+			"description": "If True, Only admins Can use",
 			"required": false
 		},
 		"MAX_FILE_SIZE": {
 			"description": "for preventing overload (in mb)",
 			"required": false
 		},
-		"OWNER_ID": {
-			"description": "No Use Yet.. :/",
+		"MONGODB_URI": {
+			"description": "Get MongoDB url from mongodb.com",
 			"required": false
 		},
-		"BANNED_USER": {
-			"description": "No Use Yet.. :/",
+		"LOG_CHANNEL": {
+			"description": "Dump Channel (Where the bot Dump all mani. files",
 			"required": false
-		}
+		},
+		"BANNED_USERS": {
+			"description": "BANNED USERS ID (no DB required)",
+			"required": false
+		},
+		"DEFAULT_NAME": {
+			"description": "if Set, all manipulated PDF have this name 😉",
+			"required": false
+		},
+		"ADMIN_GROUPS": {
+			"description": "Admin Group ID",
+			"required": false
+		},
+		"ADMIN_GROUP_ONLY": {
+			"description": "True, if only for admin group",
+			"required": false
+		},
+		"BANNED_GROUP": {
+			"description": "Group ID, to ban specific group",
+			"required": false
+		},
+		"ONLY_GROUP_ADMIN": {
+			"description": "Only Group Admins Can Use =)",
+			"required": false
+		},
 	},
 	"buildpacks": [
 		{

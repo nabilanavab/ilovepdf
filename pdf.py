@@ -117,9 +117,6 @@ class Bot(ILovePDF):
                     f"BOT ID : {myID.id} | BOT NAME: {myID.first_name} |"
                     f" BOT USERNAME: {myID.username}\n\n"
                     f"BOT GETS STARTED..\n"
-                    f"Thanks @nabilanavab for this Awesome repo\n"
-                    f"Telegram Update Channel: @iLovePDF_bot\n\n"
-                    f"{iLovePDF}"
                     )
         # Bot Restarted Message to ADMINS
         for admin in Config.ADMINS:
