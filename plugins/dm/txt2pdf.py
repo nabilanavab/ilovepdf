@@ -58,20 +58,28 @@ async def _txt2pdf(bot, callbackQuery):
     try:
         _, font = callbackQuery.data.split("|")
         await callbackQuery.message.edit(
-            text = f"Text to Pdf» Now Select Page Size »",
-            reply_markup = InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton("Portarate",
-                            callback_data = f"pgSize|{font}|p")
-                ],[
-                    InlineKeyboardButton("Landscape",
-                            callback_data = f"pgSize|{font}|l")
-                ],[
-                    InlineKeyboardButton("« Back «",
-                                callback_data = f"txt2pdfBack")
-                ]]
-            )
+            text="Text to Pdf» Now Select Page Size »",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            "Portarate", callback_data=f"pgSize|{font}|p"
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "Landscape", callback_data=f"pgSize|{font}|l"
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "« Back «", callback_data="txt2pdfBack"
+                        )
+                    ],
+                ]
+            ),
         )
+
     except Exception as e:
         logger.exception(
                         "TXT2PDF_CB:CAUSES %(e)s ERROR",
@@ -119,13 +127,15 @@ async def _pgSize(bot, callbackQuery):
     try:
         chat_id = callbackQuery.message.chat.id
         message_id = callbackQuery.message.message_id
-        
+
         if chat_id in PROCESS:
             return await callbackQuery.answer(
                                              "Work in progress.. 🙇"
                                              )
         bla, _, __ = callbackQuery.data.split("|")
-        PROCESS.append(chat_id); TXT[chat_id] = []; nabilanavab=True
+        PROCESS.append(chat_id)
+        TXT[chat_id] = []
+        nabilanavab=True
         while(nabilanavab):
             # 1st value will be pdf title
             askPDF = await bot.ask(
@@ -148,11 +158,11 @@ async def _pgSize(bot, callbackQuery):
             elif askPDF.text:
                 TXT[chat_id].append(f"{askPDF.text}"); nabilanavab = False
         # nabilanavab=True ONLY IF PROCESS CANCELLED
-        if nabilanavab == True:
+        if nabilanavab:
             PROCESS.remove(chat_id); TXT.remove(chat_id)
             return
         nabilanavab = True
-        while(nabilanavab):
+        while nabilanavab:
             # other value will be pdf para
             askPDF = await bot.ask(
                                   text = f"__TEXT TO PDF » Now, please enter paragraph {len(TXT[chat_id])-1}:__"
@@ -170,7 +180,7 @@ async def _pgSize(bot, callbackQuery):
                 PROCESS.remove(chat_id); del TXT[chat_id]
                 break
             elif askPDF.text == "/create":
-                if TXT[chat_id][0] == None and len(TXT[chat_id]) == 1:
+                if TXT[chat_id][0] is None and len(TXT[chat_id]) == 1:
                     await askPDF.reply(
                                       "Nothing to create.. 😏",
                                       quote = True
@@ -184,22 +194,22 @@ async def _pgSize(bot, callbackQuery):
             elif askPDF.text:
                 TXT[chat_id].append(f"{askPDF.text}")
         # nabilanavab=True ONLY IF PROCESS CANCELLED
-        if nabilanavab == True:
+        if nabilanavab:
             PROCESS.remove(chat_id); TXT.remove(chat_id)
             return
-        
+
         # Started Creating PDF
-        if _ == "t":
-            font = "Times"
-        elif _ == "c":
+        if _ == "c":
             font = "Courier"
         elif _ == "h":
             font = "Helvetica"
         elif _ == "s":
             font = "Symbol"
+        elif _ == "t":
+            font = "Times"
         elif _ == "z":
             font = "ZapfDingbats"
-        
+
         pdf = FPDF()
         pdf.add_page(
                     orientation = __
@@ -243,8 +253,10 @@ async def _pgSize(bot, callbackQuery):
                                                                  ),
                                                   thumb = PDF_THUMBNAIL
                                                   )
-        await processMessage.delete(); PROCESS.remove(chat_id)
-        os.remove(f"{message_id}.pdf"); TXT.remove(chat_id)
+        await processMessage.delete()
+        PROCESS.remove(chat_id)
+        os.remove(f"{message_id}.pdf")
+        TXT.remove(chat_id)
     except Exception as e:
         logger.exception(
                         "PAGE SIZE:CAUSES %(e)s ERROR",

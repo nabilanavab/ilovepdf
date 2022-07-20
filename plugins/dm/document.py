@@ -170,7 +170,7 @@ async def documents(bot, message):
                                          ))
                      return
             except Exception:
-                if invite_link == None:
+                if invite_link is None:
                     invite_link = await bot.create_chat_invite_link(
                                          int(UPDATE_CHANNEL)
                                          )
@@ -190,7 +190,7 @@ async def documents(bot, message):
                                          ]]
                                     ))
                 return
-        
+
         if message.from_user.id in PROCESS:
             return await message.reply(
                                       "WORK IN PROGRESS 🙇", quote = True,
@@ -203,7 +203,7 @@ async def documents(bot, message):
         isPdfOrImg = message.document.file_name        # file name
         fileSize = message.document.file_size          # file size
         fileNm, fileExt = os.path.splitext(isPdfOrImg) # seperate name & extension
-        
+
         # REPLY TO LAGE FILES/DOCUMENTS
         if MAX_FILE_SIZE and fileSize >= int(MAX_FILE_SIZE_IN_kiB):
             await message.reply_photo(
@@ -218,7 +218,7 @@ async def documents(bot, message):
                                      ]]
                                 ))
             return
-        
+
         # IMAGE AS FILES (ADDS TO PDF FILE)
         elif fileExt.lower() in suprtedFile:
             try:
@@ -257,7 +257,7 @@ async def documents(bot, message):
                 await imageDocReply.edit(
                                         errorEditMsg.format(e)
                                         )
-        
+
         # REPLY TO .PDF FILE EXTENSION
         elif fileExt.lower() == ".pdf":
             pdfMsgId = await message.reply_text(
@@ -275,7 +275,7 @@ async def documents(bot, message):
                                reply_markup = pdfReply
                                )
             await footer(message, message)
-        
+
         # FILES TO PDF (PYMUPDF/FITZ)
         elif fileExt.lower() in suprtedPdfFile:
             try:
@@ -301,7 +301,7 @@ async def documents(bot, message):
                 if downloadLoc is None:
                     PROCESS.remove(chat_id)
                     return
-                
+
                 await pdfMsgId.edit(
                                    "`Work in Progress..`\nIt might take some time.. 💛`"
                                    )
@@ -314,7 +314,7 @@ async def documents(bot, message):
                         deflate = True,
                         )
                 pdf.close()
-                
+
                 # Getting thumbnail
                 thumbnail, fileName = await thumbName(message, isPdfOrImg)
                 if PDF_THUMBNAIL != thumbnail:
@@ -323,7 +323,7 @@ async def documents(bot, message):
                                             file_name = f"{message.message_id}/thumbnail.jpeg"
                                             )
                     thumbnail = await formatThumb(f"{message.message_id}/thumbnail.jpeg")
-                
+
                 await pdfMsgId.edit(
                                    "`Started Uploading..`📤"
                                    )
@@ -360,7 +360,7 @@ async def documents(bot, message):
                                        )
                 except Exception:
                     pass
-        
+
         # FILES TO PDF (CONVERTAPI)
         elif fileExt.lower() in suprtedPdfFile2:
             if not Config.CONVERT_API:
@@ -373,7 +373,7 @@ async def documents(bot, message):
                 try:
                     PROCESS.append(message.from_user.id)
                     input_file = f"{message.message_id}/{isPdfOrImg}"
-                    
+
                     pdfMsgId = await message.reply_text(
                                                        "`Downloading your file..` 📥",
                                                        quote = True
@@ -394,7 +394,7 @@ async def documents(bot, message):
                     if downloadLoc is None:
                         PROCESS.remove(chat_id)
                         return
-                    
+
                     await pdfMsgId.edit(
                                        "`Work in Progress..`\n`It might take some time..`💛"
                                        )
@@ -417,7 +417,7 @@ async def documents(bot, message):
                             PROCESS.remove(message.from_user.id)
                             return
                         except Exception: pass
-                    
+
                     # Getting thumbnail
                     thumbnail, fileName = await thumbName(message, isPdfOrImg)
                     if PDF_THUMBNAIL != thumbnail:
@@ -445,7 +445,7 @@ async def documents(bot, message):
                     shutil.rmtree(f"{message.message_id}")
                 except Exception:
                     PROCESS.remove(message.from_user.id)
-        
+
         # UNSUPPORTED FILES
         else:
             try:

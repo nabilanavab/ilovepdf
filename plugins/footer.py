@@ -26,21 +26,22 @@ async def header(bot, callbackQuery):
     # callBack Message delete if User Deletes pdf
     try:
         fileExist = callbackQuery.message.reply_to_message
-        
-        if callbackQuery.message.chat.type != "private":
-            if callbackQuery.from_user.id != callbackQuery.message.reply_to_message.from_user.id:
-                if callbackQuery.from_user.id in Config.ADMINS:
-                    pass
-                else:
-                    userStat = await bot.get_chat_member(
-                                                  callbackQuery.message.chat.id,
-                                                  callbackQuery.from_user.id
-                                                  )
-                    if userStat.status not in ["administrator", "creator"]:
-                        await callbackQuery.answer(
-                                                  "Message Not For You.. :("
-                                                  )
-                        return True
+
+        if (
+            callbackQuery.message.chat.type != "private"
+            and callbackQuery.from_user.id
+            != callbackQuery.message.reply_to_message.from_user.id
+            and callbackQuery.from_user.id not in Config.ADMINS
+        ):
+            userStat = await bot.get_chat_member(
+                                          callbackQuery.message.chat.id,
+                                          callbackQuery.from_user.id
+                                          )
+            if userStat.status not in ["administrator", "creator"]:
+                await callbackQuery.answer(
+                                          "Message Not For You.. :("
+                                          )
+                return True
         return False
     except Exception as e:
         logger.exception(

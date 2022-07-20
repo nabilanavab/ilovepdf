@@ -75,7 +75,7 @@ async def images(bot, message):
                                                                     )
                                                      )
             except Exception:
-                if invite_link == None:
+                if invite_link is None:
                     invite_link = await bot.create_chat_invite_link(
                                                                    int(UPDATE_CHANNEL)
                                                                    )
@@ -125,7 +125,7 @@ async def images(bot, message):
                                                                 ]]
                                             )
                              )
-    
+
     except Exception as e:
         logger.exception(
                         "PHOTO:CAUSES %(e)s ERROR",

@@ -49,20 +49,20 @@ async def _pdfInfo(bot, callbackQuery):
     try:
         chat_id = callbackQuery.message.chat.id
         message_id = callbackQuery.message.message_id
-        
+
         # CB MESSAGE DELETES IF USER DELETED PDF
         if await header(bot, callbackQuery):
             return
-        
+
         # CHECKS PROCESS
         if chat_id in PROCESS:
             return await callbackQuery.answer(
                                              "WORK IN PROGRESS.. 🙇"
                                              )
-        
+
         # ADD TO PROCESS
         PROCESS.append(chat_id)
-        
+
         # DOWNLOADING STARTED
         downloadMessage = await callbackQuery.edit_message_text(
                                                                "`Downloding your pdf..` 📥", 
@@ -86,7 +86,7 @@ async def _pdfInfo(bot, callbackQuery):
         if downloadLoc is None:
             PROCESS.remove(chat_id)
             return
-        
+
         # OPEN FILE WITH FITZ
         with fitz.open(pdf_path) as pdf:
             isPdf = pdf.is_pdf
@@ -109,46 +109,79 @@ async def _pdfInfo(bot, callbackQuery):
                 editedPdfReplyCb = InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("⭐ META£ATA ⭐",
-                                 callback_data=f"KpdfInfo|{number_of_pages}"),
-                            InlineKeyboardButton("🗳️ PREVIEW 🗳️",
-                                                   callback_data=f"Kpreview"),
-                        ],[
-                            InlineKeyboardButton("🖼️ toIMAGES 🖼️",
-                                 callback_data=f"KtoImage|{number_of_pages}"),
-                            InlineKeyboardButton("✏️ toTEXT ✏️",
-                                  callback_data=f"KtoText|{number_of_pages}")
-                        ],[
-                            InlineKeyboardButton("🔐 ENCRYPT 🔐",
-                                 callback_data=f"Kencrypt|{number_of_pages}"),
-                            InlineKeyboardButton("🔒 DECRYPT 🔓",
-                                               callback_data=f"notEncrypted")
-                        ],[
-                            InlineKeyboardButton("🗜️ COMPRESS 🗜️",
-                                                  callback_data=f"Kcompress"),
-                            InlineKeyboardButton("🤸 ROTATE 🤸",
-                                  callback_data=f"Krotate|{number_of_pages}")
-                        ],[
-                            InlineKeyboardButton("✂️ SPLIT ✂️",
-                                   callback_data=f"Ksplit|{number_of_pages}"),
-                            InlineKeyboardButton("🧬 MERGE 🧬",
-                                                       callback_data="merge")
-                        ],[
-                            InlineKeyboardButton("™️ STAMP ™️",
-                                   callback_data=f"Kstamp|{number_of_pages}"),
-                            InlineKeyboardButton("✏️ RENAME ✏️",
-                                                      callback_data="rename")
-                        ],[
-                            InlineKeyboardButton("📝 OCR 📝",
-                                     callback_data=f"Kocr|{number_of_pages}"),
-                            InlineKeyboardButton("🥷 A4 FORMAT 🥷",
-                                  callback_data=f"Kformat|{number_of_pages}")
-                        ],[
-                            InlineKeyboardButton("🚫 CLOSE 🚫",
-                                                    callback_data="closeALL")
-                        ]
+                            InlineKeyboardButton(
+                                "⭐ META£ATA ⭐",
+                                callback_data=f"KpdfInfo|{number_of_pages}",
+                            ),
+                            InlineKeyboardButton(
+                                "🗳️ PREVIEW 🗳️", callback_data="Kpreview"
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                "🖼️ toIMAGES 🖼️",
+                                callback_data=f"KtoImage|{number_of_pages}",
+                            ),
+                            InlineKeyboardButton(
+                                "✏️ toTEXT ✏️",
+                                callback_data=f"KtoText|{number_of_pages}",
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                "🔐 ENCRYPT 🔐",
+                                callback_data=f"Kencrypt|{number_of_pages}",
+                            ),
+                            InlineKeyboardButton(
+                                "🔒 DECRYPT 🔓", callback_data="notEncrypted"
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                "🗜️ COMPRESS 🗜️", callback_data=f"Kcompress"
+                            ),
+                            InlineKeyboardButton(
+                                "🤸 ROTATE 🤸",
+                                callback_data=f"Krotate|{number_of_pages}",
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                "✂️ SPLIT ✂️",
+                                callback_data=f"Ksplit|{number_of_pages}",
+                            ),
+                            InlineKeyboardButton(
+                                "🧬 MERGE 🧬", callback_data="merge"
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                "™️ STAMP ™️",
+                                callback_data=f"Kstamp|{number_of_pages}",
+                            ),
+                            InlineKeyboardButton(
+                                "✏️ RENAME ✏️", callback_data="rename"
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                "📝 OCR 📝",
+                                callback_data=f"Kocr|{number_of_pages}",
+                            ),
+                            InlineKeyboardButton(
+                                "🥷 A4 FORMAT 🥷",
+                                callback_data=f"Kformat|{number_of_pages}",
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                "🚫 CLOSE 🚫", callback_data="closeALL"
+                            )
+                        ],
                     ]
                 )
+
+
                 await callbackQuery.edit_message_text(
                                                      pdfInfoMsg.format(
                                                                       fileName,
@@ -157,7 +190,7 @@ async def _pdfInfo(bot, callbackQuery):
                                                                       ) + pdfMetaData,
                                                      reply_markup = editedPdfReplyCb
                                                      )
-            elif isPdf and isEncrypted:
+            elif isPdf:
                 await callbackQuery.edit_message_text(
                                                      encryptedMsg.format(
                                                                         fileName,
@@ -176,8 +209,7 @@ async def _pdfInfo(bot, callbackQuery):
             PROCESS.remove(chat_id)
             shutil.rmtree(f"{message_id}")
             await footer(callbackQuery.message, False)
-    
-    # EXCEPTION DURING FILE OPENING
+
     except Exception as e:
         logger.exception(
                         "METADATA[PDF_INFO]:CAUSES %(e)s ERROR",

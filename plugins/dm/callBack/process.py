@@ -76,11 +76,11 @@ async def decryptPDF(message, message_id, password):
 # ❌ ENCRYPT PDF FILES ❌
 async def encryptPDF(message_id, password):
     try:
-        swd = f"abi"
+        swd = "abi"
         input_file = f"{message_id}/inPut.pdf"
         output_file = f"{message_id}/outPut.pdf"
-        _pswd = "n"+f"{swd}"+"l"
-        
+        _pswd = f"n{swd}l"
+
         with fitz.open(input_file) as encrptPdf:
             number_of_pages = encrptPdf.pageCount
             encrptPdf.save(
@@ -112,9 +112,10 @@ async def compressPDF(message, message_id):
     try:
         input_file = f"{message_id}/inPut.pdf"
         output_file = f"{message_id}/outPut.pdf"
-        
+
         # Initialize the library
-        PDFNet.Initialize(); doc = PDFDoc(input_file)
+        PDFNet.Initialize()
+        doc = PDFDoc(input_file)
         # Optimize PDF with the default settings
         doc.InitSecurityHandler()
         # Reduce PDF size by removing redundant information and
@@ -125,7 +126,7 @@ async def compressPDF(message, message_id):
                 SDFDoc.e_linearized
                 )
         doc.Close()
-        
+
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(
                                      input_file
@@ -134,18 +135,16 @@ async def compressPDF(message, message_id):
                                         output_file
                                         )
         ratio = (1 - (compressedSize / initialSize)) * 100
-        # sends only if compressed more than 10mb or ratio >= 5%
         if (initialSize-compressedSize) > 1000000 or ratio >= 5:
             return compressedCaption.format(
                                            await gSF(initialSize),
                                            await gSF(compressedSize),
                                            ratio
                 )
-        else:
-            await message.edit(
-                              cantCompressMore 
-                              )
-            return False
+        await message.edit(
+                          cantCompressMore 
+                          )
+        return False
     except Exception as e:
         logger.exception(
                         "COMPRESS[PROCESS]:CAUSES %(e)s ERROR",
@@ -335,27 +334,31 @@ async def formatterPDF(message, message_id):
                             newImage = img.resize(
                                                  (neWidth, int(newHeight))
                                                  )
-                            y0 = (842 - newHeight) / 2; x0 = (595 - neWidth) / 2
-                            x1 = x0 + newHeight; y1 = y0 + neWidth
-                            r = fitz.Rect(x0, y0, x1, y1)
+                            y0 = (842 - newHeight) / 2
+                            x0 = (595 - neWidth) / 2
+                            x1 = x0 + newHeight
+                            y1 = y0 + neWidth
                         elif imgWidth > imgHeight:
                             neWidth = 595
                             newHeight = (neWidth * imgHeight) / imgWidth
                             newImage = img.resize(
                                                  (neWidth, int(newHeight))
                                                  )
-                            x0 = 0; y0 = (842 - newHeight) / 2
-                            x1 = 595; y1 = y0 + newHeight
-                            r = fitz.Rect(x0, y0, x1, y1)
+                            x0 = 0
+                            y0 = (842 - newHeight) / 2
+                            x1 = 595
+                            y1 = y0 + newHeight
                         else:
                             newHeight = 842
                             neWidth = (newHeight * imgWidth) / imgHeight
                             newImage=img.resize(
                                                (int(neWidth), newHeight)
                                                )
-                            x0 = (595 - neWidth) / 2; y0 = 0
-                            x1 = x0 + neWidth; y1 = 842
-                            r = fitz.Rect(x0, y0, x1, y1)
+                            x0 = (595 - neWidth) / 2
+                            y0 = 0
+                            x1 = x0 + neWidth
+                            y1 = 842
+                        r = fitz.Rect(x0, y0, x1, y1)
                         newImage.save(unFormated)
                     load = outPDF[_]
                     load.insert_image(

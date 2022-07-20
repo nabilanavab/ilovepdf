@@ -213,15 +213,14 @@ async def _listUser(bot, message):
                         exc_info=True
                         )
 
-banUser = filters.create(lambda _, __, query: query.data.startswith(tuple(["banU|", "banC|"])))
+banUser = filters.create(
+    lambda _, __, query: query.data.startswith(("banU|", "banC|"))
+)
 
 @ILovePDF.on_callback_query(banUser)
 async def _banUserCB(bot, callbackQuery):
     try:
-        if callbackQuery.data.startswith("banU|"):
-            chat_type = "user"
-        else:
-            chat_type = "chat"
+        chat_type = "user" if callbackQuery.data.startswith("banU|") else "chat"
         if callbackQuery.from_user.id not in Config.ADMINS:
             return await callbackQuery.answer(
                                              "Lesham Ulupp.."
@@ -243,29 +242,23 @@ async def _banUserCB(bot, callbackQuery):
         else:
             if chat_type == "user":
                 if int(userID) in BANNED_USR_DB:
-                    return await callbackQuery.answer(
-                                                     f"He is already banned"
-                                                     )
+                    return await callbackQuery.answer("He is already banned")
                 await db.ban_user(
                                  int(userID),
                                  "oru rasam.. 😝"
                                  )
                 BANNED_USR_DB.append(int(userID))
-            
+
             else:
                 if int(userID) in BANNED_GRP_DB:
-                    return await callbackQuery.answer(
-                                                     f"chat is already banned"
-                                                     )
+                    return await callbackQuery.answer("chat is already banned")
                 await db.disable_chat(
                                      int(userID),
                                      "oru rasam.. 😝"
                                      )
                 BANNED_GRP_DB.append(int(userID))
-            
-            await callbackQuery.answer(
-                                      f"Successfully banned Him 😎"
-                                      )
+
+            await callbackQuery.answer("Successfully banned Him 😎")
             return await callbackQuery.message.edit_reply_markup(
                          InlineKeyboardMarkup(
                                  [[
@@ -281,52 +274,42 @@ async def _banUserCB(bot, callbackQuery):
                         exc_info=True
                         )
 
-unbanUser = filters.create(lambda _, __, query: query.data.startswith(tuple(["unbanU|", "unbanC|"])))
+unbanUser = filters.create(
+    lambda _, __, query: query.data.startswith(("unbanU|", "unbanC|"))
+)
 
 @ILovePDF.on_callback_query(unbanUser)
 async def _unbanUserCB(bot, callbackQuery):
     try:
-        if callbackQuery.data.startswith("unbanU|"):
-            chat_type = "user"
-        else:
-            chat_type = "chat"
+        chat_type = "user" if callbackQuery.data.startswith("unbanU|") else "chat"
         if callbackQuery.from_user.id not in Config.ADMINS:
             return await callbackQuery.answer(
                                              "Lesham Ulupp.."
                                              )
         _, userID = callbackQuery.data.split("|")
-        
+
         if chat_type == "user":
             if int(userID) not in BANNED_USR_DB:
-                return await callbackQuery.answer(
-                                                 f"He is not yet banned"
-                                                 )
+                return await callbackQuery.answer("He is not yet banned")
             await db.remove_ban(
                                int(userID)
                                )
-            BANNED_USR_DB.remove(int(userID))
-        else:
-            if int(userID) not in BANNED_GRP_DB:
-                return await callbackQuery.answer(
-                                                 "Not Banned yet"
-                                                 )
+        elif int(userID) in BANNED_GRP_DB:
             await db.re_enable_chat(
                                    int(userID)
                                    )
-            BANNED_USR_DB.remove(int(userID))
-        
-        await callbackQuery.answer(
-                                  f"Successfully Unbanned Him 😎"
-                                  )
+        else:
+            return await callbackQuery.answer(
+                                             "Not Banned yet"
+                                             )
+        BANNED_USR_DB.remove(int(userID))
+        await callbackQuery.answer("Successfully Unbanned Him 😎")
         return await callbackQuery.message.edit_reply_markup(
-                    InlineKeyboardMarkup(
-                            [[
-                                    InlineKeyboardButton(
-                                            "« B@N «",
-                                            callback_data = f"rU18"
-                                            )
-                            ]]
-                    ))
+            InlineKeyboardMarkup(
+                [[InlineKeyboardButton("« B@N «", callback_data="rU18")]]
+            )
+        )
+
     except Exception as e:
         logger.exception(
                         "/UN_BAN_USER_CB:CAUSES %(e)s ERROR",

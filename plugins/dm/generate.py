@@ -47,7 +47,7 @@ async def generate(bot, message):
         if isinstance(images, list):
             pgnmbr = len(PDF[chat_id])
             del PDF[chat_id]
-        
+
         # logger.info(images)
         # IF NO IMAGES SEND BEFORE
         if not images :
@@ -61,26 +61,24 @@ async def generate(bot, message):
             await message.delete()
             await imagesNotFounded.delete()
             return
-        gnrtMsgId = await message.reply_text(
-                                            f"`Generating pdf..`💚"
-                                            )
-        
+        gnrtMsgId = await message.reply_text("`Generating pdf..`💚")
+
         if newName == " name":
-            fileName = f"{message.from_user.first_name}"+".pdf"
+            fileName = f"{message.from_user.first_name}.pdf"
         elif len(newName) > 1 and len(newName) <= 45:
-            fileName = f"{newName}"+".pdf"
+            fileName = f"{newName}.pdf"
         elif len(newName) > 45:
-            fileName = f"{message.from_user.first_name}"+".pdf"
+            fileName = f"{message.from_user.first_name}.pdf"
         else:
-            fileName = f"{chat_id}"+".pdf"
-        
+            fileName = f"{chat_id}.pdf"
+
         filePath = f"{message.chat.id}/{message.chat.id}.pdf"
         images[0].save(
                       filePath,
                       save_all = True,
                       append_images = images[1:]
                       )
-        
+
         # Getting thumbnail
         thumbnail, fileName = await thumbName(message, fileName)
         if PDF_THUMBNAIL != thumbnail:
@@ -89,7 +87,7 @@ async def generate(bot, message):
                                     file_name = f"{message.message_id}.jpeg"
                                     )
             thumbnail = await formatThumb(location)
-        
+
         await gnrtMsgId.edit(
                             "`Uploading pdf.. `🏋️"
                             )
@@ -128,35 +126,35 @@ GEN = filters.create(lambda _, __, query: query.data.startswith("generate"))
 async def _GEN(bot, callbackQuery):
     try:
         chat_id = callbackQuery.from_user.id
-        
+
         images = PDF.get(chat_id)
         if isinstance(images, list):
             pgnmbr = len(PDF[chat_id])
             del PDF[chat_id]
-        
+
         if not images :
             return await callbackQuery.answer(
                                              "No image founded.!! 😒"
                                              )
         await callbackQuery.answer()
-        
+
         if callbackQuery.data[-3:] == "REN":
             fileName = await bot.ask(
-                                    chat_id = chat_id,
-                                    reply_to_message_id = callbackQuery.message.message_id,
-                                    text = f"Now Send Me a New File Name 😒: ",
-                                    reply_markup = ForceReply(True)
-                                    )
+                chat_id=chat_id,
+                reply_to_message_id=callbackQuery.message.message_id,
+                text="Now Send Me a New File Name 😒: ",
+                reply_markup=ForceReply(True),
+            )
+
             if (not fileName.text) or len(fileName.text)>50:
                 fileName = f"{chat_id}.pdf"
+            elif fileName.text[-4:].lower() == ".pdf":
+                fileName = fileName.text
             else:
-                if fileName.text[-4:].lower() != ".pdf":
-                    fileName = fileName.text + ".pdf"
-                else:
-                    fileName = fileName.text
+                fileName = f"{fileName.text}.pdf"
         else:
             fileName = f"{chat_id}.pdf"
-        
+
         gen = await callbackQuery.message.reply_text(
               f"File Name: `{fileName}`\nPages: `{pgnmbr}`",
               reply_markup = InlineKeyboardMarkup(
@@ -174,7 +172,7 @@ async def _GEN(bot, callbackQuery):
                       save_all = True,
                       append_images = images[1:]
                       )
-        
+
         # Getting thumbnail
         thumbnail, fileName = await thumbName(callbackQuery.message, fileName)
         if PDF_THUMBNAIL != thumbnail:
@@ -183,7 +181,7 @@ async def _GEN(bot, callbackQuery):
                                     file_name = f"{callbackQuery.message.message_id}.jpeg"
                                     )
             thumbnail = await formatThumb(location)
-        
+
         await gen.edit_reply_markup(
               InlineKeyboardMarkup(
                                   [[
@@ -214,10 +212,7 @@ async def _GEN(bot, callbackQuery):
         except Exception: pass
         await footer(callbackQuery.message, logFile)
     except Exception as e:
-        logger.exception(
-                        "GENERATE/CALLBACK:CAUSES %s ERROR" %e,
-                        exc_info=True
-                        )
+        logger.exception(f"GENERATE/CALLBACK:CAUSES {e} ERROR", exc_info=True)
         try:
             shutil.rmtree(f"{chat_id}")
         except Exception:

@@ -74,7 +74,7 @@ async def _url(bot, message):
                                   "__Started Fetching Datas..__ 📥",
                                   quote = True
                                   )
-        
+
         url = message.text
         # Get one or more messages from a chat by using message identifiers.
         # get_messages(chat_id, message_ids)
@@ -83,7 +83,7 @@ async def _url(bot, message):
             message_ids = int(part[-1])
             try:
                 chat_id = int(part[-2])
-                chat_id = int("-100" + f"{chat_id}")
+                chat_id = int(f"-100{chat_id}")
             except Exception:
                 chat_id = part[-2]
             try:
@@ -139,16 +139,12 @@ async def _url(bot, message):
                                   reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
                                   disable_web_page_preview = True
                                   )
-            
+
         return await data.edit(
                               "Please Send Me A Direct Telegram PDF Url"
                               )
     except Exception as e:
         return await data.edit("__Check Url, Not a PDF File__ 🥲")
-        logger.exception(
-                        "URL:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
 
 getFile = filters.create(lambda _, __, query: query.data == "getFile")
 
@@ -158,14 +154,15 @@ async def _getFile(bot, callbackQuery):
         # REPLY TO LAGE FILES/DOCUMENTS
         if MAX_FILE_SIZE and fileSize >= int(MAX_FILE_SIZE_IN_kiB):
             return await callbackQuery.answer("Big File.. 🏃")
-        
+
         if callbackQuery.from_user.id in PROCESS:
             return await callbackQuery.answer(
                                              "Work in progress.. 🙇"
                                              )
-        if callbackQuery.message.chat.type != "private":
-            if await header(bot, callbackQuery):
-                return
+        if callbackQuery.message.chat.type != "private" and await header(
+            bot, callbackQuery
+        ):
+            return
         PROCESS.append(callbackQuery.from_user.id)
         await callbackQuery.answer("Wait.. Let me.. 😜")
         url = callbackQuery.message.reply_to_message.text
@@ -173,7 +170,7 @@ async def _getFile(bot, callbackQuery):
         message_ids = int(part[-1])
         try:
             chat_id = int(part[-2])
-            chat_id = int("-100" + f"{chat_id}")
+            chat_id = int(f"-100{chat_id}")
         except Exception:
             chat_id = part[-2]
         # bot.get_messages

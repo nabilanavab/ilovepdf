@@ -52,10 +52,10 @@ async def _merge(bot, callbackQuery):
     try:
         if await header(bot, callbackQuery):
             return
-        
+
         chat_id = callbackQuery.message.chat.id
         message_id = callbackQuery.message.message_id
-        
+
         # CHECK IF BOT DOING ANY WORK
         if chat_id in PROCESS:
             return await callbackQuery.answer(
@@ -71,8 +71,9 @@ async def _merge(bot, callbackQuery):
         MERGE[chat_id] = [fileId]
         MERGEsize[chat_id] = [fileSize]
         # REQUEST FOR OTHER PDFS FOR MERGING
-        nabilanavab = True; size = 0
-        while(nabilanavab):
+        nabilanavab = True
+        size = 0
+        while nabilanavab:
             if len(MERGE[chat_id]) >= 5:
                 await callbackQuery.message.reply(
                                                  "__Due to Overload you can only merge 5 pdfs at a time__",
@@ -81,15 +82,12 @@ async def _merge(bot, callbackQuery):
                 nabilanavab = False
                 break
             askPDF = await bot.ask(
-                                text = "__MERGE pdfs » Total pdfs in queue: {}__\n\n"
-                                       "/exit __to cancel__\n"
-                                       "/merge __to merge__".format(
-                                                                   len(MERGE[chat_id])
-                                                                   ),
-                                chat_id = chat_id,
-                                reply_to_message_id = message_id,
-                                filters = None
-                                )
+                text=f"__MERGE pdfs » Total pdfs in queue: {len(MERGE[chat_id])}__\n\n/exit __to cancel__\n/merge __to merge__",
+                chat_id=chat_id,
+                reply_to_message_id=message_id,
+                filters=None,
+            )
+
             if askPDF.text == "/exit":
                 await askPDF.reply(
                                   "`Process Cancelled..` 😏",
@@ -112,24 +110,23 @@ async def _merge(bot, callbackQuery):
                     # CHECKS MAXIMUM FILE SIZE (IF ADDED) ELSE 1.8 GB LIMIT
                     if (MAX_FILE_SIZE and MAX_FILE_SIZE_IN_kiB <= int(size)) or int(size) >= 1800000000:
                         await callbackQuery.message.reply(
-                            f"`Due to Overload Bot Only Support %sMb pdfs..`😐"%(MAX_FILE_SIZE if MAX_FILE_SIZE else "1.8Gb")
+                            f'`Due to Overload Bot Only Support {MAX_FILE_SIZE or "1.8Gb"}Mb pdfs..`😐'
                         )
+
                         nabilanavab = False
                         break
                     # ADDING NEWLY ADDED PDF FILE ID & SIZE TO LIST
                     MERGE[chat_id].append(file_id)
                     MERGEsize[chat_id].append(file_size)
         # nabilanavab=True ONLY IF PROCESS CANCELLED
-        if nabilanavab == True:
-            PROCESS.remove(chat_id)
-        # GET /merge, REACHES MAX FILE SIZE OR MAX NO OF PDF
-        if nabilanavab == False:
+        if not nabilanavab:
             # DISPLAY TOTAL PDFS FOR MERGING
             downloadMessage = await askPDF.reply_text(
                                                      f"`Total PDF's : {len(MERGE[chat_id])}`.. 💡",
                                                      quote = True
                                                      )
-            asyncio.sleep(.5); i = 0
+            asyncio.sleep(.5)
+            i = 0
             # ITERATIONS THROUGH FILE ID'S AND DOWNLOAD
             for iD in MERGE[chat_id]:
                 await downloadMessage.edit(
@@ -162,7 +159,7 @@ async def _merge(bot, callbackQuery):
                                                 callbackQuery
                                                 )
                 # REMOVE FILE FROM DIRECTORY IF FILE NOT ENCRYPTED OR CODECERROR
-                if not(checked=="pass"):
+                if checked != "pass":
                     os.remove(f"merge{chat_id}/{i}.pdf")
                 i += 1
             directory = f'merge{chat_id}'
@@ -180,7 +177,7 @@ async def _merge(bot, callbackQuery):
             for i in pdfList:
                 merger.append(i)
             merger.write(output_pdf)
-            
+
             # Getting thumbnail
             thumbnail, fileName = await thumbName(callbackQuery.message, fileNm)
             if PDF_THUMBNAIL != thumbnail:
@@ -189,7 +186,7 @@ async def _merge(bot, callbackQuery):
                                         file_name = f"{callbackQuery.message.message_id}.jpeg"
                                         )
                 thumbnail = await formatThumb(location)
-            
+
             await downloadMessage.edit(
                                       "`Started Uploading..` 📤"
                                       )
@@ -218,6 +215,8 @@ async def _merge(bot, callbackQuery):
             shutil.rmtree(f"merge{chat_id}")
             PROCESS.remove(chat_id)
             await footer(callbackQuery.message, False)
+        else:
+            PROCESS.remove(chat_id)
     except Exception as e:
         logger.exception(
                         "MERGE:CAUSES %(e)s ERROR",
