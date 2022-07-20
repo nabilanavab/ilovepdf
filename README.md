@@ -73,33 +73,6 @@ the extracted PDF-images..</em>
      
      No need to specify file formats..✌️
 
-<h3 align="center">Pdf to text</h3>
-
-     ◍ Convert pdf to text, .txt file
-     ◍ It also supports html(to view pdfs on browsers), json files
-
-<h3 align="center">Split pdf</h3>
-
-     ◍ Now you can Split your pdf in to smaller Ones
-     ◍ /extract start:end
-     ◍ supports single pages too..
-
-<h3 align="center">Encrypt pdf</h3>
-
-    ◍ Pdf Encryption Supported
-    ◍ /encrypt pdf
-
-<h3 align="center">Commands:</h3>
-
-     /start - Check wheather bot alive.
-     /help - for more help
-     /id - Get Ur Id (default pdf name)
-     /cancel - Delete's old queue
-     /generate - long tap to set a pdf name
-     /extract - to get images from pdf
-     /encrypt - pdf Encryption
-     /text - converts pdf to text, .txt, html, json files
-
 <h3 align="center">Source code:</h3>
 
      Developed by: @nabilanavab, Kerala
