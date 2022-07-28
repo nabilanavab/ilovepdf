@@ -14,3 +14,4 @@ pymongo[srv]
 hachoir
 pytelegrambotapi
 aiohttp
+aspose-words==12.7.0
