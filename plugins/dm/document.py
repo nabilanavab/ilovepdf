@@ -64,12 +64,14 @@ img2pdf = [
 
 pymu2PDF = [
     ".xps", ".oxps",
-    ".cbz", ".fb2"
+    ".cbz", ".fb2", ".epub"
 ]                                      # files to pdf (zero limits)
 
 wordFiles = [
-    ".docx", ".doc", ".dot", ".epub",
-    ".dotx", ".dotm", ".flatOpc",
+    ".docx", ".doc", ".dot", ".bmp", ".gif"
+    ".dotx", ".dotm", ".flatOpc", ".html",
+    ".mhtml", ".md", ".xps", ".svg", ".tiff",
+    ".txt", ".mobi", ".chm", ".emf", ".ps", ".pcl"
 ]
 
 cnvrt_api_2PDF = [
