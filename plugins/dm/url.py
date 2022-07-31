@@ -23,6 +23,13 @@ from plugins.footer import header, footer
 from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+try:
+    import pdfkit, re
+    pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
+    urlSupport = True
+except Exception:
+    urlSupport = False
+
 reply_markup = InlineKeyboardMarkup(
                      [[
                              InlineKeyboardButton("🧭 Get PDF File 🧭",
@@ -30,13 +37,11 @@ reply_markup = InlineKeyboardMarkup(
                      ]]
                )
 
-
 if Config.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
     MAX_FILE_SIZE_IN_kiB = MAX_FILE_SIZE * (10 **6 )
 else:
     MAX_FILE_SIZE = False
-
 
 # url Example: https://t.me/channel/message
 #              https://t.me/nabilanavab/1
@@ -103,6 +108,8 @@ async def _url(bot, message):
                                            ]]
                                       ))
             await sleep(1)
+            if not file.document:
+                return await data.edit("`Not a PDF File")
             isProtect = "🔒 Protected 🔒" if (
                                  (file.sender_chat and file.sender_chat.has_protected_content) or (
                                  file.chat and file.chat.has_protected_content)) else "👀 Public 👀"
@@ -139,14 +146,38 @@ async def _url(bot, message):
                                   reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
                                   disable_web_page_preview = True
                                   )
-            
-        return await data.edit(
-                              "Please Send Me A Direct Telegram PDF Url"
-                              )
+        if bool("." in url) & bool(urlSupport) & bool(" " not in url):
+            try:
+                outputName = pattern.sub(r'\3', url)
+                
+                pdfkit.from_url(url, f"{message.message_id}.pdf")
+                logFile = await message.reply_document(
+                                                      document = f"{message.message_id}.pdf",
+                                                      file_name = f"{outputName}.pdf",
+                                                      caption = f"Url: `{url}`",
+                                                      reply_markup = InlineKeyboardMarkup(
+                                                              [[
+                                                                  InlineKeyboardButton(
+                                                                      "Open In Browser", url = f"{url}"
+                                                                  )
+                                                              ]]
+                                                          ),
+                                                      quote = True
+                                                      )
+                await data.delete()
+                await footer(message, logFile)
+                os.remove(f"{message.message_id}.pdf")
+            except Exception as e:
+                await data.edit(
+                               f"`Some Thing Went Wrong =(`\n\n`{e}`"
+                               )
+                try: os.remove(f"{message.message_id}.pdf")
+                except Exception: pass
+            return
+        return await data.edit("send me any url or direct telegram pdf links")
     except Exception as e:
-        return await data.edit("__Check Url, Not a PDF File__ 🥲")
         logger.exception(
-                        "URL:CAUSES %(e)s ERROR",
+                        "url:CAUSES %(e)s ERROR",
                         exc_info=True
                         )
 
@@ -237,7 +268,7 @@ async def _getFile(bot, callbackQuery):
     except Exception as e:
         PROCESS.remove(callbackQuery.from_user.id); os.remove(location)
         logger.exception(
-                        "BAN_USER:CAUSES %(e)s ERROR",
+                        "url:CAUSES %(e)s ERROR",
                         exc_info=True
                         )
 
