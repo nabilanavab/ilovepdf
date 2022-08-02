@@ -76,8 +76,14 @@ async def _url(bot, message):
                                        "typing"
                                        )
         data = await message.reply(
-                                  "__Started Fetching Datas..__ 📥",
-                                  quote = True
+                                  "`Started Fetching Datas..`\n`It might take some time` ✨",
+                                  quote = True,
+                                  reply_markup = InlineKeyboardMarkup(
+                                           [[
+                                                 InlineKeyboardButton("🚫 Close 🚫",
+                                                         callback_data = "closeALL")
+                                           ]]
+                                      )
                                   )
         
         url = message.text
@@ -149,8 +155,16 @@ async def _url(bot, message):
         if bool("." in url) & bool(urlSupport) & bool(" " not in url):
             try:
                 outputName = pattern.sub(r'\3', url)
-                
                 pdfkit.from_url(url, f"{message.message_id}.pdf")
+                await data.edit(
+                               "`Almost Done..` ✅\n`Now, Started Uploading..` 📤",
+                               reply_markup = InlineKeyboardMarkup(
+                                           [[
+                                                 InlineKeyboardButton("🚫 Close 🚫",
+                                                         callback_data = "closeALL")
+                                           ]]
+                                      )
+                               )
                 logFile = await message.reply_document(
                                                       document = f"{message.message_id}.pdf",
                                                       file_name = f"{outputName}.pdf",
@@ -162,6 +176,11 @@ async def _url(bot, message):
                                                                   )
                                                               ]]
                                                           ),
+                                                      progress = getPDF,
+                                                      progress_args = (
+                                                              data, 0, 
+                                                              "UPLOADED"
+                                                              ),
                                                       quote = True
                                                       )
                 await data.delete()
@@ -169,7 +188,13 @@ async def _url(bot, message):
                 os.remove(f"{message.message_id}.pdf")
             except Exception as e:
                 await data.edit(
-                               f"`Some Thing Went Wrong =(`\n\n`{e}`"
+                               f"`Some Thing Went Wrong =(`\n\n`{e}`",
+                               reply_markup = InlineKeyboardMarkup(
+                                           [[
+                                                 InlineKeyboardButton("🚫 Close 🚫",
+                                                         callback_data = "closeALL")
+                                           ]]
+                                      )
                                )
                 try: os.remove(f"{message.message_id}.pdf")
                 except Exception: pass
