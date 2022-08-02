@@ -10,7 +10,7 @@
 	"repository": "https://github.com/nabilanavab/ilovepdf",
 	"logo": "https://te.legra.ph/file/b659b2e306bb766a44537.jpg",
 	"success_url": "https://github.com/nabilanavab/ilovepdf",
-	"stack": "heroku-20",
+	"stack": "container",
 	"env": {
 		"API_ID": {
 			"description": "API_ID from my.telegram.org",
