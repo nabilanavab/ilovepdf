@@ -34,8 +34,9 @@ from configs.images import WELCOME_PIC, BANNED_PIC, BIG_FILE, PDF_THUMBNAIL
 
 try:
     import aspose.words as word
+    wordSupport = True
 except Exception:
-    wordSupport is False
+    wordSupport = False
 
 #--------------->
 #--------> convertAPI INSTANCE
@@ -337,7 +338,7 @@ async def documents(bot, message):
                                                quote = True
                                                )
             
-            if (fileExt.lower() in wordFiles) and ("wordSupport" in globals()):
+            if (fileExt.lower() in wordFiles) and not wordSupport:
                 return await message.reply_text(
                                                "`File Not Supported, deploy bot using docker`",
                                                quote = True
