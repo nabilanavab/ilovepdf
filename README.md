@@ -14,7 +14,6 @@
                          Email: nabilanavab@gmail.com
                          Telegram: @nabilanavab
 ```
-<small><i>About:</i></small>
 
 <div align="center">
 
