@@ -381,4 +381,5 @@ cbAns = [
 inline_query = {
     "TOP" : { "Maintenant, sélectionnez la langue ➟" : "nabilanavab" }, "capt" : "SET LANGUAGE ⚙️", "des" : "Par : @nabilanavab ❤"
 }
+
 # ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
