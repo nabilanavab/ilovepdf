@@ -152,7 +152,7 @@ checkPdf = {
         "🖼️ IMAGES ️" : "pdf|img", "✏️ TEXT ✏️" : "pdf|txt",
         "🔐 ENCRYPT " : "work|encrypt", "🔒 DECRYPT " : "work|decrypt",
         "🗜️ COMPRESS ️" : "work|compress", "🤸 ROTATE 🤸" : "pdf|rotate",
-        "✂️ SPLIT ️" : "pdf|split", "   MERGE   ": "मर्ज", "™️ STAMP ™️" : "pdf|sp",
+        "✂️ SPLIT ️" : "pdf|split", "   MERGE   ": "मर्ज", "™️ STAMP ™️" : "pdf|stp",
         "✏️ नाम बदलें ️": "work|rename", "📝 ओसीआर 📝": "work|ocr",
          "   A4 FORMAT   " : "work|format", "🚫 CLOSE " : "close|all"
     },
