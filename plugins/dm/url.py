@@ -1,27 +1,14 @@
 # fileName : plugins/dm/url.py
 # copyright ©️ 2021 nabilanavab
 
-# LOGGING INFO: DEBUG
-import logging
-logger=logging.getLogger(__name__)
-logging.basicConfig(
-                   level=logging.DEBUG,
-                   format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
-                   )
-
-import os
+import os, asyncio
 from pdf import PROCESS
-from asyncio import sleep
-from pyrogram import filters
-from configs.dm import Config
-from plugins.thumbName import (
-                              thumbName,
-                              formatThumb
-                              )
-from pyrogram import Client as ILovePDF
-from plugins.footer import header, footer
-from plugins.fileSize import get_size_format as gSF
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from plugins.util import *
+from configs.log import log
+from plugins.render import gSF, cbPRO
+from configs.config import settings, images
+from plugins.thumbName import thumbName, formatThumb
+from pyrogram import filters, Client as ILovePDF, enums
 
 try:
     import pdfkit, re
@@ -30,14 +17,7 @@ try:
 except Exception:
     urlSupport = False
 
-reply_markup = InlineKeyboardMarkup(
-                     [[
-                             InlineKeyboardButton("🧭 Get PDF File 🧭",
-                                             callback_data = "getFile")
-                     ]]
-               )
-
-if Config.MAX_FILE_SIZE:
+if settings.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
     MAX_FILE_SIZE_IN_kiB = MAX_FILE_SIZE * (10 **6 )
 else:
@@ -47,48 +27,15 @@ else:
 #              https://t.me/nabilanavab/1
 links = ["https://telegram.dog/", "https://t.me/", "https://telegram.me/"]
 
-async def getPDF(current, t, message, total=0, typ="DOWNLOADED"):
-    if t != 0:
-        total = t
-    if typ == "DOWNLOADED":
-        edit = "📥 DOWNLOADED: {:.2f}% 📥"
-    else:
-        edit = "📤 UPLOADED: {:.2f}% 📤"
-    percentage = current * 100 / total
-    await message.edit_reply_markup(
-          InlineKeyboardMarkup(
-                              [[
-                                  InlineKeyboardButton(
-                                                    edit.format(percentage),
-                                                    callback_data="nabilanavab")
-                              ]]
-          ))
-
-@ILovePDF.on_message(
-                    filters.private &
-                    ~filters.edited &
-                    filters.incoming &
-                    filters.text
-                    )
+@ILovePDF.on_message(filters.private & filters.incoming & filters.text)
 async def _url(bot, message):
     try:
-        await message.reply_chat_action(
-                                       "typing"
-                                       )
-        data = await message.reply(
-                                  "`Started Fetching Datas..`\n`It might take some time` ✨",
-                                  quote = True,
-                                  reply_markup = InlineKeyboardMarkup(
-                                           [[
-                                                 InlineKeyboardButton("🚫 Close 🚫",
-                                                         callback_data = "closeALL")
-                                           ]]
-                                      )
-                                  )
-        
+        lang_code = await getLang(message.chat.id)
+        await message.reply_chat_action(enums.ChatAction.TYPING)
+        _, __ = await translate(text="document['process']", button="URL['close']", lang_code=lang_code)
+        data = await message.reply(text=_, quote=True, reply_markup=__)
+        await asyncio.sleep(0.5); await data.edit(text=_+".", reply_markup=__)
         url = message.text
-        # Get one or more messages from a chat by using message identifiers.
-        # get_messages(chat_id, message_ids)
         if url.startswith(tuple(links)):
             part = url.split("/")
             message_ids = int(part[-1])
@@ -98,132 +45,78 @@ async def _url(bot, message):
             except Exception:
                 chat_id = part[-2]
             try:
-                file = await bot.get_messages(
-                                             chat_id = chat_id,
-                                             message_ids = message_ids
-                                             )
+                file = await bot.get_messages(chat_id=chat_id, message_ids=message_ids)
             except Exception as e:
-                return await data.edit(
-                                      "🐉 SOMETHING WENT WRONG 🐉\n\n"
-                                      f"ERROR: `{e}`\n\n"
-                                      "NB: In Groups, Bots Can Only fetch documents Send After Joining Group =)",
-                                      reply_markup = InlineKeyboardMarkup(
-                                           [[
-                                                 InlineKeyboardButton("🚫 Close 🚫",
-                                                         callback_data = "closeALL")
-                                           ]]
-                                      ))
-            await sleep(1)
+                tTXT, _ = await translate(text="URL['error']", lang_code=lang_code)
+                return await data.edit(text=tTXT.format(e), reply_markup=__)
+            await asyncio.sleep(0.5)
             if not file.document:
-                return await data.edit("`Not a PDF File")
+                tTXT, _ = await translate(text="URL['notPDF']", lang_code=lang_code)
+                return await data.edit(tTXT)
             isProtect = "🔒 Protected 🔒" if (
-                                 (file.sender_chat and file.sender_chat.has_protected_content) or (
-                                 file.chat and file.chat.has_protected_content)) else "👀 Public 👀"
-            if file.chat.type == "channel":
-                return await data.edit(
-                                      f"[Open Chat]({url})\n\n"
-                                      f"**ABOUT CHAT ↓**\n"
-                                      f"Chat Type   : {file.chat.type}\n"
-                                      f"Chat Name : {file.sender_chat.title}\n"
-                                      f"Chat Usr    : @{file.sender_chat.username}\n"
-                                      f"Chat ID        : {file.sender_chat.id}\n"
-                                      f"Date : {file.date}\n\n"
-                                      f"**ABOUT MEDIA ↓**\n"
-                                      f"Media       : {file.media}\n"
-                                      f"File Name : {file.document.file_name}\n"
-                                      f"File Size   : {await gSF(file.document.file_size)}\n\n" + 
-                                      f"File Type : {isProtect}",
-                                      reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
-                                      disable_web_page_preview = True
-                                      )
+                (file.sender_chat and file.sender_chat.has_protected_content) or (
+                file.chat and file.chat.has_protected_content)) else "👀 Public 👀"
+            tTXT, tBTN = await translate(text="URL['_get']", button="URL['get']", lang_code=lang_code)
             return await data.edit(
-                                  f"[Open Chat]({url})\n\n "
-                                  f"**ABOUT CHAT ↓**\n"
-                                  f"Chat Type   : {file.chat.type}\n"
-                                  f"Chat Name : {file.chat.title}\n"
-                                  f"Chat Usr    : @{file.chat.username}\n"
-                                  f"Chat ID        : {file.chat.id}\n"
-                                  f"Date : {file.date}\n\n"
-                                  f"**ABOUT MEDIA ↓**\n"
-                                  f"Media       : {file.media}\n"
-                                  f"File Name : {file.document.file_name}\n"
-                                  f"File Size   : {await gSF(file.document.file_size)}\n\n"
-                                  f"File Type : {isProtect}",
-                                  reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
-                                  disable_web_page_preview = True
-                                  )
+                text = tTXT.format(url, file.chat.type, file.chat.title, file.chat.username,
+                    file.sender_chat.id if file.chat.type == enums.ChatType.CHANNEL else file.chat.id,
+                    file.date, file.media, file.document.file_name, await gSF(file.document.file_size), isProtect),
+                reply_markup=tBTN if file.document.file_name[-4:]==".pdf" else None, disable_web_page_preview = True
+            )
         if bool("." in url) & bool(urlSupport) & bool(" " not in url):
             try:
                 outputName = pattern.sub(r'\3', url)
-                pdfkit.from_url(url, f"{message.message_id}.pdf")
-                await data.edit(
-                               "`Almost Done..` ✅\n`Now, Started Uploading..` 📤",
-                               reply_markup = InlineKeyboardMarkup(
-                                           [[
-                                                 InlineKeyboardButton("🚫 Close 🚫",
-                                                         callback_data = "closeALL")
-                                           ]]
-                                      )
-                               )
+                pdfkit.from_url(url, f"{message.id}.pdf")
+                tTXT, tBTN = await translate(text="URL['done']", button="URL['close']", lang_code=lang_code)
+                await data.edit(tTXT, reply_markup=tBTN)
+                
+                FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(message, f"{outputName}.pdf")
+                if images.PDF_THUMBNAIL != THUMBNAIL:
+                    location = await bot.download_media(message=THUMBNAIL, file_name=f"{message.id}.jpeg")
+                    THUMBNAIL = await formatThumb(location)
+                
+                await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
+                tTXT, _ = await translate(text="URL['openCB']", lang_code=lang_code)
                 logFile = await message.reply_document(
-                                                      document = f"{message.message_id}.pdf",
-                                                      file_name = f"{outputName}.pdf",
-                                                      caption = f"Url: `{url}`",
-                                                      reply_markup = InlineKeyboardMarkup(
-                                                              [[
-                                                                  InlineKeyboardButton(
-                                                                      "Open In Browser", url = f"{url}"
-                                                                  )
-                                                              ]]
-                                                          ),
-                                                      progress = getPDF,
-                                                      progress_args = (
-                                                              data, 0, 
-                                                              "UPLOADED"
-                                                              ),
-                                                      quote = True
-                                                      )
-                await data.delete()
-                await footer(message, logFile)
-                os.remove(f"{message.message_id}.pdf")
+                    document=f"{message.id}.pdf", file_name=FILE_NAME, caption=f"Url: `{url}`\n\n{FILE_CAPT}",
+                    reply_markup=await createBUTTON(await editDICT(inDir=tTXT, value=url)), thumb=THUMBNAIL,
+                    progress=cbPRO, progress_args=(data, 0, "UPLOADED", True), quote=True
+                )
+                await data.delete(); os.remove(f"{message.id}.pdf")
+                await log.footer(message, output=logFile, lang_code=lang_code)
             except Exception as e:
-                await data.edit(
-                               f"`Some Thing Went Wrong =(`\n\n`{e}`",
-                               reply_markup = InlineKeyboardMarkup(
-                                           [[
-                                                 InlineKeyboardButton("🚫 Close 🚫",
-                                                         callback_data = "closeALL")
-                                           ]]
-                                      )
-                               )
-                try: os.remove(f"{message.message_id}.pdf")
+                tTXT, tBTN = await translate(text="URL['_error']", button="URL['close']", lang_code=lang_code)
+                await data.edit(tTXT.format(e), reply_markup=tBTN)
+                try: os.remove(f"{message.id}.pdf")
                 except Exception: pass
-            return
-        return await data.edit("send me any url or direct telegram pdf links")
+        else:
+            tTXT, _ = await translate(text="URL['_error_']", lang_code=lang_code)
+            return await data.edit(tTXT)
     except Exception as e:
-        logger.exception(
-                        "url:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
+        logger.exception("url:CAUSES %s ERROR" %(e), exc_info=True)
+        tTXT, tBTN = await translate(text="URL['error']",button="URL['close']", lang_code=lang_code)
+        return await data.edit(text=tTXT.format(e), reply_markup=tBTN)
 
 getFile = filters.create(lambda _, __, query: query.data == "getFile")
-
 @ILovePDF.on_callback_query(getFile)
 async def _getFile(bot, callbackQuery):
     try:
+        lang_code = await getLang(callbackQuery.message.chat.id)
         # REPLY TO LAGE FILES/DOCUMENTS
         if MAX_FILE_SIZE and fileSize >= int(MAX_FILE_SIZE_IN_kiB):
-            return await callbackQuery.answer("Big File.. 🏃")
+            tTXT, _ = await translate(text="getFILE['big']", lang_code=lang_code)
+            return await callbackQuery.answer(tTXT.format(MAX_FILE_SIZE))
         
         if callbackQuery.from_user.id in PROCESS:
-            return await callbackQuery.answer(
-                                             "Work in progress.. 🙇"
-                                             )
-        if callbackQuery.message.chat.type != "private":
-            if await header(bot, callbackQuery):
-                return
+            _, __ = await translate(text="getFILE['inWork']", lang_code=lang_code)
+            return await callbackQuery.answer(_)
+        
+        if callbackQuery.message.chat.type != enums.ChatType.PRIVATE and await header(bot, callbackQuery):
+            return
+        
         PROCESS.append(callbackQuery.from_user.id)
-        await callbackQuery.answer("Wait.. Let me.. 😜")
+        _, __ = await translate(text="getFILE['wait']", lang_code=lang_code)
+        await callbackQuery.answer(_)
         url = callbackQuery.message.reply_to_message.text
         part = url.split("/")
         message_ids = int(part[-1])
@@ -233,68 +126,30 @@ async def _getFile(bot, callbackQuery):
         except Exception:
             chat_id = part[-2]
         # bot.get_messages
-        file = await bot.get_messages(
-                                     chat_id = chat_id,
-                                     message_ids = message_ids
-                                     )
+        file = await bot.get_messages(chat_id=chat_id, message_ids=message_ids)
         # if not a protected channel/group [just forward]
-        if not (
-               (file.sender_chat and file.sender_chat.has_protected_content) or (
-               file.chat and file.chat.has_protected_content)):
+        if not ((file.sender_chat and file.sender_chat.has_protected_content) or (file.chat and file.chat.has_protected_content)):
             PROCESS.remove(callbackQuery.from_user.id)
-            return await file.copy(
-                                  chat_id = callbackQuery.message.chat.id,
-                                  caption = file.caption
-                                  )
-        await callbackQuery.edit_message_reply_markup(
-              InlineKeyboardMarkup(
-                                  [[
-                                      InlineKeyboardButton(
-                                                          "📥 ..DOWNLOADING.. 📥",
-                                                          callback_data = "nabilanavab")
-                                  ]]
-              ))
+            return await file.copy(chat_id=callbackQuery.message.chat.id, caption=file.caption)
+        _, __ = await translate(button="getFILE['dl']", lang_code=lang_code)
+        await callbackQuery.edit_message_reply_markup(__)
         location = await bot.download_media(
-                                           message = file.document.file_id,
-                                           file_name = file.document.file_name,
-                                           progress = getPDF,
-                                           progress_args = (
-                                                           callbackQuery.message, file.document.file_size,
-                                                           )
-                                           )
-        await callbackQuery.edit_message_reply_markup(
-              InlineKeyboardMarkup(
-                                  [[
-                                      InlineKeyboardButton(
-                                                          "📤 ..UPLOADING..  📤",
-                                                          callback_data = "nabilanavab")
-                                  ]]
-        ))
+            message = file.document.file_id, file_name = file.document.file_name,
+            progress = cbPRO, progress_args = (callbackQuery.message, file.document.file_size, "DOWNLOADED", True)
+        )
+        _, __ = await translate(button="getFILE['up']", lang_code=lang_code)
+        await callbackQuery.edit_message_reply_markup(__)
         logFile = await callbackQuery.message.reply_document(
-                                              document = location,
-                                              caption = file.caption,
-                                              progress = getPDF,
-                                              progress_args = (
-                                                              callbackQuery.message, 0, 
-                                                              "UPLOADED"
-                                                              )
-                                              )
-        await callbackQuery.edit_message_reply_markup(
-              InlineKeyboardMarkup(
-                                  [[
-                                      InlineKeyboardButton(
-                                                          "😎 COMPLETED 😎",
-                                                          url = "https://github.com/nabilanavab/ILovePDF")
-                                  ]]
-        ))
+            document = location, caption = file.caption, progress = cbPRO,
+            progress_args = (callbackQuery.message, 0, "UPLOADED", True)
+        )
+        _, __ = await translate(button="getFILE['complete']", lang_code=lang_code)
+        await callbackQuery.edit_message_reply_markup(__)
         PROCESS.remove(callbackQuery.from_user.id)
-        await footer(callbackQuery.message, logFile)
         os.remove(location)
+        await log.footer(callbackQuery.message, output=logFile, lang_code=lang_code)
     except Exception as e:
         PROCESS.remove(callbackQuery.from_user.id); os.remove(location)
-        logger.exception(
-                        "url:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
+        logger.exception("url:CAUSES %s ERROR" %(e), exc_info=True)
 
-#                                                                                                           Telegram: @nabilanavab
+# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
