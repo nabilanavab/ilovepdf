@@ -152,7 +152,7 @@ checkPdf = {
         "🖼️ IMÁGENES 🖼️" : "pdf|img", "✏️ TEXTO ✏️" : "pdf|txt",
         "🔐 ENCRYPT 🔐" : "work|encrypt", "🔒 DECRYPT 🔓" : "work|decrypt",
         "🗜️ COMPRIMIR 🗜️" : "work|compress", "🤸 GIRAR 🤸" : "pdf|rotate",
-        "✂️ SPLIT ✂️" : "pdf|split", "🧬 MERGE 🧬" : "merge", "™️ STAMP ™️" : "pdf|sp",
+        "✂️ SPLIT ✂️" : "pdf|split", "🧬 MERGE 🧬" : "merge", "™️ STAMP ™️" : "pdf|stp",
         "✏️ RENOMBRAR ✏️" : "work|rename", "📝 OCR 📝" : "work|ocr",
          "🥷 FORMATO A4 🥷" : "work|format", "🚫 CERRAR 🚫" : "cerrar|todo"
     },
@@ -187,7 +187,7 @@ document = {
     "bigCB" : {"💎 Crear bot de soporte de 2 Gb 💎" : "https://github.com/nabilanavab/ilovepdf"},
     "imageAdded" : """`Se agregaron {} página/s a su pdf..`🤓\n\nNombre del archivo: `{}.pdf`""",
     "setHdImg" : """Ahora Image To PDF está en modo HD 😈""",
-    "setDefault" : {"« Volver a la calidad predeterminada «" : "hd-"},
+    "setDefault" : {"« Volver a la calidad predeterminada «" : "close|hd"},
     "error" : """Algo salió mal.. 🐉\n\nERROR: `{}`""",
     "noAPI" : "`Agregue la API de conversión.. 💩\n\ninicio » configuración » api » agregar/cambiar`",
     "useDOCKER" : "`File Not Supported, deploy bot using docker`",
