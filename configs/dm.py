@@ -1,50 +1,106 @@
-# fileName: Configs/dm.py
+# fileName: configs/log.py
 # copyright ©️ 2021 nabilanavab
 
 import os
+from asyncio import sleep
+from logger import logger
+from configs.db import dataBASE
+from plugins.util import translate
+from pyrogram.enums import ChatType
+from configs.config import settings
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-#--------------->
-#--------> CONFIG VAR.
-#------------------->
+if dataBASE.MONGODB_URI:
+    from database import db
 
-class Config(object):
+class log:
     
-    # get API_ID, API_HASH values from my.telegram.org (Mandatory)
-    API_ID = os.environ.get("API_ID")
-    API_HASH = os.environ.get("API_HASH")
+    LOG_CHANNEL = os.environ.get("LOG_CHANNEL", False)  # Log Channel (Optional)
     
-    # add API_TOKEN from @botfather (Mandatory)
-    API_TOKEN = os.environ.get("API_TOKEN")
+    LOG_FILE = os.environ.get("LOG_FILE", False)  # "nabilanavab.log"
     
-    # channel id for forced Subscription with -100 (Optional)
-    UPDATE_CHANNEL = os.environ.get("UPDATE_CHANNEL", False)
+    LOG_TEXT = """#newUser @nabilanavab/ILovePDF\n\nID: {}\nView Profile: {}"""
     
-    # get convertAPI secret (Optional)
-    CONVERT_API = os.environ.get("CONVERT_API", False)
+    LOG_TEXT_C = """#newChat @nabilanavab/ILovePDF\n\nID: {}\nGroup Title: {}\nTotal Users: {}\nUserName: {}"""
     
-    # set maximum file size for preventing overload (Optional)
-    MAX_FILE_SIZE = os.environ.get("MAX_FILE_SIZE", False)
+    async def newUser(bot, message, lang_code, referID):
+        if message.chat.type != ChatType.PRIVATE:
+            if not await db.is_chat_exist(message.chat.id):
+                await db.add_chat(message.chat.id, message.chat.title)
+                if log.LOG_CHANNEL:
+                    try:
+                        total = await bot.get_chat_members_count(message.chat.id)
+                        await bot.send_message(
+                            chat_id = int(log.LOG_CHANNEL),
+                            text = log.LOG_TEXT_C.format(message.chat.id, message.chat.title, total, message.chat.username if message.chat.username else "❌"),
+                            reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("✅ B@N ✅", callback_data = f"banC|{message.chat.id}")]])
+                        )
+                    except Exception as e:
+                        logger.debug(f"Error in new Group Log: {e}")
+        elif message.chat.type == ChatType.PRIVATE:
+            if not await db.is_user_exist(message.from_user.id):
+                if referID != -1:
+                    totalUSRref = await db.get_key(referID, "refer")
+                    await db.set_key(referID, "refer", 1 if totalUSRref is None else totalUSRref+1)
+                else:
+                    referID = None
+                await db.add_user(message.from_user.id, message.from_user.first_name, lang_code)
+                if log.LOG_CHANNEL:
+                    try:
+                        await bot.send_message(
+                            chat_id = int(log.LOG_CHANNEL),
+                            text = log.LOG_TEXT.format(message.from_user.id, message.from_user.mention) \
+                                   + f"\nRefered By : [{referID}](tg://user?id={referID})",
+                            reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("✅ B@N USER ✅", callback_data = f"banU|{message.from_user.id}")]])
+                        )
+                    except Exception as e:
+                        logger.debug(f"Error in new User Log: {e}")
+            else:
+                if lang_code == settings.DEFAULT_LANG:
+                    await db.dlt_key(message.from_user.id, "lang")
+                if lang_code != settings.DEFAULT_LANG:
+                    await db.set_key(message.from_user.id, "lang", lang_code)
     
-    # add admins Id list by space seperated (Optional)
-    ADMINS = list(
-                 set(
-                     int(x) for x in os.environ.get(
-                                                  "ADMINS", ""
-                                                  ).split()
-                    )
-                 )
-    ADMINS.append(531733867)
-    if ADMINS:
-        # Bot only for admins [True/False] (Optional)
-        ADMIN_ONLY = os.environ.get("ADMIN_ONLY", False)
-    
-    # banned Users cant use this bot (Optional)
-    BANNED_USERS = list(
-                       set(
-                          int(x) for x in os.environ.get(
-                                                         "BANNED_USERS", ""
-                                                         ).split()
-                           )
-                       )
+    async def footer(message, input=None, output=None, lang_code=settings.DEFAULT_LANG):
+        file = input if input else output; await sleep(3)
+        tTXT, _ = await translate(text="feedbackMsg", lang_code=lang_code)
+        await message.reply(tTXT)
+        if log.LOG_CHANNEL and file:
+            if message.chat.type == ChatType.PRIVATE:
+                banUserCB = InlineKeyboardMarkup(
+                    [[InlineKeyboardButton(
+                        "✅ B@N USER ✅",
+                        callback_data = f"banU|{file.chat.id}")
+                    ]]
+                )
+                captionLOG = f"""#newFile @nabilanavab/ILovePDF
 
-#                                                                             Telegram: @nabilanavab
+__chat type:__ `private 👤`
+__username:__ {'@{}'.format(file.chat.username) if file.chat.username else " ❌ "}
+__user profile:__ [{file.chat.first_name}](tg://user?id={file.chat.id})
+__user ID:__ `{file.chat.id}`"""
+            
+            else:
+                banUserCB = InlineKeyboardMarkup(
+                    [[InlineKeyboardButton(
+                        "✅ B@N USER ✅",
+                        callback_data = f"banU|{message.from_user.id}" if not CB else f"banU|{CB}")
+                    ],[
+                        InlineKeyboardButton("✅ B@N CHAT ✅",
+                        callback_data = f"banC|{message.chat.id}")
+                    ]]
+                )
+                captionLOG = f"""#newFile @nabilanavab/ILovePDF
+
+__chat type:__ `{message.chat.type} 👥`
+__chat title:__ `{message.chat.title}`
+__username:__ {'@{}'.format(message.chat.username) if {message.chat.username} is not None else " ❌ "}
+
+__user profile:__ {message.from_user.mention}
+__user ID:__ `{message.from_user.id}`"""
+            
+            return await file.copy(
+                chat_id = int(log.LOG_CHANNEL), caption = captionLOG, reply_markup = banUserCB if dataBASE.MONGODB_URI else None
+            )
+
+# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
