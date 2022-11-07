@@ -1,36 +1,20 @@
-# fileName: Configs/db.py
+# fileName: configs/db.py
 # copyright ©️ 2021 nabilanavab
 
 import os
 
+ # if os.environ.get("MONGODB_URI", False):
+ #    from database import db
+DATA = {}                                                                    # save user api, fname, capt
+                                                                             # if UPDATE_CHANNEL
+invite_link = []                                                             # just saves invitation link
 
-# check if there exist a db
-isMONGOexist = os.environ.get(
-                             "MONGODB_URI", False
-                             )
-if os.environ.get("MONGODB_URI", False):
-    isMONGOexist = True
+BANNED_USR_DB, BANNED_GRP_DB = [], []                                        # Load Banned Users Id
 
-
-# Log Channel (Optional)
-LOG_CHANNEL = os.environ.get(
-                            "LOG_CHANNEL", False
-                            )
-
-
-# Load Banned Users Id
-BANNED_USR_DB, BANNED_GRP_DB = [], []
-
-#--------------->
-#--------> CONFIG VAR.
-#------------------->
-
+CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C = [], []                              # Load UsersId with custom thumbnail
 
 class dataBASE(object):
     
-    # mongoDB Url (Optional)
-    MONGODB_URI = os.environ.get(
-                                "MONGODB_URI", False
-                                )
+    MONGODB_URI = os.environ.get("MONGODB_URI", False)                       # mongoDB Url (Optional)
 
-#                                                                             Telegram: @nabilanavab
+                                                                             # Telegram: @nabilanavab
