@@ -16,7 +16,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceRepl
 if dataBASE.MONGODB_URI:
     from database import db
 
-# ===============================================> ADMIN MESSAGES <============================================================
+# =======================================> ADMIN MESSAGES <============================================================================================================
 @ILovePDF.on_message(filters.command("send") & filters.user(dm.ADMINS) & filters.private & filters.incoming)
 async def sand(bot, message):
     try:
@@ -42,7 +42,7 @@ async def sand(bot, message):
     except Exception as error:
         logger.exception("plugins/dm/admin/sand: %s" %(error),exc_info=True)
 
-# ===============================================> ADMIN SEMD CALLBACK <=======================================================
+# =======================================================================================> ADMIN SEMD CALLBACK <=======================================================
 send = filters.create(lambda _, __, query: query.data.startswith("send"))
 # ❌ MESSAGE BROADCAST ❌
 async def broadcast_messages(user_id, message, info):
@@ -164,4 +164,4 @@ async def _send(bot, callbackQuery):
     except Exception as e:
         logger.exception("plugins/dm/admin/_send: %s" %(e), exc_info=True)
 
-# ==============================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
