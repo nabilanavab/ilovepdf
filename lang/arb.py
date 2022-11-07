@@ -381,3 +381,5 @@ cbAns = [
 inline_query = {
     "TOP": {"Now, Select Language ➟": "nabilanavab"}, "capt": "SET LANGUAGE ⚙️", "des": "By:nabilanavab ❤"
 }
+
+# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
