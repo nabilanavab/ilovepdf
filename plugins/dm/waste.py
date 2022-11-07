@@ -7,7 +7,7 @@ from configs.config import dm
 from pyrogram import enums, filters
 from pyrogram import Client as ILovePDF
 
-# ===========================| WASTE/DPAMMING MESSAGES |===============================
+# ===========================================| WASTE/DPAMMING MESSAGES |==================================================================================================
 @ILovePDF.on_message(filters.private & filters.incoming & ~filters.user(dm.ADMINS))
 async def _spam(bot, message):
     try:
@@ -18,4 +18,4 @@ async def _spam(bot, message):
     except Exception as e:
         logger.exception("plugins/dm/waste: %s" %(e), exc_info=True)
 
-# ===================================================[NABIL A NAVAB -> TG: nabilanavab]
+# ======================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
