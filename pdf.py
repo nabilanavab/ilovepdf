@@ -1,148 +1,148 @@
 # This file is part of nabilanavab/iLovePDF [a completely free software]
 
-
-# Repository:  : [i💜PDF]
-# Author:      : nabilanavab
-# Email:       : nabilanavab@gmail.com
-# Telegram:    : https://telegram.dog/complete_pdf_bot
-# GitHub:      : https://github.com/nabilanavab/ILovePDF
-# Coding       : !/usr/bin/python3, utf-8, copyright ©️ 2021 nabilanavab
-
-
-# ABOUT SOURCE-CODE:
-#     Inspired from an old Telegram Bot [@JPG2PDFBot] by @spechide
-# 
-# When I released nabilanavab/ILovePDF in 2021-JUNE, It had Only 100 lines of code.
-# at that time, bot only supports images to PDF feature, Having worked on it for
-# a few more weeks, it made me more interesting In adding new features. Now, it
-# supports many manipulation over TELEGRAM PDF files..
-#                                       THANKS ALL MY COLLEGE'S FOR YOUR SUGGESTIONS 💚
-# 
-# Before blaming the source-code:
-#    ◍ I'm neither a Geek nor a Computer Science student
-#    ◍ Just Started Writing this Source-code when I was 19 :)
-#    ◍ Source-code was fully written using my Android phone [Nokia 2.2]
-#                      funFact: I never had hosted this program locally yet :(
-#
-#                                                     CURRENTLY A [BSC. PHYSICS STUDENT]
-#                                                          DATE:[1-JUNE-2022, Wednesday]
-
+__author__ = "nabilanavab"
+__email__ = "nabilanavab@gmail.com"
+__telegram__ = "telegram.dog/nabilanavab"
+__copyright__ = "Copyright 2021, nabilanavab"
 
 iLovePDF = '''
   _   _                  ___  ___  ____ ™
  | | | |   _____ _____  | _ \|   \|  __| 
  | | | |__/ _ \ V / -_) |  _/| |) |  _|  
  |_| |___,\___/\_/\___| |_|  |___/|_|    
-                         [Nabil A Navab] 
-                         Email: nabilanavab@gmail.com
-                         Telegram: @nabilanavab
+                         ❤ [Nabil A Navab] 
+                         ❤ Email: nabilanavab@gmail.com
+                         ❤ Telegram: @nabilanavab
 '''
 
-
 import asyncio
-import logging
+from configs.db import *
+from logger import logger
+from lang import __users__
 from pyromod import listen
-from configs.dm import Config
-from configs.db import isMONGOexist
+from configs.log import log
+from plugins.util import translate
 from pyrogram import Client as ILovePDF
 from telebot.async_telebot import AsyncTeleBot
-from configs.db import BANNED_USR_DB, BANNED_GRP_DB
-from configs.images import CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from configs.config import bot, settings, images
+from pyrogram.types import (
+    InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
+)
 
-if isMONGOexist:
+if dataBASE.MONGODB_URI:
     from database import db
 
-
-# LOGGING INFO: DEBUG
-logger=logging.getLogger(__name__)
-logging.basicConfig(
-                   level=logging.DEBUG,
-                   format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
-                   )
-logging.getLogger("pyrogram").setLevel(logging.ERROR)
-# SOMEONE TOLD ME PRO DEV. NEVER USE PRINT FOR TRACKING ERRORS. SO, import logging :|
-
 # GLOBAL VARIABLES
-
 PDF = {}            # save images for generating pdf
-myID = None
 PROCESS = []        # to check current process
-invite_link = None
 
-
-# TELEBOT (pyTelegramBotAPI) Asyncio
-pyTgLovePDF = AsyncTeleBot(
-                           Config.API_TOKEN,
-                           parse_mode = "Markdown"
-                           )
-pyTgLovePDF.polling()
+pyTgLovePDF = AsyncTeleBot(bot.API_TOKEN, parse_mode="Markdown")    # TELEBOT (pyTelegramBotAPI) Asyncio [for uploading group doc, imgs]
 
 # PYROGRAM
 class Bot(ILovePDF):
     
     def __init__(self):
         super().__init__(
-            session_name = "ILovePDF",
-            api_id = Config.API_ID,
-            api_hash = Config.API_HASH,
-            bot_token = Config.API_TOKEN,
-            plugins = {
-                      "root": "plugins"
-                      }
-            )
+            name = "ILovePDF",
+            api_id = bot.API_ID,
+            api_hash = bot.API_HASH,
+            bot_token = bot.API_TOKEN,
+            plugins = {"root": "plugins"}
+        )
     
     async def start(self):
-        if isMONGOexist:
-            global myID
-            # Loading Banned UsersId to List
+        if dataBASE.MONGODB_URI:
+            # ------------------------------------------------------------------------------------------------------- Loads Banned UsersId to List --------------------
             b_users, b_chats = await db.get_banned()
             BANNED_USR_DB.extend(b_users)
             BANNED_GRP_DB.extend(b_chats)
             
-            # Loading UsersId with custom THUMBNAIL
+            # ---------------- Loads UsersId with custom THUMBNAIL ----------------------------------------------------------------------------------------------------
             users = await db.get_all_users()   # Get all user Data
             async for user in users:
-                if user.get("thumbnail", False):
-                    CUSTOM_THUMBNAIL_U.append(user["id"])
+                if user.get("thumb", False):
+                    CUSTOM_THUMBNAIL_U.append(user["id"]) 
+            
             groups = await db.get_all_chats()
             async for group in groups:
-                if group.get("thumbnail", False):
+                if group.get("thumb", False):
                     CUSTOM_THUMBNAIL_C.append(group["id"])
             
-        # Pyrogram Client Starting
+            # -------------------------------------------------------------- Loads Lang Codes -------------------------------------------------------------------------
+            if settings.MULTI_LANG_SUP:
+                users = await db.get_all_users()   # Get all user Data
+                async for user in users:
+                    lang = user.get("lang", False)
+                    if (lang != False) and (lang != settings.DEFAULT_LANG):
+                        __users__.userLang[user.get("id")] = f"{lang}"
+            
+            # -------------------------------------------------------------------------------------- Loads Other Necessay Datas ---------------------------------------
+            users = await db.get_all_users()
+            async for user in users:
+                if user.get("api", False) or user.get("fname", False) or user.get("capt", False):
+                    DATA[user.get("id")] = [0, 0, 0]
+                    if user.get("api", False):
+                        DATA[user.get("id")][0] = 1
+                    if user.get("fname", False):
+                        DATA[user.get("id")][1] = 1
+                    if user.get("capt", False):
+                        DATA[user.get("id")][2] = 1
+        
+        # -----> Telebot/Pyrogram Client Starting <-----
         await super().start()
         myID = await app.get_me()
-        logger.debug(
-                    f"BOT ID : {myID.id} | BOT NAME: {myID.first_name} |"
-                    f" BOT USERNAME: {myID.username}\n\n"
-                    f"BOT GETS STARTED..\n"
-                    f"Thanks @nabilanavab for this Awesome repo\n"
-                    f"Telegram Update Channel: @iLovePDF_bot\n\n"
-                    f"{iLovePDF}"
-                    )
-        # Bot Restarted Message to ADMINS
-        for admin in Config.ADMINS:
+        
+        command, _ = await translate(text="BOT_COMMAND", lang_code=settings.DEFAULT_LANG)
+        await app.set_bot_commands([BotCommand(i, command[i]) for i in command ],language_code = "en")
+        # -----> SETTING FORCE SUBSCRIPTION <-----
+        if settings.UPDATE_CHANNEL:
             try:
-                await app.send_message(
-                                      chat_id = admin,
-                                      text = "Bot Restarted Sar.. 😅",
-                                      reply_markup = InlineKeyboardMarkup(
-                                            [[
-                                                InlineKeyboardButton("◍ close ◍",
-                                                               callback_data="close")
-                                            ]]
-                                      ))
-            except Exception: pass
-    
+                inviteLink = await app.create_chat_invite_link(int(settings.UPDATE_CHANNEL))
+                chanlCount = await app.get_chat_members_count(int(settings.UPDATE_CHANNEL))
+                invite_link.append(inviteLink.invite_link)
+            except Exception as error:
+                logger.debug(f"⚠️ FORCE SUBSCRIPTION ERROR : {error}", exc_info=True)
+        
+        logger.debug(f"\n"
+                    f"❤ BOT ID: {myID.id}\n"
+                    f"❤ BOT FILENAME: {myID.first_name}\n"
+                    f"❤ BOT USERNAME: {myID.username}\n\n"
+                    f"❤ SOURCE-CODE By: @nabilanavab 👑\n"
+                    f"❤ BOT CHANNEL: t.me/iLovePDF_bot\n\n"
+                    f"{iLovePDF}")
+        
+        # -----> SETTING LOG CHANNEL <-----
+        if log.LOG_CHANNEL:
+            try:
+                if settings.UPDATE_CHANNEL:
+                    caption = f"{myID.first_name} get started Successfully ✅\n\n" \
+                              f"FORCED CHANNEL:\n" \
+                              f"invite_link: {str(invite_link[0]) if invite_link[0] is not None else '❌'}\n" \
+                              f"get_member : {str(chanlCount) if invite_link[0] is not None else '❌'}\n"
+                else:
+                    caption = f"{myID.first_name} get started Successfully ✅"
+                if log.LOG_FILE and log.LOG_FILE[-4:]==".log":
+                    doc = f"./{log.LOG_FILE}"
+                    markUp = InlineKeyboardMarkup([[InlineKeyboardButton("♻️ refresh log ♻️", callback_data = "log")
+                             ],[InlineKeyboardButton("◍ close ◍", callback_data = "close|admin")]])
+                else:
+                    doc = images.PDF_THUMBNAIL
+                    markUp = InlineKeyboardMarkup([[InlineKeyboardButton("◍ close ◍", callback_data = "close|admin")]])
+                await app.send_document(
+                    chat_id = int(log.LOG_CHANNEL), document = doc,
+                    caption = caption, reply_markup = markUp
+                )
+            except Exception as error:
+                logger.debug(f"⚠️ ERRROR IN LOG CHANNEL - {error}", exc_info=True)
+        
     async def stop(self, *args):
         await super().stop()
 
-
 if __name__ == "__main__":
-    app=Bot()
+    pyTgLovePDF.polling()
+    
+    app = Bot()
     app.run()
 
-
-#                                                         OPEN SOURCE TELEGRAM PDF BOT 🐍
-#                                                              by: nabilanavab [iLovePDF]
+#                                                                                                                                       OPEN SOURCE TELEGRAM PDF BOT 🐍
+#                                                                                                                                            by: nabilanavab [iLovePDF]
