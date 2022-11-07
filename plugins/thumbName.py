@@ -1,33 +1,19 @@
 # fileName : plugins/thumbName.py
 # copyright ©️ 2021 nabilanavab
 
-# LOGGING INFO: INFO [!= DEBUG COZ LOTS OF PIL SERVICE MSG]
-import logging
-logger=logging.getLogger(__name__)
-logging.basicConfig(
-                   level=logging.INFO,
-                   format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
-                   )
-
 import os
 from PIL import Image
-from pyrogram import Client
-from pyrogram.types import Message
-from configs.db import isMONGOexist
-from configs.images import DEFAULT_NAME    # DEFAULT NAME
-from configs.images import PDF_THUMBNAIL   # DEFAULT THUMBNAIL
-from configs.images import CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C
+from configs.db import *
+from logger import logger
+from pyrogram.enums import ChatType
+from configs.config import settings, images
 
 # THUMBNAIL METADATA
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 
-if isMONGOexist:
+if dataBASE.MONGODB_URI:
     from database import db
-
-changeNAME = False
-if DEFAULT_NAME:
-   changeNAME = True
 
 # return thumbnail height
 async def thumbMeta(thumbPath: str):
@@ -38,10 +24,7 @@ async def thumbMeta(thumbPath: str):
         else:
             return 0
     except Exception as e:
-        logger.exception(
-                        "THUMB_META:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
+        logger.exception("THUMB_META:CAUSES %s ERROR" %(e), exc_info=True)
 
 # photo_id -> local image
 async def formatThumb(location):
@@ -53,44 +36,45 @@ async def formatThumb(location):
         img.save(location, "JPEG")
         return location
     except Exception as e:
-        logger.exception(
-                        "LOCAL_THUMB:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
+        logger.exception("LOCAL_THUMB:CAUSES %s ERROR" %(e), exc_info=True)
 
 # return thumbnail and fileName
-async def thumbName(message, fileName):
+async def thumbName(message, fileName, getAPI=False):
     try:
-        chat_type = message.chat.type
+        chat_type = message.chat.type; chat_id = message.chat.id
         fileNm, fileExt = os.path.splitext(fileName)
-        if changeNAME:
-            SET_DEFAULT_NAME = DEFAULT_NAME + fileExt
         
-        # if no mongoDB return False [default thumbnail ]
-        if not isMONGOexist:
-            # id no DEFAULT_NAME, use current file name 
-            if changeNAME:
-                return PDF_THUMBNAIL, SET_DEFAULT_NAME
+        if (dataBASE.MONGODB_URI):
+            info = await db.get_user_data(chat_id)
+        
+        if settings.DEFAULT_NAME:
+            FILE_NAME = settings.DEFAULT_NAME + fileExt
+        elif dataBASE.MONGODB_URI and info.get('fname', 0):
+            FILE_NAME = info["fname"] + fileExt
+        else:
+            FILE_NAME = fileName
+        
+        if settings.DEFAULT_CAPT:
+            FILE_CAPT = settings.DEFAULT_CAPT
+        elif dataBASE.MONGODB_URI and info.get('capt', 0):
+            FILE_CAPT = info["capt"]
+        else:
+            FILE_CAPT = ""
+        
+        if dataBASE.MONGODB_URI:
+            if chat_type == ChatType.PRIVATE and message.chat.id in CUSTOM_THUMBNAIL_U:
+                THUMBNAIL = info["thumb"]
             else:
-                return PDF_THUMBNAIL, fileName
-        
-        # user with thumbnail
-        if chat_type == "private" and message.chat.id in CUSTOM_THUMBNAIL_U:
-            thumbnail = await db.get_thumbnail(message.chat.id)
-        elif chat_type in ["group", "supergroup"] and message.chat.id in CUSTOM_THUMBNAIL_C:
-            thumbnail = await db.get_group_thumb(message.chat.id)
+                 THUMBNAIL = images.PDF_THUMBNAIL
         else:
-            thumbnail = PDF_THUMBNAIL
+            THUMBNAIL = images.PDF_THUMBNAIL
         
-        if changeNAME:
-            return thumbnail, SET_DEFAULT_NAME
+        if not getAPI:
+             return FILE_NAME, FILE_CAPT, THUMBNAIL
         else:
-            return thumbnail, fileName
-    
+            return FILE_NAME, FILE_CAPT, THUMBNAIL, info.get('api', 0)
+        
     except Exception as e:
-        logger.exception(
-                        "THUMB_NAME:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
+        logger.exception("THUMB_NAME: %s" %(e), exc_info=True)
 
-#                                                         Telegram: @nabilanavab
+# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
