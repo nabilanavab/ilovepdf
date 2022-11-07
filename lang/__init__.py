@@ -3,7 +3,6 @@
 
 from configs.config import settings
 
-
 langList = {
         "eng" : ["🅴🅽🅶🅻🅸🆂🅷", "English"],
         "mal" : ["🅼🅰🅻🅰🆈🅰🅻🅰🅼", "മലയാളം"],
@@ -14,6 +13,7 @@ langList = {
         "spn" : ["🆂🅿🅰🅽🅸🆂🅷", "española"],
         "arb" : ["🅰🆁🅰🅱🅸🅲", "عربى"]
     }
+
 # Display Lang in a Beutiful Way
 async def disLang(lang):
     if lang in langList:
