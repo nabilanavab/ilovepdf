@@ -1,43 +1,21 @@
 # fileName : plugins/dm/waste.py
 # copyright ©️ 2021 nabilanavab
 
-# LOGGING INFO: DEBUG
-import logging
-logger=logging.getLogger(__name__)
-logging.basicConfig(
-                   level=logging.DEBUG,
-                   format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
-                   )
-
-from pyrogram import filters
-from configs.dm import Config
+from logger import logger
+from plugins.util import *
+from configs.config import dm 
+from pyrogram import enums, filters
 from pyrogram import Client as ILovePDF
 
-
-#--------------->
-#--------> PDF REPLY BUTTON
-#------------------->
-
-@ILovePDF.on_message(
-                    filters.private &
-                    ~filters.edited &
-                    filters.incoming &
-                    ~filters.user(Config.ADMINS)
-                    )
+# ===========================| WASTE/DPAMMING MESSAGES |===============================
+@ILovePDF.on_message(filters.private & filters.incoming & ~filters.user(dm.ADMINS))
 async def _spam(bot, message):
     try:
-        await message.reply_chat_action(
-                                       "typing"
-                                       )
-        await message.reply_text(
-                                f"`no one gonna to help you` 😏",
-                                quote = True
-                                )
+        lang_code = await getLang(message.chat.id)
+        await message.reply_chat_action(enums.ChatAction.TYPING)
+        tTXT, tBTN = await translate(text="noHelp", lang_code=lang_code)
+        await message.reply_text(tTXT, quote=True)
     except Exception as e:
-        logger.exception(
-                        "/SERVER:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
+        logger.exception("plugins/dm/waste: %s" %(e), exc_info=True)
 
-
-#                                                     Telegram: @nabilanavab
+# ===================================================[NABIL A NAVAB -> TG: nabilanavab]
