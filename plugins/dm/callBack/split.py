@@ -1,106 +1,42 @@
 # fileName : plugins/dm/callBack/split.py
 # copyright ©️ 2021 nabilanavab
 
-# LOGGING INFO: DEBUG
-import logging
-logger=logging.getLogger(__name__)
-logging.basicConfig(
-                   level=logging.DEBUG,
-                   format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
-                   )
-
-import os
-import time
-import shutil
+import os, time, shutil
 from pdf import PROCESS
+from logger import logger
 from pyromod import listen
-from pyrogram import filters
-from plugins.thumbName import (
-                              thumbName,
-                              formatThumb
-                              )
-from plugins.checkPdf import checkPdf
+from plugins.util import *
+from plugins.render import *
+from configs.config import images
 from pyrogram.types import ForceReply
-from pyrogram import Client as ILovePDF
-from configs.images import PDF_THUMBNAIL
-from plugins.footer import footer, header
 from PyPDF2 import PdfFileWriter, PdfFileReader
-from plugins.fileSize import get_size_format as gSF
-from plugins.progress import progress, uploadProgress
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from plugins.thumbName import thumbName, formatThumb
+from pyrogram import enums, filters, Client as ILovePDF
 
-
-split = filters.create(lambda _, __, query: query.data == "split")
-Ksplit = filters.create(lambda _, __, query: query.data.startswith("Ksplit|"))
-
-splitProcess = filters.create(lambda _, __, query: query.data.startswith(tuple(["splitR", "splitS", "KsplitR|", "KsplitS"])))
-
+split = filters.create(lambda _, __, query: query.data.startswith("split"))
 @ILovePDF.on_callback_query(split)
 async def _split(bot, callbackQuery):
     try:
-        await callbackQuery.edit_message_text(
-                                             "__Split pdf » Pages:"
-                                             "\n\nTotal Page Number(s):__ `unknown`",
-                                             reply_markup = InlineKeyboardMarkup(
-                                                 [[
-                                                     InlineKeyboardButton("With In Range 🦞",
-                                                                            callback_data = "splitR")
-                                                 ],[
-                                                     InlineKeyboardButton("Single Page 🐛",
-                                                                            callback_data = "splitS")
-                                                 ],[
-                                                     InlineKeyboardButton("« Back «",
-                                                                              callback_data = "BTPM")
-                                                 ]]
-                                             ))
-    except Exception: pass
-
-# Split pgNo (with known pdf page number)
-@ILovePDF.on_callback_query(Ksplit)
-async def _Ksplit(bot, callbackQuery):
-    try:
-        _, number_of_pages = callbackQuery.data.split("|")
-        await callbackQuery.edit_message_text(
-                                             f"Split pdf » Pages:"
-                                             f"\n\nTotal Page Number(s): {number_of_pages}__ 🌟",
-                                             reply_markup = InlineKeyboardMarkup(
-                                                 [[
-                                                     InlineKeyboardButton("With In Range 🦞",
-                                                            callback_data = f"KsplitR|{number_of_pages}")
-                                                 ],[
-                                                     InlineKeyboardButton("Single Page 🐛",
-                                                            callback_data = f"KsplitS|{number_of_pages}")
-                                                 ],[
-                                                     InlineKeyboardButton("« Back «",
-                                                              callback_data = f"KBTPM|{number_of_pages}")
-                                                 ]]
-                                             ))
-    except Exception: pass
-
-@ILovePDF.on_callback_query(splitProcess)
-async def _splitProcess(bot, callbackQuery):
-    try:
+        lang_code = await getLang(callbackQuery.message.chat.id)
+        CHUNK, _ = await translate(text="split", button="document['cancelCB']", lang_code=lang_code)
+        
         if await header(bot, callbackQuery):
             return
         
         chat_id = callbackQuery.message.chat.id
-        message_id = callbackQuery.message.message_id
+        message_id = callbackQuery.message.id
         
-        # CHECKS IF USER IN PROCESS
         if chat_id in PROCESS:
-            await callbackQuery.answer(
-                                      "Work in progress..🙇"
-                                      )
-            return
+            return await callbackQuery.answer(CHUNK["inWork"])
         await callbackQuery.answer()
-        data = callbackQuery.data
-        if data.startswith(tuple(["splitR", "KsplitR|"])):
-            process = "Range"
-        else:
-            process = "Single"
         
-        if data.startswith("K"):
-            _, number_of_pages = callbackQuery.data.split("|")
+        data = callbackQuery.data.split("|")[1]
+        process=CHUNK["work"][0] if data == "R" else CHUNK["work"][1]
+        
+        if "•" in callbackQuery.message.text:
+            known = True; number_of_pages = int(callbackQuery.message.text.split("•")[1])
+        else:
+            known = False
         
         # ADD TO PROCESS
         PROCESS.append(chat_id)
@@ -108,127 +44,93 @@ async def _splitProcess(bot, callbackQuery):
         while(nabilanavab):
             # REQUEST FOR PG NUMBER (MAX. LIMIT 5)
             if i >= 5:
-                await callbackQuery.message.reply(
-                                                 "`5 attempt over.. Process canceled..`😏"
-                                                 )
+                await callbackQuery.message.reply(CHUNK["over"])
                 break
             i += 1
             needPages = await bot.ask(
-                                     text = "__Pdf Split » By Range\n"
-                                            "Now, Enter the range (start:end) :__\n\n"
-                                            "/exit __to cancel__",
-                                     chat_id = chat_id,
-                                     reply_to_message_id = message_id,
-                                     filters = filters.text,
-                                     reply_markup = ForceReply(True)
-                                     )
+                text = CHUNK["pyromodASK_1"], chat_id = chat_id, reply_to_message_id = message_id,
+                filters = filters.text, reply_markup = ForceReply(True, "Eg: 7:86 [start:end] | 7, 8 ,6 [pages]")
+            )
             # IF /exit PROCESS CANCEL
             if needPages.text == "/exit":
-                await needPages.reply(
-                                     "`Process Cancelled..` 😏",
-                                     quote = True
-                                     )
+                await needPages.reply(CHUNK["exit"], quote = True)
                 break
-            if data == "splitR":
+            if not (known) and (data == "R"):
                 pageStartAndEnd = list(needPages.text.replace('-',':').split(':'))
                 if len(pageStartAndEnd) > 2:
-                    await callbackQuery.message.reply(
-                                                     "`Syntax Error: justNeedStartAndEnd `🚶"
-                                                     )
+                    await callbackQuery.message.reply(CHUNK["error_1"])
                 elif len(pageStartAndEnd) == 2:
                     start = pageStartAndEnd[0]; end = pageStartAndEnd[1]
+                    try:
+                        start=int(start); end=int(end)
+                    except Exception: pass
                     if start.isdigit() and end.isdigit():
                         if (1 <= int(pageStartAndEnd[0])):
                             if (int(pageStartAndEnd[0]) < int(pageStartAndEnd[1])):
                                 nabilanavab = False
                                 break
                             else:
-                                await callbackQuery.message.reply(
-                                                                 "`Syntax Error: errorInEndingPageNumber `🚶"
-                                                                 )
+                                await callbackQuery.message.reply(CHUNK["error_2"])
                         else:
-                            await callbackQuery.message.reply(
-                                                             "`Syntax Error: errorInStartingPageNumber `🚶"
-                                                             )
+                            await callbackQuery.message.reply(CHUNK["error_3"])
                     else:
-                        await callbackQuery.message.reply(
-                                                         "`Syntax Error: pageNumberMustBeADigit` 🧠"
-                                                         )
+                        await callbackQuery.message.reply(CHUNK["error_4"])
                 else:
-                    await callbackQuery.message.reply(
-                                                     "`Syntax Error: noEndingPageNumber Or notADigit` 🚶"
-                                                     )
-            if data == "splitS":
+                    await callbackQuery.message.reply(CHUNK["error_5"])
+            elif not (known) and (data == "S"):
                 newList = []
                 singlePages = list(needPages.text.replace(',',':').split(':'))
                 if 1 <= len(singlePages) <= 100:
-                    try:
-                        for i in singlePages:
-                            if i.isdigit():
-                                newList.append(i)
-                        if newList != []:
-                            nabilanavab = False
-                            break
-                        elif newList == []:
-                            await callbackQuery.message.reply(
-                                                             "`Cant find any number..`😏"
-                                                             )
-                            continue
-                    except Exception: pass
+                    for j in singlePages:
+                        try:
+                            j=int(j); newList.append(j)
+                        except Exception: pass
+                    if newList != []:
+                         nabilanavab = False
+                         break
+                    else:
+                        await callbackQuery.message.reply(CHUNK["error_6"])
+                        continue
                 else:
-                    await callbackQuery.message.reply(
-                                                     "`Something went Wrong..`😅"
-                                                     )
-            if data.startswith("KsplitR|"):
+                    await callbackQuery.message.reply()
+            elif known and (data == "R"):
                 pageStartAndEnd = list(needPages.text.replace('-',':').split(':'))
                 if len(pageStartAndEnd)>2:
-                    await callbackQuery.message.reply(
-                                                     "`Syntax Error: justNeedStartAndEnd `🚶"
-                                                     )
+                    await callbackQuery.message.reply(CHUNK["error_1"])
                 elif len(pageStartAndEnd) == 2:
                     start = pageStartAndEnd[0]; end = pageStartAndEnd[1]
-                    if start.isdigit() and end.isdigit():
-                        if (int(1) <= int(start) and int(start) < int(number_of_pages)):
-                            if (int(start) < int(end) and int(end) <= int(number_of_pages)):
+                    try:
+                        start=int(start); end=int(end)
+                        if (int(1) <= int(start) and int(start) < number_of_pages):
+                            if (int(start) < int(end) and int(end) <= number_of_pages):
                                 nabilanavab = False
                                 break
                             else:
-                                await callbackQuery.message.reply(
-                                                                 "`Syntax Error: errorInEndingPageNumber `🚶"
-                                                                 )
+                                await callbackQuery.message.reply(CHUNK["error_2"])
                         else:
-                            await callbackQuery.message.reply(
-                                                             "`Syntax Error: errorInStartingPageNumber `🚶"
-                                                             )
-                    else:
-                        await callbackQuery.message.reply(
-                                                         "`Syntax Error: pageNumberMustBeADigit` 🚶"
-                                                         )
+                            await callbackQuery.message.reply(CHUNK["error_3"])
+                    except Exception:
+                        await callbackQuery.message.reply(CHUNK["error_4"])
                 else:
-                    await callbackQuery.message.reply(
-                                                     "`Syntax Error: noSuchPageNumbers` 🚶"
-                                                     )
-            if data.startswith("KsplitS|"):
+                    await callbackQuery.message.reply(CHUNK["error_5"])
+            elif known and (data == "S"):
                 newList = []
                 singlePages = list(needPages.text.replace(',',':').split(':'))
                 if 1 <= int(len(singlePages)) and int(len(singlePages)) <= 100:
-                    try:
-                        for i in singlePages:
-                            if (i.isdigit() and int(i) <= int(number_of_pages)):
-                                newList.append(i)
-                        if newList == []:
-                            await callbackQuery.message.reply(
-                                                             f"`Enter Numbers less than {number_of_pages}..`😏"
-                                                             )
-                            continue
-                        else:
-                            nabilanavab = False
-                            break
-                    except Exception: pass
+                    for j in singlePages:
+                        try: 
+                            j=int(j)
+                            if j <= number_of_pages:
+                                newList.append(j)
+                        except Exception: pass
+                    if newList == []:
+                        await callbackQuery.message.reply(CHUNK["error_8"].format(number_of_pages))
+                        continue
+                    else:
+                        nabilanavab = False
+                        break
                 else:
-                    await callbackQuery.message.reply(
-                                                     "`Something went Wrong..`😅"
-                                                     )
+                    await callbackQuery.message.reply(CHUNK["error_7"])
         
         # nabilanavab == False [No Error]
         if nabilanavab == True:
@@ -237,125 +139,79 @@ async def _splitProcess(bot, callbackQuery):
             input_file = f"{message_id}/inPut.pdf"
             output_file = f"{message_id}/outPut.pdf"
             
-            downloadMessage = await callbackQuery.message.reply(
-                                                               "`Downloding your pdf..` 📥", 
-                                                               quote = True
-                                                               )
+            downloadMessage = await callbackQuery.message.reply(CHUNK["download"], reply_markup=_, quote = True)
             file_id = callbackQuery.message.reply_to_message.document.file_id
             fileSize = callbackQuery.message.reply_to_message.document.file_size
-            c_time = time.time()
             downloadLoc = await bot.download_media(
-                                                  message = file_id,
-                                                  file_name = input_file,
-                                                  progress = progress,
-                                                  progress_args = (
-                                                                  fileSize,
-                                                                  downloadMessage,
-                                                                  c_time
-                                                  ))
+                message = file_id, file_name = input_file, progress = progress,
+                progress_args = (fileSize, downloadMessage, time.time())
+            )
             if downloadLoc is None:
                 PROCESS.remove(chat_id)
                 return
-            await downloadMessage.edit(
-                                      "`Downloading Completed..` ✅"
-                                      )
-            if not data.startswith("K"):
+            await downloadMessage.edit(CHUNK["completed"], reply_markup=_)
+            if not known:
                 checked, number_of_pages = await checkPdf(input_file, callbackQuery)
                 if not(checked == "pass"):
-                    await downloadMessage.delete()
-                    return
+                    return await downloadMessage.delete()
             splitInputPdf = PdfFileReader(input_file)
-            number_of_pages = splitInputPdf.getNumPages()
+            number_of_pages = int(splitInputPdf.getNumPages())
             
-            if data == "splitR":
-                if not(int(pageStartAndEnd[1]) <= int(number_of_pages)):
-                    await callbackQuery.message.reply(
-                                                     "`1st Check Number of pages` 😏"
-                                                     )
+            if not known and data == "R":
+                if not(int(pageStartAndEnd[1]) <= number_of_pages):
+                    await callbackQuery.message.reply(CHUNK["error_9"])
                     PROCESS.remove(chat_id)
                     shutil.rmtree(f"{message_id}")
                     return
             
             splitOutput = PdfFileWriter()
-            
-            if data == "splitR":
+            if not known and data == "R":
                 for i in range(int(pageStartAndEnd[0])-1, int(pageStartAndEnd[1])):
                     splitOutput.addPage(
                         splitInputPdf.getPage(i)
                     )
-            elif data == "splitS":
+            elif not known and data == "S":
                 for i in newList:
-                    if int(i) <= int(number_of_pages):
-                        splitOutput.addPage(
-                            splitInputPdf.getPage(
-                                int(i)-1
-                            )
-                        )
-            elif data.startswith("KsplitR"):
+                    if int(i) <= number_of_pages:
+                        splitOutput.addPage(splitInputPdf.getPage(int(i)-1))
+            elif known and data == "R":
                 for i in range(int(pageStartAndEnd[0])-1, int(pageStartAndEnd[1])):
-                    splitOutput.addPage(
-                        splitInputPdf.getPage(i)
-                    )
-            elif data.startswith("KsplitS"):
+                    splitOutput.addPage(splitInputPdf.getPage(i))
+            elif known and data == "S":
                 for i in newList:
-                    if int(i) <= int(number_of_pages):
-                        splitOutput.addPage(
-                            splitInputPdf.getPage(
-                                int(i)-1
-                            )
-                        )
+                    if int(i) <= number_of_pages:
+                        splitOutput.addPage(splitInputPdf.getPage(int(i)-1))
             
             with open(output_file, "wb") as output_stream:
                 splitOutput.write(output_stream)
             
-            fileNm = callbackQuery.message.reply_to_message.document.file_name
-            thumbnail, fileName = await thumbName(callbackQuery.message, fileNm)
-            if PDF_THUMBNAIL != thumbnail:
-                location = await bot.download_media(
-                                                   message = thumbnail,
-                                                   file_name = f"{callbackQuery.message.message_id}.jpeg"
-                                                   )
-                thumbnail = await formatThumb(location)
+            FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name)
+            if images.PDF_THUMBNAIL != THUMBNAIL:
+                location = await bot.download_media(message = THUMBNAIL, file_name = f"{callbackQuery.message.id}.jpeg")
+                THUMBNAIL = await formatThumb(location)
             
-            await downloadMessage.edit(
-                                      "⚙️ `Started Uploading..` 📤"
-                                      )
-            await callbackQuery.message.reply_chat_action(
-                                                         "upload_document"
-                                                         )
-            if data.startswith(tuple(["splitS", "KsplitS"])):
+            await downloadMessage.edit(CHUNK["upload"], reply_markup=_)
+            await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
+            if data.startswith("S"):
                 caption = f"{newList}"
             else:
                 caption = f"from `{pageStartAndEnd[0]}` to `{pageStartAndEnd[1]}`"
-            c_time = time.time()
             await callbackQuery.message.reply_document(
-                                                      file_name = fileName,
-                                                      thumb = thumbnail,
-                                                      quote = True,
-                                                      document = output_file,
-                                                      caption = caption,
-                                                      progress = uploadProgress,
-                                                      progress_args = (
-                                                                      downloadMessage,
-                                                                      c_time
-                                                                      )
-                                                      )
-            
+                file_name = FILE_NAME, thumb = THUMBNAIL, quote = True, document = output_file,
+                caption = f"{caption}\n\n{FILE_CAPT}", progress = uploadProgress,
+                progress_args = (downloadMessage, time.time())
+            )
             await downloadMessage.delete()
             PROCESS.remove(chat_id)
             try:
                 os.remove(location)
             except Exception: pass
             shutil.rmtree(f"{message_id}")
-            await footer(callbackQuery.message, False)
-    except Exception:
-        logger.exception(
-                        "SPLIT:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
+    except Exception as e:
+        logger.exception("plugins/dm/callBack/split: %s" %(e), exc_info=True)
         try:
             PROCESS.remove(chat_id)
             shutil.rmtree(f"{message_id}")
         except Exception: pass
 
-#                                                                                                     Telegram : @nabilanavab
+# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
