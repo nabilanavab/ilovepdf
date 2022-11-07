@@ -1,152 +1,43 @@
 # fileName : plugins/dm/generate.py
 # copyright ©️ 2021 nabilanavab
 
-# LOGGING INFO: INFO
-import logging
-logger=logging.getLogger(__name__)
-logging.basicConfig(
-                   level=logging.INFO,
-                   format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
-                   )
-# DISABLE PIL LOGGING MESSAGE [DEBUG] by changing to error
-logging.getLogger("PIL.Image").setLevel(logging.ERROR)
-
-import os
-import shutil
-import asyncio
 from pdf import PDF
-from .url import getPDF
+from .photo import HD
+from logger import logger
 from pyromod import listen
-from pyrogram import filters
-from plugins.thumbName import (
-                              thumbName,
-                              formatThumb
-                              )
+from configs.log import log
+import asyncio, os, shutil, fitz
 from pyrogram.types import ForceReply
-from pyrogram import Client as ILovePDF
-from configs.images import PDF_THUMBNAIL
-from plugins.footer import footer, header
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-#--------------->
-#--------> REPLY TO /generate MESSAGE
-#------------------->
+from configs.config import images as im
+from plugins.render import header, cbPRO
+from plugins.thumbName import thumbName, formatThumb
+from pyrogram import enums, filters, Client as ILovePDF
+from plugins.util import getLang, translate, createBUTTON
 
-@ILovePDF.on_message(
-                    (filters.private | filters.group) &
-                    filters.incoming &
-                    filters.command(["generate"])
-                    )
-async def generate(bot, message):
-    try:
-        chat_id = message.chat.id
-        # newName : new file name(/generate ___)
-        newName = str(
-                     message.text.replace("/generate", "")
-                     )
-        images = PDF.get(chat_id)
-        if isinstance(images, list):
-            pgnmbr = len(PDF[chat_id])
-            del PDF[chat_id]
-        
-        # logger.info(images)
-        # IF NO IMAGES SEND BEFORE
-        if not images :
-            await message.reply_chat_action(
-                                           "typing"
-                                           )
-            imagesNotFounded = await message.reply_text(
-                                                       "`No image founded.!!`😒"
-                                                       )
-            await asyncio.sleep(5)
-            await message.delete()
-            await imagesNotFounded.delete()
-            return
-        gnrtMsgId = await message.reply_text(
-                                            f"`Generating pdf..`💚"
-                                            )
-        
-        if newName == " name":
-            fileName = f"{message.from_user.first_name}"+".pdf"
-        elif len(newName) > 1 and len(newName) <= 45:
-            fileName = f"{newName}"+".pdf"
-        elif len(newName) > 45:
-            fileName = f"{message.from_user.first_name}"+".pdf"
-        else:
-            fileName = f"{chat_id}"+".pdf"
-        
-        filePath = f"{message.chat.id}/{message.chat.id}.pdf"
-        images[0].save(
-                      filePath,
-                      save_all = True,
-                      append_images = images[1:]
-                      )
-        
-        # Getting thumbnail
-        thumbnail, fileName = await thumbName(message, fileName)
-        if PDF_THUMBNAIL != thumbnail:
-            location = await bot.download_media(
-                                    message = thumbnail,
-                                    file_name = f"{message.message_id}.jpeg"
-                                    )
-            thumbnail = await formatThumb(location)
-        
-        await gnrtMsgId.edit(
-                            "`Uploading pdf.. `🏋️"
-                            )
-        await message.reply_chat_action(
-                                       "upload_document"
-                                       )
-        with open(filePath, "rb") as pdf:
-            logFile = await message.reply_document(
-                                                  file_name = fileName,
-                                                  document = pdf,
-                                                  thumb = thumbnail,
-                                                  caption = f"file Name: `{fileName}`\n"
-                                                            f"`Total pg's: {pgnmbr}`"
-                                                  )
-        await gnrtMsgId.edit(
-                            "`Successfully Uploaded.. `🤫"
-                            )
-        shutil.rmtree(f"{chat_id}")
-        try:
-            os.remove(location)
-        except Exception: pass
-        await footer(message, logFile)
-    except Exception as e:
-        logger.exception(
-                        "/GENERATE:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
-        try:
-            shutil.rmtree(f"{chat_id}")
-        except Exception:
-            pass
-
+# ========================================================================| GENERATE PDF FROM IMAGES |=================================================================
 GEN = filters.create(lambda _, __, query: query.data.startswith("generate"))
-
 @ILovePDF.on_callback_query(GEN)
 async def _GEN(bot, callbackQuery):
     try:
         chat_id = callbackQuery.from_user.id
+        lang_code = await getLang(chat_id)
         
         images = PDF.get(chat_id)
-        if isinstance(images, list):
+        if isinstance(PDF.get(chat_id), list):
             pgnmbr = len(PDF[chat_id])
             del PDF[chat_id]
         
-        if not images :
-            return await callbackQuery.answer(
-                                             "No image founded.!! 😒"
-                                             )
+        if (not(images) and chat_id not in HD) or (chat_id in HD and len(HD[chat_id]) == 1):
+            tTXT, tBTN = await translate(text="GENERATE['noImages']", lang_code=lang_code)
+            return await callbackQuery.answer(tTXT)
         await callbackQuery.answer()
         
         if callbackQuery.data[-3:] == "REN":
+            tTXT, tBTN = await translate(text="GENERATE['getFileNm']", lang_code=lang_code)
             fileName = await bot.ask(
-                                    chat_id = chat_id,
-                                    reply_to_message_id = callbackQuery.message.message_id,
-                                    text = f"Now Send Me a New File Name 😒: ",
-                                    reply_markup = ForceReply(True)
-                                    )
+                chat_id = chat_id, reply_to_message_id = callbackQuery.message.id,
+                text = tTXT, reply_markup = ForceReply(True)
+            )
             if (not fileName.text) or len(fileName.text)>50:
                 fileName = f"{chat_id}.pdf"
             else:
@@ -157,70 +48,71 @@ async def _GEN(bot, callbackQuery):
         else:
             fileName = f"{chat_id}.pdf"
         
+        tTXT, tBTN = await translate(text="GENERATE['geting']", button="GENERATE['getingCB']", lang_code=lang_code)
+        if not images:
+            pgnmbr = len(HD[chat_id])-1
         gen = await callbackQuery.message.reply_text(
-              f"File Name: `{fileName}`\nPages: `{pgnmbr}`",
-              reply_markup = InlineKeyboardMarkup(
-                                  [[
-                                      InlineKeyboardButton(
-                                                          "📚 GENERATING PDF..",
-                                                          callback_data = "nabilanavab")
-                                  ]]
-             ),
-             quote = False
-             )
-        filePath = f"{chat_id}/{callbackQuery.message.message_id}.pdf"
-        images[0].save(
-                      filePath,
-                      save_all = True,
-                      append_images = images[1:]
-                      )
+            tTXT.format(fileName, pgnmbr), reply_markup=tBTN, quote=False
+        )
+        
+        filePath = f"{chat_id}/{callbackQuery.message.id}.pdf"
+        if chat_id not in HD:
+            images[0].save(filePath, save_all=True, append_images=images[1:])
+        else:
+            tTXT, tBTN = await translate(text="GENERATE['currDL']", button="GENERATE['getingCB']", lang_code=lang_code)
+            for i, ID in enumerate(HD[chat_id]):
+                if i == 0:
+                    continue    # HD mode shift: messageID
+                await gen.edit(tTXT.format(i, len(HD[chat_id])), reply_markup=tBTN)
+                await bot.download_media(message=ID, file_name=f"{chat_id}/{i}.jpg")
+                
+            imgList = [os.path.join(f"{chat_id}", file) for file in os.listdir(f"{chat_id}")]
+            imgList.sort(key = os.path.getctime)
+            
+            tTXT, tBTN = await translate(text="GENERATE['geting']", button="GENERATE['getingCB']", lang_code=lang_code)
+            await gen.edit(tTXT.format(fileName, pgnmbr), reply_markup=tBTN)
+            
+            with fitz.open() as doc:
+                for img in imgList:
+                    try:
+                        with fitz.open(img) as hdIMG:
+                            rect = hdIMG[0].rect
+                            pdfbytes = hdIMG.convert_to_pdf()
+                            imgPDF = fitz.open("pdf", pdfbytes)
+                            page = doc.new_page(width=rect.width, height=rect.height)
+                            page.show_pdf_page(rect, imgPDF, 0)
+                    except Exception: pass
+                try: await bot.delete_messages(chat_id=chat_id, message_ids=HD[chat_id][0])
+                except Exception: pass
+                doc.save(filePath, deflate_images=True)
+                del HD[chat_id]
         
         # Getting thumbnail
-        thumbnail, fileName = await thumbName(callbackQuery.message, fileName)
-        if PDF_THUMBNAIL != thumbnail:
+        FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, fileName)
+        if im.PDF_THUMBNAIL != THUMBNAIL:
             location = await bot.download_media(
-                                    message = thumbnail,
-                                    file_name = f"{callbackQuery.message.message_id}.jpeg"
-                                    )
-            thumbnail = await formatThumb(location)
+                message = THUMBNAIL,
+                file_name = f"{callbackQuery.message.id}.jpeg"
+            )
+            THUMBNAIL = await formatThumb(location)
         
-        await gen.edit_reply_markup(
-              InlineKeyboardMarkup(
-                                  [[
-                                      InlineKeyboardButton(
-                                                          "📤 ..UPLOADING..  📤",
-                                                          callback_data = "nabilanavab")
-                                  ]]
-        ))
-        await callbackQuery.message.reply_chat_action(
-                                                     "upload_document"
-                                                     )
+        tTXT, tBTN = await translate(button="PROGRESS['upFileCB']", lang_code=lang_code)
+        await gen.edit_reply_markup(tBTN)
+        await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
+        tTXT, tBTN = await translate(text="GENERATE['geting']", lang_code=lang_code)
         logFile = await callbackQuery.message.reply_document(
-                                                            document = filePath,
-                                                            caption = f"file Name: `{fileName}`\n"
-                                                                      f"`Total pg's: {pgnmbr}`",
-                                                            progress = getPDF,
-                                                            file_name = fileName,
-                                                            thumb = thumbnail,
-                                                            progress_args = (
-                                                                            gen, 0, 
-                                                                            "UPLOADED"
-                                                                            )
-                                                            )
-        await gen.delete()
-        shutil.rmtree(f"{chat_id}")
-        try:
-            os.remove(location)
+            document = filePath, caption = f"{tTXT.format(fileName, pgnmbr)}\n\n{FILE_CAPT}",
+            file_name = FILE_NAME, thumb = THUMBNAIL, progress = cbPRO,
+            progress_args = (gen, 0, "UPLOADED", True)
+        )
+        await gen.delete(); shutil.rmtree(f"{chat_id}")
+        try: os.remove(location)
         except Exception: pass
-        await footer(callbackQuery.message, logFile)
+        await log.footer(callbackQuery.message, output=logFile, lang_code=lang_code)
     except Exception as e:
-        logger.exception(
-                        "GENERATE/CALLBACK:CAUSES %s ERROR" %e,
-                        exc_info=True
-                        )
-        try:
-            shutil.rmtree(f"{chat_id}")
-        except Exception:
-            pass
+        tTXT, tBTN = await translate(text="document['error']", button="checkPdf['errorCB']", lang_code=lang_code)
+        await gen.edit(tTXT.format(e), reply_markup=tBTN)
+        try: shutil.rmtree(f"{chat_id}"); del HD[chat_id]
+        except Exception: pass
 
-#                                                                                 Telegram: @nabilanavab
+# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
