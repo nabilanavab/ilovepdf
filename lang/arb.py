@@ -1,4 +1,4 @@
-# LANG: ARABIC LANG_CODE: ARB                                      >>  copyright ©️ 2021 nabilanavab  <<                                         fileName : lang/ARB.py
+# LANG: ARABIC LANG_CODE: ARB                                      >>  copyright ©️ 2021 nabilanavab  <<                                           fileName : lang/ARB.py
 #                                        Thank: nabilanavab                                                   E-mail: nabilanavab@gmail.com
 
 from configs.config import settings
@@ -152,7 +152,7 @@ checkPdf = {
         "🖼️ الصور 🖼️": "pdf|img", "✏️ TEXT ✏️": "pdf|txt",
         "🔐 ENCRYPT 🔐": "work|encrypt", "🔒 DECRYPT 🔓": "work|decrypt",
         "🗜️ COMPRESS 🗜️": "work|compress", "🤸 تدوير 🤸": "pdf|rotate",
-        "✂️ SPLIT ✂️": "pdf|split", "🧬 MERGE 🧬": "merge", "™ ️ STAMP ™ ️": "pdf|sp",
+        "✂️ SPLIT ✂️": "pdf|split", "🧬 MERGE 🧬": "merge", "™ ️ STAMP ™ ️": "pdf|stp",
         "✏️ RENAME ✏️": "work|rename", "📝 OCR 📝": "work|ocr",
          "🥷 تنسيق A4": "work|format", "🚫 قريب 🚫": "close|all"
     } ,
