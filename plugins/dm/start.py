@@ -147,7 +147,10 @@ async def _status(bot, callbackQuery):
             text, tBTN = await translate(text="STATUS_MSG['USERS']", button="STATUS_MSG['BACK']", lang_code=lang_code)
             await callbackQuery.message.edit(text=text, reply_markup=tBTN)
             async for user in users:
-                text += f"[{user['name']}](tg://user?id={user['id']})"
+                try:
+                    text += f"[{user['name']}](tg://user?id={user['id']})"
+                except Exception:
+                    logger.debug(f"user: {user}")
                 if user.get("banned", False):
                     text += ' `Banned ⚠️`'
                 text += '\n'
