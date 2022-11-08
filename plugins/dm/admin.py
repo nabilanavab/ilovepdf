@@ -110,7 +110,7 @@ async def _send(bot, callbackQuery):
                         await callbackQuery.message.edit_reply_markup(
                             InlineKeyboardMarkup(
                                 [[InlineKeyboardButton(
-                                    f"🔸 asForward({done}/{total_users}) 🔸" if __=="forw" else f"🔸 asCopy({done/total_users}) 🔸",
+                                    f"🔸 asForward({done*100}/{total_users}) 🔸" if __=="forw" else f"🔸 asCopy({done/total_users}) 🔸",
                                     callback_data = "nabilanavab")
                                 ]]
                             ))
