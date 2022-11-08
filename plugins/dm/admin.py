@@ -62,7 +62,7 @@ async def broadcast_messages(user_id, message, info):
     except UserIsBlocked:
         return False, "Blocked"
     except PeerIdInvalid:
-        await db.delete_user(int(user_id))
+        # deleted user
         return False, "Error"
     except Exception as e:
         logger.exception("plugins/dm/admin/broadcast_messages: %s" %(e), exc_info=True)
