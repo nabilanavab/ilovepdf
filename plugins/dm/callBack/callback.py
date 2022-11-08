@@ -103,9 +103,12 @@ async def _common(bot, callbackQuery):
             BUTTON1.update(_lang); BUTTON1.update({"♻" : "-|refresh"})
             BUTTON1 = await createBUTTON(btn=BUTTON1, order=int(f"1{((len(BUTTON1)-2)//3)*'3'}{(len(BUTTON1)-2)%3}1"))
             time = datetime.now()
+            
             return await bot.edit_inline_text(
                 callbackQuery.inline_message_id,
-                text = f"set Language 🌐\n\n"
+                text = "set Language: 🌐\n\n"
+                       f"i ❤ PDF\nBot: {myID.username}\n"
+                       "Update Channel: @ilovepdf_bot\n\n"
                        f"`UPDATED: {time.strftime('%d:%B:%Y, %A')}`\n"
                        f"`TIME: {time.strftime('%I:%M %p')}`",
                 reply_markup=BUTTON1
