@@ -58,7 +58,8 @@ async def _pdf(bot, callbackQuery):
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         with open(output_file, "rb") as outPut:
             await callbackQuery.message.reply_to_message.reply_document(
-                file_name = "pdftharum.pdf", quote = True, document = outPut, progress = uploadProgress,
+                file_name = f"{callbackQuery.message.reply_to_message.document.file_name[:-5]}.pdf",
+                quote = True, document = outPut, progress = uploadProgress,
                 progress_args = ( downloadMessage, time.time() )
             )
         
@@ -68,7 +69,7 @@ async def _pdf(bot, callbackQuery):
     except Exception as e:
         logger.debug(f"plugins/dm/callBack/callback/codec : {e}", exc_info=True)
         try:
-            tTXT, tBTN = await translate(text="document['error']", button="document['cancelCB']", lang_code=lang_code)
+            tTXT, tBTN = await translate(text="document['error']".format(e), button="document['cancelCB']", lang_code=lang_code)
             await downloadMessage.edit(text=tTXT, reply_markup=tBTN)
             PROCESS.remove(callbackQuery.message.chat.id)
             shutil.rmtree(f'{callbackQuery.message.id}')
