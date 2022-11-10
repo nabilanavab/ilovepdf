@@ -1,4 +1,4 @@
-# fileName : plugins/dm/callBack/callback.py
+# fileName : plugins/dm/callBack/codec.py
 # copyright ©️ 2021 nabilanavab
 
 # just another way to convert epub files(depending on user satisfraction..)
