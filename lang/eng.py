@@ -6,10 +6,10 @@ from configs.config import settings
 # PM WELCOME MESSAGE (HOME A, B, C, D...)
 HOME = {
     "HomeA" : """Hey [{}](tg://user?id={})..!!
-This bot will helps you to do many things with pdf's 🥳
+This bot will help you to do many things with PDFs. 🥳
 
 Some of the key features are:\n◍ `Convert images to PDF`
-◍ `Convert PDF to images`\n◍ `Convert files to pdf`""",
+◍ `Convert PDF to images`\n◍ `Convert files to PDF`""",
     "HomeACB" : {
         "⚙️ SETTINGS ⚙️" : "Home|B", "⚠️ HELP ⚠️" : "Home|C",
         "📢 CHANNEL 📢" : f"{str(settings.OWNED_CHANNEL)}",
@@ -34,14 +34,14 @@ THUMB            : {}\nCAPTION         : {}\nFILE NAME      : {}""",
     "HomeC" : """🪂 **HELP MESSAGE** 🪂:
 
 ```Some of the main features are:
- ◍ Convert Images to PDF\n ◍ PDF Manupultions\n ◍ Many popular codecs to pdf
+ ◍ Convert Images to PDF\n ◍ PDF Manupultions\n ◍ Many popular codecs to PDF
  
-Modify the pdf file:
+Modify the PDF file:
  ◍ PDF⥃IMAGES [all,range,pages]\n ◍ DOCS to PDF [png, jpg, jpeg]\n ◍ IMAGES⥃PDF\n ◍ PDF METADATA\n ◍ PDF⥃TEXT\n ◍ TEXT⥃PDF\n ◍ Compress pdf file
  ◍ SPLIT PDF [range, pages]\n ◍ MERGE PDF\n ◍ ADD STAMP\n ◍ RENAME PDF\n ◍ ROTATE PDF\n ◍ ENCRYPT/DECRYPT PDF\n ◍ PDF FORMATTER \n ◍ PDF⥃JSON/TXT FILE
  ◍ PDF⥃HTML [web view]\n ◍ URL⥃PDF\n ◍ PDF⥃ZIP/TAR/RAR [all, range, pages]\nAnd Much More.. ```""",
     "HomeCCB" : {"« BACK HOME «" : "Home|A", "🛈 INSTRUCTIONS 🛈" : "Home|D"},
-    "HomeD" : """`As this is a free service, I cannot guarantee how long I can maintain this service..`😝
+    "HomeD" : """`As you know, this is a free service, I cannot guarantee how long I can maintain this service..`😝
  
 ⚠️ INSTRUCTIONS ⚠️:
 🛈 __Please don't try to abuse Bot Admins__ 😒
@@ -56,7 +56,7 @@ SETTINGS = {
     "default" : ["DEFAULT ❌", "CUSTOM ✅"], "chgLang" : {"SETTING ⚙️ » CHANGE LANG 🌐" : "nabilanavab"},
     "error" : "Something went wrong while retrieving data from the database", "lang" : "Now, Select any language..",
     "ask" : ["Now, Send me..", "Now, Send me.. 😅\n\nFast.! I have no more time to go over the text.. 😏\n\n/cancel: to cancel"],
-    "askApi" : "\n\nOpen the Below link and Send me the secret code:", "waitApi" : {"Open link ✅" : "https://www.convertapi.com/a/signin"},
+    "askApi" : "\n\nOpen the **Below** link and Send me the secret code:", "waitApi" : {"Open link ✅" : "https://www.convertapi.com/a/signin"},
     "wait" : {"Waiting.. 🥱" : "nabilanavab"}, "back" : {"« BACK TO HOME «" : "Home|B2S"}, "errorCB" : {"« BACK TO HOME «" : "Home|B2A"},
     "result" : ["Settings cannot be updated ❌", "Settings Updated Successfully ✅"], "cant" : "This feature cannot be used ❌",
     "feedback" : "Reviews from Awesome Customers like you help Other.\n@nabilanavab"
@@ -84,17 +84,17 @@ BOT_COMMAND = {"start" : "Welcome message..", "txt2pdf" : "Create text PDF's"}
 
 HELP_CMD = {
     "userHELP" : """[USER COMMAND MESSAGES]:\n
-/start: to check whether Bot alive\n/cancel: cancel current work
-/delete: clear image to pdf queue\n/txt2pdf: text to pdf""",
+/start: To check whether bot is alive or not\n/cancel: To cancel current work
+/delete: Clear image to PDF **queue**\n/txt2pdf: Text to PDF""",
     "adminHelp" : """\n\n\n[ADMIN COMMAND MESSAGES]:\n
-/send: to broadcast, pm message""",
+/send: To broadcast, PM message""",
     "footerHelp" : f"""\n\n\nSource-Code: [i 💜 PDF]({str(settings.SOURCE_CODE)})
 Bot: @complete_pdf_bot 💎\n[Support Channel]({settings.OWNED_CHANNEL})""",
     "CB" : {"⚠️ CLOSE ⚠️" : "close|all"}
 }
 
 STATUS_MSG = {
-    "HOME" : "`Now, Select any Option Below to Get Current Status 💱.. `",
+    "HOME" : "`Now, select any option below to get current STATUS 💱.. `",
     "_HOME" : {
         "📊 ↓ SERVER ↓ 📊" : "nabilanavab", "📶 STORAGE 📶" : "status|server",
         "🥥 DATABASE 🥥" : "status|db", "🌝 ↓ GET LIST ↓ 🌝": "nabilanavab",
@@ -107,16 +107,16 @@ STATUS_MSG = {
 **◍ CPU Usage      :** `{}`%\n**◍ RAM Usage     :** `{}`%
 **◍ Current Work  :** `{}`\n**◍ Message Id     :** `{}`""",
     "BACK" : {"« BACK «" : "status|home"}, "ADMIN" : "**Total ADMIN:** __{}__\n",
-    "USERS" : "Users Saved In DB Are:\n\n", "NO_DB" : "No dataBASE set Yet 💩"
+    "USERS" : "Users saved In DB Are:\n\n", "NO_DB" : "No dataBASE set Yet 💩"
 }
 
-feedbackMsg = f"[Write a feedback 📋]({settings.FEEDBACK})"
+feedbackMsg = f"[Write a FEEDBACK 📋]({settings.FEEDBACK})"
 
 # GROUP WELCOME MESSAGE
 HomeG = {
-    "HomeA" : """Hi There.! 🖐️\nIm new here {message.chat.title}\n
-Let me Introduce myself..\nMy Name is iLovePDF, and I can help you to do many
-Things with @Telegram PDF Files\n\nThanks @nabilanavab for this Awesome Bot 😅""",
+    "HomeA" : """Hello There.! 👋\nI'm new here {message.chat.title}\n
+Let me introduce myself..\nMy Name is **iLovePDF,** and I can help you to do **many
+things** with @telegram PDF files.\n\nThanks @nabilanavab for this AWESOME Bot 😅""",
     "HomeACB" : {
         "🤠 BOT OWNER 🤠": f"https://telegram.dog/{settings.OWNER_USERNAME}",
         "🛡️ UPDATE CHANNEL 🛡️": f"{settings.OWNED_CHANNEL}", "🌟 SOURCE CODE 🌟": f"{settings.SOURCE_CODE}"
@@ -125,7 +125,7 @@ Things with @Telegram PDF Files\n\nThanks @nabilanavab for this Awesome Bot 😅
 
 # BANNED USER UI
 BAN = {
-    "cbNotU" : "Message Not For You.. 😏",
+    "cbNotU" : "Message IS NOT for You.. 😏",
     "banCB" : {
         "Create your Own Bot": f"{settings.SOURCE_CODE}", "Tutorial": f"{settings.SOURCE_CODE}",
         "Update Channel": "https://telegram.dog/ilovepdf_bot"
@@ -137,8 +137,8 @@ ADMINS RESTRICTED ME FROM WORKING HERE.. 🤭""",
     "GroupCantUseDB" : """{} NEVER EXPECT A GOOD RESPONSE FROM ME\n
 ADMINS RESTRICTED ME FROM WORKING HERE.. 🤭\n\nREASON: {}""",
     "Force" : """Wait [{}](tg://user?id={})..!!\n
-Due To The Huge Traffic Only Channel Members Can Use this Bot 🚶\n
-This Means You Need To Join The Below Mentioned Channel for Using Me!\n
+Due To The Huge Traffic Only **Channel Members** Can Use this Bot 🚶\n
+This Means That You Need To **Join** The Below Mentioned Channel for Using Me!\n
 Hit on `"♻️retry♻️"` after joining.. 😅""",
     "ForceCB" : {"🌟 JOIN CHANNEL 🌟" : "{}", "♻️ Refresh ♻️" : "refresh"},
     "Fool" : "വിളച്ചിലെടുക്കല്ലേ കേട്ടോ.. 🤭"
@@ -156,7 +156,7 @@ checkPdf = {
         "✏️ RENAME ✏️" : "work|rename", "📝 OCR 📝" : "work|ocr",
          "🥷 A4 FORMAT 🥷" : "work|format", "🚫 CLOSE 🚫" : "close|all"
     },
-    "error" : """__I don't do anything with this file__ 😏\n\n🐉  `CODEC ERROR`  🐉""",
+    "error" : """__I can't do anything with this file.__ 😏\n\n🐉  `CODEC ERROR`  🐉""",
     "errorCB" : {"❌ ERROR IN CODEC ❌" : "error", "🔸 CLOSE 🔸" : "close|all"},
     "encrypt" : """`FILE IS ENCRYPTED` 🔐\n\nFile Name: `{}`\nFile Size: `{}`""",
     "encryptCB" : {"🔓 DECRYPT 🔓" : "work|decrypt"}
@@ -172,8 +172,8 @@ PROGRESS = {
 }
 
 GENERATE = {
-    "deleteQueue" : "`Queue deleted Successfully..`🤧", "noQueue" : "`No Queue founded..`😲",
-    "noImages" : "No image founded.!! 😒", "getFileNm" : "Now Send Me a File Name 😒: ",
+    "deleteQueue" : "`Queue deleted Successfully..`🤧", "noQueue" : "`No Queue found..`😲",
+    "noImages" : "No image found.!! 😒", "getFileNm" : "Now Send Me a File Name 😒: ",
     "geting" : "File Name: `{}`\nPages: `{}`", "getingCB" : {"📚 GENERATING PDF.." : "nabilanavab"},
     "currDL" : "Downloaded {} Images 🥱"
 }
@@ -185,28 +185,28 @@ document = {
     "big" : """Due to Overload, Owner limits {}mb for pdf files 🙇
 \n`please Send me a file less than {}mb Size` 🙃""",
     "bigCB" : {"💎 Create 2Gb Support Bot 💎" : "https://github.com/nabilanavab/ilovepdf"},
-    "imageAdded" : """`Added {} page/'s to your pdf..`🤓\n\nfileName: `{}.pdf`""",
+    "imageAdded" : """`Added {} pages to your PDF..`🤓\n\nfileName: `{}.pdf`""",
     "setHdImg" : """Now Image To PDF is in HD mode 😈""",
     "setDefault" : {"« Back to Default Quality «" : "close|hd"},
     "error" : """SOMETHING went WRONG.. 🐉\n\nERROR: `{}`""",
     "noAPI" : "`Please add convert API.. 💩\n\nstart » settings » api » add/change`",
     "useDOCKER" : "`File Not Supported, deploy bot using docker`",
-    "fromFile" : "`Converted: {} to {}`", "unsupport" : "`unsupported file..🙄`",
+    "fromFile" : "`Converted: {} to {}`", "unsupport" : "Unsupported file..🙄`",
     "generateRN" : {"GENERATE 📚" : "generate", "RENAME ✍️" : "generateREN"},
     "generate" : {"GENERATE 📚" : "generate"}, "cancelCB" : {"⟨ Cancel ⟩" : "close|me"}
 }
 
-noHelp = f"`no one gonna to help you` 😏"
+noHelp = f"`No one gonna help you` 😏"
 
 split = {
     "inWork" : PROGRESS['workInP'], "cancelCB" : document['cancelCB'],
-    "download" : PROGRESS['dlFile'], "exit" : "`Process Canceled..` 😏",
+    "download" : PROGRESS['dlFile'], "exit" : "`Process Cancelled..` 😏",
     "button" : {
         "⚙️ PDF » SPLIT ↓" : "nabilanavab", "With In Range 🦞" : "split|R",
         "Single Page 🐛" : "split|S", "« BACK «" : "pdf"
     },
-    "work" : ["Range", "Single"], "over" : "`5 attempt over.. Process canceled..`😏",
-    "pyromodASK_1" : """__Pdf Split » By Range\nNow, Enter the range (start:end) :__
+    "work" : ["Range", "Single"], "over" : "`5 attempts over.. Process cancelled..`😏",
+    "pyromodASK_1" : """__PDF Split » By Range\nNow, Enter the range (start:end) :__
 \n/exit __to cancel__""",
     "completed" : "`Downloading Completed..` ✅",
     "error_1" : "`Syntax Error: justNeedStartAndEnd `🚶",
@@ -214,7 +214,7 @@ split = {
     "error_3" : "`Syntax Error: errorInStartingPageNumber `🚶",
     "error_4" : "`Syntax Error: pageNumberMustBeADigit` 🧠",
     "error_5" : "`Syntax Error: noEndingPageNumber Or notADigit` 🚶",
-    "error_6" : "`Cant find any number..`😏",
+    "error_6" : "`Can't find any number..`😏",
     "error_7" : "`Something went Wrong..`😅", "error_8" : "`Enter Numbers less than {}..`😏",
     "error_9" : "`1st Check Number of pages` 😏", "upload" : "⚙️ `Started Uploading..` 📤"
 }
@@ -242,28 +242,28 @@ pdf2IMG = {
     "error_3" : "`Syntax Error: errorInStartingPageNumber `🚶",
     "error_4" : "`Syntax Error: pageNumberMustBeADigit` 🧠",
     "error_5" : "`Syntax Error: noEndingPageNumber Or notADigit` 🚶",
-    "error_6" : "`Cant find any number..`😏", "error_7" : "`Something went Wrong..`😅",
+    "error_6" : "`Can't find any number..`😏", "error_7" : "`Something went Wrong..`😅",
     "error_8" : "`PDF only have {} pages` 💩", "error_9" : "`1st Check Number of pages` 😏",
     "error_10" : "__Due to Some restrictions Bot Sends Only 50 pages as ZIP..__😅",
     "total" : "`Total pages: {}..⏳`", "upload" : "`Uploading: {}/{} pages.. 🐬`",
     "current" : "`Converted: {}/{} pages.. 🤞`", "complete" : "`Uploading Completed.. `🏌️",
-    "canceledAT" : "`Canceled at {}/{} pages..` 🙄", "cbAns" : "⚙️ Okeyda, Canceling.. ",
+    "canceledAT" : "`Canceled at {}/{} pages..` 🙄", "cbAns" : "⚙️ okDA, Canceling.. ",
     "cancelCB" : {"💤 CANCEL 💤" : "close|P2I"},     # EDITABLE: ❌
-    "canceledCB" : {"🍄 CANCELED 🍄" : "close|P2IDONE"},
+    "canceledCB" : {"🍄 CANCELLED 🍄" : "close|P2IDONE"},
     "completed" : {"😎 COMPLETED 😎" : "close|P2ICOMP"}
 }
 
 merge = {
     "inWork" : PROGRESS['workInP'], "process" : document['process'], "upload" : PROGRESS['upFile'],
-    "load" : "__Due to Overload you can only merge 5 pdfs at a time__",
-    "sizeLoad" : "`Due to Overload Bot Only Support %sMb pdfs..", # removing %s show error
-    "pyromodASK" : """__MERGE pdfs » Total pdfs in queue: {}__
+    "load" : "__Due to Overload you can only merge 5 PDFs at a time__",
+    "sizeLoad" : "`Due to Overload Bot Only Support %sMb PDFs..", # removing %s show error
+    "pyromodASK" : """__MERGE pdfs » Total PDFs in queue: {}__
 
 /exit __to cancel__
 /merge __to merge__""",
-    "exit" : "`Process Canceled..` 😏", "total" : "`Total PDF's : {} 💡",
-    "current" : "__Started Downloading Pdf : {} 📥__", "cancel" : "`Merge Process Cancelled.. 😏`",
-    "started" : "__Merging Started.. __ 🪄", "caption" : "`merged pdf 🙂`",
+    "exit" : "`Process Cancelled..` 😏", "total" : "`Total PDFs : {} 💡",
+    "current" : "__Started Downloading PDF : {} 📥__", "cancel" : "`Merging Process Cancelled.. 😏`",
+    "started" : "__Merging Started.. __ 🪄", "caption" : "`Merged PDF 🙂`",
     "error" : "`May be File Encrypted..`\n\nReason: {}"
 }
 
@@ -309,12 +309,12 @@ work = {
     "inWork" : PROGRESS['workInP'], "process" : document['process'],
     "download" : PROGRESS['dlFile'], "takeTime" : PROGRESS['takeTime'],
     "upload" : PROGRESS['upFile'], "button" : document['cancelCB'],
-    "rot360" : "You have Some big Problem..🙂", "ocrError" : "Owner Restricted 😎🤏",
-    "largeNo" : "send a pdf file less than 5 pages.. 🙄",
-    "pyromodASK_1" : """__PDF {} »\nNow, please enter the password :__\n\n/exit __to cancel__""",
-    "pyromodASK_2" : """__Rename PDF »\nNow, please enter the new name:__\n\n/exit __to cancel__""",
+    "rot360" : "You have some **big problem..🙂**", "ocrError" : "Owner Restricted 😎🤏",
+    "largeNo" : "Send a PDF file less than 5 pages.. 🙄",
+    "pyromodASK_1" : """__PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__""",
+    "pyromodASK_2" : """__Rename PDF »\nNow, please enter the NEW NAME:__\n\n/exit __to cancel__""",
     "exit" : "`process canceled.. `😏", "ren_caption" : "__New Name:__ `{}`", 
-    "notENCRYPTED" : "`File Not Encrypted..` 👀",
+    "notENCRYPTED" : "`File is Not Encrypted..` 👀",
     "compress" : "⚙️ `Started Compressing.. 🌡️\nIt might take some time..`💛",
     "decrypt" : "⚙️ `Started Decrypting.. 🔓\nIt might take some time..`💛",
     "encrypt" : "⚙️ `Started Encrypting.. 🔐\nIt might take some time..`💛",
@@ -325,11 +325,11 @@ work = {
     "pdfTxt" : "⚙️ `Extracting Text.. 🐾\nIt might take some time..`💛",
     "fileNm" : "Old Filename: {}\nNew Filename: {}",
     "rotate" : {
-        "⚙️ PDF » ROTETE ↓" : "nabilanavab", "90°" : "work|rot90", "180°" : "work|rot180",
+        "⚙️ PDF » ROTATE ↓" : "nabilanavab", "90°" : "work|rot90", "180°" : "work|rot180",
         "270°" : "work|rot270", "360°" : "work|rot360", "« BACK «" : "pdf"
     },
     "txt" : {
-        "⚙️ PDF » TXT ↓" : "nabilanavab", "📜 MESSAGE 📜" : "work|M", "🧾 TXT FIL 🧾" : "work|T",
+        "⚙️ PDF » TXT ↓" : "nabilanavab", "📜 MESSAGE 📜" : "work|M", "🧾 TXT FILE 🧾" : "work|T",
         "🌐 HTML 🌐" : "work|H", "🎀 JSON 🎀" : "work|J", "« BACK «" : "pdf"
     }
 }
@@ -339,7 +339,7 @@ PROCESS = {
     "decrypted" : "__Decrypted File__", "encrypted" : "__Page Number__: {}\n__key__ 🔐: ||{}||",
     "compressed" : """`Original Size : {}\nCompressed Size : {}\n\nRatio : {:.2f} %`""",
     "cantCompress" : "File Can't be Compressed More..🤐",
-    "pgNoError" : """__For Some Reason A4 FORMATTING Supports for pdfs with less than 5 Pages__\n\nTotal Pages: {} ⭐""",
+    "pgNoError" : """__For Some Reason A4 FORMATTING Supports only for PDFs with less than 5 Pages__\n\nTotal Pages: {} ⭐""",
     "ocrError" : "`Already Have A Text Layer.. `😏",
     "90" : "__Rotated 90°__", "180" : "__Rotated 180°__", "270" : "__Rotated 270°__",
     "formatted" : "A4 Formatted File", "M" : "♻ Extracted {} Pages ♻",
@@ -368,7 +368,7 @@ URL = {
 }
 
 getFILE = {
-    "inWork" : PROGRESS['workInP'], "big" : "send pdf url less than {}mb", "wait" : "Wait.. Let me.. 😜",
+    "inWork" : PROGRESS['workInP'], "big" : "Send PDF url less than {}mb", "wait" : "Wait.. Let me.. 😜",
     "dl" : {"📥 ..DOWNLOADING.. 📥" : "nabilanavab"}, "up" : {"📤 ..UPLOADING..  📤" : "nabilanavab"},
     "complete" : {"😎 COMPLETED 😎" : f"{str(settings.SOURCE_CODE)}"}
 }
