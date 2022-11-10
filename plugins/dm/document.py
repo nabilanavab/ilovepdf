@@ -216,7 +216,7 @@ async def documents(bot, message):
         
         # UNSUPPORTED FILES
         else:
-            return await message.reply_text(CHUNK["unSupport"], quote=True)
+            return await message.reply_text(CHUNK["unsupport"], quote=True)
         
         await log.footer(message, output=logFile, lang_code=lang_code)
     except Exception as e:
