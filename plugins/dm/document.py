@@ -42,17 +42,17 @@ pymu2PDF = [
 ]                                      # files to pdf (zero limits)
 
 wordFiles = [
-    ".docx", ".doc", ".dot", ".bmp", ".gif"
+    ".dot", ".bmp", ".gif", ".pcl",
     ".dotx", ".dotm", ".flatOpc", ".html",
     ".mhtml", ".md", ".xps", ".svg", ".tiff",
-    ".txt", ".mobi", ".chm", ".emf", ".ps", ".pcl"
+    ".txt", ".mobi", ".chm", ".emf", ".ps", 
 ]
 
 cnvrt_api_2PDF = [
     ".csv", ".log", ".mpp", ".mpt", ".odt", ".pot", ".potx", ".pps",
     ".ppsx", ".ppt", ".pptx", ".pub", ".rtf", ".txt", ".vdx", ".vsd",
     ".vsdx", ".vst", ".vstx", ".wpd", ".wps", ".wri", ".xls", ".xlsb",
-    ".xlsx", ".xlt", ".xltx", ".xml"
+    ".xlsx", ".xlt", ".xltx", ".xml", ".docx", ".doc"
 ]                                       # file to pdf (ConvertAPI limit)
 
 # ==================| PYMUPDF FILES TO PDF |===========================================================================================================================
@@ -159,7 +159,9 @@ async def documents(bot, message):
         # FILES TO PDF
         elif (fileExt.lower() in pymu2PDF) or (fileExt.lower() in cnvrt_api_2PDF) or (fileExt.lower() in wordFiles):
             
-            if (fileExt.lower() in cnvrt_api_2PDF) and (not DATA.get(message.chat.id, 0) or (DATA.get(message.chat.id, 0) and DATA.get(message.chat.id, 0)[0])):
+            if (fileExt.lower() in cnvrt_api_2PDF) and (((not DATA.get(message.chat.id, 0) \
+                or (DATA.get(message.chat.id, 0) and not DATA.get(message.chat.id, 0)[0])) \
+                and settings.CONVERT_API is False)):
                 return await message.reply_text(CHUNK["noAPI"], quote = True)
             
             if (fileExt.lower() in wordFiles) and not wordSupport:
@@ -187,8 +189,7 @@ async def documents(bot, message):
             
             elif fileExt.lower() in cnvrt_api_2PDF:
                 FILE_NAME, FILE_CAPT, THUMBNAIL, API = await thumbName(message, f"{fileNm}.pdf", getAPI=True)
-                if API == False:
-                    return await bot.send_message("add convert api and refresh")
+                API = API if not(API == False) else settings.CONVERT_API
                 isError = await cvApi2PDF(message, pdfMsgId, input_file, lang_code, API)
             
             elif fileExt.lower() in wordFiles:
