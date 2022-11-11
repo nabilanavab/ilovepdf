@@ -42,7 +42,7 @@ class group(object):
 class images(object):
     
     # DEFAULT THUMBNAIL ❌ NB: Thumbnails can’t be reused and can be only uploaded as a new file ❌
-    PDF_THUMBNAIL = "./images/thumbnail.jpeg"                              # PDF_THUMBNAIL & THUMBNAIL_URL must point same img
+    PDF_THUMBNAIL = None                               #  "./images/thumbnail.jpeg"   PDF_THUMBNAIL & THUMBNAIL_URL must point same img
     THUMBNAIL_URL = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"   # to inc. meadia edit speed
     
     # WELCOME IMAGE
