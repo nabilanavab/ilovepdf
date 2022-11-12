@@ -64,7 +64,7 @@ async def _split(bot, callbackQuery):
                     try:
                         start=int(start); end=int(end)
                     except Exception: pass
-                    if start.isdigit() and end.isdigit():
+                    if type(start)==int and type(end)==int:
                         if (1 <= int(pageStartAndEnd[0])):
                             if (int(pageStartAndEnd[0]) < int(pageStartAndEnd[1])):
                                 nabilanavab = False
