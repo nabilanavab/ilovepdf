@@ -149,6 +149,7 @@ async def _status(bot, callbackQuery):
             async for user in users:
                 try:
                     text += f"[{user['name']}](tg://user?id={user['id']})"
+                    logger.debug(f"user: {user['name']}")
                 except Exception:
                     logger.debug(f"user: {user}")
                 if user.get("banned", False):
@@ -157,10 +158,13 @@ async def _status(bot, callbackQuery):
             try:
                 await callbackQuery.message.edit(text=text, reply_markup=tBTN)
             except Exception:
+              try:
                 with open('users.txt', 'w+') as outfile:
                     outfile.write(text)
                 await callbackQuery.message.reply_document('users.txt', caption="Bot Users List =)", quote=True)
                 os.remove("users.txt")
+              except Exception as e:
+                logger.debug(f"user file error {e}")
         
         elif __ == "home":
             tTXT, tBTN = await translate(
