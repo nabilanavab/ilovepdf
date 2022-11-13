@@ -126,7 +126,7 @@ class Bot(ILovePDF):
                     markUp = InlineKeyboardMarkup([[InlineKeyboardButton("♻️ refresh log ♻️", callback_data = "log")
                              ],[InlineKeyboardButton("◍ Close ◍", callback_data = "close|admin")]])
                 else:
-                    doc = images.PDF_THUMBNAIL
+                    doc = images.THUMBNAIL_URL
                     markUp = InlineKeyboardMarkup([[InlineKeyboardButton("◍ close ◍", callback_data = "close|admin")]])
                 await app.send_document(
                     chat_id = int(log.LOG_CHANNEL), document = doc,
