@@ -8,6 +8,7 @@ from configs.db import dataBASE
 from plugins.util import translate
 from pyrogram.enums import ChatType
 from configs.config import settings
+from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 if dataBASE.MONGODB_URI:
@@ -46,15 +47,20 @@ class log:
                     referID = None
                 await db.add_user(message.from_user.id, message.from_user.first_name, lang_code)
                 if log.LOG_CHANNEL:
-                    try:
-                        await bot.send_message(
-                            chat_id = int(log.LOG_CHANNEL),
-                            text = log.LOG_TEXT.format(message.from_user.id, message.from_user.mention) \
-                                   + f"\nRefered By : [{referID}](tg://user?id={referID})",
-                            reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("✅ B@N USER ✅", callback_data = f"banU|{message.from_user.id}")]])
-                        )
-                    except Exception as e:
-                        logger.debug(f"Error in new User Log: {e}")
+                    for i in range(200):
+                        try:
+                            await bot.send_message(
+                                chat_id = int(log.LOG_CHANNEL),
+                                text = log.LOG_TEXT.format(message.from_user.id, message.from_user.mention) \
+                                       + f"\nRefered By : [{referID}](tg://user?id={referID})",
+                                reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("✅ B@N USER ✅", callback_data = f"banU|{message.from_user.id}")]])
+                            )
+                            return
+                        except FloodWait as e:
+                            await asyncio.sleep(e.x)
+                        except Exception as e:
+                            logger.debug(f"Error in new User Log: {e}")
+                            return
             else:
                 if lang_code == settings.DEFAULT_LANG:
                     await db.dlt_key(message.from_user.id, "lang")
@@ -99,8 +105,16 @@ __username:__ {'@{}'.format(message.chat.username) if {message.chat.username} is
 __user profile:__ {message.from_user.mention}
 __user ID:__ `{message.from_user.id}`"""
             
-            return await file.copy(
-                chat_id = int(log.LOG_CHANNEL), caption = captionLOG, reply_markup = banUserCB if dataBASE.MONGODB_URI else None
-            )
+            for i in range (200):
+                try:
+                    await file.copy(
+                        chat_id = int(log.LOG_CHANNEL), caption = captionLOG, reply_markup = banUserCB if dataBASE.MONGODB_URI else None
+                    )
+                    return
+                except FloodWait as e:
+                    await asyncio.sleep(e.x)
+                except Exception as e:
+                    logger.debug(f"Error in new User Log: {e}")
+                    return
 
 # ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
