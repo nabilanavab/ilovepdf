@@ -105,16 +105,16 @@ async def _send(bot, callbackQuery):
                         failed += 1
                 done += 1
                 await asyncio.sleep(1)
-                if done // 5 == 0:
+                if done % 20 == 0:
                     try:
                         await callbackQuery.message.edit_reply_markup(
                             InlineKeyboardMarkup(
                                 [[InlineKeyboardButton(
-                                    f"🔸 asForward({done*100}/{total_users}) 🔸" if __=="forw" else f"🔸 asCopy({done/total_users}) 🔸",
+                                    f"🔸 asForward({done*100}/{total_users}) 🔸" if __=="forw" else f"🔸 asCopy({done*100/total_users}) 🔸",
                                     callback_data = "nabilanavab")
                                 ]]
                             ))
-                    except: pass
+                    except: logger.debug("edit error - broadcast")
             time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
             return await callbackQuery.message.edit(
                 text = f"`Broadcast Completed:`\n__Completed in__ {time_taken} __seconds ⏰__\n\n"
