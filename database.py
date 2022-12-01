@@ -27,6 +27,10 @@ class Database:
     def new_group(self, id, title):
         return dict(id = id, title = title, join_date = datetime.date.today().isoformat())
     
+    #----------------------------------- DELETE USER FROM DB -----------------------------------------
+    async def delete_user(self, user_id):
+        await self.col.delete_many({'id': int(user_id)})
+    
     # -------------------------------- CHECK IF USER/GROUP EXIST -------------------------------------
     # [user]
     async def is_user_exist(self, id):
