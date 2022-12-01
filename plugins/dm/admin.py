@@ -57,12 +57,12 @@ async def broadcast_messages(user_id, message, info):
         await asyncio.sleep(e.x)
         return await broadcast_messages(user_id, message, info)
     except InputUserDeactivated:
-        await db.delete_user(int(user_id))
+        # await db.delete_user(int(user_id))
         return False, "Deleted"
     except UserIsBlocked:
         return False, "Blocked"
     except PeerIdInvalid:
-        # deleted user
+        # await db.delete_user(int(user_id))
         return False, "Error"
     except Exception as e:
         logger.exception("plugins/dm/admin/broadcast_messages: %s" %(e), exc_info=True)
