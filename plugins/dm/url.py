@@ -102,8 +102,18 @@ getFile = filters.create(lambda _, __, query: query.data == "getFile")
 async def _getFile(bot, callbackQuery):
     try:
         lang_code = await getLang(callbackQuery.message.chat.id)
+        url = callbackQuery.message.reply_to_message.text
+        part = url.split("/")
+        message_ids = int(part[-1])
+        try:
+            chat_id = int(part[-2])
+            chat_id = int("-100" + f"{chat_id}")
+        except Exception:
+            chat_id = part[-2]
+        # bot.get_messages
+        file = await bot.get_messages(chat_id=chat_id, message_ids=message_ids)
         # REPLY TO LAGE FILES/DOCUMENTS
-        if MAX_FILE_SIZE and fileSize >= int(MAX_FILE_SIZE_IN_kiB):
+        if MAX_FILE_SIZE and file.document.file_size >= int(MAX_FILE_SIZE_IN_kiB):
             tTXT, _ = await translate(text="getFILE['big']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT.format(MAX_FILE_SIZE))
         
@@ -117,16 +127,6 @@ async def _getFile(bot, callbackQuery):
         PROCESS.append(callbackQuery.from_user.id)
         _, __ = await translate(text="getFILE['wait']", lang_code=lang_code)
         await callbackQuery.answer(_)
-        url = callbackQuery.message.reply_to_message.text
-        part = url.split("/")
-        message_ids = int(part[-1])
-        try:
-            chat_id = int(part[-2])
-            chat_id = int("-100" + f"{chat_id}")
-        except Exception:
-            chat_id = part[-2]
-        # bot.get_messages
-        file = await bot.get_messages(chat_id=chat_id, message_ids=message_ids)
         # if not a protected channel/group [just forward]
         if not ((file.sender_chat and file.sender_chat.has_protected_content) or (file.chat and file.chat.has_protected_content)):
             PROCESS.remove(callbackQuery.from_user.id)
