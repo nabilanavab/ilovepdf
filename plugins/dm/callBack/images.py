@@ -372,19 +372,20 @@ async def _extract(bot, callbackQuery):
                     fileNm, fileExt = os.path.splitext(fileNm)        # seperates name & extension
                     fileNm = f"{fileNm}.zip" if data.startswith("zip") else f"{fileNm}.tar"
                     # Getting thumbnail
-                    thumbnail, fileName = await thumbName(callbackQuery.message, fileNm)
-                    if images.PDF_THUMBNAIL != thumbnail:
+                    FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, fileNm)
+                    if images.PDF_THUMBNAIL != THUMBNAIL:
                         location = await bot.download_media(
-                            message = thumbnail, file_name = f"{callbackQuery.message.message_id}.jpeg"
+                            message = THUMBNAIL, file_name = f"{callbackQuery.message.message_id}.jpeg"
                         )
-                        thumbnail = await formatThumb(location)
+                        THUMBNAIL = await formatThumb(location)
                     
                     await downloadMessage.edit(CHUNK["uploadfile"])
+                    capt = "__Zip File__ 🤐" if data.startswith("zip") else "__Tar File__ 🙂"
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
                     await callbackQuery.message.reply_document(
-                        file_name = fileName, quote = True, document = open(
+                        file_name = FILE_NAME, quote = True, document = open(
                             f"{output_file}.zip" if data.startswith("zip") else f"{output_file}.tar", "rb"
-                        ), thumb = thumbnail, caption = "__Zip File__ 🤐" if data.startswith("zip") else "__Tar File__ 🙂",
+                        ), thumb = THUMBNAIL, caption = f"{capt}\n\n{FILE_CAPT}",
                         progress = uploadProgress, progress_args = (downloadMessage, time.time())
                     )
                     try:
