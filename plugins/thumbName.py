@@ -49,14 +49,14 @@ async def thumbName(message, fileName, getAPI=False):
         
         if settings.DEFAULT_NAME:
             FILE_NAME = settings.DEFAULT_NAME + fileExt
-        elif dataBASE.MONGODB_URI and info.get('fname', 0):
+        elif dataBASE.MONGODB_URI and info and info.get('fname', 0):
             FILE_NAME = info["fname"] + fileExt
         else:
             FILE_NAME = fileName
         
         if settings.DEFAULT_CAPT:
             FILE_CAPT = settings.DEFAULT_CAPT
-        elif dataBASE.MONGODB_URI and info.get('capt', 0):
+        elif dataBASE.MONGODB_URI and info and info.get('capt', 0):
             FILE_CAPT = info["capt"]
         else:
             FILE_CAPT = ""
