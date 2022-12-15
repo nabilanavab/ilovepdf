@@ -1,12 +1,11 @@
 # fileName : plugins/dm/start.py
 # copyright ©️ 2021 nabilanavab
 
+import asyncio
 from .photo import HD
 from pdf import PROCESS
 from logger import logger
-from lang import langList
 import psutil, os, shutil
-from configs.log import log
 from .settings import _settings
 from configs.db import dataBASE
 from lang.__users__ import userLang
@@ -23,21 +22,7 @@ if dataBASE.MONGODB_URI:
 @ILovePDF.on_message(filters.incoming & filters.command("start"))
 async def start(bot, message):
     try:
-        if len(message.command) != 1:
-            index = message.command[1].find("-l")
-            lang = message.command[1][index+2: index+5] if index != -1 else await getLang(message.chat.id)
-            if lang in langList:
-                userLang[message.chat.id] = lang
-            # https://t.me/xtxitxbot?start=-l{lang_code}-r{user_id}   referID Optional
-            referID = message.command[1].find("-r")
-            if referID != -1:
-                referID = message.command[1][referID+2: ]
-        else:
-            referID = -1
-        lang_code = await getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        if dataBASE.MONGODB_URI:               # CHECK IF USER IN DATABASE
-            await log.newUser(bot, message, lang_code, int(referID))
         lang_code = await getLang(message.chat.id)
         tTXT, tBTN = await translate(
             text="HOME['HomeA']", lang_code=lang_code,
@@ -144,27 +129,34 @@ async def _status(bot, callbackQuery):
         
         elif __ == "users":
             users = await db.get_all_users()
-            text, tBTN = await translate(text="STATUS_MSG['USERS']", button="STATUS_MSG['BACK']", lang_code=lang_code)
-            await callbackQuery.message.edit(text=text, reply_markup=tBTN)
+            tTXT, tBTN = await translate(text="STATUS_MSG['USERS']", button="STATUS_MSG['BACK']", lang_code=lang_code)
+            await callbackQuery.message.edit(text=tTXT, reply_markup=tBTN)
+            rollnumber = 0; text=""
             async for user in users:
+                rollnumber += 1
+                if rollnumber % 500 == 0 and rollnumber % 1000 != 0:
+                    await asyncio.sleep(.5)
+                    try: await callbackQuery.message.edit(text=f"{tTXT}.", reply_markup=tBTN)
+                    except: pass
+                elif rollnumber % 500 == 0 and rollnumber % 1000 == 0:
+                    try: await callbackQuery.message.edit(text=tTXT, reply_markup=tBTN)
+                    except: pass
                 try:
                     text += f"[{user['name']}](tg://user?id={user['id']})"
-                    logger.debug(f"user: {user['name']}")
                 except Exception:
-                    logger.debug(f"user: {user}")
+                    logger.debug(f"error user: {user}")
                 if user.get("banned", False):
                     text += ' `Banned ⚠️`'
                 text += '\n'
-            try:
-                await callbackQuery.message.edit(text=text, reply_markup=tBTN)
-            except Exception:
-              try:
-                with open('users.txt', 'w+') as outfile:
-                    outfile.write(text)
-                await callbackQuery.message.reply_document('users.txt', caption="Bot Users List =)", quote=True)
-                os.remove("users.txt")
-              except Exception as e:
-                logger.debug(f"user file error {e}")
+                if rollnumber % 100 == 0:
+                    logger.debug(f"••• {text}")
+                    with open('users.txt', 'w+') as outfile:
+                        outfile.write(text)
+                    text == ""
+            with open('users.txt', 'w+') as outfile:
+                outfile.write(text)
+            await callbackQuery.message.reply_document('users.txt')
+            os.remove("users.txt")
         
         elif __ == "home":
             tTXT, tBTN = await translate(
