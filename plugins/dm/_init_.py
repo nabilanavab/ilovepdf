@@ -1,11 +1,15 @@
 # fileName : plugins/dm/_init_.py
 # copyright ©️ 2021 nabilanavab
 
+from lang import langList
 from logger import logger
 from plugins.util import *
 from pyrogram import enums
+from configs.log import log
 from pyrogram import filters
 from configs.db import dataBASE
+from plugins.util import getLang
+from lang.__users__ import userLang
 from pyrogram import Client as ILovePDF
 from configs.config import settings, group, dm, images
 from configs.db import BANNED_USR_DB, BANNED_GRP_DB, invite_link
@@ -79,6 +83,23 @@ async def bannedGrp(bot, message):
 
 # ===================================================>  IF FORCE SUBSCRIPTION  <================================================
 async def notSubscribed(_, bot, message: Message):
+    if message.text and message.text.startswith("/start"):
+        msg = message.text.split(" ")
+        if len(msg) != 1:
+            index = msg[1].find("-l")
+            lang = msg[1][index+2: index+5] if index != -1 else await getLang(message.chat.id)
+            if lang in langList:
+                userLang[message.chat.id] = lang
+            # https://t.me/bot?start=-l{lang_code}-r{user_id}   referID Optional
+            referID = msg[1].find("-r")
+            if referID != -1:    # -1 coz it return -1 if not founded
+                referID = msg[1][referID+2: ]
+        else:
+            referID = -1
+        lang_code = await getLang(message.chat.id)
+        if dataBASE.MONGODB_URI:               # CHECK IF USER IN DATABASE
+            await log.newUser(bot, message, lang_code, int(referID))
+        
     if len(invite_link) == 0:
         return False                             # IF FORCE SUB. TREAT AS SUBSCRIBED
     else:
