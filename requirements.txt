@@ -1,6 +1,6 @@
 pyrogram==2.0.57
 TgCrypto==1.2.3
-pillow==9.0.1
+pillow==9.3.0
 PyMuPdf==1.20.2
 PyPDF2==2.11.0
 convertapi==1.4.0
