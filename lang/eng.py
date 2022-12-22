@@ -107,7 +107,7 @@ STATUS_MSG = {
 **◍ CPU Usage      :** `{}`%\n**◍ RAM Usage     :** `{}`%
 **◍ Current Work  :** `{}`\n**◍ Message Id     :** `{}`""",
     "BACK" : {"« BACK «" : "status|home"}, "ADMIN" : "**Total ADMIN:** __{}__\n",
-    "USERS" : "Users saved In DB Are:\n\n", "NO_DB" : "No dataBASE set Yet 💩"
+    "USERS" : "Users in Database are.", "NO_DB" : "No dataBASE set Yet 💩"
 }
 
 feedbackMsg = f"[Write a FEEDBACK 📋]({settings.FEEDBACK})"
