@@ -1,7 +1,14 @@
-<img src="https://user-images.githubusercontent.com/53673312/198794972-db2dbd96-214d-4ffc-ba90-b22ad42276e8.jpg" align="right" alt="nabilanavab" width="400px" height="400px">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Telegram Pdf Bot">
+  <meta name="keywords" content="Telegram, pdf, bot, pdfbot, ilovepdf, nabilanavab">
+  <meta name="author" content="Nabil A Navab">
+</head>
 
 > **Note** 
 > : Something big awaits you. Don't forget to star the project
+
+<h3><pre><center>Please take a look at this bot before hosting it yourself <a href="https://telegram.dog/ilovepdf_bot">: Test Bot</a></center></pre></h3>
 
 <small><i>About:</i></small>
 
@@ -10,141 +17,52 @@
  | | | |   _____ _____  | _ \|   \|  __| 
  | | | |__/ _ \ V / -_) |  _/| |) |  _|  
  |_| |___,\___/\_/\___| |_|  |___/|_|    
-                         [Nabil A Navab] 
-                         Email: nabilanavab@gmail.com
-                         Telegram: @nabilanavab
+                                       [Nabil A Navab] 
+                                       Email: nabilanavab@gmail.com
+                                       Telegram: @nabilanavab
 ```
 
 <div align="center">
 
-## Enjoy the API
+# Enjoy the API
+
+![nabilanavab-ilovepdf](https://user-images.githubusercontent.com/92616583/211420759-735a72ff-9a0f-4c03-8633-037d5e862ff6.jpg)
 
 <i>ilovePDF is an, easy-to-use open-source Telegram PDF bot fully written in python language 🐍</i>
 <br><br>
 <b>Released Under Apache License.</b><br>
 it was specially developed for creating PDF's from images.. And Now, Bot Supports many other features for PDF manipulation 🦾
-</div>
-<a href="https://telegram.dog/ilovepdf_bot">Demo Bot</a>
 
-<div align="center">
+</div></br>
 
+<ul><b>
+    <li>To use the bot's services, you will need to send the <a href="https://telegram.dog/ilovepdf_bot">BOT</a> a PDF/IMAGEs file.
+    <li>Once you have sent the PDF file to the <a href="https://telegram.dog/ilovepdf_bot"> BOT</a>, you can specify the action that you want the bot to perform.
+    <li>The <a href="https://telegram.dog/ilovepdf_bot"> BOT</a> will process the PDF file and perform the requested action. This may take a few minutes, depending on
+    <ul>
+        <li>the size of the file and,
+        <li>the complexity of the action being performed.
+    </ul>
+    <li>Once the <a href="https://telegram.dog/ilovepdf_bot"> BOT</a> has completed the action, it will send you the results.
+    <ul>
+        <li>If the action was successful, you will receive the output of the action
+        <li>If the action was not successful, the bot will let you know and provide any relevant error messages.
+    </ul>
+</b></ul>
+
+<i>If you have any other questions or need further assistance, you can simply <a href="https://telegram.dog/nabilanavab">contact nabilanavab</a> for help.</i>
+
+<h1>Does bot support image to PDF conversion.?</h1>
+<h3>Yes, it is possible to convert images to PDF. The bot was originally developed for this purpose, and other features were added over time.</h3>
+<h4>
+    <ul>
+        <li>batch large number of images at once</li>
+        <li>choose a specific name for the final document</li>
+        <li>send /hd, will produce a high-definition PDF with no loss in quality</li>
+        <li>able to handle image sequence, no worry about rearranging them manually</li>
+    </ul>
+</h4>
 <img src="https://telegra.ph/file/ec0047cc76e7080f818ff.png">
+<br/>
 
-<h1><i>features:</i></h1>
-<h3>Images to PDF</h3>
-</div>
 
-     ◍ This bot will helps you to convert multiple
-     images to pdf
-     ◍ .jpg, .jpeg, .png files Supported
-     ◍ Zero additional Compression
-     ◍ For Better quality pdf, send media without
-     Compression
-     ◍ Image sequence will be considered
-     ◍ /cancel - deletes the current queue
-     ◍ you can Rename your pdf at the time of /generate
-          - /generate name     {pdf with your name}
-          - /generate          {pdf with your id}
-          - /generate FileName {pdf with file name}
-      ◍ /id to get your id
-
-<h3 align="center">PDF to images</h3>
-
-     ◍ Unlike other bots, this bot extract images 
-     from your pdf files without converting the entire
-     pdf to pages..So always shows 100% speed 😉
-     ◍ You can also fetch a single image or a list
-     of images from any part of your pdf 
-     ◍ Sequence will be considered
-     ◍ For better quality images, bot support sending
-     images as documents (files)
-     
-<em align="center">This bot is using a different protocol for uploading 
-the extracted PDF-images..</em>
-
-<h3 align="center">Files to PDF</h3>
-
-     In addition,
-     ◍ About 40+ popular file formats can also be
-     convert to pdf using ilovepdf bot
-     ◍ By default, bot support with ASCII char. support
-     [EPUB, FB2(e-book), XPS, openXPS, CBZ, CBR]
-     ◍ All other files are converted using ConvertAPI
-     [csv, doc, docx, ppt, pptx, dot, dotx, log, mpp,
-     mpt, odt, pot, potx, pps, ppsx, pub, rtf, txt, vdx,
-     vsd, vsdx, vst, vstx, wpd, wps, wri, xls, xlsb,
-     xlsx, xlt, xltx, xml]
-     & supports Unicode Char(utf-8)
-     
-     No need to specify file formats..✌️
-
-<h3 align="center">Source code:</h3>
-
-     Developed by: @nabilanavab, Kerala
-
-<h3 align="center">Privacy & Security:</h3>
-
-     Ones the necessary task is completed,
-     all your images including the pdf file
-     will be removed from the server.
-     
-     for more information:
-            please check the Source code😌
-
-# how to Create your Own pDf bot:<br>
-## Quick start for developers
-
-<i>Being a python library; To run this code, python must be installed on your machine</i>
-
-### Packages/Library Installation
-
-    ╭─────Local Host──〄
-    │
-    ├───pip install PyPDF2
-    ├───pip install pillow
-    ├───pip install pymupdf
-    ├───pip install tgcrypt
-    ├───pip install pyrogram
-    ├───pip install convertapi
-    │
-    ├─────Heroku──〄
-    ├─────Qovery──〄
-    ╰────Railways──〄
-
-### deploy on heroku:
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nabilanavab/ilovepdf)
-
-## Project setUp:
-
-     API key 🔑
-     
-     This bot only requires your Telegram Bot Token
-     as (API_TOKEN) for doing 95% tasks
-     
-     For a Better experience U can add convertAPI 
-     secret key as (CONVERT_API)
-
-   NB: <i>The API keys are personal & must be kept secret </i>
-   
-## Config Var:
-
-<a href="https://my.telegram.org">Get API\_ID, API\_HASH</a><br>
-<a href="https://telegram.dog/botfather">Get API_TOKEN</a><br>
-<a href="https://www.convertapi.com/a/signup">Get CONVERT_API</a>
-
-     API_ID, API_HASH, API_TOKEN
-     CONVERT_API, UPDATE_CHANNEL
-     MAX_FILE_SIZE, ADMINS, BANNED_USERS
-
-## About LICENSE:
-
-     Apache License 2.0
-     Copyright 2021 nabilanavab
-     
-     You can use and integrate ilovePDF 
-     into your own code..And If you are
-     Redistributing your code, with 
-     modifications, please try to mention
-     the changes : )
-
-![elpablo_agadhgiaanlc4gk](https://user-images.githubusercontent.com/53673312/129444963-ac9d4fe6-1be3-4b89-979b-f442e46234ab.png)
