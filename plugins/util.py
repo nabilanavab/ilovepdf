@@ -2,12 +2,13 @@
 # copyright ©️ 2021 nabilanavab
 
 import os
-from logger import logger
-from lang import __users__
-from itertools import islice
-from configs.db import dataBASE
-from configs.config import settings
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from configs.db       import myID
+from itertools        import islice
+from logger           import logger
+from configs.db       import dataBASE
+from configs.config   import settings
+from lang             import __users__, langList
+from pyrogram.types   import InlineKeyboardButton, InlineKeyboardMarkup
 
 # loading languages
 try:
@@ -35,9 +36,11 @@ async def createBUTTON(btn, order=deBUTTON_SPLIT):
         button = []
         for key, value in btn.items():
             if value.startswith(tuple(["https://", "http://"])):
-                temp = InlineKeyboardButton(key, url=value)
+                temp = InlineKeyboardButton(
+                    key, url = value.format(myID[0].username)
+                )   # add bot_username for creating add grup link else pass
             else:
-                temp = InlineKeyboardButton(key, callback_data=value)
+                temp = InlineKeyboardButton(key, callback_data = value)
             button.append(temp)
         if order == deBUTTON_SPLIT:
              keyboard = [button[i: i+deBUTTON_SPLIT] for i in range(0, len(button), deBUTTON_SPLIT)] 
@@ -77,9 +80,11 @@ async def translate(text=None, button=None, asString=False, order=deBUTTON_SPLIT
 
 # =====================================================================================================================> GET USER LANG CODE <==========================
 async def getLang(chatID):
-    if not settings.MULTI_LANG_SUP:
-        return str(settings.DEFAULT_LANG)
-    return __users__.userLang.get(int(chatID), str(settings.DEFAULT_LANG))     # else return corresponding lang code
+    if not settings.MULTI_LANG_SUP :                                           # if multiple lang not supported
+        return str(settings.DEFAULT_LANG)                                      # return default lang
+    lang = __users__.userLang.get(int(chatID), str(settings.DEFAULT_LANG))     # else return corresponding lang code
+    return lang if lang in langList else settings.DEFAULT_LANG                 # return lang code if in langList(
+                                                                               # this way you can simply remove lang by removing lang from list)
 
 # =====================================================> ADD VALUES TO CB DICT <=======================================================================================
 async def editDICT(inDir:"dict", value=False, front=False) -> "dict":
@@ -89,9 +94,12 @@ async def editDICT(inDir:"dict", value=False, front=False) -> "dict":
         for i, j in inDir.items():
             outDir[i.format(front)] = j
         inDir = outDir
-    if value:                              # changes cb.data
+    if value and type(value) != list:      # changes cb.data
         for i, j in inDir.items():
             outDir[i] = j.format(value)
+    elif value and type(value) == list:
+        for i, j in inDir.items():
+            outDir[i] = j.format(value[0], value[1])
     return outDir
 
 # ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
