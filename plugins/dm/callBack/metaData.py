@@ -1,52 +1,53 @@
 # fileName : plugins/dm/callback/metaData.py
 # copyright ©️ 2021 nabilanavab
+fileName = "plugins/dm/callback/metaData.py"
 
-from pdf import PROCESS
-import fitz, time, shutil
+import fitz, time
 from logger import logger
 from plugins.render import *
+from plugins.work import work
 from plugins.util import getLang, translate
 from pyrogram import filters, Client as ILovePDF
 
 pdfInfo = filters.create(lambda _, __, query: query.data == "metaData")
+
 @ILovePDF.on_callback_query(pdfInfo)
 async def _pdfInfo(bot, callbackQuery):
     try:
         lang_code = await getLang(callbackQuery.message.chat.id)
-        CHUNK, _ = await translate(text="metaData", lang_code=lang_code)
+        CHUNK, _ = await translate(text = "metaData", button = "comb['cancelCB']", lang_code = lang_code)
         
         if "•" in callbackQuery.message.text:
             return await callbackQuery.answer(CHUNK['read'])
-        await callbackQuery.answer(CHUNK["process"])
-        chat_id = callbackQuery.message.chat.id
-        message_id = callbackQuery.message.id
         
-        if chat_id in PROCESS:
+        if await header(bot, callbackQuery, lang_code=lang_code):
+            return
+        
+        cDIR = await work(callbackQuery, "create", False)
+        if not cDIR:
             return await callbackQuery.answer(CHUNK["inWork"])
-        if await header(bot, callbackQuery):
-            return
+        await callbackQuery.answer(CHUNK["process"])
         
-        PROCESS.append(chat_id)
-        downloadMessage = await callbackQuery.message.reply(text=CHUNK["download"], quote=True)
-        pdf_path = f"{message_id}/pdfInfo.pdf"
-        file_id = callbackQuery.message.reply_to_message.document.file_id
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
-        downloadLoc = await bot.download_media(
-            message = file_id, file_name = pdf_path, progress = progress,
-            progress_args = (fileSize, downloadMessage, time.time())
+        dlMSG = await callbackQuery.message.reply(
+            text = CHUNK["download"], reply_markup = _, quote = True
         )
-        if downloadLoc is None:    
-            PROCESS.remove(chat_id)
-            return
+        downloadLoc = await bot.download_media(
+            message = callbackQuery.message.reply_to_message.document.file_id,
+            file_name = f"{cDIR}/pdfInfo.pdf", progress = progress,
+            progress_args = (
+                callbackQuery.message.reply_to_message.document.file_size, dlMSG, time.time()
+            )
+        )
+        if os.path.getsize(downloadLoc) != callbackQuery.message.reply_to_message.document.file_size:    
+            return await work(callbackQuery, "delete", False)
         
-        checked, number_of_pages = await checkPdf(pdf_path, callbackQuery)
-        await downloadMessage.delete()
+        checked, number_of_pages = await checkPdf(f"{cDIR}/pdfInfo.pdf", callbackQuery)
+        await dlMSG.delete()
         if checked == "pass":
-            PROCESS.remove(chat_id)
-            shutil.rmtree(f"{message_id}")
+            await work(callbackQuery, "delete", False)
     
     except Exception as e:
-        logger.exception("plugins/dm/callBack/metaData: %s" %(e), exc_info=True)
-        PROCESS.remove(chat_id)
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
+        await work(callbackQuery, "delete", False)
 
 # ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
