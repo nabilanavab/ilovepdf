@@ -1,44 +1,47 @@
 # fileName : plugins/dm/callBack/images.py
 # copyright ©️ 2021 nabilanavab
+fileName = "plugins/dm/callBack/images.py"
 
 media = {}
 mediaDoc = {}
 
-from PIL import Image
-from logger import logger
-from pyromod import listen
-from plugins.util import *
-from plugins.render import *
-from configs.config import images
-from pdf import PROCESS , pyTgLovePDF
-from pyrogram.types import ForceReply
 import os, fitz, time, shutil, asyncio
-from plugins.thumbName import thumbName, formatThumb
-from pyrogram import filters, enums, Client as ILovePDF
-from telebot.types import InputMediaPhoto, InputMediaDocument
+
+from plugins.util   import *
+from plugins.render import *
+from plugins.work   import work
+from PIL            import Image
+from logger         import logger
+from pyromod        import listen
+from configs.config import images
+from pyrogram.types import ForceReply
+from pdf            import pyTgLovePDF
+from plugins.fncta  import thumbName, formatThumb
+from pyrogram       import filters, enums, Client as ILovePDF
+from telebot.types  import InputMediaPhoto, InputMediaDocument
 
 extract = filters.create(lambda _, __, query: query.data.startswith("p2img"))
 @ILovePDF.on_callback_query(extract)
 async def _extract(bot, callbackQuery):
     try:
-        lang_code = await getLang(callbackQuery.message.chat.id)
-        CHUNK, _ = await translate(text="pdf2IMG", lang_code=lang_code)
-        if await header(bot, callbackQuery):
+        chat_id = callbackQuery.message.chat.id
+        lang_code = await getLang(chat_id)
+        
+        if await header(bot, callbackQuery, lang_code = lang_code):
             return
-        chat_id = callbackQuery.from_user.id
-        message_id = callbackQuery.message.id
         
-        if chat_id in PROCESS:
+        CHUNK, _ = await translate(text = "pdf2IMG", lang_code = lang_code)
+        cDIR = await work(callbackQuery, "create", False)
+        if not cDIR:
             return await callbackQuery.answer(CHUNK["inWork"])
-        
-        PROCESS.append(chat_id)    # ↓ ADD TO PROCESS
+        await callbackQuery.answer(CHUNK["process"])
+
         if "•" in callbackQuery.message.text:
             known = True; number_of_pages = int(callbackQuery.message.text.split("•")[1])
         else:
             known = False
         
         data = callbackQuery.data.split("|")[1]
-        await callbackQuery.answer(CHUNK["process"])
         if data in ["IA", "DA", "zipA", "tarA"]:
             nabilanavab = False
         elif data in ["IR", "DR", "zipR", "tarR"]:
@@ -49,7 +52,7 @@ async def _extract(bot, callbackQuery):
                 i += 1
                 needPages = await bot.ask(
                     chat_id = chat_id, text = CHUNK["pyromodASK_1"],
-                    reply_to_message_id = message_id, filters = filters.text,
+                    reply_to_message_id = callbackQuery.message.id, filters = filters.text,
                     reply_markup = ForceReply(True, "Eg: 7:86 [start:end]")
                 )   # PYROMOD ADD-ON (PG NO REQUEST)
                 if needPages.text == "/exit":    # EXIT PROCESS
@@ -89,7 +92,7 @@ async def _extract(bot, callbackQuery):
                     break
                 i += 1
                 needPages = await bot.ask(
-                    text = CHUNK["pyromodASK_2"], chat_id = chat_id, reply_to_message_id = message_id,
+                    text = CHUNK["pyromodASK_2"], chat_id = chat_id, reply_to_message_id = callbackQuery.message.id,
                     filters = filters.text, reply_markup = ForceReply(True, "Eg: 7,8,6 [pages]")
                 )
                 if needPages.text == "/exit":    # PROCESS CANCEL
@@ -124,84 +127,86 @@ async def _extract(bot, callbackQuery):
                 else:
                     await callbackQuery.message.reply(CHUNK["error_7"])
         if nabilanavab == True:
-            PROCESS.remove(chat_id)
-            return
+            return await work(callbackQuery, "delete", False)
         
-        input_file = f"{message_id}/inPut.pdf"
-        output_file = f"{message_id}/outPut.pdf"
+        input_file = f"{cDIR}/inPut.pdf"
+        output_file = f"{cDIR}/outPut.pdf"
         cancel = await createBUTTON(btn=CHUNK["cancelCB"])
         canceled = await createBUTTON(btn=CHUNK["canceledCB"])
         completed = await createBUTTON(btn=CHUNK["completed"])
         
         if nabilanavab == False:
             # DOWNLOAD MESSAGE
-            downloadMessage = await callbackQuery.message.reply(text = CHUNK["download"], quote = True)
-            file_id = callbackQuery.message.reply_to_message.document.file_id
-            fileSize = callbackQuery.message.reply_to_message.document.file_size
-            # DOWNLOAD PROGRESS
-            c_time = time.time()
+            dlMSG = await callbackQuery.message.reply(text = CHUNK["download"], quote = True)
             downloadLoc = await bot.download_media(
-                message = file_id, file_name = input_file, progress = progress,
-                progress_args = (fileSize, downloadMessage, c_time)
+                message = callbackQuery.message.reply_to_message.document.file_id,
+                file_name = input_file, progress = progress,
+                progress_args = (
+                    callbackQuery.message.reply_to_message.document.file_size, dlMSG, time.time()
+                )
             )
             # CHECK DOWNLOAD COMPLETED/CANCELED
-            if downloadLoc is None:
-                PROCESS.remove(chat_id)
-                return
+            if os.path.getsize(downloadLoc) != callbackQuery.message.reply_to_message.document.file_size:    
+                return await work(callbackQuery, "delete", False)
             # CHECK PDF CODEC, ENCRYPTION..
             if not known:
                 checked, number_of_pages = await checkPdf(input_file, callbackQuery)
                 if checked != "pass":
-                    return await downloadMessage.delete()
+                    return await dlMSG.delete()
             # OPEN PDF WITH FITZ
             with fitz.open(input_file) as doc:
                 if data in ["IA", "DA"]:
                     start, end = 1, int(number_of_pages)
                 elif data in ["IR", "DR"]:
                     if not(end) <= int(number_of_pages):
-                        await downloadMessage.edit(CHUNK["error_8"].format(number_of_pages))
-                        PROCESS.remove(chat_id); shutil.rmtree(f"{message_id}")
+                        await dlMSG.edit(CHUNK["error_8"].format(number_of_pages))
+                        await work(callbackQuery, "delete", False)
                         return
                 elif data in ["zipA", "tarA"]:
                     if number_of_pages > 50:
-                        await downloadMessage.edit(CHUNK["error_10"])
+                        await dlMSG.edit(CHUNK["error_10"])
                         await asyncio.sleep(3)
                         start, end = 1, 50
                     else:
                         start, end = 1, int(number_of_pages)
                 elif data in ["zipR", "tarR"]:
                     if end - start > 50:
-                        await downloadMessage.edit(CHUNK["error_10"])
+                        await dlMSG.edit(CHUNK["error_10"])
                         await asyncio.sleep(3)
                         start, end = start, start + 50
                     if not(end) <= int(number_of_pages):
-                        await downloadMessage.edit(CHUNK["error_8"].format(number_of_pages))
-                        PROCESS.remove(chat_id); shutil.rmtree(f"{message_id}")
+                        await dlMSG.edit(CHUNK["error_8"].format(number_of_pages))
+                        await work(callbackQuery, "delete", False)
                         return
                 zoom = 2; mat = fitz.Matrix(zoom, zoom)
                 if data in ["IA", "DA", "IR", "DR"]:
                     if int(end+1 - start) >= 11:
-                        await downloadMessage.pin(disable_notification = True, both_sides = True)
-                    await downloadMessage.edit(
-                        text = CHUNK["total"].format(end+1 - start), reply_markup = cancel
+                        await dlMSG.pin(
+                            disable_notification = True,
+                            both_sides = True
+                        )
+                    await dlMSG.edit(
+                        text = CHUNK["total"].format(end+1 - start),
+                        reply_markup = cancel
                     )
                     totalPgList = range(start, end + 1)
                     cnvrtpg = 0
                     for i in range(0, len(totalPgList), 10):
                         pgList = totalPgList[i:i+10]
-                        os.mkdir(f'{message_id}/pgs')
+                        os.mkdir(f'{cDIR}/pgs')
                         for pageNo in pgList:
                             page = doc.load_page(pageNo-1)
                             pix = page.get_pixmap(matrix = mat)
                             cnvrtpg += 1
                             if cnvrtpg % 5 == 0:
-                                if chat_id not in PROCESS:
-                                    await downloadMessage.edit(text=CHUNK["canceledAT"].format(cnvrtpg, end), reply_markup=canceled)
-                                    shutil.rmtree(f'{message_id}')
-                                    return
-                            with open(f'{message_id}/pgs/{pageNo}.jpg','wb'):
-                                pix.save(f'{message_id}/pgs/{pageNo}.jpg')
-                        directory = f'{message_id}/pgs'
+                                if not await work(callbackQuery, "check", False):
+                                    return await dlMSG.edit(
+                                        text = CHUNK["canceledAT"].format(cnvrtpg, end),
+                                        reply_markup = canceled
+                                    )
+                            with open(f'{cDIR}/pgs/{pageNo}.jpg','wb'):
+                                pix.save(f'{cDIR}/pgs/{pageNo}.jpg')
+                        directory = f'{cDIR}/pgs'
                         imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                         imag.sort(key = os.path.getctime)
                         if data in ["IA", "IR"]:
@@ -221,12 +226,13 @@ async def _extract(bot, callbackQuery):
                                     else:
                                         mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                                     break
-                        if chat_id not in PROCESS:
-                            await downloadMessage.edit(text=CHUNK["canceledAT"].format(cnvrtpg, end), reply_markup=canceled)
-                            shutil.rmtree(f'{message_id}')
-                            return
+                        if not await work(callbackQuery, "check", False):
+                            return await dlMSG.edit(
+                                text = CHUNK["canceledAT"].format(cnvrtpg, end),
+                                reply_markup = canceled
+                            )
                         try:
-                            await downloadMessage.edit(
+                            await dlMSG.edit(
                                 text = CHUNK["upload"].format(cnvrtpg, end+1 - start),
                                 reply_markup = cancel
                             )
@@ -251,24 +257,32 @@ async def _extract(bot, callbackQuery):
                                 for file in imag:
                                     mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                                 await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id])
-                        shutil.rmtree(f'{message_id}/pgs')
-                    await downloadMessage.edit(text=CHUNK["complete"], reply_markup=completed)
+                        try: shutil.rmtree(f'{cDIR}/pgs')
+                        except Exception: pass
+                    await dlMSG.edit(text = CHUNK["complete"], reply_markup = completed)
                 elif data in ["IS", "DS"]:
                     if int(len(newList)) >= 11:
-                        await downloadMessage.pin(disable_notification = True, both_sides = True)
+                        await dlMSG.pin(
+                            disable_notification = True,
+                            both_sides = True
+                        )
                     totalPgList = []
                     for i in newList:
                         if 1 <= int(i) <= int(number_of_pages):
                             totalPgList.append(i)
                     if len(totalPgList) < 1:
-                        await downloadMessage.edit(CHUNK["error_8"].format(number_of_pages))
-                        PROCESS.remove(chat_id); shutil.rmtree(f'{message_id}')
-                        return
-                    await downloadMessage.edit(text = CHUNK["total"].format(len(totalPgList)), reply_markup = cancel)
+                        await dlMSG.edit(
+                            CHUNK["error_8"].format(number_of_pages)
+                        )
+                        return await work(callbackQuery, "delete", False)
+                    await dlMSG.edit(
+                        text = CHUNK["total"].format(len(totalPgList)),
+                        reply_markup = cancel
+                    )
                     cnvrtpg = 0
                     for i in range(0, len(totalPgList), 10):
                         pgList = totalPgList[i:i+10]
-                        os.mkdir(f'{message_id}/pgs')
+                        os.mkdir(f'{cDIR}/pgs')
                         for pageNo in pgList:
                             if int(pageNo) <= int(number_of_pages):
                                 page = doc.load_page(int(pageNo)-1)
@@ -277,15 +291,16 @@ async def _extract(bot, callbackQuery):
                                 continue
                             cnvrtpg += 1
                             if cnvrtpg % 5 == 0:
-                                if chat_id not in PROCESS:
-                                    await downloadMessage.edit(text=CHUNK["canceledAT"].format(cnvrtpg, totalPgList), reply_markup=canceled)
-                                    shutil.rmtree(f'{message_id}')
-                                    return
+                                if not await work(callbackQuery, "check", False):
+                                    return await dlMSG.edit(
+                                        text = CHUNK["canceledAT"].format(cnvrtpg, totalPgList),
+                                        reply_markup = canceled
+                                    )
                             with open(
-                                f'{message_id}/pgs/{pageNo}.jpg','wb'
+                                f'{cDIR}/pgs/{pageNo}.jpg','wb'
                             ):
-                                pix.save(f'{message_id}/pgs/{pageNo}.jpg')
-                        directory = f'{message_id}/pgs'
+                                pix.save(f'{cDIR}/pgs/{pageNo}.jpg')
+                        directory = f'{cDIR}/pgs'
                         imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                         imag.sort(key = os.path.getctime)
                         if data == "IS":
@@ -309,7 +324,10 @@ async def _extract(bot, callbackQuery):
                                         mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                                     break
                         try:
-                            await downloadMessage.edit(text = CHUNK["upload"].format(cnvrtpg, len(totalPgList)), reply_markup = cancel)
+                            await dlMSG.edit(
+                                text = CHUNK["upload"].format(cnvrtpg, len(totalPgList)),
+                                reply_markup = cancel
+                            )
                         except Exception: pass
                         if data in ["IS"]:
                             await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
@@ -331,11 +349,17 @@ async def _extract(bot, callbackQuery):
                                 for file in imag:
                                     mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                                 await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id])
-                        shutil.rmtree(f'{message_id}/pgs')
-                    await downloadMessage.edit(text=CHUNK["complete"], reply_markup=completed)
+                        shutil.rmtree(f'{cDIR}/pgs')
+                    await dlMSG.edit(
+                        text = CHUNK["complete"],
+                        reply_markup = completed
+                    )
                 else:
                     if data in ["zipA", "zipR", "tarA", "tarR"]:
-                        await downloadMessage.edit(text = f"`Total pages: {end+1 - start}..⏳`", reply_markup=cancel)
+                        await dlMSG.edit(
+                            text = f"`Total pages: {end+1 - start}..⏳`",
+                            reply_markup = cancel
+                        )
                         totalPgList = range(start, end+1)
                     elif data in ["zipS", "tarS"]:
                         totalPgList = []
@@ -343,26 +367,33 @@ async def _extract(bot, callbackQuery):
                             if 1 <= int(i) <= number_of_pages:
                                 totalPgList.append(i)
                         if len(totalPgList) < 1:
-                            await downloadMessage.edit(CHUNK["error_8"].format(number_of_pages))
-                            PROCESS.remove(chat_id); shutil.rmtree(f'{message_id}'); doc.close()
+                            await dlMSG.edit(CHUNK["error_8"].format(number_of_pages))
+                            await work(callbackQuery, "delete", False); doc.close()
                             return
-                        await downloadMessage.edit(text=CHUNK["total"].format({len(totalPgList)}), reply_markup=cancel)
+                        await dlMSG.edit(
+                            text = CHUNK["total"].format({len(totalPgList)}),
+                            reply_markup = cancel
+                        )
                     cnvrtpg = 0
-                    os.mkdir(f'{message_id}/pgs')
+                    os.mkdir(f'{cDIR}/pgs')
                     for i in totalPgList:
                         page = doc.load_page(int(i)-1)
                         pix = page.get_pixmap(matrix = mat)
                         cnvrtpg += 1
                         if cnvrtpg % 5 == 0:
-                            await downloadMessage.edit(text=CHUNK["current"].format(cnvrtpg, end+1-start), reply_markup=cancel)
-                            if chat_id not in PROCESS:
-                                await message.edit(text=CHUNK["canceled"], reply_markup=canceled)
-                                shutil.rmtree(f'{message_id}')
-                                return
-                        with open(f'{message_id}/pgs/{i}.jpg','wb'):
-                            pix.save(f'{message_id}/pgs/{i}.jpg')
-                    directory = f'{message_id}/pgs'
-                    output_file = f'{message_id}/zipORtar'
+                            await dlMSG.edit(
+                                text = CHUNK["current"].format(cnvrtpg, end+1-start),
+                                reply_markup = cancel
+                            )
+                            if not await work(callbackQuery, "check", False):
+                                return await message.edit(
+                                    text = CHUNK["canceled"],
+                                    reply_markup = canceled
+                                )
+                        with open(f'{cDIR}/pgs/{i}.jpg','wb'):
+                            pix.save(f'{cDIR}/pgs/{i}.jpg')
+                    directory = f'{cDIR}/pgs'
+                    output_file = f'{cDIR}/zipORtar'
                     if data in ["zipA", "zipR", "zipS"]:
                         shutil.make_archive(output_file, 'zip', directory)
                     elif data in ["tarA", "tarR", "tarS"]:
@@ -375,30 +406,24 @@ async def _extract(bot, callbackQuery):
                     FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, fileNm)
                     if images.PDF_THUMBNAIL != THUMBNAIL:
                         location = await bot.download_media(
-                            message = THUMBNAIL, file_name = f"{callbackQuery.message.message_id}.jpeg"
+                            message = THUMBNAIL,
+                            file_name = f"{cDIR}/{callbackQuery.message.id}.jpeg"
                         )
                         THUMBNAIL = await formatThumb(location)
                     
-                    await downloadMessage.edit(CHUNK["uploadfile"])
+                    await dlMSG.edit(CHUNK["uploadfile"])
                     capt = "__Zip File__ 🤐" if data.startswith("zip") else "__Tar File__ 🙂"
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
                     await callbackQuery.message.reply_document(
                         file_name = FILE_NAME, quote = True, document = open(
                             f"{output_file}.zip" if data.startswith("zip") else f"{output_file}.tar", "rb"
                         ), thumb = THUMBNAIL, caption = f"{capt}\n\n{FILE_CAPT}",
-                        progress = uploadProgress, progress_args = (downloadMessage, time.time())
+                        progress = uploadProgress, progress_args = (dlMSG, time.time())
                     )
-                    try:
-                        os.remove(location)
-                    except Exception: pass
-                    await downloadMessage.delete()
-                PROCESS.remove(chat_id)
-                shutil.rmtree(f'{message_id}')
+                    await dlMSG.delete()
+                await work(callbackQuery, "delete", False)
     except Exception as e:
-        logger.exception("plugins/dm/callBack/images: %s" %(e), exc_info=True)
-        try:
-            PROCESS.remove(chat_id)
-            shutil.rmtree(f'{message_id}')
-        except Exception: pass
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
+        await work(callbackQuery, "delete", False)
 
 # ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
