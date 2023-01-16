@@ -5,12 +5,12 @@ TXT = {}
 
 import os
 from fpdf import FPDF
-from pdf import PROCESS
 from logger import logger
 from plugins.util import *
 from configs.log import log
+from plugins.work import work
 from configs.config import settings, images
-from plugins.thumbName import thumbName, formatThumb
+from plugins.fncta import thumbName, formatThumb
 from pyrogram import filters, Client as ILovePDF, enums
 
 fnt = {"t": "Times", "c": "Courier", "h": "Helvetica", "s": "Symbol", "z": "ZapfDingbats"}
@@ -31,23 +31,28 @@ t2p = filters.create(lambda _, __, query: query.data.startswith("t2p"))
 @ILovePDF.on_callback_query(t2p)
 async def _pgSize(bot, callbackQuery):
     try:
-        chat_id = callbackQuery.message.chat.id; message_id = callbackQuery.message.id
+        chat_id = callbackQuery.message.chat.id
         await callbackQuery.answer(); lang_code = await getLang(chat_id)
         
-        if chat_id in PROCESS:
+        cDIR = await work(callbackQuery, "create", False)
+        if not cDIR:
             tTXT, _ = await translate(text="PROGRESS['workInP']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT)
         
         CHUNK, _ = await translate(text="pdf2TXT", lang_code=lang_code)
         bla, _, __ = callbackQuery.data.split("|")
         
-        PROCESS.append(chat_id); TXT[chat_id] = []; nabilanavab=True
+        TXT[chat_id] = []; nabilanavab=True
         while(nabilanavab):
             # 1st value will be pdf title
-            askPDF = await bot.ask(text=CHUNK['askT'] ,chat_id=chat_id, reply_to_message_id=message_id, filters=None)
+            askPDF = await bot.ask(
+                text = CHUNK['askT'] ,chat_id = chat_id,
+                reply_to_message_id = callbackQuery.message.id, filters = None
+            )
             if askPDF.text == "/exit":
                 await askPDF.reply(CHUNK['exit'], quote=True)
-                PROCESS.remove(chat_id); del TXT[chat_id]
+                await work(callbackQuery, "delete", False)
+                del TXT[chat_id]
                 break
             elif askPDF.text == "/skip":
                 TXT[chat_id].append(None); nabilanavab=False
@@ -55,15 +60,20 @@ async def _pgSize(bot, callbackQuery):
                 TXT[chat_id].append(f"{askPDF.text}"); nabilanavab=False
         # nabilanavab=True ONLY IF PROCESS CANCELLED
         if nabilanavab == True:
-            PROCESS.remove(chat_id); del TXT[chat_id]
+            await work(callbackQuery, "delete", False)
+            del TXT[chat_id]
             return
         nabilanavab = True
         while(nabilanavab):
             # other value will be pdf para
-            askPDF = await bot.ask(text=CHUNK['askC'].format(len(TXT[chat_id])-1), chat_id=chat_id, reply_to_message_id=message_id, filters=None)
+            askPDF = await bot.ask(
+                text = CHUNK['askC'].format(len(TXT[chat_id])-1), chat_id = chat_id,
+                reply_to_message_id = callbackQuery.message.id, filters=None
+            )
             if askPDF.text == "/exit":
                 await askPDF.reply(CHUNK['exit'], quote=True)
-                PROCESS.remove(chat_id); del TXT[chat_id]
+                await work(callbackQuery, "delete", False)
+                del TXT[chat_id]
                 break
             elif askPDF.text == "/create":
                 if TXT[chat_id][0] == None and len(TXT[chat_id]) == 1:
@@ -75,38 +85,40 @@ async def _pgSize(bot, callbackQuery):
                 TXT[chat_id].append(f"{askPDF.text}")
         # nabilanavab=True ONLY IF PROCESS CANCELLED
         if nabilanavab == True:
-            PROCESS.remove(chat_id); del TXT[chat_id]
+            await work(callbackQuery, "delete", False)
+            del TXT[chat_id]
             return
         
         pdf = FPDF()
         pdf.add_page(orientation = __)
         pdf.set_font(fnt[_], "B", size = 20)
         if TXT[chat_id][0] != None:
-            pdf.cell(200, 20, txt = TXT[chat_id][0], ln=1, align="C")
-        pdf.set_font(fnt[_], size=15)
+            pdf.cell(200, 20, txt = TXT[chat_id][0], ln = 1, align = "C")
+        pdf.set_font(fnt[_], size = 15)
         for _ in TXT[chat_id][1:]:
-            pdf.multi_cell(200, 10, txt=_, border=0, align="L")
-        pdf.output(f"{message_id}.pdf")
+            pdf.multi_cell(200, 10, txt = _, border = 0, align = "L")
+        pdf.output(f"{cDIR}/out.pdf")
         
-        FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, f"{message_id}.pdf")
+        FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, f"out.pdf")
         if images.PDF_THUMBNAIL != THUMBNAIL:
-            location = await bot.download_media(message = THUMBNAIL, file_name = f"{callbackQuery.message.id}.jpeg")
+            location = await bot.download_media(
+                message = THUMBNAIL,
+                file_name = f"{cDIR}/{callbackQuery.message.id}.jpeg"
+            )
             THUMBNAIL = await formatThumb(location)
         
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await processMessage.edit(CHUNK['upload'])
         logFile = await callbackQuery.message.reply_document(
-            file_name=FILE_NAME, caption=FILE_CAPT, quote=True, document=open(f"{message_id}.pdf", "rb"), thumb=THUMBNAIL
+            file_name = FILE_NAME, caption = FILE_CAPT,
+            quote = True, document = open(f"{cDIR}/out.pdf", "rb"), thumb = THUMBNAIL
         )
-        await processMessage.delete(); PROCESS.remove(chat_id)
-        os.remove(f"{message_id}.pdf"); del TXT[chat_id]
-        await log.footer(callbackQuery.message, output=logFile, lang_code=lang_code)
+        await processMessage.delete(); del TXT[chat_id]
+        await work(callbackQuery, "delete", False)
+        await log.footer(callbackQuery.message, output = logFile, lang_code = lang_code)
     except Exception as e:
         logger.exception("PAGE SIZE:CAUSES %s ERROR" %(e), exc_info=True)
-        try:
-            PROCESS.remove(chat_id); await processMessage.edit(f"`ERROR`: __{e}__")
-            os.remove(f"{message_id}.pdf"); del TXT[chat_id]
-        except Exception:
-            pass
+        await work(callbackQuery, "delete", False)
+        await processMessage.edit(f"`ERROR`: __{e}__"); del TXT[chat_id]
 
 #                                                                                  Telegram: @nabilanavab
