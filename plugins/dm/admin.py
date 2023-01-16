@@ -1,51 +1,72 @@
 # fileName : plugins/dm/admin.py
 # copyright ©️ 2021 nabilanavab
+fileName = "plugins/dm/admin.py"
 
-import asyncio
-import time, datetime
-from pdf import PROCESS
-from logger import logger
-from configs.config import dm
-from configs.db import dataBASE
-from pyrogram import filters, enums
-from pyrogram import Client as ILovePDF
-from pyrogram.errors import (InputUserDeactivated, UserNotParticipant,
+import asyncio, time, datetime
+
+from configs.config     import dm
+from logger             import logger
+from configs.db         import dataBASE
+from pyrogram           import filters, enums
+from pyrogram           import Client as ILovePDF
+from pyrogram.errors    import (InputUserDeactivated, UserNotParticipant,
                              FloodWait, UserIsBlocked, PeerIdInvalid)
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
+from pyrogram.types     import (
+                            InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
+                        )
 
 if dataBASE.MONGODB_URI:
     from database import db
 
-# =======================================> ADMIN MESSAGES <============================================================================================================
+# ======================================> ADMIN MESSAGES <==================================================
 @ILovePDF.on_message(filters.command("send") & filters.user(dm.ADMINS) & filters.private & filters.incoming)
 async def sand(bot, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
         if not message.reply_to_message:
-            error = await message.reply("⚙️ `Processing..`", quote=True)
+            error = await message.reply(
+                "⚙️ `Processing..`", quote = True
+            )
             await asyncio.sleep(1)
             return await error.edit("__please, reply to A messge__ 🥲")
         
         msg = await message.reply_to_message.reply("⚙️ `Processing..`", quote=True)
         await message.delete()
         return await msg.edit(
-               text = "⚙️SEND MESSAGE: \n\n`Now, Select any Option Below.. `",
-               reply_markup = InlineKeyboardMarkup(
-                    [[InlineKeyboardButton("📢 ↓ BROADCAST ↓ 📢", callback_data="nabilanavab")],
-                     [InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|broad"),
-                      InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|broad")],
-                     [InlineKeyboardButton("👤 ↓ PM ↓ 👤", callback_data="nabilanavab")],
-                     [InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|pm"),
-                      InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|pm")
-                    ]]
-                ))
+            text = "⚙️SEND MESSAGE: \n\n`Now, Select any Option Below.. `",
+            reply_markup = InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton(
+                        "📢 ↓ BROADCAST ↓ 📢", callback_data="nabilanavab"
+                    )
+                ],[
+                    InlineKeyboardButton(
+                        "🔸 COPY 🔸", callback_data="send|copy|broad"
+                    ),
+                    InlineKeyboardButton(
+                        "🔸 FORWARD 🔸", callback_data="send|forw|broad"
+                    )
+                ],[
+                    InlineKeyboardButton(
+                        "👤 ↓ PM ↓ 👤", callback_data="nabilanavab"
+                    )
+                ],[
+                    InlineKeyboardButton(
+                        "🔸 COPY 🔸", callback_data="send|copy|pm"
+                    ),
+                    InlineKeyboardButton(
+                        "🔸 FORWARD 🔸", callback_data="send|forw|pm"
+                    )
+                ]]
+            )
+        )
     except Exception as error:
-        logger.exception("plugins/dm/admin/sand: %s" %(error),exc_info=True)
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
 
-# =======================================================================================> ADMIN SEMD CALLBACK <=======================================================
+# ====================================> ADMIN SEMD CALLBACK <=====================================
 send = filters.create(lambda _, __, query: query.data.startswith("send"))
 # ❌ MESSAGE BROADCAST ❌
-async def broadcast_messages(user_id, message, info):
+async def broadcast_messages(user_id: int, message, info):
     try:
         if info == "copy":
             await message.copy(chat_id=user_id)
@@ -54,7 +75,7 @@ async def broadcast_messages(user_id, message, info):
             await message.forward(chat_id=user_id)
             return True, "Success"
     except FloodWait as e:
-        await asyncio.sleep(e.x)
+        await asyncio.sleep(e.value)
         return await broadcast_messages(user_id, message, info)
     except InputUserDeactivated:
         # await db.delete_user(int(user_id))
@@ -67,6 +88,7 @@ async def broadcast_messages(user_id, message, info):
     except Exception as e:
         logger.exception("plugins/dm/admin/broadcast_messages: %s" %(e), exc_info=True)
         return False, "Error"
+
 @ILovePDF.on_callback_query(send)
 async def _send(bot, callbackQuery):
     try:
@@ -85,15 +107,20 @@ async def _send(bot, callbackQuery):
                 text = f"⚙️ Started Broadcasting..\nTOTAL {total_users} USERS 😍\n\n↓ MESSAGE ↓"
                        f"\n`{broadcast_msg.text if broadcast_msg.text else '📂 Media 📂'}`",
                 reply_markup = InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(
-                        "🔸 asForward 🔸" if __=="forw" else "🔸 asCopy 🔸", callback_data="nabilanavab")
+                    [[
+                        InlineKeyboardButton(
+                            "🔸 asForward 🔸" if __=="forw" else "🔸 asCopy 🔸",
+                            callback_data="nabilanavab"
+                        )
                     ]] 
                 ))
             start_time = time.time()
             done = 0; blocked = 0; deleted = 0; failed = 0; success = 0
             
             async for user in users:
-                iSuccess, feed = await broadcast_messages(int(user['id']), broadcast_msg, __)
+                iSuccess, feed = await broadcast_messages(
+                    int(user['id']), broadcast_msg, __
+                )
                 if iSuccess:
                     success += 1
                 elif iSuccess == False:
@@ -109,21 +136,26 @@ async def _send(bot, callbackQuery):
                     try:
                         await callbackQuery.message.edit_reply_markup(
                             InlineKeyboardMarkup(
-                                [[InlineKeyboardButton(
-                                    f"🔸 asForward({done*100}/{total_users}) 🔸" if __=="forw" else f"🔸 asCopy({done*100/total_users}) 🔸",
-                                    callback_data = "nabilanavab")
+                                [[
+                                    InlineKeyboardButton(
+                                        f"🔸 asForward({done*100}/{total_users}) 🔸" if __=="forw" else f"🔸 asCopy({done*100/total_users}) 🔸",
+                                        callback_data = "nabilanavab"
+                                    )
                                 ]]
                             ))
                     except: logger.debug("edit error - broadcast")
-            time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
+            time_taken = datetime.timedelta(seconds = int(time.time() - start_time))
             return await callbackQuery.message.edit(
                 text = f"`Broadcast Completed:`\n__Completed in__ {time_taken} __seconds ⏰__\n\n"
                        f"__Total Users:__ {total_users} 😎\n__Completed:__   {done} / {total_users} 👑\n"
                        f"__Success:__     {success} ✅\n__Blocked:__     {blocked} ❌\n"
                        f"__Deleted:__     {deleted} ⚰️\n\n",
                 reply_markup = InlineKeyboardMarkup(
-                    [[InlineKeyboardButton("🔸 asForward 🔸" if __=="forw" else "🔸 asCopy 🔸",
-                        callback_data = "nabilanavab")
+                    [[
+                        InlineKeyboardButton(
+                            "🔸 asForward 🔸" if __=="forw" else "🔸 asCopy 🔸",
+                            callback_data = "nabilanavab"
+                        )
                     ]]
                 ))
         elif ___ == "pm":
@@ -144,11 +176,17 @@ async def _send(bot, callbackQuery):
             except Exception: # if username [Exception]
                 pass
             try:
+                typ = "user"
                 userINFO = await bot.get_users(chat)
-            except Exception as e:
-                return await userID_msg.reply(
-                    f"__Can't forward message__\n__REASON:__ `{e}`", quote=True
-                )
+            except Exception:
+                typ = "group"
+            if typ == "group":
+                try:
+                    userINFO = await bot.get_chat(chat)
+                except Exception as e:
+                    return await userID_msg.reply(
+                        f"__Can't forward message__\n__REASON:__ `{e}`", quote=True
+                    )
             forward_msg = callbackQuery.message.reply_to_message
             try:
                 if __ == "copy":
@@ -162,6 +200,4 @@ async def _send(bot, callbackQuery):
         else:
             return
     except Exception as e:
-        logger.exception("plugins/dm/admin/_send: %s" %(e), exc_info=True)
-
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
