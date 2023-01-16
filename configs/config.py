@@ -57,6 +57,8 @@ class images(object):
 
 class settings(object):
     
+    SEND_RESTART = True
+    
     # set True if you want to prevent users from forwarding files from bot
     PROTECT_CONTENT = True if os.environ.get('PROTECT_CONTENT', "False") == "True" else False
     
