@@ -91,7 +91,9 @@ class Database:
     async def get_user_data(self, id) -> dict:
         user = await self.col.find_one({'id': int(id)})
         return user or None
-    
+    async def get_chat_data(self, id) -> dict:
+        user = await self.grp.find_one({'id': int(id)})
+        return user or None
     #--------------------------------- GET ALL GROUPS AND CHATS ---------------------------------------
     async def get_all_users(self):
         return self.col.find({})
