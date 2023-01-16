@@ -3,10 +3,12 @@
 
 import os
 
- # if os.environ.get("MONGODB_URI", False):
- #    from database import db
 DATA = {}                                                                    # save user api, fname, capt
                                                                              # if UPDATE_CHANNEL
+myID = []                                                                    # saves bot info
+  
+GROUPS = []                                                                  # save groups id and checks each times
+ 
 invite_link = []                                                             # just saves invitation link
 
 BANNED_USR_DB, BANNED_GRP_DB = [], []                                        # Load Banned Users Id
