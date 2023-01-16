@@ -1,22 +1,23 @@
 # fileName : plugins/dm/document.py
 # copyright ©️ 2021 nabilanavab
-
+fileName = "plugins/dm/document.py"
+    
 import convertapi
-from pdf import PDF
-from .photo import HD
-from PIL import Image
 import os, time, fitz
 import shutil, asyncio
-from pdf import PROCESS
-from logger import logger
-from plugins.util import *
-from configs.log import log
-from configs.db import DATA
+
+from plugins.util   import *
 from plugins.render import *
-from pyrogram import filters, enums
-from pyrogram import Client as ILovePDF
+from .photo         import HD
+from configs.log    import log
+from pdf            import PDF
+from plugins.work   import work
+from configs.db     import DATA
+from PIL            import Image
+from logger         import logger
 from configs.config import settings, images
-from plugins.thumbName import thumbName, formatThumb
+from plugins.fncta  import thumbName, formatThumb
+from pyrogram       import Client as ILovePDF, filters, enums
 
 try:
     import aspose.words as word
@@ -56,11 +57,11 @@ cnvrt_api_2PDF = [
 ]                                       # file to pdf (ConvertAPI limit)
 
 # ==================| PYMUPDF FILES TO PDF |===========================================================================================================================
-async def pymuConvert2PDF(message, edit, input_file, lang_code):
+async def pymuConvert2PDF(cDIR, edit, input_file, lang_code):
     try:
         with fitz.open(input_file) as doc:
             with fitz.open("pdf", doc.convert_to_pdf()) as pdf:
-                pdf.save(f"{message.id}/outPut.pdf", garbage=4, deflate=True,)
+                pdf.save(f"{cDIR}/outPut.pdf", garbage=4, deflate=True,)
         return True
     except Exception as e:
         tTXT, tBTN = await translate(text="document['error']", lang_code=lang_code)
@@ -71,13 +72,13 @@ async def pymuConvert2PDF(message, edit, input_file, lang_code):
         return False
 
 # ================================| ConvertAPI FILES TO PDF |=========================================================================================================
-async def cvApi2PDF(message, edit, input_file, lang_code, API):
+async def cvApi2PDF(cDIR, edit, input_file, lang_code, API):
     try:
         convertapi.api_secret = API
         fileNm, fileExt = os.path.splitext(input_file)
         convertapi.convert(
             "pdf", {"File": f"{input_file}"}, from_format = fileExt[1:],
-        ).save_files(f"{message.id}/outPut.pdf")
+        ).save_files(f"{cDIR}/outPut.pdf")
         return True
     except Exception as e:
         tTXT, tBTN = await translate(text="document['error']", lang_code=lang_code)
@@ -85,10 +86,10 @@ async def cvApi2PDF(message, edit, input_file, lang_code, API):
         return False
 
 # =================================================================================================================================| WORD FILES TO PDF |===============
-async def word2PDF(message, edit, input_file, lang_code):
+async def word2PDF(cDIR, edit, input_file, lang_code):
     try:
         doc = word.Document(input_file)
-        doc.save(f"{message.id}/outPut.pdf")
+        doc.save(f"{cDIR}/outPut.pdf")
         return True
     except Exception as e:
         tTXT, tBTN = await translate(text="document['error']", lang_code=lang_code)
@@ -97,22 +98,25 @@ async def word2PDF(message, edit, input_file, lang_code):
 
 # ====================================================================================| REPLY TO DOC. FILES |==========================================================
 @ILovePDF.on_message(filters.private & filters.incoming & filters.document)
+
 async def documents(bot, message):
     try:
         # refresh causes error ;) so, try
         try: await message.reply_chat_action(enums.ChatAction.TYPING)
         except Exception: pass
         lang_code = await getLang(message.chat.id)
-        CHUNK, _ = await translate(text="document", lang_code=lang_code)
-        if message.from_user.id in PROCESS:
-            tBTN = await createBUTTON(await editDICT(inDir=CHUNK["refresh"], value="refresh"))   # sends refresh msg if any
-            return await message.reply_text(CHUNK["inWork"], reply_markup=tBTN, quote=True)   # work exists
-        org_file_name = message.document.file_name        # file name
-        fileSize = message.document.file_size             # file size
-        fileNm, fileExt = os.path.splitext(org_file_name) # seperate name & extension
+        CHUNK, _ = await translate(text="document", lang_code = lang_code)
+        if await work(message, "check", True):
+            tBTN = await createBUTTON(
+                await editDICT(inDir = CHUNK["refresh"], value = "refresh")
+            )   # sends refresh msg if any
+            return await message.reply_text(
+                CHUNK["inWork"], reply_markup = tBTN, quote = True
+            )   # work exists
+        fileNm, fileExt = os.path.splitext(message.document.file_name) # seperate name & extension
         
         # REPLY TO LAGE FILES/DOCUMENTS
-        if MAX_FILE_SIZE and fileSize >= int(MAX_FILE_SIZE_IN_kiB):
+        if MAX_FILE_SIZE and message.document.file_size >= int(MAX_FILE_SIZE_IN_kiB):
             tBTN = await createBUTTON(CHUNK["bigCB"])
             return await message.reply_photo(
                 photo = images.BIG_FILE, caption = CHUNK["big"].format(MAX_FILE_SIZE, MAX_FILE_SIZE),
@@ -126,7 +130,8 @@ async def documents(bot, message):
             await asyncio.sleep(0.5)
             tBTN = await createBUTTON(CHUNK["replyCB"])
             await pdfMsgId.edit(
-                text = CHUNK["reply"].format(org_file_name, await gSF(fileSize)), reply_markup = tBTN
+                text = CHUNK["reply"].format(message.document.file_name,
+                await gSF(message.document.file_size)), reply_markup = tBTN
             )
             logFile = message
         
@@ -167,53 +172,58 @@ async def documents(bot, message):
             if (fileExt.lower() in wordFiles) and not wordSupport:
                 return await message.reply_text(CHUNK["useDOCKER"], quote = True)
             
-            PROCESS.append(message.from_user.id)
+            cDIR = await work(message, "create", True)
             tBTN = await createBUTTON(CHUNK["cancelCB"])
-            pdfMsgId = await message.reply_text(CHUNK["download"], reply_markup=tBTN, quote = True)
-            input_file = f"{message.id}/input_file{fileExt}"
+            pdfMsgId = await message.reply_text(CHUNK["download"], reply_markup = tBTN, quote = True)
+            input_file = f"{cDIR}/input_file{fileExt}"
             # DOWNLOAD PROGRESS
             downloadLoc = await bot.download_media(
                 message = message.document.file_id, file_name = input_file, progress = progress,
                 progress_args = (message.document.file_size, pdfMsgId, time.time())
             )
             # CHECKS PDF DOWNLOADED OR NOT
-            if downloadLoc is None:
-                PROCESS.remove(chat_id)
-                return
+            if os.path.getsize(downloadLoc) != message.document.file_size:    
+                return await work(message, "delete", True)
+            
             await pdfMsgId.edit(CHUNK['takeTime'], reply_markup=tBTN)
             
             # WHERE REAL CODEC CONVERSATION OCCURS
             if fileExt.lower() in pymu2PDF:
                 FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(message, f"{fileNm}.pdf")
-                isError = await pymuConvert2PDF(message, pdfMsgId, input_file, lang_code)
+                isError = await pymuConvert2PDF(cDIR, pdfMsgId, input_file, lang_code)
             
             elif fileExt.lower() in cnvrt_api_2PDF:
                 FILE_NAME, FILE_CAPT, THUMBNAIL, API = await thumbName(message, f"{fileNm}.pdf", getAPI=True)
                 API = API if not(API == False) else settings.CONVERT_API
-                isError = await cvApi2PDF(message, pdfMsgId, input_file, lang_code, API)
+                isError = await cvApi2PDF(cDIR, pdfMsgId, input_file, lang_code, API)
             
             elif fileExt.lower() in wordFiles:
                 FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(message, f"{fileNm}.pdf")
-                isError = await word2PDF(message, pdfMsgId, input_file, lang_code)
+                isError = await word2PDF(cDIR, pdfMsgId, input_file, lang_code)
             
             if not isError:
-                PROCESS.remove(message.from_user.id)
-                shutil.rmtree(f"{message.id}")
-                return
+                return await work(message, "delete", True)
             
             if images.PDF_THUMBNAIL != THUMBNAIL:
-                location = await bot.download_media(message = THUMBNAIL, file_name = f"{message.id}.jpeg")
+                location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/thumb.jpeg")
                 THUMBNAIL = await formatThumb(location)
             
             await pdfMsgId.edit(CHUNK['upFile'], reply_markup=tBTN)
             await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
             logFile = await message.reply_document(
-                file_name = FILE_NAME, document = open(f"{message.id}/outPut.pdf", "rb"),
-                thumb = THUMBNAIL, caption = CHUNK["fromFile"].format(fileExt, "pdf") + f"\n\n{FILE_CAPT}",
-                quote = True, progress = uploadProgress, progress_args = (pdfMsgId, time.time()),
-                reply_markup = await createBUTTON(btn={"👍" : "try+", "👎" : "try-"}) if fileExt.lower() in pymu2PDF else None
+                file_name = FILE_NAME,
+                document = open(f"{cDIR}/outPut.pdf", "rb"),
+                thumb = THUMBNAIL,
+                caption = CHUNK["fromFile"].format(fileExt, "pdf") + f"\n\n{FILE_CAPT}",
+                quote = True,
+                progress = uploadProgress,
+                progress_args = (pdfMsgId, time.time()),
+                reply_markup = await createBUTTON(
+                    btn = {"👍" : "try+", "👎" : "try-"}
+                ) if fileExt.lower() in pymu2PDF else None
             )
-            await pdfMsgId.delete(); PROCESS.remove(message.from_user.id); shutil.rmtree(f"{message.id}")
+            await pdfMsgId.delete()
+            await work(message, "delete", True)
         
         # UNSUPPORTED FILES
         else:
@@ -222,9 +232,6 @@ async def documents(bot, message):
         await log.footer(message, output=logFile, lang_code=lang_code)
     except Exception as e:
         logger.exception("plugins/dm/document: %s" %(e), exc_info=True)
-        try: shutil.rmtree(f"{message.id}")
-        except Exception:
-            try: PROCESS.remove(message.from_user.id)
-            except Exception: pass
+        await work(message, "delete", True)
 
 # ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
