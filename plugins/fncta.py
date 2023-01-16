@@ -1,4 +1,4 @@
-# fileName : plugins/thumbName.py
+# fileName : plugins/fncta.py
 # copyright ©️ 2021 nabilanavab
 
 import os
