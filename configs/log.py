@@ -29,15 +29,24 @@ class log:
             if not await db.is_chat_exist(message.chat.id):
                 await db.add_chat(message.chat.id, message.chat.title)
                 if log.LOG_CHANNEL:
-                    try:
-                        total = await bot.get_chat_members_count(message.chat.id)
-                        await bot.send_message(
-                            chat_id = int(log.LOG_CHANNEL),
-                            text = log.LOG_TEXT_C.format(message.chat.id, message.chat.title, total, message.chat.username if message.chat.username else "❌"),
-                            reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("✅ B@N ✅", callback_data = f"banC|{message.chat.id}")]])
+                    total = await bot.get_chat_members_count(message.chat.id)
+                    await bot.send_message(
+                        chat_id = int(log.LOG_CHANNEL),
+                        text = log.LOG_TEXT_C.format(
+                            message.chat.id,
+                            message.chat.title,
+                            total,
+                            message.chat.username if message.chat.username else "❌"
+                        ),
+                        reply_markup = InlineKeyboardMarkup(
+                            [[
+                                InlineKeyboardButton(
+                                    "✅ B@N ✅", callback_data = f"banC|{message.chat.id}"
+                                )
+                            ]]
                         )
-                    except Exception as e:
-                        logger.debug(f"Error in new Group Log: {e}")
+                    )
+        
         elif message.chat.type == ChatType.PRIVATE:
             if not await db.is_user_exist(message.from_user.id):
                 if referID != -1:
@@ -49,15 +58,22 @@ class log:
                 if log.LOG_CHANNEL:
                     for i in range(200):
                         try:
-                            await bot.send_message(
+                            return await bot.send_message(
                                 chat_id = int(log.LOG_CHANNEL),
-                                text = log.LOG_TEXT.format(message.from_user.id, message.from_user.mention) \
-                                       + f"\nRefered By : [{referID}](tg://user?id={referID})",
-                                reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("✅ B@N USER ✅", callback_data = f"banU|{message.from_user.id}")]])
+                                text = log.LOG_TEXT.format(
+                                    message.from_user.id,
+                                    message.from_user.mention) \
+                                    + f"\nRefered By : [{referID}](tg://user?id={referID})",
+                                reply_markup = InlineKeyboardMarkup(
+                                    [[
+                                        InlineKeyboardButton(
+                                            "✅ B@N USER ✅", callback_data = f"banU|{message.from_user.id}"
+                                        )
+                                    ]]
+                                )
                             )
-                            return
                         except FloodWait as e:
-                            await asyncio.sleep(e.x)
+                            await asyncio.sleep(e.value)
                         except Exception as e:
                             logger.debug(f"Error in new User Log: {e}")
                             return
@@ -68,15 +84,16 @@ class log:
                     await db.set_key(message.from_user.id, "lang", lang_code)
     
     async def footer(message, input=None, output=None, lang_code=settings.DEFAULT_LANG):
-        file = input if input else output; await sleep(3)
-        tTXT, _ = await translate(text="feedbackMsg", lang_code=lang_code)
-        await message.reply(tTXT)
+        file = input.reply_to_message if input else output     # input here means /check will be message so file will be replied message
+        #await sleep(10)
+        #tTXT, _ = await translate(text="feedbackMsg", lang_code=lang_code)
+        #await message.reply(tTXT)
         if log.LOG_CHANNEL and file:
             if message.chat.type == ChatType.PRIVATE:
                 banUserCB = InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(
-                        "✅ B@N USER ✅",
-                        callback_data = f"banU|{file.chat.id}")
+                    [[
+                        InlineKeyboardButton(
+                            "✅ B@N USER ✅", callback_data = f"banU|{file.chat.id}")
                     ]]
                 )
                 captionLOG = f"""#newFile @nabilanavab/ILovePDF
@@ -88,31 +105,34 @@ __user ID:__ `{file.chat.id}`"""
             
             else:
                 banUserCB = InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(
-                        "✅ B@N USER ✅",
-                        callback_data = f"banU|{message.from_user.id}" if not CB else f"banU|{CB}")
+                    [[
+                        InlineKeyboardButton(
+                            "✅ B@N USER ✅", callback_data = f"banU|{file.from_user.id}"
+                        )
                     ],[
-                        InlineKeyboardButton("✅ B@N CHAT ✅",
-                        callback_data = f"banC|{message.chat.id}")
+                        InlineKeyboardButton(
+                            "✅ B@N CHAT ✅", callback_data = f"banC|{file.chat.id}"
+                        )
                     ]]
                 )
                 captionLOG = f"""#newFile @nabilanavab/ILovePDF
 
-__chat type:__ `{message.chat.type} 👥`
-__chat title:__ `{message.chat.title}`
-__username:__ {'@{}'.format(message.chat.username) if {message.chat.username} is not None else " ❌ "}
+__chat type:__ `{file.chat.type} 👥`
+__chat title:__ `{file.chat.title}`
+__username:__ {'@{}'.format(file.chat.username) if {file.chat.username} is not None else " ❌ "}
 
-__user profile:__ {message.from_user.mention}
-__user ID:__ `{message.from_user.id}`"""
+__user profile:__ {file.from_user.mention}
+__user ID:__ `{file.from_user.id}`"""
             
             for i in range (200):
                 try:
-                    await file.copy(
-                        chat_id = int(log.LOG_CHANNEL), caption = captionLOG, reply_markup = banUserCB if dataBASE.MONGODB_URI else None
+                    return await file.copy(
+                        chat_id = int(log.LOG_CHANNEL),
+                        caption = captionLOG,
+                        reply_markup = banUserCB if dataBASE.MONGODB_URI else None
                     )
-                    return
                 except FloodWait as e:
-                    await asyncio.sleep(e.x)
+                    await asyncio.sleep(e.wait)
                 except Exception as e:
                     logger.debug(f"Error in new User Log: {e}")
                     return
