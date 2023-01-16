@@ -1,27 +1,39 @@
 # fileName : plugins/render.py
 # copyright ©️ 2021 nabilanavab
 
-from pdf import PROCESS
-from logger import logger
-from plugins.util import *
-from configs.config import dm
-import fitz, shutil, time, math
-from pyrogram.types import Message
-from pyrogram import Client, filters, enums
+import fitz, time, math
+from .util                 import *
+from .work                 import work
+from logger                import logger
+from pyrogram.types        import Message
+from configs.config        import dm, settings
+from pyrogram              import Client, filters
+from pyrogram.enums        import ChatMemberStatus, ChatType, ChatAction
 
 #======================================= CHECKS CALLBACKQUERY USER ====================================================================================================
-async def header(bot, callbackQuery):
-    # callBack Message delete if User Deletes pdf
+async def header(bot, callbackQuery, lang_code=settings.DEFAULT_LANG, doc=True):
     try:
-        fileExist = callbackQuery.message.reply_to_message
+        if not doc:
+            if (callbackQuery.message.chat.type != ChatType.PRIVATE  and
+                callbackQuery.from_user.id not in dm.ADMINS
+            ):
+                userStat = await bot.get_chat_member(callbackQuery.message.chat.id, callbackQuery.from_user.id)
+                if userStat.status not in [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]:
+                    _, __ = await translate(text="BAN['cbNotU']", lang_code=lang_code)
+                    await callbackQuery.answer(_, show_alert = True)
+                    return True
+            return False
         
-        if (callbackQuery.message.chat.type != enums.ChatType.PRIVATE and 
+        fileExist = callbackQuery.message.reply_to_message    # callBack Message delete if User Deletes pdf
+        
+        if (callbackQuery.message.chat.type != ChatType.PRIVATE and 
             callbackQuery.from_user.id != callbackQuery.message.reply_to_message.from_user.id and 
             callbackQuery.from_user.id not in dm.ADMINS
         ):
             userStat = await bot.get_chat_member(callbackQuery.message.chat.id, callbackQuery.from_user.id)
-            if userStat.status not in ["administrator", "creator"]:
-                await callbackQuery.answer("Message Not For You.. :(")
+            if userStat.status not in [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]:
+                _, __ = await translate(text="BAN['cbNotU']", lang_code=lang_code)
+                await callbackQuery.answer(_, show_alert = True)
                 return True
         return False
     except Exception as e:
@@ -42,11 +54,7 @@ async def gSF(b, factor=2**10, suffix="B"):    # get_size_format
 #====================== CHECKS PDF CODEC, IS ENCRYPTED OR NOT =========================================================================================================
 async def checkPdf(file_path, callbackQuery):
     try:
-        chat_id = callbackQuery.message.chat.id
-        message_id = callbackQuery.message.id
-        fileName = callbackQuery.message.reply_to_message.document.file_name
-        fileSize = callbackQuery.message.reply_to_message.document.file_size
-        lang_code = await getLang(chat_id)
+        lang_code = await getLang(callbackQuery.message.chat.id)
         CHUNK, _ = await translate(text="checkPdf", lang_code=lang_code)
         
         with fitz.open(file_path) as doc:
@@ -62,24 +70,26 @@ async def checkPdf(file_path, callbackQuery):
                 pdfMetaData = ""
                 try:
                     await callbackQuery.edit_message_text(
-                        text = CHUNK["encrypt"].format(fileName, await gSF(fileSize)) + "\n\n"
+                        text = CHUNK["encrypt"].format(
+                            callbackQuery.message.reply_to_message.document.file_name,
+                            await gSF(callbackQuery.message.reply_to_message.document.file_size)
+                        ) + "\n\n"
                              + CHUNK["pg"].format(number_of_pages) + "\n\n" + pdfMetaData,
                         reply_markup = await createBUTTON(CHUNK["encryptCB"])
                     )
                 except Exception: pass
                 if callbackQuery.data != "work|decrypt":
-                    PROCESS.remove(chat_id)
-                    # try Coz(at the time of merge there is no such dir but checking)
-                    try:
-                        shutil.rmtree(f'{message_id}')
-                    except Exception: pass
+                    await work(callbackQuery, "delete", False)
                 return "encrypted", number_of_pages
             else:
                 if callbackQuery.data != "merge":
                     await callbackQuery.edit_message_text(
-                        text = CHUNK["pdf"].format(fileName, await gSF(fileSize)) + "\n\n"
+                        text = CHUNK["pdf"].format(
+                            callbackQuery.message.reply_to_message.document.file_name,
+                            await gSF(callbackQuery.message.reply_to_message.document.file_size)
+                        ) + "\n\n"
                              + CHUNK["pg"].format(number_of_pages) + "\n\n" + pdfMetaData,
-                        reply_markup = await createBUTTON(CHUNK["pdfCB"])
+                        reply_markup = await createBUTTON(CHUNK["pdfCB1"])
                     )
                 return "pass", number_of_pages
     # CODEC ERROR
@@ -89,11 +99,7 @@ async def checkPdf(file_path, callbackQuery):
             text = CHUNK["error"],
             reply_markup = await createBUTTON(CHUNK["errorCB"], order=11)
         )
-        PROCESS.remove(chat_id)
-        # try Coz(at the time of merge there is no such dir but checking)
-        try:
-            shutil.rmtree(f'{message_id}')
-        except Exception: pass
+        await work(callbackQuery, "delete", False)
         return "notPdf", "🚫"
 
 #=================================================================================== DOC. DOWNLOAD PROGRESS ===========================================================
@@ -117,14 +123,14 @@ async def progress(current, t, total, message, start):
             await gSF(current), await gSF(total), await gSF(speed),
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
-        await message.edit_text(text="DOWNLOADING.. 📥\n{}".format(tmp), reply_markup=tBTN)
+        await message.edit_text(text="DOWNLOADING.. 📥\n{}".format(tmp)[:1000], reply_markup=tBTN)
 
 #========================================================================================================================== DOC. UPLOADING PROGRESS ===================
 async def uploadProgress(current, total, message, start):
     now = time.time(); diff = now - start
     
     if round(diff % 10) in [0, 8] or current == total:
-        await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
+        await message.reply_chat_action(ChatAction.UPLOAD_DOCUMENT)
         percentage = current * 100 / total
         speed = current / diff
         time_to_completion = round((total - current)/speed)*1000
