@@ -2,28 +2,36 @@
 # copyright ©️ 2021 nabilanavab
 
 import asyncio
-from logger import logger
-from plugins.util import *
-from pyrogram import filters
-from configs.db import dataBASE
-from plugins.render import header
-from lang import langList, disLang
-from lang.__users__ import userLang
-from pyrogram.enums import ChatType
-from pyrogram import Client as ILovePDF
-from pyrogram.types import InputMediaPhoto
-from configs.config import dm, images, settings as set
-from configs.db import CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C, DATA
+from plugins.util           import *
+from logger                 import logger
+from pyrogram               import filters
+from lang.__users__         import userLang
+from configs.db             import dataBASE, myID
+from pyrogram.types         import InputMediaPhoto
+from lang                   import langList, disLang
+from pyrogram               import Client as ILovePDF
+from pyrogram.enums         import ChatType, ChatMemberStatus
+from configs.config         import dm, images, settings as set
+from configs.db             import CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C, DATA
 
 if dataBASE.MONGODB_URI:
     from database import db
 
 settings = filters.create(lambda _, __, query: query.data.startswith("set"))
+
 @ILovePDF.on_callback_query(settings)
 async def _settings(bot, callbackQuery):
     try:
         lang_code = await getLang(callbackQuery.message.chat.id)
         data = callbackQuery.data.split("|", 1)[1]
+        
+        if not(data.startswith("set|lang")) and (
+            callbackQuery.message.chat.type != ChatType.PRIVATE and 
+            callbackQuery.from_user.id not in dm.ADMINS
+        ):
+            userStat = await bot.get_chat_member(callbackQuery.message.chat.id, callbackQuery.from_user.id)
+            if userStat.status not in [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]:
+                return await callbackQuery.answer("😑")
         
         if data == "B":        # Home|B will redirect to settings
             if not dataBASE.MONGODB_URI:
@@ -37,7 +45,7 @@ async def _settings(bot, callbackQuery):
             else:
                 data = await db.get_user_data(callbackQuery.message.chat.id)
                 if not data:    # if monogo data fetching fails
-                     error, errorCB = await translate(text="SETTINGS['error']", button="SETTINGS['errorCB']", lang_code=lang_code)
+                     error, errorCB = await translate(text="SETTINGS['error']", button="SETTINGS['back'][0]", lang_code=lang_code)
                      return await callbackQuery.edit_message_caption(caption=error, reply_markup=errorCB)
                 
                 defalt, _ = await translate(text="SETTINGS['default']", lang_code=lang_code)
@@ -62,30 +70,31 @@ async def _settings(bot, callbackQuery):
 
         user_id = callbackQuery.from_user.id; chat_id = callbackQuery.message.chat.id; chat_type = callbackQuery.message.chat.type
         
-        if chat_type != ChatType.PRIVATE:
-            return await callbackQuery.answer()
-        
-        elif data.startswith("lang"):    # getLang
+        if data.startswith("lang"):    # getLang
             if not set.MULTI_LANG_SUP:
                 cant, _ = await translate(text="SETTINGS['cant']", lang_code=lang_code)
                 return await callbackQuery.answer(cant)
             if data == "lang":
                 change, _ = await translate(text="SETTINGS['chgLang']", lang_code=lang_code)
                 _lang = { langList[lang][1]:f"set|lang|{lang}" for lang in langList if lang != lang_code }
-                change.update(_lang); back, _ = await translate(text="SETTINGS['back']", lang_code=lang_code)
+                change.update(_lang); back, _ = await translate(text="SETTINGS['back'][1]", lang_code=lang_code)
                 change.update(back); change = await createBUTTON(btn=change, order=int(f"1{((len(change)-2)//3)*'3'}{(len(change)-2)%3}1"))
                 tTXT, _ = await translate(text="SETTINGS['lang']", lang_code=lang_code); await callbackQuery.answer(tTXT)
                 return await callbackQuery.message.edit_reply_markup(change)
             else:
                 lang = data.split("|", 1)[1]; userLang[chat_id] = lang
                 if dataBASE.MONGODB_URI:
-                    if lang != set.DEFAULT_LANG:
-                        await db.set_key(callbackQuery.message.chat.id, "lang", lang)
-                    else:
-                        await db.dlt_key(callbackQuery.message.chat.id, "lang")
+                    if chat_type == ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                        await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang)
+                    elif chat_type != ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                        await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang, typ="group")
+                    elif chat_type != ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                        await db.dlt_key(id=callbackQuery.message.chat.id, key="lang")
+                    elif chat_type != ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                        await db.dlt_key(id=callbackQuery.message.chat.id, key="lang", typ="group")
             _, __ = await translate(text="SETTINGS['feedback']", button="SETTINGS['feedbtn']", lang_code=lang)
             await callbackQuery.message.reply_text(text=_.format(await disLang(lang)), reply_markup=__)
-            
+        
         elif data.startswith("thumb"):
             if data == "thumb":
                 if user_id in CUSTOM_THUMBNAIL_U:
@@ -196,12 +205,22 @@ async def _settings(bot, callbackQuery):
         if not data.endswith("+"):    # for successful cbMGS, add wait for use & cb expires
             result, _ = await translate(text="SETTINGS['result'][1]", lang_code=lang_code)
             await callbackQuery.answer(result)
-        await callbackQuery.edit_message_media(InputMediaPhoto(images.WELCOME_PIC))
-        tTXT, tBTN = await translate(
-            text="HOME['HomeA']", lang_code=lang if data.startswith("lang") else lang_code,
-            button="HOME['HomeACB']" if callbackQuery.message.chat.id not in dm.ADMINS else "HOME['HomeAdminCB']"
+        if callbackQuery.message.chat.type == ChatType.PRIVATE:
+            await callbackQuery.edit_message_media(InputMediaPhoto(images.WELCOME_PIC))
+            tTXT, tBTN = await translate(
+                text = "HOME['HomeA']", lang_code=lang if data.startswith("lang") else lang_code,
+                button = "HOME['HomeACB']" if callbackQuery.message.chat.id not in dm.ADMINS else "HOME['HomeAdminCB']",
+                order = 2121 if callbackQuery.message.chat.id not in dm.ADMINS else 21221
+            )
+        else:
+            tTXT, tBTN = await translate(
+                text="HomeG['HomeA']", button="HomeG['HomeACB']",
+                lang_code=lang if data.startswith("lang") else lang_code
+            )
+        return await callbackQuery.edit_message_caption(
+            caption = tTXT.format(callbackQuery.from_user.mention, myID[0].mention),
+            reply_markup = tBTN
         )
-        return await callbackQuery.edit_message_caption(caption=tTXT.format(callbackQuery.from_user.first_name, callbackQuery.from_user.id), reply_markup=tBTN)
     
     except Exception as e:
         logger.debug(f"plugins/dm/callBack/settings : {e}", exc_info=True)
