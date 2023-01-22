@@ -107,9 +107,10 @@ async def _link(bot, callbackQuery):
         await sleep(1)
         file = await callbackQuery.message.reply_to_message.copy(
             int(log.LOG_CHANNEL),
-            caption = f"""🔗 **from:** {callbackQuery.from_user.mention}\n    **chat:** `•{callbackQuery.from_user.id}•`"""
-                      f"""    **message:** `•{callbackQuery.message.id}•`"""
-                      f"""\n\n**{content}**\n**{notify}**"""
+            caption = f"🔗 **from:** {callbackQuery.from_user.mention}\n"
+                      f"    **chat:** `•{callbackQuery.from_user.id}•`\n"
+                      f"    **message:** `•{callbackQuery.message.id}•`"
+                      f"\n\n**{content}**\n**{notify}**"""
         )
         
         string_bytes = f"{file.id}".encode("ascii")
