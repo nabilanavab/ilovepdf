@@ -35,6 +35,9 @@ async def _hd(bot, message):
 @ILovePDF.on_message(filters.photo & filters.private & filters.incoming)
 async def images(bot, message):
     try:
+        # ignore images from inline results
+        if message.via_bot and message.via_bot.is_self:
+            return
         await message.reply_chat_action(enums.ChatAction.TYPING)
         lang_code = await getLang(message.chat.id)
         if message.chat.id in HD:
