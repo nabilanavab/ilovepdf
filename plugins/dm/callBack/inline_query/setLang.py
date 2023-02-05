@@ -1,40 +1,58 @@
-# fileName: plugins/dm/callBack/inline_query/setLang.py
+# fileName: plugins/dm/callBack/inline_query/__index__.py
 # copyright ©️ 2021 nabilanavab
-fileName = "plugins/dm/callBack/inline_query/setLang.py"
+fileName = "plugins/dm/callBack/inline_query/__index__.py"
 
-from plugins.util    import *
-from configs.db      import myID
-from configs.config  import images
+import requests
+from configs.log     import log
 from logger          import logger
-from lang            import langList
+from .default        import lang_cb
+from .               import inline_data
+from bs4             import BeautifulSoup
+from .query          import create_result
 from pyrogram        import Client as ILovePDF
-from pyrogram.types  import (InputTextMessageContent, InlineKeyboardMarkup,
-                             InlineKeyboardButton, InlineQueryResultPhoto)
 
 @ILovePDF.on_inline_query()
 async def setLang(bot, inline_query):
     try:
-        lang_code = await getLang(inline_query.from_user.id)
-        CHUNK, _ = await translate(text="inline_query", lang_code=lang_code)
+        global inline_data
         
-        BUTTON1 = CHUNK['TOP']
-        _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=-l{lang}" for lang in langList }
-        BUTTON1.update(_lang); BUTTON1.update({"♻" : "-|refresh"})
-        BUTTON1 = await createBUTTON(btn=BUTTON1, order=int(f"1{((len(BUTTON1)-2)//3)*'3'}{(len(BUTTON1)-2)%3}1"))
-        
-        await inline_query.answer(
-            results = [
-                InlineQueryResultPhoto(
-                    photo_url = images.THUMBNAIL_URL, reply_markup = BUTTON1, title = "i ❤ PDF",
-                    input_message_content = InputTextMessageContent(
-                          "set Language: 🌐\n\n"
-                          f"i ❤ PDF\nBot: @{myID[0].username}\n"
-                          "Update Channel: @ilovepdf_bot"),
-                    caption = CHUNK['capt'], description = CHUNK['des']
+        if log.LOG_CHANNEL and inline_query.query not in ["", " "]:
+            query = inline_query.query.replace(" ", "-")
+            # replace this with the actual URL of the PDF file on PDF Drive
+            # url = f"https://www.pdfdrive.com/{query}-books.html"
+            url = f"https://www.pdfdrive.com/search?q={query}"
+            
+            firstPG = requests.get(url)
+            firstSOUP = BeautifulSoup(firstPG.content, 'html.parser')
+            
+            data = {}
+            for i, a in enumerate(firstSOUP.find_all("div", {"class":"col-sm"}), start=1):
+                data[i] = dict()
+                data[i]["id"] = a.a.get_attribute_list("data-id")[0]
+                data[i]["href"] = a.a.get_attribute_list("href")[0]
+                
+                span = ""
+                infos = a.find_all("span")
+                for info in infos:
+                    span += info.text
+                
+                data[i]["span"] = span
+                data[i]["thumb"] = a.img.get_attribute_list("src")[0]
+                data[i]["title"] = a.img.get_attribute_list("title")[0]
+            
+            inline_data[inline_query.from_user.id] = data
+            answer = await create_result(data, inline_query.query)
+            if data != dict():
+                return await inline_query.answer(
+                    cache_time = 1,
+                    results = answer,
+                    is_gallery = False
                 )
-            ]
+        
+        answer = await lang_cb(inline_query)
+        return await inline_query.answer(
+            results = answer, is_gallery = True
         )
+        
     except Exception as e:
-        logger.debug("Error in inline_query: %s" %(e), exc_info=True)
-
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
