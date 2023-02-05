@@ -147,7 +147,6 @@ async def pdfDriver(bot, callbackQuery):
         await bot.edit_inline_media(
             inline_message_id = callbackQuery.inline_message_id,
             media = InputMediaDocument(
-                thumb = getMSG.photo,
                 media = download_link if telegram_can else path,
                 caption = getMSG.caption.split("°")[1]
             ),
