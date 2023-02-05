@@ -33,7 +33,7 @@ async def setLang(bot, inline_query):
                 span = ""
                 infos = a.find_all("span")
                 for info in infos:
-                    span += f"{info.text}\n" if info.text != ("•")
+                    span += f"{info.text}\n" if info.text != "•" else ""
                 
                 data[i]["span"] = span
                 data[i]["thumb"] = a.img.get_attribute_list("src")[0]
