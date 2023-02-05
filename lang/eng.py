@@ -570,21 +570,21 @@ Now, please enter the NEW NAME:__
     "ren_caption" : "__New Name:__ `{}`", 
     "notENCRYPTED" : "`File is Not Encrypted..` 👀",
     "compress" : """⚙️ ```Started Compressing.. 🌡️
-It might take some time..``` 💛""",
+It might take some time..```💛""",
     "decrypt" : """⚙️ ```Started Decrypting.. 🔓
-It might take some time..``` 💛""",
+It might take some time..```💛""",
     "encrypt" : """⚙️ ```Started Encrypting.. 🔐
-It might take some time..``` 💛""",
+It might take some time..```💛""",
     "ocr" : """⚙️ ```Adding OCR Layer.. ✍️
-It might take some time..``` 💛""",
+It might take some time..```💛""",
     "format" : """⚙️ ```Started Formatting.. 🤘
-It might take some time..``` 💛""",
+It might take some time..```💛""",
     "rename" : """⚙️ ```Renameing PDf.. ✏️
-It might take some time..``` 💛""",
+It might take some time..```💛""",
     "rot" : """⚙️ ```Rotating PDf.. 🤸
-It might take some time..``` 💛""",
+It might take some time..```💛""",
     "pdfTxt" : """⚙️ ```Extracting Text.. 🐾
-It might take some time..``` 💛""",
+It might take some time..```💛""",
     "fileNm" : """Old Filename: {}
 New Filename: {}""",
     "rotate" : {
