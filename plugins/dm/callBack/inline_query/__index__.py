@@ -31,12 +31,12 @@ async def setLang(bot, inline_query):
                 data[i]["id"] = a.a.get_attribute_list("data-id")[0]
                 data[i]["href"] = a.a.get_attribute_list("href")[0]
                 
-                span = ""
-                infos = a.find_all("span")
-                for info in infos:
-                    span += info.text
+                #span = ""
+                #infos = a.find_all("span")
+                #for info in infos:
+                #    span += info.text
                 
-                data[i]["span"] = span
+                data[i]["span"] = a.find_all("span") #span
                 data[i]["thumb"] = a.img.get_attribute_list("src")[0]
                 data[i]["title"] = a.img.get_attribute_list("title")[0]
             
