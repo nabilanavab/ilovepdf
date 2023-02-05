@@ -16,14 +16,13 @@ async def setLang(bot, inline_query):
     try:
         global inline_data
         
-        if log.LOG_CHANNEL and inline_query.query not in ["", " "]:
+        if log.LOG_CHANNEL and inline_query.query != "":
             query = inline_query.query.replace(" ", "-")
             # replace this with the actual URL of the PDF file on PDF Drive
             # url = f"https://www.pdfdrive.com/{query}-books.html"
             url = f"https://www.pdfdrive.com/search?q={query}"
             
-            firstPG = requests.get(url)
-            firstSOUP = BeautifulSoup(firstPG.content, 'html.parser')
+            firstSOUP = BeautifulSoup(requests.get(url).content, 'html.parser')
             
             data = {}
             for i, a in enumerate(firstSOUP.find_all("div", {"class":"col-sm"}), start=1):
@@ -31,12 +30,12 @@ async def setLang(bot, inline_query):
                 data[i]["id"] = a.a.get_attribute_list("data-id")[0]
                 data[i]["href"] = a.a.get_attribute_list("href")[0]
                 
-                #span = ""
-                #infos = a.find_all("span")
-                #for info in infos:
-                #    span += info.text
+                span = ""
+                infos = a.find_all("span")
+                for info in infos:
+                    span += f"{info.text}\n" if info.text != ("•")
                 
-                data[i]["span"] = a.find_all("span") #span
+                data[i]["span"] = span
                 data[i]["thumb"] = a.img.get_attribute_list("src")[0]
                 data[i]["title"] = a.img.get_attribute_list("title")[0]
             
