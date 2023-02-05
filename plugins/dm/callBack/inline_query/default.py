@@ -36,13 +36,13 @@ async def lang_cb(inline_query) -> list:
                             switch_inline_query_current_chat = ""
                         ),
                         InlineKeyboardButton(
-                            text = "📍 SEARCH in ANOTHER CHAT 📍",
+                            text = "💖 SHARE SEARCH 💖",
                             switch_inline_query = ""
                         )
                     ]]
                 ),
-                caption = "__The ‘**♻️ SEARCH AGAIN ♻️**’ option allows you to search for PDF files within the same chat__,\n\n"
-                          "__while the ‘**♻️ SEARCH IN ANOTHER CHAT ♻️**’ feature enables you to search for PDFs in a different chat__",
+                caption = "__The ‘**♻️ SEARCH ♻️**’ option allows you to search for PDF files within the same chat__,\n\n"
+                          "__while the ‘**💖 SHARE SEARCH 💖**’ feature enables you to search for PDFs in a different chat__",
             )
         ]
         
