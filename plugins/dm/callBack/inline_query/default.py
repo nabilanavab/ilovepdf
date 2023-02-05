@@ -32,12 +32,11 @@ async def lang_cb(inline_query) -> list:
                 reply_markup = InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text = "♻️ SEARCH AGAIN ♻️",
+                            text = "♻️ SEARCH ♻️",
                             switch_inline_query_current_chat = ""
-                        )
-                    ],[
+                        ),
                         InlineKeyboardButton(
-                            text = "♻️ SEARCH IN ANOTHER CHAT ♻️",
+                            text = "📍 SEARCH in ANOTHER CHAT 📍",
                             switch_inline_query = ""
                         )
                     ]]
