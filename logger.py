@@ -9,9 +9,11 @@ logger = logging.getLogger(__name__)
 
 logging.getLogger("PIL").setLevel(logging.ERROR)
 logging.getLogger("pikepdf").setLevel(logging.ERROR)
+logging.getLogger("requests").setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("PIL.Image").setLevel(logging.ERROR)
 logging.getLogger("convertapi").setLevel(logging.ERROR)
+logging.getLogger("urllib3.connectionpool").setLevel(logging.ERROR)
 
 # SETING LOGGING INFO AS DEBUG
 logging.basicConfig(
