@@ -31,4 +31,3 @@ async def create_result(datas, query):
     ]
     
     return results
-    
