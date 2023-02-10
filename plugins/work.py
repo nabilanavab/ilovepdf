@@ -17,7 +17,10 @@ async def work(message, work="check", mtype=True) -> "str":
             pat = f"work/nabilanavab/{message.chat.id}"
             path = f"work/nabilanavab/{message.chat.id}/{message.from_user.id}"
     else:
-        if message.message.chat.type == enums.ChatType.PRIVATE:
+        if message.message is None:
+            # inline query download cant get message from callback
+            path = f"work/nabilanavab/inline{message.data.split('|')[2]}"
+        elif message.message.chat.type == enums.ChatType.PRIVATE:
             path = f"work/nabilanavab/{message.message.chat.id}"
         else:
             pat = f"work/nabilanavab/{message.message.chat.id}"
@@ -32,6 +35,9 @@ async def work(message, work="check", mtype=True) -> "str":
     elif work == "delete":
         if mtype and message.chat.type != enums.ChatType.PRIVATE and len(os.listdir(pat)) == 1:
             return shutil.rmtree(pat, ignore_errors=True)
-        if not mtype and message.message.chat.type != enums.ChatType.PRIVATE and len(os.listdir(pat)) == 1:
+        elif not mtype and message.message is None:
+            # inline message
+            return shutil.rmtree(path, ignore_errors=True)
+        elif not mtype and message.message.chat.type != enums.ChatType.PRIVATE and len(os.listdir(pat)) == 1:
             return shutil.rmtree(pat, ignore_errors=True)
         return shutil.rmtree(path, ignore_errors=True)
