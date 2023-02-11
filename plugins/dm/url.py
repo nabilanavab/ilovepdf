@@ -96,7 +96,7 @@ async def _url(bot, message):
                     response = requests.get(url)
                     directDlLink = True if "Content-Type" in response.headers and response.headers["Content-Type"]=="application/pdf" else False
                     
-                    if not directDlLink & bool(urlSupport):
+                    if not (directDlLink or urlSupport):
                         await data.delete()
                         continue
                     
@@ -138,14 +138,13 @@ async def _url(bot, message):
                     logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
                     tTXT, tBTN = await translate(text = "URL['_error']", button="URL['close']", lang_code=lang_code)
                     await data.edit(tTXT.format(e), reply_markup=tBTN)
-        
+            await work(message, "delete", True)
+    
     except Exception as e:
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
+        await work(message, "delete", True)
         tTXT, tBTN = await translate(text = "URL['error']", button = "URL['close']", lang_code = lang_code)
         return await data.edit(text = tTXT.format(e), reply_markup = tBTN)
-    
-    finally:
-        await work(message, "delete", True)
 
 getFile = filters.create(lambda _, __, query: query.data == "getFile")
 @ILovePDF.on_callback_query(getFile)
