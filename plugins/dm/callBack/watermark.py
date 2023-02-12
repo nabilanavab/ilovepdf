@@ -199,7 +199,7 @@ async def watermark(bot, callbackQuery):
                 )
             
             if not success:
-                pass
+                return await dlMSG.edit(output_file, reply_markup = _)
             
             # Getting thumbnail
             FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(
