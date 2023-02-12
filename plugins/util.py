@@ -98,8 +98,12 @@ async def editDICT(inDir:"dict", value=False, front=False) -> "dict":
         for i, j in inDir.items():
             outDir[i] = j.format(value)
     elif value and type(value) == list:
-        for i, j in inDir.items():
-            outDir[i] = j.format(value[0], value[1])
+        if len(value)==2:
+            for i, j in inDir.items():
+                outDir[i] = j.format(value[0], value[1])
+        if len(value)==3:
+            for i, j in inDir.items():
+                outDir[i] = j.format(value[0], value[1], value[2])
     return outDir
 
 # ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
