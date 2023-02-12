@@ -66,10 +66,19 @@ async def _pdf(bot, callbackQuery):
                     tTXT = await editDICT(inDir = tTXT, value = typ, front = f"{typ}".upper())
                     tTXT = await createBUTTON(tTXT, "1551")
                     return await callbackQuery.message.edit_reply_markup(tTXT)
-                else:
+                elif "p" not in data:
                     data = data.split("|")[-1]
-                    tTXT, tBTN = await translate(text = "wa['po']", lang_code = lang_code)
+                    if typ == "txt":
+                        tTXT, tBTN = await translate(text = "wa['poTXT']", lang_code = lang_code)
+                    else:
+                        tTXT, tBTN = await translate(text = "wa['po']", lang_code = lang_code)
                     tTXT = await editDICT(inDir = tTXT, value = [typ, data], front = f"{typ}".upper())
+                    tTXT = await createBUTTON(tTXT, "131")
+                    return await callbackQuery.message.edit_reply_markup(tTXT)
+                else:
+                    data, color = data.split("|")[-2:]
+                    tTXT, tBTN = await translate(text = "wa['color']", lang_code = lang_code)
+                    tTXT = await editDICT(inDir = tTXT, value = [typ, data, color], front = f"{typ}".upper())
                     tTXT = await createBUTTON(tTXT, "13331")
                     return await callbackQuery.message.edit_reply_markup(tTXT)
         
