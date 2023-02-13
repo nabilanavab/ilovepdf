@@ -64,7 +64,7 @@ async def add_text_watermark(input_file, output_file, watermark_text, opacity, p
 async def add_image_watermark(input_file, output_file, watermark, opacity, position):
     try:
         with Image.open(wa_file) as wa:
-            if int(data[2][-2:]) != 10:
+            if int(opacity) != 10:
                 data = wa.convert("RGBA").getdata()
                 newData = []
                 for item in data:
