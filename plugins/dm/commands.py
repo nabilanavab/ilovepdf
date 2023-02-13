@@ -2,15 +2,12 @@
 # copyright ©️ 2021 nabilanavab
 
 import os, shutil
-from pdf import PDF
-from asyncio import sleep
-from logger import logger
-from pyrogram import enums
-from pyrogram import filters
-from plugins.work import work
-from configs.config import dm, settings
-from pyrogram import Client as ILovePDF
-from plugins.util import getLang, translate
+from plugins         import *
+from pdf             import PDF
+from asyncio         import sleep
+from logger          import logger
+from configs.config  import dm, settings
+from pyrogram        import Client as ILovePDF, enums, filters
 
 # ❌ CANCELS CURRENT PDF TO IMAGES WORK ❌
 @ILovePDF.on_message((filters.private | filters.group) & filters.command(["cancel"]) & filters.incoming)
