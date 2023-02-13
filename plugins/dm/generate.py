@@ -9,10 +9,8 @@ from logger          import logger
 from pyromod         import listen
 from pyrogram.types  import ForceReply
 from configs.config  import images as im
-from plugins.render  import header, cbPRO
-from plugins.fncta   import thumbName, formatThumb
+from plugins         import *
 from pyrogram        import enums, filters, Client as ILovePDF
-from plugins.util    import getLang, translate, createBUTTON
 
 # ========================================================================| GENERATE PDF FROM IMAGES |=================================================================
 GEN = filters.create(lambda _, __, query: query.data.startswith("generate"))
