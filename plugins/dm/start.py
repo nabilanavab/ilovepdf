@@ -4,15 +4,13 @@ fileName = "plugins/dm/start.py"
 
 import asyncio, psutil, os, shutil
 from .photo            import HD
-from plugins.work      import work
+from plugins           import *
 from .callBack.link    import decode
 from logger            import logger
 from lang.__users__    import userLang
 from .settings         import _settings
-from plugins.render    import header, gSF
 from configs.db        import dataBASE, myID
 from pyrogram.types    import InputMediaPhoto
-from plugins.util      import getLang, translate
 from configs.config    import settings, images, dm
 from pyrogram          import enums, filters, Client as ILovePDF
 
