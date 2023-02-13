@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab 
 fileName = "plugins/dm/callBack/refresh.py"
 
-from plugins.util              import *
+from plugins                   import *
 from configs.db                import myID
 from plugins.work              import work
 from plugins.group.document    import gDOC
