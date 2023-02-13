@@ -190,7 +190,7 @@ async def watermark(bot, callbackQuery):
             
             if _type == "img":
                 success, output_file = await add_image_watermark(
-                    input_file=input_file, output_file=output_pdf, watermark_text=wa_file, opacity=_opacity, position=_position
+                    input_file=input_file, output_file=output_pdf, watermark=wa_file, opacity=_opacity, position=_position
                 )
             
             if _type == "txt":
