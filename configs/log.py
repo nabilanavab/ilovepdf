@@ -2,10 +2,10 @@
 # copyright ©️ 2021 nabilanavab
 
 import os
+from plugins import *
 from asyncio import sleep
 from logger import logger
 from configs.db import dataBASE
-from plugins import *
 from pyrogram.enums import ChatType
 from configs.config import settings
 from pyrogram.errors import FloodWait
