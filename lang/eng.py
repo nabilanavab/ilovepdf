@@ -719,8 +719,8 @@ wa = {
     "type" : {
         "⚙️ PDF » WATERMARK ↓" : "nabilanavab",
         "💬 TEXT 💬" : "pdf|wa|txt",
-        "🖼 IMAGE 🖼" : "close|dev",
-        "📎 PDF 📎" : "close|dev",
+        "🖼 IMAGE 🖼" : "pdf|wa|img",
+        "📎 PDF 📎" : "pdf|wa|pdf",
         "« BACK «" : "pdf2"
     },
     "op" : {
