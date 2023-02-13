@@ -66,3 +66,43 @@ it was specially developed for creating PDF's from images.. And Now, Bot Support
 <br/>
 
 
+
+<h3><i>Here are some features of a PDF bot,</i></h3>
+<ul>
+  <li><i>Extract metadata: This feature allows you to extract metadata from a PDF document.</i></li>
+
+> <i>Metadata is information about a PDF document that is not part of the document's content, such as the author, title, and subject.</i>
+
+<li><i>Extract the text from the PDF:
+
+> The bot will extract the text from the PDF file and send it back to you in a separate message.</i></li>
+
+<li><i>Convert the PDF to another file format:
+
+> You can also ask the bot to convert the PDF to another file format, such as Microsoft Word (.docx) or Excel (.xlsx). To do this, simply type "convert to [format]" followed by the name of the desired file format.</i></li>
+
+<li><i>Merge multiple PDFs into one:
+
+> If you have multiple PDF files that you want to combine into a single file, you can send them all to the bot and it will merge them into one PDF for you.</i></li>
+
+<li><i>Split a PDF into separate pages:
+
+>If you have a large PDF file and want to split it into separate pages, you can send it to the bot and ask it to split the PDF into individual pages.</i></li>
+
+<li><i>Extract images from the PDF:
+
+>If the PDF file contains images, you can ask the bot to extract them and send them back to you.</i></li>
+
+
+</ul>
+
+
+<br/>
+
+> **Note**
+:<pre>Surely, you can use and integrate ilovePDF into your own code.
+If you are redistributing your code with modifications, it's a good idea to mention the changes you have made.
+This helps others understand how your code is different from the original version,
+and can also help prevent misunderstandings or potential legal issues.
+You can mention the changes in your code documentation, in a separate changelog file, or in a readme file.</pre>
+
