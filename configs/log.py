@@ -5,7 +5,7 @@ import os
 from asyncio import sleep
 from logger import logger
 from configs.db import dataBASE
-from plugins import translate
+from plugins import *
 from pyrogram.enums import ChatType
 from configs.config import settings
 from pyrogram.errors import FloodWait
