@@ -3,12 +3,9 @@
 fileName = "plugins/dm/url.py"
 
 import os, re, requests, asyncio
-from plugins.util       import *
+from plugins            import *
 from configs.log        import log
-from plugins.work       import work
 from configs.config     import settings, images
-from plugins.render     import gSF, cbPRO, header
-from plugins.fncta      import thumbName, formatThumb
 from pyrogram           import filters, Client as ILovePDF, enums
 
 try:
