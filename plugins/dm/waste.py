@@ -2,10 +2,9 @@
 # copyright ©️ 2021 nabilanavab
 
 from logger import logger
-from plugins.util import *
+from plugins import *
 from configs.config import dm 
-from pyrogram import enums, filters
-from pyrogram import Client as ILovePDF
+from pyrogram import Client as ILovePDF, enums, filters
 
 # ===========================================| WASTE/DPAMMING MESSAGES |==================================================================================================
 @ILovePDF.on_message(filters.private & filters.incoming & ~filters.user(dm.ADMINS))
