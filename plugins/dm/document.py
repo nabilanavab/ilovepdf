@@ -6,17 +6,14 @@ import convertapi
 import os, time, fitz
 import shutil, asyncio
 
-from plugins.util   import *
-from plugins.render import *
+from plugins        import *
 from .photo         import HD
 from configs.log    import log
 from pdf            import PDF
-from plugins.work   import work
 from configs.db     import DATA
 from PIL            import Image
 from logger         import logger
 from configs.config import settings, images
-from plugins.fncta  import thumbName, formatThumb
 from pyrogram       import Client as ILovePDF, filters, enums
 
 try:
