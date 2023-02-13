@@ -8,11 +8,9 @@ from pdf import PDF
 from PIL import Image
 from logger import logger
 from .generate import _GEN
-from pyrogram import enums
-from pyrogram import filters
 from configs.config import settings
-from pyrogram import Client as ILovePDF
-from plugins.util import getLang, translate
+from pyrogram import Client as ILovePDF, filters, enums
+from plugins import *
 
 # ===============================| REPLY TO /HD |======================================================================================================================
 @ILovePDF.on_message((filters.private | filters.group) & filters.command("hd") & filters.incoming)
