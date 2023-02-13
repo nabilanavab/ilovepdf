@@ -2,14 +2,13 @@
 # copyright ©️ 2021 nabilanavab
 fileName = "plugins/dm/_init_.py"
 
-from plugins.util         import *
+from plugins              import *
 from configs.config       import *
 from configs.db           import *
 from configs.log          import log
 from pyrogram             import enums
 from logger               import logger
 from pyrogram.types       import Message
-from plugins.util         import getLang
 from pyrogram             import filters
 from configs.db           import dataBASE
 from lang                 import langList
