@@ -63,7 +63,7 @@ async def add_text_watermark(input_file, output_file, watermark_text, opacity, p
 
 async def add_image_watermark(input_file, output_file, watermark, opacity, position):
     try:
-        with Image.open(wa_file) as wa:
+        with Image.open(watermark) as wa:
             if int(opacity) != 10:
                 data = wa.convert("RGBA").getdata()
                 newData = []
@@ -73,7 +73,7 @@ async def add_image_watermark(input_file, output_file, watermark, opacity, posit
                     else:
                         newData.append(item)
                 wa.putdata(newData)
-                wa.save(wa_file, "PNG")
+                wa.save(watermark, "PNG")
             imgWidth, imgHeight = wa.size
         
         with fitz.open(input_file) as file_handle:
@@ -81,7 +81,7 @@ async def add_image_watermark(input_file, output_file, watermark, opacity, posit
                 r = page.rect
                 page.insert_image(
                     fitz.Rect(r.x0/4, 0, (r.x0/4) + imgHeight, imgWidth),
-                    stream = open(wa_file, "rb").read()
+                    stream = open(watermark, "rb").read()
                 )
             file_handle.save(output_pdf)
         return True, output_file
