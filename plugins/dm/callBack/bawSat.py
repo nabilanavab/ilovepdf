@@ -5,11 +5,8 @@ fileName = "plugins/dm/callBack/BaWsat.py"
 import os, time, fitz
 from PIL import Image
 from logger import logger
-from plugins.util import *
-from plugins.render import *
-from plugins.work import work
+import plugins
 from configs.config import images
-from plugins.fncta import thumbName, formatThumb
 from pyrogram import enums, filters, Client as ILovePDF
 
 BS = filters.create(lambda _, __, query: query.data.startswith(tuple(["baw", "sat"])))
