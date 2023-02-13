@@ -83,7 +83,7 @@ async def add_image_watermark(input_file, output_file, watermark, opacity, posit
                     fitz.Rect(r.x0/4, 0, (r.x0/4) + imgHeight, imgWidth),
                     stream = open(watermark, "rb").read()
                 )
-            file_handle.save(output_pdf)
+            file_handle.save(output_file)
         return True, output_file
     except Exception as Error:
         logger.exception("2️⃣ 🐞 %s: %s" %(fileName, Error), exc_info = True)
