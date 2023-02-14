@@ -1,11 +1,16 @@
 # fileName : plugins/dm/commands.py
 # copyright ©️ 2021 nabilanavab
 
+file_name = "plugins/dm/commands.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
+# LOGGING INFO: DEBUG
+from logger           import logger
+
 import os, shutil
 from plugins.utils   import *
 from pdf             import PDF
 from asyncio         import sleep
-from logger          import logger
 from configs.config  import dm, settings
 from pyrogram        import Client as ILovePDF, enums, filters
 
@@ -31,4 +36,4 @@ async def _cancelI2P(bot, message):
         trans_txt, trans_btn = await translate(text = "GENERATE['noQueue']", lang_code = lang_code)
         await message.reply_text(trans_txt, quote = True)
 
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+# Author: @nabilanavab
