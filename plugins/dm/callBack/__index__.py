@@ -89,19 +89,19 @@ async def watermark(bot, callbackQuery):
             number_of_pages = int(callbackQuery.message.text.split("•")[1])
         
         if data == "baw":
-        	output_path = await blackAndWhitePdf(cDIR = cDIR, input_file = input_path)
+            output_path = await blackAndWhitePdf(cDIR = cDIR, input_file = input_path)
         
         elif data == "sat":
-        	output_path = await saturatePDF(cDIR = cDIR, input_file = input_path)
+            output_path = await saturatePDF(cDIR = cDIR, input_file = input_path)
         
         elif data == "comb":
-        	output_path = await combineSinglePage(cDIR = cDIR, input_file = input_path)
+            output_path = await combineSinglePage(cDIR = cDIR, input_file = input_path)
         
         elif data == "draw":
-        	output_path = await drawPDF(cDIR = cDIR, input_file = input_path)
+            output_path = await drawPDF(cDIR = cDIR, input_file = input_path)
         
         elif data == "zoom":
-        	output_path = await splitSinglePage(cDIR = cDIR, input_file = input_path)
+            output_path = await splitSinglePage(cDIR = cDIR, input_file = input_path)
         
         
         if "•" in callbackQuery.message.text:
