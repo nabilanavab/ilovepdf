@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 
 import asyncio
-from plugins                import *
+from plugins.utils               import *
 from logger                 import logger
 from lang.__users__         import userLang
 from configs.db             import dataBASE, myID
