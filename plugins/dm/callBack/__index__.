@@ -7,12 +7,10 @@ fileName = "plugins/dm/callBack/index.py"
 from logger           import logger
 
 import os, time
-from plugins.utils          import *
-from plugins.work     import work
+from plugins.utils    import *
 from pyromod          import listen
 from configs.config   import images
 from pyrogram.types   import ForceReply
-from plugins.fncta    import thumbName, formatThumb
 from pyrogram         import enums, filters, Client as ILovePDF
 
 from .drawPDF import drawPDF
