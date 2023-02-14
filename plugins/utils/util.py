@@ -1,10 +1,15 @@
 # fileName : plugins/util.py
 # copyright ©️ 2021 nabilanavab
 
+file_name = "plugins/util.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
+# LOGGING INFO: DEBUG
+from logger           import logger
+
 import os
 from configs.db       import myID
 from itertools        import islice
-from logger           import logger
 from configs.db       import dataBASE
 from configs.config   import settings
 from lang             import __users__, langList
@@ -51,7 +56,7 @@ async def createBUTTON(btn, order=deBUTTON_SPLIT):
         
         return InlineKeyboardMarkup(keyboard)
     except Exception as e:
-        logger.debug(f"plugin/util/createBUTTON: %s" %(e), exc_info=True)
+        logger.exception("🐞 %s /close: %s" %(file_name, e))
 
 # =======================================================================> TEXT, BUTTON TRANSLATOR <===================================================================
 async def translate(text=None, button=None, asString=False, order=deBUTTON_SPLIT,  lang_code=settings.DEFAULT_LANG):
@@ -107,3 +112,5 @@ async def editDICT(inDir:"dict", value=False, front=False) -> "dict":
     return outDir
 
 __all__ = [ "createBUTTON", "translate", "getLang" ,"editDICT" ]
+
+# Author: @nabilanavab
