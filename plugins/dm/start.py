@@ -1,6 +1,8 @@
 # fileName : plugins/dm/start.py
 # copyright ©️ 2021 nabilanavab
-fileName = "plugins/dm/start.py"
+
+file_name = "plugins/dm/callBack/__init__.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
 from logger           import logger
@@ -43,7 +45,7 @@ async def start(bot, message):
         )
         return await message.delete()
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
 
 # ======================================================== START CALLBACK =============================================================================================
 Status = filters.create(lambda _, __, query: query.data.startswith("status"))
@@ -92,7 +94,7 @@ async def home(bot, callbackQuery):
             return await callbackQuery.edit_message_caption(caption=tTXT, reply_markup=tBTN)
         
     except Exception as e:
-        logger.exception("🐞 %s /home: %s" %(fileName, e), exc_info = True)
+        logger.exception("🐞 %s /home: %s" %(file_name, e), exc_info = True)
 
 # ======================================================================== SERVER UPDATES =============================================================================
 @ILovePDF.on_callback_query(Status)
@@ -177,7 +179,7 @@ async def _status(bot, callbackQuery):
     
     except Exception as e:
         logger.exception("/SERVER:CAUSES %s ERROR" %(e), exc_info=True)
-        logger.exception("🐞 %s /status: %s" %(fileName, e), exc_info = True)
+        logger.exception("🐞 %s /status: %s" %(file_name, e), exc_info = True)
 
 # ============================ CLOSE CALLBACK =========================================================================================================================
 @ILovePDF.on_callback_query(close)
@@ -223,4 +225,6 @@ async def _close(bot, callbackQuery):
             return await callbackQuery.answer(_[0])
     
     except Exception as e:
-        logger.exception("🐞 %s /close: %s" %(fileName, e))
+        logger.exception("🐞 %s /close: %s" %(file_name, e))
+
+# Author: @nabilanavab
