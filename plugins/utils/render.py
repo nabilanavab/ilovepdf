@@ -1,10 +1,15 @@
-# fileName : plugins/render.py
+# fileName : plugins/utils/render.py
 # copyright ©️ 2021 nabilanavab
+
+file_name = "plugins/utils/render.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
+# LOGGING INFO: DEBUG
+from logger           import logger
 
 import fitz, time, math
 from .util                 import *
 from .work                 import work
-from logger                import logger
 from pyrogram.types        import Message
 from configs.config        import dm, settings
 from pyrogram              import Client, filters
@@ -94,7 +99,7 @@ async def checkPdf(file_path, callbackQuery):
                 return "pass", number_of_pages
     # CODEC ERROR
     except Exception as e:
-        logger.debug(e)
+        logger.exception("🐞 %s /close: %s" %(file_name, e))
         await callbackQuery.edit_message_text(
             text = CHUNK["error"],
             reply_markup = await createBUTTON(CHUNK["errorCB"], order=11)
@@ -182,3 +187,5 @@ async def cbPRO(current, t, message, total=0, typ="DOWNLOADED", cancel=False):
             InlineKeyboardMarkup(
                 [[InlineKeyboardButton(tTXT[0].format(percentage), callback_data="close|all")]]
             ))
+
+# Author: @nabilanavab
