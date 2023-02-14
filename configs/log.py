@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 
 import os
-from plugins import *
+from plugins.utils import *
 from asyncio import sleep
 from logger import logger
 from configs.db import dataBASE
