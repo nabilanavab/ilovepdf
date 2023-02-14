@@ -10,7 +10,7 @@ from logger import logger
 from .generate import _GEN
 from configs.config import settings
 from pyrogram import Client as ILovePDF, filters, enums
-from plugins import *
+from plugins.utils import *
 
 # ===============================| REPLY TO /HD |======================================================================================================================
 @ILovePDF.on_message((filters.private | filters.group) & filters.command("hd") & filters.incoming)
