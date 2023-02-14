@@ -23,7 +23,7 @@ if dataBASE.MONGODB_URI:
 @ILovePDF.on_message(filters.private & filters.incoming & filters.command("start"))
 async def start(bot, message):
     try:
-        lang_code = await getLang(message.chat.id)
+        lang_code = await util.getLang(message.chat.id)
         if message.text and message.text.startswith("/start") and "-g" in message.text:
             msg = message.text.split(" ")[1]
             code = msg.replace("-l", "-r").split("-r")[0]
@@ -54,7 +54,7 @@ refresh = filters.create(lambda _, __, query: query.data == "refresh")
 @ILovePDF.on_callback_query(Home)
 async def home(bot, callbackQuery):
     try:
-        lang_code = await getLang(callbackQuery.message.chat.id)
+        lang_code = await util.getLang(callbackQuery.message.chat.id)
         if await header(bot, callbackQuery, lang_code, doc=False):
             return
         
@@ -98,7 +98,7 @@ async def home(bot, callbackQuery):
 @ILovePDF.on_callback_query(Status)
 async def _status(bot, callbackQuery):
     try:
-        lang_code = await getLang(callbackQuery.message.chat.id)
+        lang_code = await util.getLang(callbackQuery.message.chat.id)
         _, __ = callbackQuery.data.split("|")
         
         if await header(bot, callbackQuery, lang_code, doc=False):
@@ -207,18 +207,18 @@ async def _close(bot, callbackQuery):
                 await callbackQuery.message.delete()
                 return await callbackQuery.message.reply_to_message.delete()
             if await work(callbackQuery, "check", False):
-                lang_code = await getLang(callbackQuery.from_user.id)
+                lang_code = await util.getLang(callbackQuery.from_user.id)
                 _, __ = await util.translate(text = "PROGRESS['workInP']", lang_code = lang_code)
                 return await callbackQuery.answer(_)
             return await callbackQuery.message.delete()
         elif data == "P2I":
-            lang_code = await getLang(callbackQuery.from_user.id)
+            lang_code = await util.getLang(callbackQuery.from_user.id)
             _, canceled = await util.translate(text = "pdf2IMG['cbAns']", button = "pdf2IMG['canceledCB']", lang_code = lang_code)
             await callbackQuery.answer(_)
             await callbackQuery.edit_message_reply_markup(canceled)
             return await work(callbackQuery, "delete", False)
         elif data == "dev":
-            lang_code = await getLang(callbackQuery.from_user.id)
+            lang_code = await util.getLang(callbackQuery.from_user.id)
             _, __ = await util.translate(text = "cbAns", lang_code = lang_code)
             return await callbackQuery.answer(_[0])
     
