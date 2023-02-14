@@ -105,3 +105,5 @@ async def editDICT(inDir:"dict", value=False, front=False) -> "dict":
             for i, j in inDir.items():
                 outDir[i] = j.format(value[0], value[1], value[2])
     return outDir
+
+__all__ = [ "createBUTTON", "translate", "getLang" ,"editDICT" ]
