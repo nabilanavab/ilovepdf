@@ -5,7 +5,7 @@ fileName = "plugins/dm/start.py"
 import asyncio, psutil, os, shutil
 from .photo            import HD
 from plugins           import *
-from .callBack.link    import decode
+#from .callBack.link    import decode
 from logger            import logger
 from lang.__users__    import userLang
 from .settings         import _settings
@@ -25,7 +25,7 @@ async def start(bot, message):
         if message.text and message.text.startswith("/start") and "-g" in message.text:
             msg = message.text.split(" ")[1]
             code = msg.replace("-l", "-r").split("-r")[0]
-            return await decode(bot, code, message, lang_code)
+            #return await decode(bot, code, message, lang_code)
         
         await message.reply_chat_action(enums.ChatAction.TYPING)
         tTXT, tBTN = await translate(
