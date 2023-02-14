@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 
 import os, shutil
-from plugins         import *
+from plugins.utils   import *
 from pdf             import PDF
 from asyncio         import sleep
 from logger          import logger
