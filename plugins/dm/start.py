@@ -4,7 +4,7 @@ fileName = "plugins/dm/start.py"
 
 import asyncio, psutil, os, shutil
 from .photo            import HD
-from plugins           import *
+from plugins.utils           import *
 #from .callBack.link    import decode
 from logger            import logger
 from lang.__users__    import userLang
