@@ -9,7 +9,7 @@ from logger          import logger
 from pyromod         import listen
 from pyrogram.types  import ForceReply
 from configs.config  import images as im
-from plugins         import *
+from plugins.utils         import *
 from pyrogram        import enums, filters, Client as ILovePDF
 
 # ========================================================================| GENERATE PDF FROM IMAGES |=================================================================
