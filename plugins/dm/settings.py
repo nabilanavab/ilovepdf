@@ -4,9 +4,11 @@
 file_name = "plugins/dm/settings.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
+# LOGGING INFO: DEBUG
+from logger           import logger
+
 import asyncio
 from plugins.utils          import *
-from logger                 import logger
 from lang.__users__         import userLang
 from configs.db             import dataBASE, myID
 from pyrogram.types         import InputMediaPhoto
@@ -226,3 +228,5 @@ async def _settings(bot, callbackQuery):
     
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
+
+# Author: @nabilanavab
