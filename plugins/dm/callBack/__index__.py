@@ -7,7 +7,7 @@ fileName = "plugins/dm/callBack/index.py"
 from logger           import logger
 
 import os, time
-from plugins          import *
+from plugins.utils          import *
 from plugins.work     import work
 from pyromod          import listen
 from configs.config   import images
