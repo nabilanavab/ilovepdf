@@ -6,7 +6,7 @@ import convertapi
 import os, time, fitz
 import shutil, asyncio
 
-from plugins        import *
+from plugins.utils  import *
 from .photo         import HD
 from configs.log    import log
 from pdf            import PDF
