@@ -4,7 +4,7 @@ fileName = "plugins/group/document.py"
 
 import os, fitz, asyncio
 from ..dm.document  import *
-from plugins        import *
+from plugins.utils        import *
 from configs.config import *
 from pdf            import PDF
 from PIL            import Image
