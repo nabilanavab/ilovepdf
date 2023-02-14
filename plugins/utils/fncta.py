@@ -77,3 +77,4 @@ async def thumbName(message, fileName, getAPI=False):
     except Exception as e:
         logger.exception("THUMB_NAME: %s" %(e), exc_info=True)
 
+__all__ = [ "thumbName", "formatThumb" ]
