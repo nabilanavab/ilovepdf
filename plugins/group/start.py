@@ -4,7 +4,7 @@ fileName = "plugins/group/start.py"
 
 from logger         import logger
 from configs.config import images, dm
-from plugins.util   import getLang, translate
+from plugins        import *
 from pyrogram       import enums, filters, Client as ILovePDF
 
 @ILovePDF.on_message(filters.group & filters.incoming & filters.command("start"))
