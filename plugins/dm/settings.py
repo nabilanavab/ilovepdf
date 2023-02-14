@@ -137,7 +137,7 @@ async def _settings(bot, callbackQuery):
                 await asyncio.sleep(1)
                 await callbackQuery.edit_message_caption(caption=tTXT[1]+_, reply_markup=tBTN)
                 getName = await bot.listen(user_id)
-                if getName.text:
+                if getName.text and getName.text != "/cancel":
                     await db.set_key(user_id, "api", f"{getName.text}"[:60])
                     if current:
                         DATA[user_id][1] = True
@@ -166,7 +166,7 @@ async def _settings(bot, callbackQuery):
                 await asyncio.sleep(1)
                 await callbackQuery.edit_message_caption(caption=tTXT[1], reply_markup=tBTN)
                 getName = await bot.listen(user_id)
-                if getName.text:
+                if getName.text and getName.text != "/cancel":
                     await db.set_key(user_id, "fname", f"{getName.text}"[:60])
                     if current:
                         DATA[user_id][1] = True
@@ -195,7 +195,7 @@ async def _settings(bot, callbackQuery):
                 await asyncio.sleep(1)
                 await callbackQuery.edit_message_caption(caption=tTXT[1], reply_markup=tBTN)
                 getName = await bot.listen(user_id)
-                if getName.text:
+                if getName.text and getName.text != "/cancel":
                     await db.set_key(user_id, "capt", f"{getName.text}"[:60])
                     if current:
                         DATA[user_id][2] = True
