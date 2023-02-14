@@ -3,7 +3,7 @@
 fileName = "plugins/dm/url.py"
 
 import os, re, requests, asyncio
-from plugins            import *
+from plugins.utils            import *
 from configs.log        import log
 from configs.config     import settings, images
 from pyrogram           import filters, Client as ILovePDF, enums
