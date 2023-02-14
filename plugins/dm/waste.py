@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 
 from logger import logger
-from plugins import *
+from plugins.utils import *
 from configs.config import dm 
 from pyrogram import Client as ILovePDF, enums, filters
 
