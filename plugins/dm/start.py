@@ -2,11 +2,13 @@
 # copyright ©️ 2021 nabilanavab
 fileName = "plugins/dm/start.py"
 
+# LOGGING INFO: DEBUG
+from logger           import logger
+
 import asyncio, psutil, os, shutil
 from .photo            import HD
-from plugins.utils           import *
+from plugins.utils     import *
 #from .callBack.link    import decode
-from logger            import logger
 from lang.__users__    import userLang
 from .settings         import _settings
 from configs.db        import dataBASE, myID
@@ -28,7 +30,7 @@ async def start(bot, message):
             #return await decode(bot, code, message, lang_code)
         
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        tTXT, tBTN = await translate(
+        tTXT, tBTN = await util.translate(
             text = "HOME['HomeA']", lang_code = lang_code, order=2121 if message.chat.id not in dm.ADMINS else 21221,
             button = "HOME['HomeACB']" if message.chat.id not in dm.ADMINS else "HOME['HomeAdminCB']"
         )
@@ -44,7 +46,6 @@ async def start(bot, message):
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
 
 # ======================================================== START CALLBACK =============================================================================================
-
 Status = filters.create(lambda _, __, query: query.data.startswith("status"))
 close = filters.create(lambda _, __, query: query.data.startswith("close"))
 Home = filters.create(lambda _, __, query: query.data.startswith("Home"))
@@ -66,13 +67,13 @@ async def home(bot, callbackQuery):
             if callbackQuery.message.chat.type == enums.ChatType.PRIVATE:
                 if page == "B2A":
                     await callbackQuery.edit_message_media(InputMediaPhoto(images.WELCOME_PIC))
-                tTXT, tBTN = await translate(
+                tTXT, tBTN = await util.translate(
                     text="HOME['HomeA']", order = 2121,
                     button="HOME['HomeACB']" if callbackQuery.message.chat.id not in dm.ADMINS else "HOME['HomeAdminCB']",
                     lang_code=lang_code
                 )
             else:
-                tTXT, tBTN = await translate(
+                tTXT, tBTN = await util.translate(
                     text="HomeG['HomeA']",
                     button="HomeG['HomeACB']" if callbackQuery.message.chat.id not in dm.ADMINS else "HOME['HomeAdminCB']",
                     lang_code=lang_code
@@ -83,11 +84,11 @@ async def home(bot, callbackQuery):
             return await _settings(bot, callbackQuery)
         
         elif page == "C":
-            tTXT, tBTN = await translate(text="HOME['HomeC']", button="HOME['HomeCCB']", lang_code=lang_code)
+            tTXT, tBTN = await util.translate(text="HOME['HomeC']", button="HOME['HomeCCB']", lang_code=lang_code)
             return await callbackQuery.edit_message_caption(caption=tTXT, reply_markup=tBTN)
         
         elif page == "D":
-            tTXT, tBTN = await translate(text="HOME['HomeD']", button="HOME['HomeDCB']", lang_code=lang_code)
+            tTXT, tBTN = await util.translate(text="HOME['HomeD']", button="HOME['HomeDCB']", lang_code=lang_code)
             return await callbackQuery.edit_message_caption(caption=tTXT, reply_markup=tBTN)
         
     except Exception as e:
@@ -104,14 +105,14 @@ async def _status(bot, callbackQuery):
             return
         
         if __ in ["db", "users"] and not dataBASE.MONGODB_URI:
-            tTXT, tBTN = await translate(text="STATUS_MSG['NO_DB']", lang_code=lang_code)
+            tTXT, tBTN = await util.translate(text="STATUS_MSG['NO_DB']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT)
         await callbackQuery.answer()
         
         if __ in "db":
             total_users = await db.total_users_count()
             total_chats = await db.total_chat_count()
-            tTXT, tBTN = await translate(text="STATUS_MSG['DB']", button="STATUS_MSG['BACK']", lang_code=lang_code)
+            tTXT, tBTN = await util.translate(text="STATUS_MSG['DB']", button="STATUS_MSG['BACK']", lang_code=lang_code)
             return await callbackQuery.edit_message_caption(
                 caption = tTXT.format(total_users, total_chats), reply_markup = tBTN
             )
@@ -122,14 +123,14 @@ async def _status(bot, callbackQuery):
             cpu_usage = psutil.cpu_percent()
             ram_usage = psutil.virtual_memory().percent
             disk_usage = psutil.disk_usage('/').percent
-            tTXT, tBTN = await translate(text="STATUS_MSG['SERVER']", button="STATUS_MSG['BACK']", lang_code=lang_code)
+            tTXT, tBTN = await util.translate(text="STATUS_MSG['SERVER']", button="STATUS_MSG['BACK']", lang_code=lang_code)
             return await callbackQuery.edit_message_caption(
                 caption = tTXT.format(total, used, disk_usage, free, cpu_usage, ram_usage, len("a"), callbackQuery.message.id),
                 reply_markup = tBTN
             )
         
         elif __ == "admin":
-            msg, tBTN = await translate(text="STATUS_MSG['ADMIN']", button="STATUS_MSG['BACK']", lang_code=lang_code)
+            msg, tBTN = await util.translate(text="STATUS_MSG['ADMIN']", button="STATUS_MSG['BACK']", lang_code=lang_code)
             for admin in dm.ADMINS:
                 try:
                     userINFO = await bot.get_users(int(admin))
@@ -139,7 +140,7 @@ async def _status(bot, callbackQuery):
         
         elif __ == "users":
             users = await db.get_all_users()
-            tTXT, tBTN = await translate(text="STATUS_MSG['USERS']", button="STATUS_MSG['BACK']", lang_code=lang_code)
+            tTXT, tBTN = await util.translate(text="STATUS_MSG['USERS']", button="STATUS_MSG['BACK']", lang_code=lang_code)
             await callbackQuery.message.edit(text=tTXT, reply_markup=tBTN)
             rollnumber = 0; text=""
             async for user in users:
@@ -169,7 +170,7 @@ async def _status(bot, callbackQuery):
             os.remove("users.txt")
         
         elif __ == "home":
-            tTXT, tBTN = await translate(
+            tTXT, tBTN = await util.translate(
                 text="STATUS_MSG['HOME']", button="STATUS_MSG['_HOME']",order=12121, lang_code=lang_code
             )
             return await callbackQuery.message.edit(text=tTXT, reply_markup=tBTN)
@@ -207,21 +208,19 @@ async def _close(bot, callbackQuery):
                 return await callbackQuery.message.reply_to_message.delete()
             if await work(callbackQuery, "check", False):
                 lang_code = await getLang(callbackQuery.from_user.id)
-                _, __ = await translate(text = "PROGRESS['workInP']", lang_code = lang_code)
+                _, __ = await util.translate(text = "PROGRESS['workInP']", lang_code = lang_code)
                 return await callbackQuery.answer(_)
             return await callbackQuery.message.delete()
         elif data == "P2I":
             lang_code = await getLang(callbackQuery.from_user.id)
-            _, canceled = await translate(text = "pdf2IMG['cbAns']", button = "pdf2IMG['canceledCB']", lang_code = lang_code)
+            _, canceled = await util.translate(text = "pdf2IMG['cbAns']", button = "pdf2IMG['canceledCB']", lang_code = lang_code)
             await callbackQuery.answer(_)
             await callbackQuery.edit_message_reply_markup(canceled)
             return await work(callbackQuery, "delete", False)
         elif data == "dev":
             lang_code = await getLang(callbackQuery.from_user.id)
-            _, __ = await translate(text = "cbAns", lang_code = lang_code)
+            _, __ = await util.translate(text = "cbAns", lang_code = lang_code)
             return await callbackQuery.answer(_[0])
     
     except Exception as e:
         logger.exception("🐞 %s /close: %s" %(fileName, e))
-
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
