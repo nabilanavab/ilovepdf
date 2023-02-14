@@ -1,6 +1,6 @@
 # Author: @nabilanavab
 
-from .utils   import work, render, fncta, util
+from .utils   import *
 
 __all__ = ["work", "render", "fncta", "util"]
 
