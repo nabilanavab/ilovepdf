@@ -4,15 +4,12 @@ fileName = "plugins/group/document.py"
 
 import os, fitz, asyncio
 from ..dm.document  import *
-from plugins.util   import *
+from plugins        import *
 from configs.config import *
-from plugins.render import *
 from pdf            import PDF
-from plugins.work   import work
 from PIL            import Image
 from logger         import logger
 from pyrogram.enums import ChatMemberStatus
-from plugins.fncta  import thumbName, formatThumb
 from pyrogram       import Client as ILovePDF, filters
 from configs.db     import invite_link, myID, BANNED_USR_DB
 
