@@ -105,7 +105,7 @@ async def watermark(bot, callbackQuery):
         
         
         if "•" in callbackQuery.message.text:
-            
+            pass
         else:
             known = False
         
