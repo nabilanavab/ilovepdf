@@ -1,43 +1,48 @@
-# fileName : Plugins/dm/txt2pdf.py
+# fileName : plugins/dm/txt2pdf.py
 # copyright ©️ 2021 nabilanavab
+
+file_name = "plugins/dm/txt2pdf.py"
+
+
+# LOGGING INFO: DEBUG
+from logger           import logger
 
 TXT = {}
 
 import os
-from fpdf import FPDF
-from logger import logger
-from plugins.utils import *
-from configs.log import log
-from configs.config import settings, images
-from pyrogram import filters, Client as ILovePDF, enums
+from fpdf            import FPDF
+from plugins.utils   import *
+from configs.log     import log
+from configs.config  import settings, images
+from pyrogram        import filters, Client as ILovePDF, enums
 
 fnt = {"t": "Times", "c": "Courier", "h": "Helvetica", "s": "Symbol", "z": "ZapfDingbats"}
         
-# ---------------------------------------------------------------------------------------- REPLY TO /txt2pdf ----------------------------------------------------------
+# ================================= REPLY TO /txt2pdf =================================
 @ILovePDF.on_message(filters.private & filters.command(["txt2pdf"]) & filters.incoming)
 async def _t2pMsg(bot, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        lang_code = await getLang(message.chat.id)
-        tTXT, tBTN = await translate(text="pdf2TXT['TEXT']", button="pdf2TXT['font_btn']", order=12121, lang_code=lang_code)
+        lang_code = await util.getLang(message.chat.id)
+        tTXT, tBTN = await util.translate(text="pdf2TXT['TEXT']", button="pdf2TXT['font_btn']", order=12121, lang_code=lang_code)
         await message.reply_text(text=tTXT, reply_markup=tBTN)
         await message.delete()
     except Exception as e:
-        logger.exception("TXT2PDF:CAUSES %s ERROR" %(e), exc_info=True)
+        logger.exception("1️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
 t2p = filters.create(lambda _, __, query: query.data.startswith("t2p"))
 @ILovePDF.on_callback_query(t2p)
 async def _pgSize(bot, callbackQuery):
     try:
         chat_id = callbackQuery.message.chat.id
-        await callbackQuery.answer(); lang_code = await getLang(chat_id)
+        await callbackQuery.answer(); lang_code = await util.getLang(chat_id)
         
-        cDIR = await work(callbackQuery, "create", False)
+        cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
-            tTXT, _ = await translate(text="PROGRESS['workInP']", lang_code=lang_code)
+            tTXT, _ = await util.translate(text="PROGRESS['workInP']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT)
         
-        CHUNK, _ = await translate(text="pdf2TXT", lang_code=lang_code)
+        CHUNK, _ = await util.translate(text="pdf2TXT", lang_code=lang_code)
         bla, _, __ = callbackQuery.data.split("|")
         
         TXT[chat_id] = []; nabilanavab=True
@@ -97,7 +102,7 @@ async def _pgSize(bot, callbackQuery):
             pdf.multi_cell(200, 10, txt = _, border = 0, align = "L")
         pdf.output(f"{cDIR}/out.pdf")
         
-        FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, f"out.pdf")
+        FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(callbackQuery.message, f"out.pdf")
         if images.PDF_THUMBNAIL != THUMBNAIL:
             location = await bot.download_media(
                 message = THUMBNAIL,
@@ -115,8 +120,8 @@ async def _pgSize(bot, callbackQuery):
         await work(callbackQuery, "delete", False)
         await log.footer(callbackQuery.message, output = logFile, lang_code = lang_code)
     except Exception as e:
-        logger.exception("PAGE SIZE:CAUSES %s ERROR" %(e), exc_info=True)
+        logger.exception("2️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
         await work(callbackQuery, "delete", False)
         await processMessage.edit(f"`ERROR`: __{e}__"); del TXT[chat_id]
 
-#                                                                                  Telegram: @nabilanavab
+# Author: @nabilanavab
