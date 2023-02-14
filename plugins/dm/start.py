@@ -55,7 +55,7 @@ refresh = filters.create(lambda _, __, query: query.data == "refresh")
 async def home(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
-        if await header(bot, callbackQuery, lang_code, doc=False):
+        if await render.header(bot, callbackQuery, lang_code, doc=False):
             return
         
         await callbackQuery.answer()
@@ -101,7 +101,7 @@ async def _status(bot, callbackQuery):
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         _, __ = callbackQuery.data.split("|")
         
-        if await header(bot, callbackQuery, lang_code, doc=False):
+        if await render.header(bot, callbackQuery, lang_code, doc=False):
             return
         
         if __ in ["db", "users"] and not dataBASE.MONGODB_URI:
@@ -190,7 +190,7 @@ async def _close(bot, callbackQuery):
             else:
                 return await callbackQuery.answer("🫡")
         
-        if await header(bot, callbackQuery, doc=False):
+        if await render.header(bot, callbackQuery, doc=False):
             return
         
         if data == "me":    # deletes message & current work
