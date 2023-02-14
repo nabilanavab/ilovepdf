@@ -1,10 +1,15 @@
-# fileName : plugins/fncta.py
+# fileName : plugins/utilsfncta.py
 # copyright ©️ 2021 nabilanavab
 
+file_name = "plugins/utils/fncta.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
+# LOGGING INFO: DEBUG
+from logger           import logger
+
 import os
-from PIL import Image
-from configs.db import *
-from logger import logger
+from configs.db     import *
+from PIL            import Image
 from pyrogram.enums import ChatType
 from configs.config import settings, images
 
@@ -24,7 +29,7 @@ async def thumbMeta(thumbPath: str):
         else:
             return 0
     except Exception as e:
-        logger.exception("THUMB_META:CAUSES %s ERROR" %(e), exc_info=True)
+        logger.exception("1️⃣: 🐞 %s /close: %s" %(file_name, e))
 
 # photo_id -> local image
 async def formatThumb(location):
@@ -36,7 +41,7 @@ async def formatThumb(location):
         img.save(location, "JPEG")
         return location
     except Exception as e:
-        logger.exception("LOCAL_THUMB:CAUSES %s ERROR" %(e), exc_info=True)
+        logger.exception("2️⃣: 🐞 %s /close: %s" %(file_name, e))
 
 # return thumbnail and fileName
 async def thumbName(message, fileName, getAPI=False):
@@ -74,7 +79,7 @@ async def thumbName(message, fileName, getAPI=False):
         else:
             return FILE_NAME, FILE_CAPT, THUMBNAIL, info.get('api', 0)
         
-    except Exception as e:
-        logger.exception("THUMB_NAME: %s" %(e), exc_info=True)
+    except Exception as Error:
+        logger.exception("3️⃣: 🐞 %s /close: %s" %(file_name, Error))
 
-__all__ = [ "thumbName", "formatThumb" ]
+# Author: @nabilanavab
