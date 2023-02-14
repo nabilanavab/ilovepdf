@@ -26,14 +26,14 @@ async def cancelP2I(bot, message):
 @ILovePDF.on_message((filters.private | filters.group) & filters.command(["delete"]) & filters.incoming)
 async def _cancelI2P(bot, message):
     try:
-        lang_code = await getLang(message.chat.id)
+        lang_code = await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         del PDF[message.chat.id]
-        trans_txt, trans_btn = await translate( text = "GENERATE['deleteQueue']", lang_code = lang_code)
+        trans_txt, trans_btn = await util.translate( text = "GENERATE['deleteQueue']", lang_code = lang_code)
         await message.reply_text(trans_txt, quote = True)
         shutil.rmtree(f"work/{message.chat.id}")
     except Exception:
-        trans_txt, trans_btn = await translate(text = "GENERATE['noQueue']", lang_code = lang_code)
+        trans_txt, trans_btn = await util.translate(text = "GENERATE['noQueue']", lang_code = lang_code)
         await message.reply_text(trans_txt, quote = True)
 
 # Author: @nabilanavab
