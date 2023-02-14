@@ -1,4 +1,4 @@
 # Author: @nabilanavab
 
-from utils   import *
+from .utils   import *
 __all__ = [ "utils" ]
