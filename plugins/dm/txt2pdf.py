@@ -6,7 +6,7 @@ TXT = {}
 import os
 from fpdf import FPDF
 from logger import logger
-from plugins import *
+from plugins.utils import *
 from configs.log import log
 from configs.config import settings, images
 from pyrogram import filters, Client as ILovePDF, enums
