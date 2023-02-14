@@ -103,7 +103,7 @@ class Bot(ILovePDF):
         
         myID.append(await app.get_me())
         
-        command, _ = await translate(
+        command, _ = await util.translate(
             text = "BOT_COMMAND",
             lang_code = settings.DEFAULT_LANG
         )
