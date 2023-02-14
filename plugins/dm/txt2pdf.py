@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 
 file_name = "plugins/dm/txt2pdf.py"
-
+__author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
 from logger           import logger
