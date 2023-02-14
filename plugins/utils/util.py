@@ -1,7 +1,7 @@
-# fileName : plugins/util.py
+# fileName : plugins/utils/util.py
 # copyright ©️ 2021 nabilanavab
 
-file_name = "plugins/util.py"
+file_name = "plugins/utils/util.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
