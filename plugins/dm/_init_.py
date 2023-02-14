@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 fileName = "plugins/dm/_init_.py"
 
-from plugins              import *
+from plugins.utils        import *
 from configs.config       import *
 from configs.db           import *
 from configs.log          import log
