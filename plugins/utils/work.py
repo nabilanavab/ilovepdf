@@ -1,8 +1,11 @@
-# fileName : plugins/work.py
+# fileName : plugins/utils/work.py
 # copyright ©️ 2021 nabilanavab
 
+file_name = "plugins/utils/work.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
 import os, shutil
-from pyrogram import enums
+from pyrogram      import enums
 
 async def work(message, work="check", mtype=True) -> "str":
     """
@@ -41,3 +44,5 @@ async def work(message, work="check", mtype=True) -> "str":
         elif not mtype and message.message.chat.type != enums.ChatType.PRIVATE and len(os.listdir(pat)) == 1:
             return shutil.rmtree(pat, ignore_errors=True)
         return shutil.rmtree(path, ignore_errors=True)
+
+# Author: @nabilanavab
