@@ -26,14 +26,14 @@ try:
 except Exception:
     wordSupport = False
 
-# ========================================| MAXIMUM FILE SIZE (IF IN config var.) |====================================================================================
+# ========| MAXIMUM FILE SIZE (IF IN config var.) |=======
 if settings.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
     MAX_FILE_SIZE_IN_kiB = int(settings.MAX_FILE_SIZE) * (10 **6 )
 else:
     MAX_FILE_SIZE = False
 
-# =============================================================================| FILES TO PDF [SUPPORTED CODECS] |=====================================================
+# ===========| FILES TO PDF [SUPPORTED CODECS] |===========
 img2pdf = [
     ".jpg", ".jpeg", ".png"
 ]                                       # Img to pdf file support
