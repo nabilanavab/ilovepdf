@@ -1,9 +1,14 @@
 # fileName : plugins/dm/url.py
 # copyright ©️ 2021 nabilanavab
-fileName = "plugins/dm/url.py"
+
+file_name = "plugins/dm/url.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
+# LOGGING INFO: DEBUG
+from logger           import logger
 
 import os, re, requests, asyncio
-from plugins.utils            import *
+from plugins.utils      import *
 from configs.log        import log
 from configs.config     import settings, images
 from pyrogram           import filters, Client as ILovePDF, enums
@@ -39,13 +44,13 @@ async def _url(bot, message):
         urls = await urlsFromText(message.text)
         if urls is None:
             return
-        lang_code = await getLang(message.chat.id)
+        lang_code = await util.getLang(message.chat.id)
         
         for url in urls:
             try: await message.reply_chat_action(enums.ChatAction.TYPING)
             except Exception: pass
             
-            _, __ = await translate(text = "document['process']", button = "URL['close']", lang_code = lang_code)
+            _, __ = await util.translate(text = "document['process']", button = "URL['close']", lang_code = lang_code)
             data = await message.reply(text = _, quote = True, reply_markup = __)
             await asyncio.sleep(0.5)
             await data.edit(text = _ + ".", reply_markup = __)
@@ -61,16 +66,16 @@ async def _url(bot, message):
                 try:
                     file = await bot.get_messages(chat_id = chat_id, message_ids = message_ids)
                 except Exception as e:
-                    tTXT, _ = await translate(text = "URL['error']", lang_code = lang_code)
+                    tTXT, _ = await util.translate(text = "URL['error']", lang_code = lang_code)
                     return await data.edit(text = tTXT.format(e), reply_markup = __)
                 await asyncio.sleep(0.5)
                 if not file.document:
-                    tTXT, _ = await translate(text = "URL['notPDF']", lang_code = lang_code)
+                    tTXT, _ = await util.translate(text = "URL['notPDF']", lang_code = lang_code)
                     return await data.edit(tTXT)
                 isProtect = "🔒 Protected 🔒" if (
                     (file.sender_chat and file.sender_chat.has_protected_content) or (
                     file.chat and file.chat.has_protected_content)) else "👀 Public 👀"
-                tTXT, tBTN = await translate(text = "URL['_get']", button = "URL['get']", lang_code = lang_code)
+                tTXT, tBTN = await util.translate(text = "URL['_get']", button = "URL['get']", lang_code = lang_code)
                 await data.edit(
                     text = tTXT.format(
                         url, file.chat.type, file.chat.title, file.chat.username,
@@ -83,11 +88,11 @@ async def _url(bot, message):
             
             elif url.endswith(".pdf") or bool(urlSupport):
                 try:
-                    cDIR = await work(message, "create", True)
+                    cDIR = await work.work(message, "create", True)
                     if not cDIR:
-                        tTXT, tBTN = await translate(text = 'document["refresh"]', lang_code = lang_code)
+                        tTXT, tBTN = await util.translate(text = 'document["refresh"]', lang_code = lang_code)
                         tBTN = await createBUTTON(await editDICT(inDir = tTXT, value = "refresh"))
-                        tTXT, _ = await translate(text = 'document["inWork"]', lang_code = lang_code)
+                        tTXT, _ = await util.translate(text = 'document["inWork"]', lang_code = lang_code)
                         return await data.edit(tTXT, reply_markup = tBTN)   # work exists
                     
                     response = requests.get(url)
@@ -113,7 +118,7 @@ async def _url(bot, message):
                         outputName = pattern.sub(r'\3', url)
                         pdfkit.from_url(url, f"{cDIR}/{message.id}.pdf")
                     
-                    tTXT, tBTN = await translate(text = "URL['done']", button = "URL['close']", lang_code = lang_code)
+                    tTXT, tBTN = await util.translate(text = "URL['done']", button = "URL['close']", lang_code = lang_code)
                     await data.edit(tTXT, reply_markup = tBTN)
                     
                     FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(message, f"{outputName}.pdf")
@@ -122,7 +127,7 @@ async def _url(bot, message):
                         THUMBNAIL = await formatThumb(location)
                     
                     await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
-                    tTXT, _ = await translate(text = "URL['openCB']", lang_code = lang_code)
+                    tTXT, _ = await util.translate(text = "URL['openCB']", lang_code = lang_code)
                     logFile = await message.reply_document(
                         document = url if directDlLink and telegramCan else f"{cDIR}/{message.id}.pdf",
                         file_name = FILE_NAME.replace("+", " "), caption = f"Url: `{url}`\n\n{FILE_CAPT}",
@@ -132,22 +137,22 @@ async def _url(bot, message):
                     await data.delete()
                     await log.footer(message, output = logFile, lang_code = lang_code)
                 except Exception as e:
-                    logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
-                    tTXT, tBTN = await translate(text = "URL['_error']", button="URL['close']", lang_code=lang_code)
+                    logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
+                    tTXT, tBTN = await util.translate(text = "URL['_error']", button="URL['close']", lang_code=lang_code)
                     await data.edit(tTXT.format(e), reply_markup=tBTN)
-            await work(message, "delete", True)
+            await work.work(message, "delete", True)
     
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
-        await work(message, "delete", True)
-        tTXT, tBTN = await translate(text = "URL['error']", button = "URL['close']", lang_code = lang_code)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
+        await work.work(message, "delete", True)
+        tTXT, tBTN = await util.translate(text = "URL['error']", button = "URL['close']", lang_code = lang_code)
         return await data.edit(text = tTXT.format(e), reply_markup = tBTN)
 
 getFile = filters.create(lambda _, __, query: query.data == "getFile")
 @ILovePDF.on_callback_query(getFile)
 async def _getFile(bot, callbackQuery):
     try:
-        lang_code = await getLang(callbackQuery.message.chat.id)
+        lang_code = await util.getLang(callbackQuery.message.chat.id)
         url = callbackQuery.message.reply_to_message.text
         part = url.split("/")
         message_ids = int(part[-1])
@@ -160,45 +165,47 @@ async def _getFile(bot, callbackQuery):
         file = await bot.get_messages(chat_id=chat_id, message_ids=message_ids)
         # REPLY TO LAGE FILES/DOCUMENTS
         if MAX_FILE_SIZE and file.document.file_size >= int(MAX_FILE_SIZE_IN_kiB):
-            tTXT, _ = await translate(text="getFILE['big']", lang_code=lang_code)
+            tTXT, _ = await util.translate(text="getFILE['big']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT.format(MAX_FILE_SIZE))
         
         if await header(bot, callbackQuery, lang_code=lang_code):
             return
         
-        cDIR = await work(callbackQuery, "create", False)
+        cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
-            _, __ = await translate(text="getFILE['inWork']", lang_code=lang_code)
+            _, __ = await util.translate(text="getFILE['inWork']", lang_code=lang_code)
             return await callbackQuery.answer(_)
         
-        _, __ = await translate(text="getFILE['wait']", lang_code=lang_code)
+        _, __ = await util.translate(text="getFILE['wait']", lang_code=lang_code)
         await callbackQuery.answer(_)
         # if not a protected channel/group [just forward]
         if not (
             (file.sender_chat and file.sender_chat.has_protected_content) or (
                 file.chat and file.chat.has_protected_content)
         ):
-            await work(callbackQuery, "delete", False)
+            await work.work(callbackQuery, "delete", False)
             return await file.copy(
                 chat_id = callbackQuery.message.chat.id, caption = file.caption
             )
         
-        _, __ = await translate(button = "getFILE['dl']", lang_code = lang_code)
+        _, __ = await util.translate(button = "getFILE['dl']", lang_code = lang_code)
         await callbackQuery.edit_message_reply_markup(__)
         location = await bot.download_media(
             message = file.document.file_id, file_name = f"{cDIR}/{file.document.file_name}", progress = cbPRO,
             progress_args = (callbackQuery.message, file.document.file_size, "DOWNLOADED", True)
         )
-        _, __ = await translate(button = "getFILE['up']", lang_code = lang_code)
+        _, __ = await util.translate(button = "getFILE['up']", lang_code = lang_code)
         await callbackQuery.edit_message_reply_markup(__)
         logFile = await callbackQuery.message.reply_document(
             document = location, caption = file.caption, progress = cbPRO,
             progress_args = (callbackQuery.message, 0, "UPLOADED", True)
         )
-        _, __ = await translate(button = "getFILE['complete']", lang_code = lang_code)
+        _, __ = await util.translate(button = "getFILE['complete']", lang_code = lang_code)
         await callbackQuery.edit_message_reply_markup(__)
-        await work(callbackQuery, "delete", False)
+        await work.work(callbackQuery, "delete", False)
         await log.footer(callbackQuery.message, output = logFile, lang_code = lang_code)
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
-        await work(callbackQuery, "create", False)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
+        await work.work(callbackQuery, "create", False)
+
+# Author: @nabilanavab
