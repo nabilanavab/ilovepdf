@@ -1,20 +1,23 @@
 # fileName : plugins/dm/waste.py
 # copyright ©️ 2021 nabilanavab
 
-from logger import logger
-from plugins.utils import *
-from configs.config import dm 
-from pyrogram import Client as ILovePDF, enums, filters
+file_name = "plugins/dm/waste.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
 
-# ===========================================| WASTE/DPAMMING MESSAGES |==================================================================================================
+from plugins.utils  import *
+from configs.config import dm 
+from logger         import logger
+from pyrogram       import Client as ILovePDF, enums, filters
+
+# ==========================| WASTE/DPAMMING MESSAGES |============================
 @ILovePDF.on_message(filters.private & filters.incoming & ~filters.user(dm.ADMINS))
 async def _spam(bot, message):
     try:
-        lang_code = await getLang(message.chat.id)
+        lang_code = await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        tTXT, tBTN = await translate(text="noHelp", lang_code=lang_code)
-        await message.reply_text(tTXT, quote=True)
+        tTXT, tBTN = await util.translate(text = "noHelp", lang_code = lang_code)
+        await message.reply_text(tTXT, quote = True)
     except Exception as e:
-        logger.exception("plugins/dm/waste: %s" %(e), exc_info=True)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
 
-# ======================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+# Author: @nabilanavab
