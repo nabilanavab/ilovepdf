@@ -1,7 +1,7 @@
 # fileName : plugins/dm/ban.py
 # copyright ©️ 2021 nabilanavab
 
-file_name = 'plugins/dm/ban.py"
+file_name = "plugins/dm/ban.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
