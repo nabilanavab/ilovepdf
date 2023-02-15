@@ -1,11 +1,15 @@
 # fileName : plugins/dm/document.py
 # copyright ©️ 2021 nabilanavab
-fileName = "plugins/dm/document.py"
-    
+
+file_name = "plugins/dm/document.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
+# LOGGING INFO: DEBUG
+from logger           import logger
+
 import convertapi
 import os, time, fitz
 import shutil, asyncio
-
 from plugins.utils  import *
 from .photo         import HD
 from configs.log    import log
@@ -53,7 +57,7 @@ cnvrt_api_2PDF = [
     ".xlsx", ".xlt", ".xltx", ".xml", ".docx", ".doc"
 ]                                       # file to pdf (ConvertAPI limit)
 
-# ==================| PYMUPDF FILES TO PDF |===========================================================================================================================
+# ================| PYMUPDF FILES TO PDF |===================
 async def pymuConvert2PDF(cDIR, edit, input_file, lang_code):
     try:
         with fitz.open(input_file) as doc:
@@ -68,7 +72,7 @@ async def pymuConvert2PDF(cDIR, edit, input_file, lang_code):
         )
         return False
 
-# ================================| ConvertAPI FILES TO PDF |=========================================================================================================
+# ================| ConvertAPI FILES TO PDF |===============
 async def cvApi2PDF(cDIR, edit, input_file, lang_code, API):
     try:
         convertapi.api_secret = API
@@ -82,7 +86,7 @@ async def cvApi2PDF(cDIR, edit, input_file, lang_code, API):
         await edit.edit(tTXT.format(e))
         return False
 
-# =================================================================================================================================| WORD FILES TO PDF |===============
+# ================| WORD FILES TO PDF |===============
 async def word2PDF(cDIR, edit, input_file, lang_code):
     try:
         doc = word.Document(input_file)
@@ -93,7 +97,7 @@ async def word2PDF(cDIR, edit, input_file, lang_code):
         await edit.edit(tTXT.format(e))
         return False
 
-# ====================================================================================| REPLY TO DOC. FILES |==========================================================
+# =======================| REPLY TO DOC. FILES |==========================
 @ILovePDF.on_message(filters.private & filters.incoming & filters.document)
 
 async def documents(bot, message):
@@ -101,10 +105,10 @@ async def documents(bot, message):
         # refresh causes error ;) so, try
         try: await message.reply_chat_action(enums.ChatAction.TYPING)
         except Exception: pass
-        lang_code = await getLang(message.chat.id)
-        CHUNK, _ = await translate(text="document", lang_code = lang_code)
+        lang_code = await util.getLang(message.chat.id)
+        CHUNK, _ = await util.translate(text="document", lang_code = lang_code)
         if await work(message, "check", True):
-            tBTN = await createBUTTON(
+            tBTN = await util.createBUTTON(
                 await editDICT(inDir = CHUNK["refresh"], value = "refresh")
             )   # sends refresh msg if any
             return await message.reply_text(
@@ -114,7 +118,7 @@ async def documents(bot, message):
         
         # REPLY TO LAGE FILES/DOCUMENTS
         if MAX_FILE_SIZE and message.document.file_size >= int(MAX_FILE_SIZE_IN_kiB):
-            tBTN = await createBUTTON(CHUNK["bigCB"])
+            tBTN = await util.createBUTTON(CHUNK["bigCB"])
             return await message.reply_photo(
                 photo = images.BIG_FILE, caption = CHUNK["big"].format(MAX_FILE_SIZE, MAX_FILE_SIZE),
                 reply_markup = tBTN
@@ -125,7 +129,7 @@ async def documents(bot, message):
             await asyncio.sleep(0.5)
             await pdfMsgId.edit(CHUNK["process"] + ".")
             await asyncio.sleep(0.5)
-            tBTN = await createBUTTON(CHUNK["replyCB"])
+            tBTN = await util.createBUTTON(CHUNK["replyCB"])
             await pdfMsgId.edit(
                 text = CHUNK["reply"].format(message.document.file_name,
                 await gSF(message.document.file_size)), reply_markup = tBTN
@@ -140,8 +144,13 @@ async def documents(bot, message):
                        return
                     HD[message.chat.id].append(message.document.file_id)
                     generateCB = "document['generate']" if settings.DEFAULT_NAME else  "document['generateRN']"
-                    tTXT, tBTN = await translate(text="document['imageAdded']", button=generateCB, lang_code=lang_code)
-                    return await message.reply_text(tTXT.format(len(HD[message.chat.id])-1, message.chat.id)+" [HD] 🔰", reply_markup = tBTN, quote=True)
+                    tTXT, tBTN = await util.translate(
+                        text="document['imageAdded']", button=generateCB, lang_code=lang_code
+                    )
+                    return await message.reply_text(
+                        tTXT.format(len(HD[message.chat.id])-1, message.chat.id)+" [HD] 🔰",
+                        reply_markup = tBTN, quote=True
+                    )
                 imageDocReply = await message.reply_text(CHUNK["download"], quote=True)
                 if not isinstance(PDF.get(message.from_user.id), list):
                     PDF[message.from_user.id] = []
@@ -151,9 +160,10 @@ async def documents(bot, message):
                       ).convert("RGB")
                 PDF[message.from_user.id].append(img)
                 generateCB = "generate" if settings.DEFAULT_NAME else "generateRN"
-                tBTN = await createBUTTON(CHUNK[generateCB])
+                tBTN = await util.createBUTTON(CHUNK[generateCB])
                 return await imageDocReply.edit(
-                    text = CHUNK["imageAdded"].format(len(PDF[message.from_user.id]), message.from_user.id), reply_markup = tBTN
+                    text = CHUNK["imageAdded"].format(
+                        len(PDF[message.from_user.id]), message.from_user.id), reply_markup = tBTN
                 )
             except Exception as e:
                 return await imageDocReply.edit(CHUNK["error"].format(e))
@@ -170,7 +180,7 @@ async def documents(bot, message):
                 return await message.reply_text(CHUNK["useDOCKER"], quote = True)
             
             cDIR = await work(message, "create", True)
-            tBTN = await createBUTTON(CHUNK["cancelCB"])
+            tBTN = await util.createBUTTON(CHUNK["cancelCB"])
             pdfMsgId = await message.reply_text(CHUNK["download"], reply_markup = tBTN, quote = True)
             input_file = f"{cDIR}/input_file{fileExt}"
             # DOWNLOAD PROGRESS
@@ -215,7 +225,7 @@ async def documents(bot, message):
                 quote = True,
                 progress = uploadProgress,
                 progress_args = (pdfMsgId, time.time()),
-                reply_markup = await createBUTTON(
+                reply_markup = await util.createBUTTON(
                     btn = {"👍" : "try+", "👎" : "try-"}
                 ) if fileExt.lower() in pymu2PDF else None
             )
@@ -228,7 +238,7 @@ async def documents(bot, message):
         
         await log.footer(message, output=logFile, lang_code=lang_code)
     except Exception as e:
-        logger.exception("plugins/dm/document: %s" %(e), exc_info=True)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
         await work(message, "delete", True)
 
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+# Author: @nabilanavab
