@@ -1,20 +1,24 @@
 # fileName : plugins/dm/ban.py
 # copyright ©️ 2021 nabilanavab
 
+file_name = 'plugins/dm/ban.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
+# LOGGING INFO: DEBUG
+from logger           import logger
+
 import asyncio
-from logger import logger
-from pyrogram import filters
-from configs.config import dm
-from pyrogram import Client as ILovePDF
-from pyrogram.errors import ChatAdminRequired
-from configs.db import dataBASE, BANNED_USR_DB, BANNED_GRP_DB
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from configs.config                             import dm
+from pyrogram.errors                            import ChatAdminRequired
+from pyrogram                                   import Client as ILovePDF, filters
 from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong, PeerIdInvalid
+from configs.db                                 import dataBASE, BANNED_USR_DB, BANNED_GRP_DB
+from pyrogram.types                             import InlineKeyboardButton, InlineKeyboardMarkup
 
 if dataBASE.MONGODB_URI:
     from database import db
 
-# =========================================================================================================> BANNED USER <=============================================
+# =========================> BANNED USER <======================
 @ILovePDF.on_message(filters.incoming & filters.command('ban') &
                     filters.private & filters.user(dm.ADMINS))
 async def _banUser(bot, message):
@@ -65,7 +69,7 @@ async def _banUser(bot, message):
             BANNED_USR_DB.append(userINFO.id)
             await procs.edit(f"Successfully banned {userINFO.mention}")
     except Exception as e:
-        logger.exception("/plugins/dm/banned/ban: %s" %(e), exc_info=True)
+        logger.exception("1️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
 @ILovePDF.on_message(filters.incoming & filters.command('unban')
                     & filters.private & filters.user(dm.ADMINS))
@@ -105,7 +109,7 @@ async def _unbanUser(bot, message):
             BANNED_USR_DB.remove(userINFO.id)
             await procs.edit(f"Successfully unbanned {userINFO.mention}")
     except Exception as e:
-        logger.exception("/plugins/dm/banned/unban: %s" %(e), exc_info=True)
+        logger.exception("2️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
 banUser = filters.create(lambda _, __, query: query.data.startswith(tuple(["banU|", "banC|"])))
 @ILovePDF.on_callback_query(banUser)
@@ -147,7 +151,7 @@ async def _banUserCB(bot, callbackQuery):
                     [[InlineKeyboardButton("🔴 UNB@N USER 🔴", callback_data=_)]]
                 ))
     except Exception as e:
-        logger.exception("/plugins/dm/banned/bancb %(e)s ERROR", exc_info=True)
+        logger.exception("3️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
 unbanUser = filters.create(lambda _, __, query: query.data.startswith(tuple(["unbanU|", "unbanC|"])))
 @ILovePDF.on_callback_query(unbanUser)
@@ -180,6 +184,6 @@ async def _unbanUserCB(bot, callbackQuery):
                 [[InlineKeyboardButton("✅ B@N USER ✅", callback_data=_)]]
             ))
     except Exception as e:
-        logger.exception("/pl/dm/banned/unbancb %s" %(e), exc_info=True)
+        logger.exception("4️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+# Author: @nabilanavab
