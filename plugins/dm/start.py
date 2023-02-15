@@ -21,7 +21,7 @@ from pyrogram          import enums, filters, Client as ILovePDF
 if dataBASE.MONGODB_URI:
     from database import db
 
-# ============================================================================================== START MESSAGE ========================================================
+# ================================== START MESSAGE ================================
 @ILovePDF.on_message(filters.private & filters.incoming & filters.command("start"))
 async def start(bot, message):
     try:
@@ -47,7 +47,7 @@ async def start(bot, message):
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
 
-# ======================================================== START CALLBACK =============================================================================================
+# ====================== START CALLBACK =====================================
 Status = filters.create(lambda _, __, query: query.data.startswith("status"))
 close = filters.create(lambda _, __, query: query.data.startswith("close"))
 Home = filters.create(lambda _, __, query: query.data.startswith("Home"))
@@ -96,7 +96,7 @@ async def home(bot, callbackQuery):
     except Exception as e:
         logger.exception("🐞 %s /home: %s" %(file_name, e), exc_info = True)
 
-# ======================================================================== SERVER UPDATES =============================================================================
+# ======== SERVER UPDATES =========
 @ILovePDF.on_callback_query(Status)
 async def _status(bot, callbackQuery):
     try:
@@ -142,7 +142,9 @@ async def _status(bot, callbackQuery):
         
         elif __ == "users":
             users = await db.get_all_users()
-            tTXT, tBTN = await util.translate(text="STATUS_MSG['USERS']", button="STATUS_MSG['BACK']", lang_code=lang_code)
+            tTXT, tBTN = await util.translate(
+                text="STATUS_MSG['USERS']", button="STATUS_MSG['BACK']", lang_code=lang_code
+            )
             await callbackQuery.message.edit(text=tTXT, reply_markup=tBTN)
             rollnumber = 0; text=""
             async for user in users:
@@ -181,7 +183,7 @@ async def _status(bot, callbackQuery):
         logger.exception("/SERVER:CAUSES %s ERROR" %(e), exc_info=True)
         logger.exception("🐞 %s /status: %s" %(file_name, e), exc_info = True)
 
-# ============================ CLOSE CALLBACK =========================================================================================================================
+# ======= CLOSE CALLBACK =========
 @ILovePDF.on_callback_query(close)
 async def _close(bot, callbackQuery):
     try:
@@ -197,7 +199,7 @@ async def _close(bot, callbackQuery):
         
         if data == "me":    # deletes message & current work
             await callbackQuery.message.delete()
-            return await work(callbackQuery, "delete", False)
+            return await work.work(callbackQuery, "delete", False)
         elif data == "hd":
             await callbackQuery.message.delete()
             del HD[callbackQuery.message.chat.id]
@@ -208,17 +210,19 @@ async def _close(bot, callbackQuery):
             if callbackQuery.message.chat.type == enums.ChatType.PRIVATE:
                 await callbackQuery.message.delete()
                 return await callbackQuery.message.reply_to_message.delete()
-            if await work(callbackQuery, "check", False):
+            if await work.work(callbackQuery, "check", False):
                 lang_code = await util.getLang(callbackQuery.from_user.id)
                 _, __ = await util.translate(text = "PROGRESS['workInP']", lang_code = lang_code)
                 return await callbackQuery.answer(_)
             return await callbackQuery.message.delete()
         elif data == "P2I":
             lang_code = await util.getLang(callbackQuery.from_user.id)
-            _, canceled = await util.translate(text = "pdf2IMG['cbAns']", button = "pdf2IMG['canceledCB']", lang_code = lang_code)
+            _, canceled = await util.translate(
+                text = "pdf2IMG['cbAns']", button = "pdf2IMG['canceledCB']", lang_code = lang_code
+            )
             await callbackQuery.answer(_)
             await callbackQuery.edit_message_reply_markup(canceled)
-            return await work(callbackQuery, "delete", False)
+            return await work.work(callbackQuery, "delete", False)
         elif data == "dev":
             lang_code = await util.getLang(callbackQuery.from_user.id)
             _, __ = await util.translate(text = "cbAns", lang_code = lang_code)
