@@ -1,26 +1,31 @@
 # fileName : plugins/dm/generate.py
 # copyright ©️ 2021 nabilanavab
 
+file_name = "plugins/dm/generate.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
+
+# LOGGING INFO: DEBUG
+from logger           import logger
+
 import asyncio, os, shutil, fitz
+from plugins.utils   import *
 from .photo          import HD
 from pdf             import PDF
 from configs.log     import log
-from logger          import logger
 from pyromod         import listen
 from pyrogram.types  import ForceReply
 from configs.config  import images as im
-from plugins.utils         import *
 from pyrogram        import enums, filters, Client as ILovePDF
 
-# ========================================================================| GENERATE PDF FROM IMAGES |=================================================================
+# ====================| GENERATE PDF FROM IMAGES |==========================
 GEN = filters.create(lambda _, __, query: query.data.startswith("generate"))
 
 @ILovePDF.on_callback_query(GEN)
 async def _GEN(bot, callbackQuery):
     try:
         chat_id = callbackQuery.message.chat.id
-        lang_code = await getLang(chat_id)
-        if await header(bot, callbackQuery, lang_code=lang_code):
+        lang_code = await util.getLang(chat_id)
+        if await render.header(bot, callbackQuery, lang_code=lang_code):
             return
         
         images = PDF.get(chat_id)
@@ -29,12 +34,12 @@ async def _GEN(bot, callbackQuery):
             del PDF[chat_id]
         
         if (not(images) and chat_id not in HD) or (chat_id in HD and len(HD[chat_id]) == 1):
-            tTXT, tBTN = await translate(text = "GENERATE['noImages']", lang_code = lang_code)
+            tTXT, tBTN = await util.translate(text = "GENERATE['noImages']", lang_code = lang_code)
             return await callbackQuery.answer(tTXT)
         await callbackQuery.answer()
         
         if callbackQuery.data[-3:] == "REN":
-            tTXT, tBTN = await translate(text = "GENERATE['getFileNm']", lang_code = lang_code)
+            tTXT, tBTN = await util.translate(text = "GENERATE['getFileNm']", lang_code = lang_code)
             fileName = await bot.ask(
                 chat_id = chat_id, reply_to_message_id = callbackQuery.message.id,
                 text = tTXT, reply_markup = ForceReply(True)
@@ -49,7 +54,7 @@ async def _GEN(bot, callbackQuery):
         else:
             fileName = f"{chat_id}.pdf"
         
-        tTXT, tBTN = await translate(text = "GENERATE['geting']", button = "GENERATE['getingCB']", lang_code = lang_code)
+        tTXT, tBTN = await util.translate(text = "GENERATE['geting']", button = "GENERATE['getingCB']", lang_code = lang_code)
         if not images:
             pgnmbr = len(HD[chat_id])-1
         gen = await callbackQuery.message.reply_text(
@@ -60,7 +65,7 @@ async def _GEN(bot, callbackQuery):
         if chat_id not in HD:
             images[0].save(filePath, save_all = True, append_images = images[1:])
         else:
-            tTXT, tBTN = await translate(text = "GENERATE['currDL']", button = "GENERATE['getingCB']", lang_code = lang_code)
+            tTXT, tBTN = await util.translate(text = "GENERATE['currDL']", button = "GENERATE['getingCB']", lang_code = lang_code)
             for i, ID in enumerate(HD[chat_id]):
                 if i == 0:
                     continue    # HD mode shift: messageID
@@ -70,7 +75,7 @@ async def _GEN(bot, callbackQuery):
             imgList = [os.path.join(f"work/{chat_id}", file) for file in os.listdir(f"work/{chat_id}")]
             imgList.sort(key = os.path.getctime)
             
-            tTXT, tBTN = await translate(text="GENERATE['geting']", button="GENERATE['getingCB']", lang_code=lang_code)
+            tTXT, tBTN = await util.translate(text="GENERATE['geting']", button="GENERATE['getingCB']", lang_code=lang_code)
             await gen.edit(tTXT.format(fileName, pgnmbr), reply_markup=tBTN)
             
             with fitz.open() as doc:
@@ -97,11 +102,11 @@ async def _GEN(bot, callbackQuery):
             )
             THUMBNAIL = await formatThumb(location)
         
-        tTXT, tBTN = await translate(button = "PROGRESS['upFileCB']", lang_code = lang_code)
+        tTXT, tBTN = await util.translate(button = "PROGRESS['upFileCB']", lang_code = lang_code)
         await gen.edit_reply_markup(tBTN)
         
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
-        tTXT, tBTN = await translate(text = "GENERATE['geting']", lang_code=lang_code)
+        tTXT, tBTN = await util.translate(text = "GENERATE['geting']", lang_code = lang_code)
         logFile = await callbackQuery.message.reply_document(
             document = filePath, caption = f"{tTXT.format(fileName, pgnmbr)}\n\n{FILE_CAPT}",
             file_name = FILE_NAME, thumb = THUMBNAIL, progress = cbPRO,
@@ -112,9 +117,11 @@ async def _GEN(bot, callbackQuery):
         except Exception: pass
         await log.footer(callbackQuery.message, output = logFile, lang_code = lang_code)
     except Exception as e:
-        tTXT, tBTN = await translate(text = "document['error']", button = "checkPdf['errorCB']", lang_code = lang_code)
+        tTXT, tBTN = await util.translate(
+            text = "document['error']", button = "checkPdf['errorCB']", lang_code = lang_code
+        )
         await gen.edit(tTXT.format(e), reply_markup = tBTN)
         try: shutil.rmtree(f"work/{chat_id}"); del HD[chat_id]
         except Exception: pass
 
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+# Author: @nabilanavab
