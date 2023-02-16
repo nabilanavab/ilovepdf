@@ -9,7 +9,7 @@ from logger import logger
 
 import fitz
 
-async def decryptPDF(input_file: str, password: str, cDIR: str) -> tuple[ bool, str ]:
+async def decryptPDF(input_file: str, password: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
