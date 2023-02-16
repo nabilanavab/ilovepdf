@@ -21,10 +21,12 @@ index = filters.create(lambda _, __, query: query.data.startswith("#"))
 async def watermark(bot, callbackQuery):
     try:
         data = callbackQuery.data[1:]
-        lang_code = await getLang(callbackQuery.message.chat.id)
-
-        if await header(bot, callbackQuery, lang_code = lang_code):
+        lang_code = await util.getLang(callbackQuery.message.chat.id)
+        
+        if await render.header(bot, callbackQuery, lang_code = lang_code):
             return
+        
+        CHUNK, _ = await translate(text="common", lang_code=lang_code)
         
         elif data == "rot360":
             return await callbackQuery.answer(CHUNK["rot360"])
