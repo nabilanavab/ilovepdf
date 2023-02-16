@@ -9,7 +9,7 @@ from logger import logger
 
 import fitz
 
-async def saturatePDF(input_file: str, cDIR: str) -> Tuple[ bool, str ]:
+async def saturatePDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
