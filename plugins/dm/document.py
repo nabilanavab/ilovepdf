@@ -16,7 +16,6 @@ from configs.log    import log
 from pdf            import PDF
 from configs.db     import DATA
 from PIL            import Image
-from logger         import logger
 from configs.config import settings, images
 from pyrogram       import Client as ILovePDF, filters, enums
 
@@ -107,7 +106,7 @@ async def documents(bot, message):
         except Exception: pass
         lang_code = await util.getLang(message.chat.id)
         CHUNK, _ = await util.translate(text="document", lang_code = lang_code)
-        if await work(message, "check", True):
+        if await work.work(message, "check", True):
             tBTN = await util.createBUTTON(
                 await editDICT(inDir = CHUNK["refresh"], value = "refresh")
             )   # sends refresh msg if any
@@ -179,7 +178,7 @@ async def documents(bot, message):
             if (fileExt.lower() in wordFiles) and not wordSupport:
                 return await message.reply_text(CHUNK["useDOCKER"], quote = True)
             
-            cDIR = await work(message, "create", True)
+            cDIR = await work.work(message, "create", True)
             tBTN = await util.createBUTTON(CHUNK["cancelCB"])
             pdfMsgId = await message.reply_text(CHUNK["download"], reply_markup = tBTN, quote = True)
             input_file = f"{cDIR}/input_file{fileExt}"
@@ -190,7 +189,7 @@ async def documents(bot, message):
             )
             # CHECKS PDF DOWNLOADED OR NOT
             if os.path.getsize(downloadLoc) != message.document.file_size:    
-                return await work(message, "delete", True)
+                return await work.work(message, "delete", True)
             
             await pdfMsgId.edit(CHUNK['takeTime'], reply_markup=tBTN)
             
@@ -209,7 +208,7 @@ async def documents(bot, message):
                 isError = await word2PDF(cDIR, pdfMsgId, input_file, lang_code)
             
             if not isError:
-                return await work(message, "delete", True)
+                return await work.work(message, "delete", True)
             
             if images.PDF_THUMBNAIL != THUMBNAIL:
                 location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/thumb.jpeg")
@@ -230,7 +229,7 @@ async def documents(bot, message):
                 ) if fileExt.lower() in pymu2PDF else None
             )
             await pdfMsgId.delete()
-            await work(message, "delete", True)
+            await work.work(message, "delete", True)
         
         # UNSUPPORTED FILES
         else:
@@ -239,6 +238,6 @@ async def documents(bot, message):
         await log.footer(message, output=logFile, lang_code=lang_code)
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
-        await work(message, "delete", True)
+        await work.work(message, "delete", True)
 
 # Author: @nabilanavab
