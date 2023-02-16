@@ -4,6 +4,11 @@
 file_name = "plugins/dm/callBack/file_process/drawPDF.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
+# LOGGING INFO: DEBUG
+from logger import logger
+
+import fitz
+
 async def darwPDF(input_file: str, cDIR: str) -> Tuple[ bool, str ]:
     try:
         output_path = f"{cDIR}/outPut.pdf"
