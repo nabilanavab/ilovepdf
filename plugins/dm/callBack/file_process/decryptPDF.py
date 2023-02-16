@@ -11,14 +11,11 @@ import fitz
 
 async def decryptPDF(input_file: str, password: str, cDIR: str) -> Tuple[ bool, str ]:
     try:
-        try:
-            output_path = f"{cDIR}/outPut.pdf"
-            with fitz.open(input_file) as iNPUT:
-                iNPUT.authenticate(f"{password.text}")
-                iNPUT.save(output_path)
-            return True, output_path
-        except Exception as Error:
-            return False, Error
+        output_path = f"{cDIR}/outPut.pdf"
+        with fitz.open(input_file) as iNPUT:
+            iNPUT.authenticate(f"{password.text}")
+            iNPUT.save(output_path)
+        return True, output_path
         
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
