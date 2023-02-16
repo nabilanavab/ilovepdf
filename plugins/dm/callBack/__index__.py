@@ -16,7 +16,7 @@ from pyrogram         import enums, filters, Client as ILovePDF
 
 from .file_process import *
 
-if nabilanavab == False:
+if ocrPDF.nabilanavab == False:
     from .ocrPDF import ocrPDF
 
 index = filters.create(lambda _, __, query: query.data.startswith("#"))
