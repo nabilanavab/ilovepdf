@@ -14,11 +14,7 @@ from configs.config   import images
 from pyrogram.types   import ForceReply
 from pyrogram         import enums, filters, Client as ILovePDF
 
-from .drawPDF import drawPDF
-from .saturatePDF import saturatePDF
-from .splitSinglePage import splitSinglePage
-from .blackAndWhitePdf import blackAndWhitePdf
-from .combineSinglePage import combineSinglePage
+from .file_process import *
 
 if nabilanavab == False:
     from .ocrPDF import ocrPDF
