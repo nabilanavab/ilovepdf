@@ -131,7 +131,7 @@ async def documents(bot, message):
             tBTN = await util.createBUTTON(CHUNK["replyCB"])
             await pdfMsgId.edit(
                 text = CHUNK["reply"].format(message.document.file_name,
-                await gSF(message.document.file_size)), reply_markup = tBTN
+                await render.gSF(message.document.file_size)), reply_markup = tBTN
             )
             logFile = message
         
