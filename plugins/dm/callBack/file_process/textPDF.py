@@ -9,7 +9,7 @@ from logger import logger
 
 import fitz
 
-async def textPDF(input_file: str, cDIR: str, data: str, message=None) -> Tuple[ bool, str ]:
+async def textPDF(input_file: str, cDIR: str, data: str, message=None) -> ( bool, str ):
     try:
         if data != "M":
             return
