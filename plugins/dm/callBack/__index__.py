@@ -16,9 +16,6 @@ from pyrogram         import enums, filters, Client as ILovePDF
 
 from .file_process import *
 
-if ocrPDF.nabilanavab == False:
-    from .ocrPDF import ocrPDF
-
 index = filters.create(lambda _, __, query: query.data.startswith("#"))
 @ILovePDF.on_callback_query(index)
 async def watermark(bot, callbackQuery):
@@ -35,7 +32,7 @@ async def watermark(bot, callbackQuery):
         # Never Work OCR if nabilanavab==True
         # Deploy From Docker Files (else OCR never works)
         elif data == "ocr":
-            if nabilanavab:
+            if ocrPDF.nabilanavab:
                 return await callbackQuery.answer(CHUNK["ocrError"])
             if "•" in callbackQuery.message.text:
                 number_of_pages = callbackQuery.message.text.split("•")[1]
