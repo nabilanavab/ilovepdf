@@ -13,7 +13,7 @@ try:
 except Exception:
     nabilanavab = True
 
-async def ocrPDF(input_file: str, cDIR: str) -> Tuple[ bool, str ]:
+async def ocrPDF(input_file: str, cDIR: str) -> tuple[ bool, str ]:
     try:
         output_path = f"{cDIR}/outPut.pdf"
         ocrmypdf.ocr(
