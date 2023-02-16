@@ -117,11 +117,11 @@ async def _pgSize(bot, callbackQuery):
             quote = True, document = open(f"{cDIR}/out.pdf", "rb"), thumb = THUMBNAIL
         )
         await processMessage.delete(); del TXT[chat_id]
-        await work(callbackQuery, "delete", False)
+        await work.work(callbackQuery, "delete", False)
         await log.footer(callbackQuery.message, output = logFile, lang_code = lang_code)
     except Exception as e:
         logger.exception("2️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
-        await work(callbackQuery, "delete", False)
+        await work.work(callbackQuery, "delete", False)
         await processMessage.edit(f"`ERROR`: __{e}__"); del TXT[chat_id]
 
 # Author: @nabilanavab
