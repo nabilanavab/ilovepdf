@@ -11,7 +11,7 @@ import fitz
 from utils                       import *
 from PDFNetPython3.PDFNetPython  import PDFDoc, Optimizer, SDFDoc, PDFNet
 
-async def darwPDF(input_file: str, cDIR: str) -> Tuple[ bool, str ]:
+async def darwPDF(input_file: str, cDIR: str) -> tuple[ bool, str ]:
     try:
         output_path = f"{cDIR}/outPut.pdf"
         # Initialize the library
