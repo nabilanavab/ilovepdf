@@ -1,7 +1,8 @@
 # fileName : plugins/dm/callBack/index.py
 # copyright ©️ 2021 nabilanavab
-fileName = "plugins/dm/callBack/index.py"
 
+file_name = "plugins/dm/callBack/index.py"
+__author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
 from logger           import logger
@@ -125,9 +126,7 @@ async def watermark(bot, callbackQuery):
             callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name
         )
         if images.PDF_THUMBNAIL != THUMBNAIL:
-            location = await bot.download_media(
-                message = THUMBNAIL, file_name = f"{cDIR}/temp.jpeg"
-            )
+            location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/temp.jpeg")
             THUMBNAIL = await formatThumb(location)
         
         await dlMSG.edit(CHUNK['upFile'], reply_markup = _)
@@ -137,8 +136,8 @@ async def watermark(bot, callbackQuery):
             caption = FILE_CAPT, progress = uploadProgress, progress_args = (dlMSG, time.time()) 
         )
         await dlMSG.delete()
-        await work(callbackQuery, "delete", False)
+        await work.work(callbackQuery, "delete", False)
     
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
-        await work(callbackQuery, "delete", False)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
+        await work.work(callbackQuery, "delete", False)
