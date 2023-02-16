@@ -8,7 +8,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 
 import fitz
-from utils                       import *
+from plugins.utils               import *
 from PDFNetPython3.PDFNetPython  import PDFDoc, Optimizer, SDFDoc, PDFNet
 
 async def darwPDF(input_file: str, cDIR: str) -> ( bool, str ):
