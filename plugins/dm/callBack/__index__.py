@@ -25,11 +25,11 @@ async def watermark(bot, callbackQuery):
         
         if await render.header(bot, callbackQuery, lang_code = lang_code):
             return
-        
-        CHUNK, _ = await translate(text="common", lang_code=lang_code)
-        
         elif data == "rot360":
-            return await callbackQuery.answer(CHUNK["rot360"])
+            text, _ = await util.translate(text = "common['rot360']", lang_code = lang_code)
+            return await callbackQuery.answer(text)
+        
+        CHUNK, _ = await util.translate(text = "common", lang_code = lang_code)
         
         # Never Work OCR if nabilanavab==True
         # Deploy From Docker Files (else OCR never works)
