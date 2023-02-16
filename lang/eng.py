@@ -304,7 +304,7 @@ File Size : `{}`""",
 
 File Name: `{}`
 File Size: `{}`""",
-    "encryptCB" : {"🔓 DECRYPT 🔓" : "work|decrypt"}
+    "encryptCB" : {"🔓 DECRYPT 🔓" : "#decrypt"}
 }
 
 PROGRESS = {
@@ -331,6 +331,12 @@ GENERATE = {
     "getFileNm" : "Now Send Me a File Name 😒: ",
     "deleteQueue" : "`Queue deleted Successfully..`🤧",
     "getingCB" : {"📚 GENERATING PDF.." : "nabilanavab"},
+}
+
+common = {
+    "rot360" : "..."
+
+
 }
 
 document = {
