@@ -27,7 +27,7 @@ async def watermark(bot, callbackQuery):
         if await render.header(bot, callbackQuery, lang_code = lang_code):
             return
         
-        CHUNK, _ = await util.translate(text = "common", lang_code = lang_code)
+        CHUNK, _ = await util.translate(text = "common", button="common['button']", lang_code = lang_code)
         
         if data == "rot360":
             text, _ = await util.translate(text = CHUNK['rot360'], lang_code = lang_code)
@@ -61,12 +61,16 @@ async def watermark(bot, callbackQuery):
             if password.text == "/exit":
                 return await password.reply(CHUNK["exit"], quote = True)
         
-        # program will now create a brand new directory to store all of your important user data
+        # create a brand new directory to store all of your important user data
         cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
             return await callbackQuery.answer(CHUNK["inWork"])
         await callbackQuery.answer(CHUNK["process"])
-
+        
+        dlMSG = await callbackQuery.message.reply_text(
+            CHUNK["download"], reply_markup = _, quote = True
+        )
+        
         # download the mentioned PDF file with progress updates
         input_path = await bot.download_media(
             message = callbackQuery.message.reply_to_message.document.file_id,
