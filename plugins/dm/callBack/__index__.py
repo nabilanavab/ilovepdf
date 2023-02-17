@@ -128,7 +128,7 @@ async def watermark(bot, callbackQuery):
             location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/temp.jpeg")
             THUMBNAIL = await formatThumb(location)
         
-        await dlMSG.edit(CHUNK['upFile'], reply_markup = _)
+        await dlMSG.edit(CHUNK['upload'], reply_markup = _)
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
             file_name = FILE_NAME, quote = True, document = output_file, thumb = THUMBNAIL,
