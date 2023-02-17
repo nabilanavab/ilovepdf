@@ -835,5 +835,9 @@ DELETE = {
 common = {
     "rot360" : "...",
     "ocrError" : "ocr error.. not docker",
-    "notEncrypt": "File Not Encrypted.. 👀"
+    "notEncrypt": "File Not Encrypted.. 👀",
+    "largeNo" : "too many pdf pages, send me less than 5 pages",
+    "inWork" : "work in PROGRESS",
+    "process" : "processing",
+    
 }
