@@ -833,7 +833,7 @@ DELETE = {
 }
 
 common = {
-    "rot360" : "..."
-    "ocrError" : "ocr error.. not docker"
+    "rot360" : "...",
+    "ocrError" : "ocr error.. not docker",
     "notEncrypt": "File Not Encrypted.. 👀"
 }
