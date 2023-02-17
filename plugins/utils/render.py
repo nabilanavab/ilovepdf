@@ -15,8 +15,8 @@ from configs.config        import dm, settings
 from pyrogram              import Client, filters
 from pyrogram.enums        import ChatMemberStatus, ChatType, ChatAction
 
-#======================================= CHECKS CALLBACKQUERY USER ====================================================================================================
-async def header(bot, callbackQuery, lang_code=settings.DEFAULT_LANG, doc=True):
+#======================== CHECKS CALLBACKQUERY USER ============================
+async def header(bot, callbackQuery, lang_code = settings.DEFAULT_LANG, doc = True):
     try:
         if not doc:
             if (callbackQuery.message.chat.type != ChatType.PRIVATE  and
@@ -46,7 +46,7 @@ async def header(bot, callbackQuery, lang_code=settings.DEFAULT_LANG, doc=True):
         await callbackQuery.message.delete()
         return "delete"
 
-#======================================================================================== SIZE FORMATER (TO HUMAN READABLE FORM) ======================================
+# ========= SIZE FORMATER (TO HUMAN READABLE FORM) =============
 async def gSF(b, factor=2**10, suffix="B"):    # get_size_format
     try:
         for unit in ["", "K", "M", "G", "T"]:                 # Scale bytes to its proper byte format
@@ -56,7 +56,7 @@ async def gSF(b, factor=2**10, suffix="B"):    # get_size_format
         return f"{b:.2f}Y{suffix}"
     except Exception: pass
 
-#====================== CHECKS PDF CODEC, IS ENCRYPTED OR NOT =========================================================================================================
+# == CHECKS PDF CODEC, IS ENCRYPTED OR NOT ==
 async def checkPdf(file_path, callbackQuery):
     try:
         lang_code = await getLang(callbackQuery.message.chat.id)
@@ -107,7 +107,7 @@ async def checkPdf(file_path, callbackQuery):
         await work(callbackQuery, "delete", False)
         return "notPdf", "🚫"
 
-#=================================================================================== DOC. DOWNLOAD PROGRESS ===========================================================
+# ================== DOC. DOWNLOAD PROGRESS =====================
 # Here t = 0; cauz downloading using bot.downlod_media cant fetch
 # total file size, so sharing file_size as function para.
 async def progress(current, t, total, message, start):
@@ -130,8 +130,8 @@ async def progress(current, t, total, message, start):
         )
         await message.edit_text(text="DOWNLOADING.. 📥\n{}".format(tmp)[:1000], reply_markup=tBTN)
 
-#========================================================================================================================== DOC. UPLOADING PROGRESS ===================
-async def uploadProgress(current, total, message, start):
+# =========== DOC. UPLOADING PROGRESS ===================
+async def _progress(current, total, message, start):
     now = time.time(); diff = now - start
     
     if round(diff % 10) in [0, 8] or current == total:
@@ -152,7 +152,7 @@ async def uploadProgress(current, total, message, start):
         )
         await message.edit_text(text="UPLOADING.. 📤\n{}".format(tmp), reply_markup=tBTN)
 
-#======================================================================================================================================================================
+# ==========================================
 def TimeFormatter(milliseconds: int) -> str:
     seconds, milliseconds=divmod(int(milliseconds), 1000)
     minutes, seconds=divmod(seconds, 60)
@@ -165,8 +165,8 @@ def TimeFormatter(milliseconds: int) -> str:
         ((str(milliseconds) + "ms, ") if milliseconds else "")
     return tmp[:-2]
 
-#======================================================================================================================================================================
-async def cbPRO(current, t, message, total=0, typ="DOWNLOADED", cancel=False):
+#===================================================================================
+async def cbPRO(current, t, message, total = 0, typ = "DOWNLOADED", cancel = False):
     lang_code = await getLang(message.chat.id)
     if t != 0:
         total = t
