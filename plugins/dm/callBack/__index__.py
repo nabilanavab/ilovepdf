@@ -89,7 +89,7 @@ async def watermark(bot, callbackQuery):
         # This helps to ensure the proper handling of the file and prevent errors during the manipulation process.
         if "•" not in callbackQuery.message.text:
             known = False
-            checked, number_of_pages = await checkPdf(input_file, callbackQuery)
+            checked, number_of_pages = await render.checkPdf(input_file, callbackQuery)
             if checked == "encrypted":
                 await work.work(callbackQuery, "delete", False)
                 return await dlMSG.delete()
