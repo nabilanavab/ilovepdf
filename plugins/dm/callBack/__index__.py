@@ -21,6 +21,7 @@ index = filters.create(lambda _, __, query: query.data.startswith("#"))
 async def watermark(bot, callbackQuery):
     try:
         data = callbackQuery.data[1:]
+        logger.debug(data)
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         
         if await render.header(bot, callbackQuery, lang_code = lang_code):
@@ -46,7 +47,7 @@ async def watermark(bot, callbackQuery):
             return await callbackQuery.answer(_)
         
         # program will now create a brand new directory to store all of your important user data
-        cDIR = await work(callbackQuery, "create", False)
+        cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
             return await callbackQuery.answer(CHUNK["inWork"])
         await callbackQuery.answer(CHUNK["process"])
@@ -61,7 +62,7 @@ async def watermark(bot, callbackQuery):
 
         # The program checks the size of the file and the file on the server to avoid errors when canceling the download
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
-            return await work(callbackQuery, "delete", False)
+            return await work.work(callbackQuery, "delete", False)
         
         # The program is designed to check the presence of the "•" character in the message callback query.
         # If it is present,The file has been manipulated one or more times on the server and has attached metadata..
@@ -71,7 +72,7 @@ async def watermark(bot, callbackQuery):
             known = False
             checked, number_of_pages = await checkPdf(input_file, callbackQuery)
             if checked == "encrypted":
-                await work(callbackQuery, "delete", False)
+                await work.work(callbackQuery, "delete", False)
                 return await dlMSG.delete()
         else:
             known = True
