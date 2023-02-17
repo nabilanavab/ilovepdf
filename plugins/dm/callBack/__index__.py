@@ -79,7 +79,7 @@ async def watermark(bot, callbackQuery):
             )
         )
         
-        await dlMSG.edit(text = CHUNK["complete"], reply_markup = _)
+        await dlMSG.edit(text = CHUNK["completed"], reply_markup = _)
         
         # The program checks the size of the file and the file on the server to avoid errors when canceling the download
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
