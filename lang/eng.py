@@ -842,4 +842,5 @@ common = {
     "pyromodASK_1" : "now enter password, what use for opening pdf",
     "download" : "started downloading..",
     "button" : { "⟨ Cancel ⟩" : "close|me" },
+    "error" : "error: {} ",
 }
