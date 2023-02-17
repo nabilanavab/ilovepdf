@@ -70,7 +70,7 @@ async def watermark(bot, callbackQuery):
         # download the mentioned PDF file with progress updates
         input_path = await bot.download_media(
             message = callbackQuery.message.reply_to_message.document.file_id,
-            file_name = f"{cDIR}/inPut.pdf", progress = progress, progress_args = (
+            file_name = f"{cDIR}/inPut.pdf", progress = render.progress, progress_args = (
                 callbackQuery.message.reply_to_message.document.file_size, dlMSG, time.time()
             )
         )
@@ -108,7 +108,6 @@ async def watermark(bot, callbackQuery):
         elif data == "zoom":
             output_path = await splitSinglePage(cDIR = cDIR, input_file = input_path)
         
-        
         # Getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(
             callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name
@@ -121,7 +120,7 @@ async def watermark(bot, callbackQuery):
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
             file_name = FILE_NAME, quote = True, document = output_path, thumb = THUMBNAIL,
-            caption = FILE_CAPT, progress = uploadProgress, progress_args = (dlMSG, time.time()) 
+            caption = FILE_CAPT, progress = render._progress, progress_args = (dlMSG, time.time()) 
         )
         await dlMSG.delete()
         await work.work(callbackQuery, "delete", False)
