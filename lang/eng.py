@@ -839,5 +839,5 @@ common = {
     "largeNo" : "too many pdf pages, send me less than 5 pages",
     "inWork" : "work in PROGRESS",
     "process" : "processing",
-    
+    "pyromodASK_1" : "now enter password, what use for opening pdf"
 }
