@@ -843,4 +843,5 @@ common = {
     "download" : "started downloading..",
     "button" : { "⟨ Cancel ⟩" : "close|me" },
     "error" : "error: {} ",
+    "completed" : "download complleted"
 }
