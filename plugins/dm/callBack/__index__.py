@@ -45,15 +45,13 @@ async def watermark(bot, callbackQuery):
             _, __ = await translate(text = CHUNK['notEncrypt'], lang_code = lang_code)
             return await callbackQuery.answer(_)
         
-        # -------------------GET TEXT 
-        
+        # program will now create a brand new directory to store all of your important user data
         cDIR = await work(callbackQuery, "create", False)
         if not cDIR:
             return await callbackQuery.answer(CHUNK["inWork"])
         await callbackQuery.answer(CHUNK["process"])
 
-        # -------------------DOWNLOAD MESSAGE
-
+        # download the mentioned PDF file with progress updates
         input_path = await bot.download_media(
             message = callbackQuery.message.reply_to_message.document.file_id,
             file_name = f"{cDIR}/inPut.pdf", progress = progress, progress_args = (
@@ -61,11 +59,14 @@ async def watermark(bot, callbackQuery):
             )
         )
 
-        # CHECKS IF DOWNLOAD COMPLETE/PROCESS CANCELLED
+        # The program checks the size of the file and the file on the server to avoid errors when canceling the download
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
             return await work(callbackQuery, "delete", False)
         
-        # --------------------DOWNLOAD COMPLETED
+        # The program is designed to check the presence of the "•" character in the message callback query.
+        # If it is present,The file has been manipulated one or more times on the server and has attached metadata..
+        # If not, the program prompts the user to add metadata to the file.
+        # This helps to ensure the proper handling of the file and prevent errors during the manipulation process.
         if "•" not in callbackQuery.message.text:
             known = False
             checked, number_of_pages = await checkPdf(input_file, callbackQuery)
@@ -90,12 +91,6 @@ async def watermark(bot, callbackQuery):
         
         elif data == "zoom":
             output_path = await splitSinglePage(cDIR = cDIR, input_file = input_path)
-        
-        
-        if "•" in callbackQuery.message.text:
-            pass
-        else:
-            known = False
         
         # Asks password for encryption, decryption
         if data in ["decrypt", "encrypt"]:
