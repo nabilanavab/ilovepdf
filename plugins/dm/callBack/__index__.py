@@ -25,30 +25,24 @@ async def watermark(bot, callbackQuery):
         
         if await render.header(bot, callbackQuery, lang_code = lang_code):
             return
-        elif data == "rot360":
-            text, _ = await util.translate(text = "common['rot360']", lang_code = lang_code)
-            return await callbackQuery.answer(text)
         
         CHUNK, _ = await util.translate(text = "common", lang_code = lang_code)
         
-        # Never Work OCR if nabilanavab==True
-        # Deploy From Docker Files (else OCR never works)
-        elif data == "ocr":
-            if ocrPDF.nabilanavab:
-                return await callbackQuery.answer(CHUNK["ocrError"])
-            if "•" in callbackQuery.message.text:
-                number_of_pages = callbackQuery.message.text.split("•")[1]
-                if int(number_of_pages) >= 5:
-                    return await callbackQuery.answer(CHUNK["largeNo"])
-            
-        # PDF A4 Formatter
-        elif data == "format" and "•" in callbackQuery.message.text:
+        if data == "rot360":
+            text, _ = await util.translate(text = CHUNK['rot360'], lang_code = lang_code)
+            return await callbackQuery.answer(text)
+        
+        elif data in ["ocr"] and "•" in callbackQuery.message.text:
             number_of_pages = callbackQuery.message.text.split("•")[1]
             if int(number_of_pages) >= 5:
                 return await callbackQuery.answer(CHUNK["largeNo"])
         
+        elif data == "ocr":
+            if ocrPDF.nabilanavab:                                      # Never Work OCR if nabilanavab==True
+                return await callbackQuery.answer(CHUNK["ocrError"])    # Deploy From Docker Files (else OCR never works)
+        
         elif data == "decrypt" and "•" in callbackQuery.message.text and "🔐" not in callbackQuery.message.text:
-            _, __ = await translate(text = "cbAns[3]", lang_code = lang_code)
+            _, __ = await translate(text = CHUNK['notEncrypt'], lang_code = lang_code)
             return await callbackQuery.answer(_)
         
         # -------------------GET TEXT 
