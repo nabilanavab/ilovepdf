@@ -78,7 +78,9 @@ async def watermark(bot, callbackQuery):
                 callbackQuery.message.reply_to_message.document.file_size, dlMSG, time.time()
             )
         )
-
+        
+        await dlMSG.edit(text = CHUNK["complete"], reply_markup = _)
+        
         # The program checks the size of the file and the file on the server to avoid errors when canceling the download
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
             return await work.work(callbackQuery, "delete", False)
@@ -129,7 +131,7 @@ async def watermark(bot, callbackQuery):
         await dlMSG.edit(CHUNK['upFile'], reply_markup = _)
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
-            file_name = FILE_NAME, quote = True, document = output_path, thumb = THUMBNAIL,
+            file_name = FILE_NAME, quote = True, document = output_file, thumb = THUMBNAIL,
             caption = FILE_CAPT, progress = render._progress, progress_args = (dlMSG, time.time()) 
         )
         await dlMSG.delete()
