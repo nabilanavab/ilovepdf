@@ -116,7 +116,7 @@ async def watermark(bot, callbackQuery):
             isSuccess, output_file = await encryptPDF.encryptPDF(cDIR = cDIR, input_file = input_file, password = password)
         
         if not isSuccess:
-            return await dlMSG.edit(text = CHUNK["error"], reply_markup = _)
+            return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
         
         # Getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(
