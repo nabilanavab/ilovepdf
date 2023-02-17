@@ -72,7 +72,7 @@ async def watermark(bot, callbackQuery):
         )
         
         # download the mentioned PDF file with progress updates
-        input_path = await bot.download_media(
+        input_file = await bot.download_media(
             message = callbackQuery.message.reply_to_message.document.file_id,
             file_name = f"{cDIR}/inPut.pdf", progress = render.progress, progress_args = (
                 callbackQuery.message.reply_to_message.document.file_size, dlMSG, time.time()
@@ -98,19 +98,25 @@ async def watermark(bot, callbackQuery):
             number_of_pages = int(callbackQuery.message.text.split("•")[1])
         
         if data == "baw":
-            output_path = await blackAndWhitePdf(cDIR = cDIR, input_file = input_path)
+            isSuccess, output_file = await blackAndWhitePdf(cDIR = cDIR, input_file = input_file)
         
         elif data == "sat":
-            output_path = await saturatePDF(cDIR = cDIR, input_file = input_path)
+            isSuccess, output_file = await saturatePDF(cDIR = cDIR, input_file = input_file)
         
         elif data == "comb":
-            output_path = await combineSinglePage(cDIR = cDIR, input_file = input_path)
+            isSuccess, output_file = await combineSinglePage(cDIR = cDIR, input_file = input_file)
         
         elif data == "draw":
-            output_path = await drawPDF(cDIR = cDIR, input_file = input_path)
+            isSuccess, output_file = await drawPDF(cDIR = cDIR, input_file = input_file)
         
         elif data == "zoom":
-            output_path = await splitSinglePage(cDIR = cDIR, input_file = input_path)
+            isSuccess, output_file = await splitSinglePage(cDIR = cDIR, input_file = input_file)
+        
+        elif data == "encrypt":
+            isSuccess, output_file = await encryptPDF.encryptPDF(cDIR = cDIR, input_file = input_file, password = password)
+        
+        if not isSuccess:
+            return await dlMSG.edit(text = CHUNK["error"], reply_markup = _)
         
         # Getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(
