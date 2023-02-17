@@ -333,12 +333,6 @@ GENERATE = {
     "getingCB" : {"📚 GENERATING PDF.." : "nabilanavab"},
 }
 
-common = {
-    "rot360" : "..."
-
-
-}
-
 document = {
     "reply" : checkPdf['pdf'],
     "upFile" : PROGRESS['upFile'],
@@ -836,4 +830,10 @@ DELETE = {
         "Single Page 🐛" : "split|dS",
         "« BACK «" : "pdf1"
     },
+}
+
+common = {
+    "rot360" : "..."
+    "ocrError" : "ocr error.. not docker"
+    "notEncrypt": "File Not Encrypted.. 👀"
 }
