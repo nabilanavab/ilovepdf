@@ -46,6 +46,19 @@ async def watermark(bot, callbackQuery):
             _, __ = await translate(text = CHUNK['notEncrypt'], lang_code = lang_code)
             return await callbackQuery.answer(_)
         
+        # Asks password for encryption, decryption
+        if data in ["decrypt", "encrypt"]:
+            work = "Decryption" if data == "decrypt" else "Encryption"
+            # PYROMOD ADD-ON (ASK'S PASSWORD)
+            password = await bot.ask(
+                chat_id = callbackQuery.from_user.id, reply_to_message_id = callbackQuery.message.id,
+                text = CHUNK["pyromodASK_1"].format(work),
+                filters = filters.text, reply_markup = ForceReply(True, "Enter Password..")
+            )
+            # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
+            if password.text == "/exit":
+                return await password.reply(CHUNK["exit"], quote = True)
+        
         # program will now create a brand new directory to store all of your important user data
         cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
@@ -93,18 +106,6 @@ async def watermark(bot, callbackQuery):
         elif data == "zoom":
             output_path = await splitSinglePage(cDIR = cDIR, input_file = input_path)
         
-        # Asks password for encryption, decryption
-        if data in ["decrypt", "encrypt"]:
-            work = "Decryption" if data == "decrypt" else "Encryption"
-            # PYROMOD ADD-ON (ASK'S PASSWORD)
-            password = await bot.ask(
-                chat_id = callbackQuery.from_user.id, reply_to_message_id = callbackQuery.message.id,
-                text = CHUNK["pyromodASK_1"].format(work),
-                filters = filters.text, reply_markup = ForceReply(True, "Enter Password..")
-            )
-            # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
-            if password.text == "/exit":
-                return await password.reply(CHUNK["exit"], quote = True)
         
         # Getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(
