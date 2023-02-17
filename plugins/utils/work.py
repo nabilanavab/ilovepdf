@@ -9,7 +9,8 @@ from pyrogram      import enums
 
 async def work(message, work="check", mtype=True) -> "str":
     """
-    create a new working dir
+    program will now create a brand new directory to store all of your important user data depending up on chat_type
+    
     mtype: TRUE if message or FALSE if callbackquery
     work: create, check, delete
     """
