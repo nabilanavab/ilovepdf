@@ -48,12 +48,14 @@ async def watermark(bot, callbackQuery):
         
         # Asks password for encryption, decryption
         if data in ["decrypt", "encrypt"]:
-            work = "Decryption" if data == "decrypt" else "Encryption"
+            _work = "Decryption" if data == "decrypt" else "Encryption"
             # PYROMOD ADD-ON (ASK'S PASSWORD)
             password = await bot.ask(
-                chat_id = callbackQuery.from_user.id, reply_to_message_id = callbackQuery.message.id,
+                chat_id = callbackQuery.from_user.id,
+                reply_to_message_id = callbackQuery.message.id,
                 text = CHUNK["pyromodASK_1"].format(work),
-                filters = filters.text, reply_markup = ForceReply(True, "Enter Password..")
+                filters = filters.text,
+                reply_markup = ForceReply(True, "Enter Password..")
             )
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
             if password.text == "/exit":
