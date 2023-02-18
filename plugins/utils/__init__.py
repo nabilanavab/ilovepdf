@@ -1,4 +1,4 @@
 
-from . import fncta, render, work, util
+from . import *
 
-__all__ = ["work", "render", "fncta", "util"]
+__all__ = ["work", "render", "fncta", "util", "caption"]
