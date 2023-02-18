@@ -839,11 +839,11 @@ common = {
     "largeNo" : "too many pdf pages, send me less than 5 pages",
     "inWork" : "work in PROGRESS",
     "process" : "processing",
-    "pyromodASK_1" : "now enter password, what use for opening pdf",
+    "pyromodASK_1" : "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",   # encrypt, decrypt
     "download" : "started downloading..",
     "button" : { "⟨ Cancel ⟩" : "close|me" },
     "error" : "error: {} ",
     "completed" : "download complleted",
     "upload" : "uploading..",
-    "encrypt_caption": "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",
+    "encrypt_caption": "password",
 }
