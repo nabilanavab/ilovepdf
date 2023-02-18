@@ -123,7 +123,7 @@ async def __index__(bot, callbackQuery):
             password = password if password else None
         )
         
-        # Getting thumbnail
+        # getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
             callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name
         )
