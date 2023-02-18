@@ -843,6 +843,7 @@ common = {
     "download" : "`Downloading your file..` 📥",
     "button" : { "⟨ Cancel ⟩" : "close|me" },
     "error" : "error: {} ",
+    "decrypt_error" : "Sorry, this password is invalid for decrypting the PDF file",
     "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
     "upload" : "uploading..",
     "encrypt_caption": "__Page Number__: {}\n__key__ 🔐: ||{}||",
