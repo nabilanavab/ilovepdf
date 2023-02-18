@@ -845,5 +845,5 @@ common = {
     "error" : "error: {} ",
     "completed" : "download complleted",
     "upload" : "uploading..",
-    "encrypt_caption": "password"
+    "encrypt_caption": "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",
 }
