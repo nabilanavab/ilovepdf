@@ -845,5 +845,5 @@ common = {
     "error" : "error: {} ",
     "completed" : "download complleted",
     "upload" : "uploading..",
-    "encrypt_caption": "password",
+    "encrypt_caption": "__Page Number__: {}\n__key__ 🔐: ||{}||",
 }
