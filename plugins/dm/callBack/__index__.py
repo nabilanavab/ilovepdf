@@ -43,8 +43,7 @@ async def __index__(bot, callbackQuery):
                 return await callbackQuery.answer(CHUNK["ocrError"])    # Deploy From Docker Files (else OCR never works)
         
         elif data == "decrypt" and "•" in callbackQuery.message.text and "🔐" not in callbackQuery.message.text:
-            _, __ = await util.translate(text = CHUNK['notEncrypt'], lang_code = lang_code)
-            return await callbackQuery.answer(_)
+            return await callbackQuery.answer(CHUNK['notEncrypt'])
         
         # create a brand new directory to store all of your important user data
         cDIR = await work.work(callbackQuery, "create", False)
