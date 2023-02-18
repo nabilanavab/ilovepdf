@@ -88,12 +88,9 @@ async def __index__(bot, callbackQuery):
         # This helps to ensure the proper handling of the file and prevent errors during the manipulation process.
         if "•" not in callbackQuery.message.text:
             checked, number_of_pages = await render.checkPdf(input_file, callbackQuery)
-            if checked == "encrypted":
+            if data == "decrypt" and checked != "encrypted":
                 await work.work(callbackQuery, "delete", False)
-                return await dlMSG.delete()
-            elif data == "decrypt" and checked != "encrypted":
-                await work.work(callbackQuery, "delete", False)
-                return await dlMSG.delete()
+                return await dlMSG.edit(CHUNK['notEncrypt'])
         else:
             number_of_pages = int(callbackQuery.message.text.split("•")[1])
         
