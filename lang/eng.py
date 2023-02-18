@@ -833,14 +833,14 @@ DELETE = {
 }
 
 common = {
-    "rot360" : "...",
-    "ocrError" : "ocr error.. not docker",
+    "rot360" : "You have some big problem..🙂",                   # 360-degree = org. file
+    "ocrError" : "Owner Restricted 😎🤏",                        # only docker support
     "notEncrypt": "File Not Encrypted.. 👀",
-    "largeNo" : "too many pdf pages, send me less than 5 pages",
-    "inWork" : "work in PROGRESS",
-    "process" : "processing",
+    "largeNo" : "It contains too many pages, send me a pdf fewer than 5 pages 😐",
+    "inWork" : "WORK IN PROGRESS.. 🙇",
+    "process" : "🚨 processing..",
     "pyromodASK_1" : "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",   # encrypt, decrypt
-    "download" : "started downloading..",
+    "download" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
     "button" : { "⟨ Cancel ⟩" : "close|me" },
     "error" : "error: {} ",
     "completed" : "download complleted",
