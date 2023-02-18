@@ -113,10 +113,10 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await splitSinglePage(cDIR = cDIR, input_file = input_file)
         
         elif data == "encrypt":
-            isSuccess, output_file = await encryptPDF.encryptPDF(cDIR = cDIR, input_file = input_file, password = password)
+            isSuccess, output_file = await encryptPDF.encryptPDF(cDIR = cDIR, input_file = input_file, password = password.text)
         
         elif data == "decrypt":
-            isSuccess, output_file = await decryptPDF.decryptPDF(cDIR = cDIR, input_file = input_file, password = password)
+            isSuccess, output_file = await decryptPDF.decryptPDF(cDIR = cDIR, input_file = input_file, password = password.text)
         
         if not isSuccess:
             await work.work(callbackQuery, "delete", False)
