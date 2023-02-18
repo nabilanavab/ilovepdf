@@ -22,6 +22,9 @@ async def caption(
             _, __ = await util.translate(text = "common['encrypt_caption']", lang_code = lang_code)
             caption = _.format(*password)
         
+        else:
+            caption = ""
+        
         return caption
     
     except Exception as Error:
