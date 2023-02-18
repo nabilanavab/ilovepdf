@@ -1,7 +1,7 @@
-# fileName : plugins/dm/callBack/file_process/drawPDF.py
+# fileName : plugins/dm/callBack/file_process/compressPDF.py
 # copyright ©️ 2021 nabilanavab
 
-file_name = "plugins/dm/callBack/file_process/drawPDF.py"
+file_name = "plugins/dm/callBack/file_process/compressPDF.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
@@ -11,7 +11,7 @@ import fitz
 from plugins.utils               import *
 from PDFNetPython3.PDFNetPython  import PDFDoc, Optimizer, SDFDoc, PDFNet
 
-async def darwPDF(input_file: str, cDIR: str) -> ( bool, str ):
+async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         # Initialize the library
