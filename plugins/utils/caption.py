@@ -15,6 +15,7 @@ async def caption(
     password: list = None
 ) -> str:
     try:
+        logger.debug(password)
         """ return caption deepending upon the work """
         
         if data == "encrypt":
