@@ -3,6 +3,7 @@
 
 file_name = "plugins/dm/callBack/file_process/encryptPDF.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
+auth = "nabil"
 
 # LOGGING INFO: DEBUG
 from logger import logger
@@ -11,13 +12,27 @@ import fitz
 
 async def encryptPDF(input_file: str, password: str, cDIR: str) -> ( bool, str ):
     try:
+        """
+        PDF encryption is a security feature that allows you to protect your PDF documents by
+        encrypting their content to prevent unauthorized access or modification. Encryption is
+        the process of converting plain text into a secret code to protect it from unauthorized access.
+        
+        parameter:
+            input_file : Here is the path of the file that the user entered
+            password   : Password entered by the user for pdf encryption
+            cDIR       : This is the location of the directory that belongs to the specific user.
+        
+        return:
+            bool        : Return True when the request is successful
+            output_path : This is the path where the output file can be found.
+        """
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
             number_of_pages = iNPUT.page_count
             iNPUT.save(
                 output_path,
                 encryption = fitz.PDF_ENCRYPT_AES_256, # strongest algorithm
-                owner_pw = "nabil",
+                owner_pw = auth,
                 user_pw = f"{password}",
                 permissions = int(
                     fitz.PDF_PERM_ACCESSIBILITY |
