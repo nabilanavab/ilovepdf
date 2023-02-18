@@ -115,7 +115,7 @@ async def __index__(bot, callbackQuery):
         elif data == "encrypt":
             isSuccess, output_file = await encryptPDF.encryptPDF(cDIR = cDIR, input_file = input_file, password = password)
         
-        elif data == "encrypt":
+        elif data == "decrypt":
             isSuccess, output_file = await decryptPDF.decryptPDF(cDIR = cDIR, input_file = input_file, password = password)
         
         if not isSuccess:
