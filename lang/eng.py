@@ -847,4 +847,5 @@ common = {
     "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
     "upload" : "uploading..",
     "encrypt_caption": "__Page Number__: {}\n__key__ 🔐: ||{}||",
+    "exit" : "Your request is about to be canceled 😏",
 }
