@@ -139,6 +139,6 @@ async def __index__(bot, callbackQuery):
         await dlMSG.delete()
         await work.work(callbackQuery, "delete", False)
     
-    except Exception as e:
-        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
+    except Exception as Error:
+        logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         await work.work(callbackQuery, "delete", False)
