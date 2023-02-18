@@ -20,7 +20,7 @@ async def caption(data: str, lang_code :str = settings.DEFAULT_LANG) -> str:
         return caption
     
     except Exception as Error:
-        logger.exception("🐞 %s /close: %s" %(file_name, e))
+        logger.exception("🐞 %s : %s" %(file_name, e))
         return ""
 
 # Author: @nabilanavab
