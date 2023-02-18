@@ -1,3 +1,6 @@
 from .   import *
 
-__all__ = ["encryptPDF"]
+__all__ = [
+    "encryptPDF",
+    "decryptPDF",
+]
