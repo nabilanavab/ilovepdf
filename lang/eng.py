@@ -845,7 +845,7 @@ common = {
     "error" : "error: {} ",
     "decrypt_error" : "Sorry, this password is invalid for decrypting the PDF file",
     "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
-    "upload" : "uploading..",
+    "upload" : "`Started Uploading..` 📤",
     "encrypt_caption": "__Page Number__: {}\n__key__ 🔐: ||{}||",
     "exit" : "Your request is about to be canceled 😏",
 }
