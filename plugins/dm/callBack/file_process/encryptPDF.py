@@ -18,7 +18,7 @@ async def encryptPDF(input_file: str, password: str, cDIR: str) -> ( bool, str )
                 output_path,
                 encryption = fitz.PDF_ENCRYPT_AES_256, # strongest algorithm
                 owner_pw = "nabil",
-                user_pw = f"{password.text}",
+                user_pw = f"{password}",
                 permissions = int(
                     fitz.PDF_PERM_ACCESSIBILITY |
                     fitz.PDF_PERM_PRINT |
