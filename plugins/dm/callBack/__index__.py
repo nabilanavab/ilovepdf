@@ -120,7 +120,7 @@ async def __index__(bot, callbackQuery):
         
         _caption = await caption.caption(
             data = data, lang_code = lang_code,
-            password = password if password else None
+            password = [number_of_pages, password] if password else None
         )
         
         # getting thumbnail
