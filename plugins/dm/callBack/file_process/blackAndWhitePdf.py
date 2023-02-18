@@ -11,6 +11,17 @@ import fitz
 
 async def blackAndWhitePdf(input_file: str, cDIR: str) -> ( bool, str ):
     try:
+        """
+        Using this method, you can easily convert a PDF to black and white pages
+        
+        parameter:
+            input_file : Here is the path of the file that the user entered
+            cDIR       : This is the location of the directory that belongs to the specific user.
+        
+        return:
+            bool        : Return True when the request is successful
+            output_path : This is the path where the output file can be found.
+        """
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
             with fitz.open() as oUTPUT:        # empty output PDF
