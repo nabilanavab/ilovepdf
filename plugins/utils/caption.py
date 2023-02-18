@@ -18,7 +18,7 @@ async def caption(
         if data == "encrypt":
             caption = "common['encrypt_caption']".format(password)
         
-        caption, _ = await util.translate(text=caption, lang_code=lang_code)
+        caption, _ = await util.translate(text = caption, lang_code = lang_code)
         
         return caption
     
