@@ -46,6 +46,12 @@ async def __index__(bot, callbackQuery):
             _, __ = await translate(text = CHUNK['notEncrypt'], lang_code = lang_code)
             return await callbackQuery.answer(_)
         
+        # create a brand new directory to store all of your important user data
+        cDIR = await work.work(callbackQuery, "create", False)
+        if not cDIR:
+            return await callbackQuery.answer(CHUNK["inWork"])
+        await callbackQuery.answer(CHUNK["process"])
+        
         # Asks password for encryption, decryption
         if data in ["decrypt", "encrypt"]:
             _work = "Decryption" if data == "decrypt" else "Encryption"
@@ -61,15 +67,7 @@ async def __index__(bot, callbackQuery):
             if password.text == "/exit":
                 return await password.reply(CHUNK["exit"], quote = True)
         
-        # create a brand new directory to store all of your important user data
-        cDIR = await work.work(callbackQuery, "create", False)
-        if not cDIR:
-            return await callbackQuery.answer(CHUNK["inWork"])
-        await callbackQuery.answer(CHUNK["process"])
-        
-        dlMSG = await callbackQuery.message.reply_text(
-            CHUNK["download"], reply_markup = _, quote = True
-        )
+        dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
         
         # download the mentioned PDF file with progress updates
         input_file = await bot.download_media(
