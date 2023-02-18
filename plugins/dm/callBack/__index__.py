@@ -54,12 +54,12 @@ async def __index__(bot, callbackQuery):
         
         # Asks password for encryption, decryption
         if data in ["decrypt", "encrypt"]:
-            _work = "Decryption" if data == "decrypt" else "Encryption"
+            _work = "Decryption 🔓" if data == "decrypt" else "Encryption 🔐"
             # PYROMOD ADD-ON (ASK'S PASSWORD)
             password = await bot.ask(
                 chat_id = callbackQuery.from_user.id,
                 reply_to_message_id = callbackQuery.message.id,
-                text = CHUNK["pyromodASK_1"].format(work),
+                text = CHUNK["pyromodASK_1"].format(_work),
                 filters = filters.text,
                 reply_markup = ForceReply(True, "Enter Password..")
             )
