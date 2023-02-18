@@ -52,6 +52,7 @@ async def __index__(bot, callbackQuery):
         await callbackQuery.answer(CHUNK["process"])
         
         # Asks password for encryption, decryption
+        password = False
         if data in ["decrypt", "encrypt"]:
             _work = "Decryption 🔓" if data == "decrypt" else "Encryption 🔐"
             # PYROMOD ADD-ON (ASK'S PASSWORD)
