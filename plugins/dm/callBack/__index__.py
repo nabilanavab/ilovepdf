@@ -18,7 +18,7 @@ from .file_process import *
 
 index = filters.create(lambda _, __, query: query.data.startswith("#"))
 @ILovePDF.on_callback_query(index)
-async def watermark(bot, callbackQuery):
+async def __index__(bot, callbackQuery):
     try:
         data = callbackQuery.data[1:]
         logger.debug(data)
