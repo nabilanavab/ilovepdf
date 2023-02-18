@@ -118,7 +118,10 @@ async def __index__(bot, callbackQuery):
         if not isSuccess:
             return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
         
-        _caption = await caption.caption(data = data, lang_code = lang_code)
+        _caption = await caption.caption(
+            data = data, lang_code = lang_code,
+            password = password if password else None
+        )
         
         # Getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
