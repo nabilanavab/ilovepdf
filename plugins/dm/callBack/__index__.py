@@ -120,7 +120,7 @@ async def __index__(bot, callbackQuery):
         if not isSuccess:
             return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
         
-        caption = await caption.caption(data = data, lang_code = lang_code)
+        _caption = await caption.caption(data = data, lang_code = lang_code)
         
         # Getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
@@ -134,7 +134,7 @@ async def __index__(bot, callbackQuery):
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
             file_name = FILE_NAME, quote = True, document = output_file, thumb = THUMBNAIL,
-            caption = f"{caption}\n\n{FILE_CAPT}", progress = render._progress, progress_args = (dlMSG, time.time()) 
+            caption = f"{_caption}\n\n{FILE_CAPT}", progress = render._progress, progress_args = (dlMSG, time.time()) 
         )
         await dlMSG.delete()
         await work.work(callbackQuery, "delete", False)
