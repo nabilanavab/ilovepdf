@@ -7,7 +7,8 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-import fitz
+import      fitz
+from PIL    import Image
 
 async def blackAndWhitePdf(input_file: str, cDIR: str) -> ( bool, str ):
     try:
