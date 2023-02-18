@@ -119,6 +119,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await decryptPDF.decryptPDF(cDIR = cDIR, input_file = input_file, password = password)
         
         if not isSuccess:
+            await work.work(callbackQuery, "delete", False)
             return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
         
         _caption = await caption.caption(
