@@ -15,12 +15,12 @@ async def caption(data: str, lang_code :str = settings.DEFAULT_LANG) -> str:
         if data == "encrypt":
             caption = "common['encrypt_caption']"
         
-        caption, _ = await translate(text=caption, lang_code=lang_code)
+        caption, _ = await util.translate(text=caption, lang_code=lang_code)
         
         return caption
     
     except Exception as Error:
-        logger.exception("🐞 %s : %s" %(file_name, e))
+        logger.exception("🐞 %s : %s" %(file_name, Error))
         return ""
 
 # Author: @nabilanavab
