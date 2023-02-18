@@ -15,6 +15,8 @@ async def caption(
     password: list = None
 ) -> str:
     try:
+        """ return caption deepending upon the work """"
+        
         if data == "encrypt":
             caption = "common['encrypt_caption']".format(password)
         
