@@ -844,5 +844,6 @@ common = {
     "button" : { "⟨ Cancel ⟩" : "close|me" },
     "error" : "error: {} ",
     "completed" : "download complleted",
-    "upload" : "uploading.."
+    "upload" : "uploading..",
+    "encrypt_caption": "password"
 }
