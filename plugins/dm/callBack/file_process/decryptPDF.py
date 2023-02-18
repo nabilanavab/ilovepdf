@@ -11,6 +11,19 @@ import fitz
 
 async def decryptPDF(input_file: str, password: str, cDIR: str) -> ( bool, str ):
     try:
+        """
+        Decryption of a PDF file involves removing the encryption that has been applied to the
+        file so that it can be read and accessed by an authorized user.
+        
+        parameter:
+            input_file : Here is the path of the file that the user entered
+            password   : Password entered by the user for pdf encryption
+            cDIR       : This is the location of the directory that belongs to the specific user.
+        
+        return:
+            bool        : Return True when the request is successful
+            output_path : This is the path where the output file can be found.
+        """
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
             iNPUT.authenticate(f"{password}")
