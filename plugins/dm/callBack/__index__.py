@@ -43,7 +43,7 @@ async def __index__(bot, callbackQuery):
                 return await callbackQuery.answer(CHUNK["ocrError"])    # Deploy From Docker Files (else OCR never works)
         
         elif data == "decrypt" and "•" in callbackQuery.message.text and "🔐" not in callbackQuery.message.text:
-            _, __ = await translate(text = CHUNK['notEncrypt'], lang_code = lang_code)
+            _, __ = await util.translate(text = CHUNK['notEncrypt'], lang_code = lang_code)
             return await callbackQuery.answer(_)
         
         # create a brand new directory to store all of your important user data
@@ -88,13 +88,14 @@ async def __index__(bot, callbackQuery):
         # If not, the program prompts the user to add metadata to the file.
         # This helps to ensure the proper handling of the file and prevent errors during the manipulation process.
         if "•" not in callbackQuery.message.text:
-            known = False
             checked, number_of_pages = await render.checkPdf(input_file, callbackQuery)
             if checked == "encrypted":
                 await work.work(callbackQuery, "delete", False)
                 return await dlMSG.delete()
+            elif data == "decrypt" and checked != "encrypted":
+                await work.work(callbackQuery, "delete", False)
+                return await dlMSG.delete()
         else:
-            known = True
             number_of_pages = int(callbackQuery.message.text.split("•")[1])
         
         if data == "baw":
