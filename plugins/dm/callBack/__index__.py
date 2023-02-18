@@ -134,7 +134,7 @@ async def watermark(bot, callbackQuery):
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
             file_name = FILE_NAME, quote = True, document = output_file, thumb = THUMBNAIL,
-            caption = FILE_CAPT, progress = render._progress, progress_args = (dlMSG, time.time()) 
+            caption = f"{caption}\n\n{FILE_CAPT}", progress = render._progress, progress_args = (dlMSG, time.time()) 
         )
         await dlMSG.delete()
         await work.work(callbackQuery, "delete", False)
