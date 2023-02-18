@@ -19,7 +19,8 @@ async def caption(
         """ return caption deepending upon the work """
         
         if data == "encrypt":
-            caption, _ = await util.translate(text = "common['encrypt_caption']".format(*password), lang_code = lang_code)
+            _, __ = await util.translate(text = "common['encrypt_caption']", lang_code = lang_code)
+            caption = _.format(*password)
         
         return caption
     
