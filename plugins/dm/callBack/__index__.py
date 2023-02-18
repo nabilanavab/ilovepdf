@@ -95,19 +95,19 @@ async def __index__(bot, callbackQuery):
             number_of_pages = int(callbackQuery.message.text.split("•")[1])
         
         if data == "baw":
-            isSuccess, output_file = await blackAndWhitePdf(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await blackAndWhitePdf.blackAndWhitePdf(cDIR = cDIR, input_file = input_file)
         
         elif data == "sat":
-            isSuccess, output_file = await saturatePDF(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await saturatePDF.saturatePDF(cDIR = cDIR, input_file = input_file)
         
         elif data == "comb":
-            isSuccess, output_file = await combineSinglePage(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await combineSinglePage.combineSinglePage(cDIR = cDIR, input_file = input_file)
         
         elif data == "draw":
-            isSuccess, output_file = await drawPDF(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await drawPDF.drawPDF(cDIR = cDIR, input_file = input_file)
         
         elif data == "zoom":
-            isSuccess, output_file = await splitSinglePage(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await splitSinglePage.splitSinglePage(cDIR = cDIR, input_file = input_file)
         
         elif data == "encrypt":
             isSuccess, output_file = await encryptPDF.encryptPDF(cDIR = cDIR, input_file = input_file, password = password.text)
