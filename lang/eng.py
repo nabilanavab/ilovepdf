@@ -840,10 +840,10 @@ common = {
     "inWork" : "WORK IN PROGRESS.. 🙇",
     "process" : "🚨 processing..",
     "pyromodASK_1" : "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",   # encrypt, decrypt
-    "download" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
+    "download" : "`Downloading your file..` 📥",
     "button" : { "⟨ Cancel ⟩" : "close|me" },
     "error" : "error: {} ",
-    "completed" : "download complleted",
+    "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
     "upload" : "uploading..",
     "encrypt_caption": "__Page Number__: {}\n__key__ 🔐: ||{}||",
 }
