@@ -13,7 +13,7 @@ async def decryptPDF(input_file: str, password: str, cDIR: str) -> ( bool, str )
     try:
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
-            iNPUT.authenticate(f"{password.text}")
+            iNPUT.authenticate(f"{password}")
             iNPUT.save(output_path)
         return True, output_path
         
