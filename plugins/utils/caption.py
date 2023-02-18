@@ -11,7 +11,7 @@ from plugins.utils    import util
 from configs.config   import settings
 
 async def caption(
-    data: str, lang_code :str = settings.DEFAULT_LANG
+    data: str, lang_code :str = settings.DEFAULT_LANG,
     password: list = None
 ) -> str:
     try:
