@@ -120,6 +120,8 @@ async def watermark(bot, callbackQuery):
         if not isSuccess:
             return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
         
+        caption = await caption.caption(data = data, lang_code = lang_code)
+        
         # Getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
             callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name
