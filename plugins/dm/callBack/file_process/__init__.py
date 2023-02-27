@@ -1,7 +1,7 @@
 # fileName : plugins/dm/callBack/file_process/__init__.py
 # copyright ©️ 2021 nabilanavab
 
-file_name = "plugins/dm/callBack/__init__.py"
+file_name = "plugins/dm/callBack/file_process/__init__.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 from . import *
