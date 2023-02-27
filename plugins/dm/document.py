@@ -98,7 +98,6 @@ async def word2PDF(cDIR, edit, input_file, lang_code):
 
 # =======================| REPLY TO DOC. FILES |==========================
 @ILovePDF.on_message(filters.private & filters.incoming & filters.document)
-
 async def documents(bot, message):
     try:
         # refresh causes error ;) so, try
