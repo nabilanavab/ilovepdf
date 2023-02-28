@@ -116,6 +116,9 @@ async def __index__(bot, callbackQuery):
         elif data == "decrypt":
             isSuccess, output_file = await decryptPDF.decryptPDF(cDIR = cDIR, input_file = input_file, password = password.text)
         
+        elif data == "compress":
+            isSuccess, output_file = await compressPDF.compressPDF(cDIR = cDIR, input_file = input_file)
+        
         if not isSuccess:
             if data == "decrypt":
                 return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
