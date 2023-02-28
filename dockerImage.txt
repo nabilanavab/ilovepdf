@@ -4,7 +4,7 @@ pillow==9.0.1
 PyMuPdf==1.20.2
 PyPDF2==1.26.0
 convertapi==1.4.0
-PDFNetPython3==9.5.0
+PDFNetPython3==9.4.2
 pyromod==1.5
 fpdf==1.7.2
 ocrmypdf==13.6.1
