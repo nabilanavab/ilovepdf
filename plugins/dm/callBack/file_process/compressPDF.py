@@ -11,22 +11,6 @@ import fitz
 from plugins.utils               import *
 from PDFNetPython3.PDFNetPython  import PDFDoc, SDFDoc, PDFNet
 
-
-
-import PDFNetPython3 as PDFNet
-
-# Open the input PDF document
-input_path = "input.pdf"
-doc = PDFNet.PDFDoc(input_path)
-
-# Compress the output PDF document using Flate compression
-output_path = "output.pdf"
-
-
-
-
-
-
 async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
