@@ -9,7 +9,23 @@ from logger import logger
 
 import fitz
 from plugins.utils               import *
-from PDFNetPython3.PDFNetPython  import PDFDoc, Optimizer, SDFDoc, PDFNet
+from PDFNetPython3.PDFNetPython  import PDFDoc, SDFDoc, PDFNet
+
+
+
+import PDFNetPython3 as PDFNet
+
+# Open the input PDF document
+input_path = "input.pdf"
+doc = PDFNet.PDFDoc(input_path)
+
+# Compress the output PDF document using Flate compression
+output_path = "output.pdf"
+
+
+
+
+
 
 async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
@@ -17,13 +33,10 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         # Initialize the library
         PDFNet.Initialize()
         doc = PDFDoc(input_file)
-        # Optimize PDF with the default settings
-        doc.InitSecurityHandler()
-        # Reduce PDF size by removing redundant information and
-        # compressing data streams
-        Optimizer.Optimize(doc)
-        doc.Save(output_path, SDFDoc.e_linearized)
-        doc.Close()
+        
+        options = PDFNet.SDFDoc.SaveOptions()
+        options.SetCompressionMode(SDFDoc.e_Compress)
+        doc.Save(output_path, options)
         
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(input_file)
