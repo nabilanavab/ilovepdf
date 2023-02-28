@@ -9,18 +9,13 @@ from logger import logger
 
 import fitz
 from plugins.utils               import *
-from PDFNetPython3.PDFNetPython  import PDFDoc, SDFDoc, PDFNet
 
 async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
-        # Initialize the library
-        PDFNet.Initialize()
-        doc = PDFDoc(input_file)
         
-        options = PDFNet.SDFDoc.SaveOptions()
-        options.SetCompressionMode(SDFDoc.e_Compress)
-        doc.Save(output_path, options)
+        with fitz.open(input_path) as doc:
+            doc.save(output_path, deflate=True)
         
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(input_file)
