@@ -14,7 +14,7 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         
-        with fitz.open(input_path) as doc:
+        with fitz.open(input_file) as doc:
             doc.save(output_path, deflate=True)
         
         # FILE SIZE COMPARISON (RATIO)
