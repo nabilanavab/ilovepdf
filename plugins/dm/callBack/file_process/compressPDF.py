@@ -14,13 +14,12 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         
-        with fitz.open(input_file) as doc:
-            doc.save(
-                output_path, deflate=True,
-                garbage=4, clean=True,
-                deflate_images=True,
-                deflate_fonts=True
-             )
+        with fitz.open(input_file) as inPut:
+            with fitz.open() as outPut:
+                for page in inPut:
+                    output_page = output_doc.new_page(width=page.MediaBoxSize[0], height=page.MediaBoxSize[1])
+                    output_page.show_pdf_page(page, page.rect)
+                outPut.save(output_path)
         
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(input_file)
