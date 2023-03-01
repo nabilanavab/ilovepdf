@@ -27,10 +27,10 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         compressedSize = os.path.getsize(output_path)
         ratio = (1 - (compressedSize / initialSize)) * 100
         
-        if (initialSize - compressedSize) > 1000000 or ratio >= 5:
-            return await render.gSF(initialSize), await render.gSF(compressedSize), ratio
-        else:
-            return True, output_path
+        #if (initialSize - compressedSize) > 1000000 or ratio >= 5:
+        #    return await render.gSF(initialSize), await render.gSF(compressedSize), ratio
+        #else:
+        return True, output_path
     
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
