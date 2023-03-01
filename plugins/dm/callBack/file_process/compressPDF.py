@@ -17,7 +17,8 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         with fitz.open(input_file) as inPut:
             with fitz.open() as outPut:
                 for page in inPut:
-                    output_page = outPut.new_page(width=page.width, height=page.height)
+                    logger.debug(page)
+                    output_page = outPut.new_page(width=page.rect.width, height=page.rect.height)
                     output_page.show_pdf_page(page, page.rect)
                 outPut.save(output_path)
         
