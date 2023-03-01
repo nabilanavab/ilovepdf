@@ -18,8 +18,8 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
             with fitz.open() as outPut:
                 for page in inPut:
                     logger.debug(page)
-                    output_page = outPut.new_page(width=page.rect.width, height=page.rect.height)
-                    output_page.show_pdf_page(page, page.rect)
+                    outPage = outPut.new_page(-1, width=page.rect.width, height=page.rect.height)
+                    outPage.show_pdf_page(outPage.rect, inPut, pages.number)
                 outPut.save(output_path)
         
         # FILE SIZE COMPARISON (RATIO)
