@@ -19,7 +19,7 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
                 for page in inPut:
                     logger.debug(page)
                     outPage = outPut.new_page(-1, width=page.rect.width, height=page.rect.height)
-                    outPage.show_pdf_page(outPage.rect, inPut, pages.number)
+                    outPage.show_pdf_page(outPage.rect, inPut, page.number)
                 outPut.save(output_path)
         
         # FILE SIZE COMPARISON (RATIO)
