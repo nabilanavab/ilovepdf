@@ -30,6 +30,8 @@ async def __index__(bot, callbackQuery):
         CHUNK, _ = await util.translate(text = "common", button="common['button']", lang_code = lang_code)
         
         if data == "rot360":
+            # Rotating a PDF by 360 degrees will result in the same orientation as the original document.
+            # Therefore, returning a useless callback answer
             text, _ = await util.translate(text = CHUNK['rot360'], lang_code = lang_code)
             return await callbackQuery.answer(text)
         
