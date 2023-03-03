@@ -17,6 +17,10 @@ from pyrogram.enums        import ChatMemberStatus, ChatType, ChatAction
 
 #======================== CHECKS CALLBACKQUERY USER ============================
 async def header(bot, callbackQuery, lang_code = settings.DEFAULT_LANG, doc = True):
+    """
+    This function is designed to check if a certain process needs to be executed [only for callbackQuery],
+    particularly in groups where callback messages from different users can cause confusion and unwanted errors for the bot.
+    """
     try:
         if not doc:
             if (callbackQuery.message.chat.type != ChatType.PRIVATE  and
@@ -29,8 +33,14 @@ async def header(bot, callbackQuery, lang_code = settings.DEFAULT_LANG, doc = Tr
                     return True
             return False
         
-        fileExist = callbackQuery.message.reply_to_message    # callBack Message delete if User Deletes pdf
+        # Trying to fetch the callbackQuery.message.reply_to_message from a callbackQuery can result in an error
+        # if the original message has been deleted. This can happen if the user deletes the PDF after it has been sent,
+        # which can result in the message being deleted and the callbackQuery referencing a non-existent message, causing an error.
+        fileExist = callbackQuery.message.reply_to_message
         
+        #"If the callback query is from a private message (PM), the code will be executed.
+        # Otherwise, it checks whether the sender of the PDF and callback are the same,
+        # or if they are in a group and the bot admin, before executing the code."
         if (callbackQuery.message.chat.type != ChatType.PRIVATE and 
             callbackQuery.from_user.id != callbackQuery.message.reply_to_message.from_user.id and 
             callbackQuery.from_user.id not in dm.ADMINS
@@ -42,7 +52,7 @@ async def header(bot, callbackQuery, lang_code = settings.DEFAULT_LANG, doc = Tr
                 return True
         return False
     except Exception as e:
-        logger.exception("plugins/render/header: %s" %(e), exc_info=True)
+        # delete callbackQuery in an Exception[mainly if the original message has been deleted]
         await callbackQuery.message.delete()
         return "delete"
 
