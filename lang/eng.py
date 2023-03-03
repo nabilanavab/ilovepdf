@@ -304,7 +304,7 @@ File Size : `{}`""",
 
 File Name: `{}`
 File Size: `{}`""",
-    "encryptCB" : {"🔓 DECRYPT 🔓" : "#decrypt"}
+    "encryptCB" : {"🔓 DECRYPT 🔓" : "#decrypt", "🚫 CLOSE 🚫" : "close|all"}
 }
 
 PROGRESS = {
