@@ -95,6 +95,11 @@ async def __index__(bot, callbackQuery):
         else:
             number_of_pages = int(callbackQuery.message.text.split("•")[1])
         
+        if data == "metaData":
+            # After the metadata has been added, the progress message will be deleted
+            await work.work(callbackQuery, "delete", False)
+            return await dlMSG.delete()
+        
         if data == "baw":
             isSuccess, output_file = await blackAndWhitePdf.blackAndWhitePdf(cDIR = cDIR, input_file = input_file)
         
