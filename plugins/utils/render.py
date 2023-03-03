@@ -90,7 +90,7 @@ async def checkPdf(file_path, callbackQuery):
                             await gSF(callbackQuery.message.reply_to_message.document.file_size)
                         ) + "\n\n"
                              + CHUNK["pg"].format(number_of_pages) + "\n\n" + pdfMetaData,
-                        reply_markup = await createBUTTON(CHUNK["encryptCB"])
+                        reply_markup = await createBUTTON(CHUNK["encryptCB"], order=11)
                     )
                 except Exception: pass
                 if callbackQuery.data != "work|decrypt":
