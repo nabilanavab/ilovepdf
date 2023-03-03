@@ -12,7 +12,7 @@ from configs.config   import settings
 
 async def caption(
     data: str, lang_code :str = settings.DEFAULT_LANG,
-    password: list = None
+    args: list = None
 ) -> str:
     try:
         logger.debug(password)
@@ -20,7 +20,7 @@ async def caption(
         
         if data == "encrypt":
             _, __ = await util.translate(text = "common['encrypt_caption']", lang_code = lang_code)
-            caption = _.format(*password)
+            caption = _.format(*args)
         
         else:
             caption = ""
