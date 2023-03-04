@@ -35,8 +35,7 @@ async def __index__(bot, callbackQuery):
         if data == "rot360":
             # Rotating a PDF by 360 degrees will result in the same orientation as the original document.
             # Therefore, returning a useless callback answer
-            text, _ = await util.translate(text = CHUNK['rot360'], lang_code = lang_code)
-            return await callbackQuery.answer(text)
+            return await callbackQuery.answer(CHUNK['rot360'])
         
         elif data in ["ocr"] and "•" in callbackQuery.message.text:
             number_of_pages = callbackQuery.message.text.split("•")[1]
