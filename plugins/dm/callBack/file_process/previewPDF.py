@@ -17,7 +17,7 @@ from asyncio        import sleep
 from pdf            import pyTgLovePDF
 from telebot.types  import InputMediaPhoto
 
-async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str ):
+async def previewPDF(input_file: str, cDIR: str, editMessage, callbackQuery) -> ( bool, str ):
     try:
         """
         This function returns PDF images with their metadata.
@@ -45,6 +45,7 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
             
             pdfMetaData = "".join(f"`{i} : {iNPUT.metadata[i]}`\n" for i in iNPUT.metadata if iNPUT.metadata[i] != "") if iNPUT.metadata else ""
             
+            await editMessage.edit(f"𝚏𝚎𝚝𝚌𝚑𝚒𝚗𝚐 𝚙𝚊𝚐𝚎𝚜: {preview} 🕵")
             mat = fitz.Matrix(2, 2)
             os.mkdir(f'{cDIR}/pgs')
             for pageNo in preview:
@@ -82,7 +83,7 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                             )
                         break
             
-            logger.debug(media[callbackQuery.message.chat.id])
+            await editMessage.edit(f"𝚞𝚙𝚕𝚘𝚊𝚍𝚒𝚗𝚐 𝚊𝚕𝚋𝚞𝚖: {preview} 🙇")
             if await work.work(callbackQuery, "check", False):
                 # await dlMSG.edit(CHUNK["upload"], reply_markup = _)
                 await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
