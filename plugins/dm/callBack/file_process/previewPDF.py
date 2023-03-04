@@ -65,7 +65,7 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                     # FILES WITH 10MB+ SIZE SHOWS AN ERROR FROM TELEGRAM 
                     # SO COMPRESS UNTIL IT COMES LESS THAN 10MB.. :(
                     if os.path.getsize(file) >= 1000000:
-                         picture = Image.open(file)
+                        picture = Image.open(file)
                         picture.save(file, "JPEG", optimize = True, quality = qualityRate)
                         qualityRate -= 5
                     # ADDING TO GROUP MEDIA IF POSSIBLE
