@@ -12,12 +12,12 @@ import fitz
 from pyromod          import listen
 from pyrogram.types   import ForceReply
 
-async def askPassword(bot, process: str):
+async def askPassword(bot, callbackQuery, process: str):
     try:
         password = await bot.ask(
             chat_id = callbackQuery.from_user.id,
             reply_to_message_id = callbackQuery.message.id,
-            text = CHUNK["pyromodASK_1"].format(_work),
+            text = CHUNK["pyromodASK_1"].format(process),
             filters = filters.text,
             reply_markup = ForceReply(True, "Enter Password..")
         )
