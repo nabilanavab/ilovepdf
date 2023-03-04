@@ -10,7 +10,7 @@ from logger           import logger
 import os, time
 from plugins.utils    import *
 from configs.config   import images
-from pyrogram         import enums, Client as ILovePDF
+from pyrogram         import enums, filters, Client as ILovePDF
 
 from .file_process import *
 
