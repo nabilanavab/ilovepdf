@@ -597,10 +597,10 @@ New Filename: {}""",
     },
     "txt" : {
         "⚙️ PDF » TXT ↓" : "nabilanavab",
-        "📜 MESSAGE 📜" : "work|M",
-        "🧾 TXT FILE 🧾" : "work|T",
-        "🌐 HTML 🌐" : "work|H",
-        "🎀 JSON 🎀" : "work|J",
+        "📜 MESSAGE 📜" : "#textM",
+        "🧾 TXT FILE 🧾" : "#textT",
+        "🌐 HTML 🌐" : "#textH",
+        "🎀 JSON 🎀" : "#textJ",
         "« BACK «" : "pdf1"
     }
 }
