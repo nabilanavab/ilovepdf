@@ -22,7 +22,7 @@ async def askPassword(bot, callbackQuery, question, process: str):
             filters = filters.text,
             reply_markup = ForceReply(True, "Enter Password..")
         )
-        return (True, password) if password.text != "/exit" else (False, "Exit")
+        return (True, password) if password.text != "/exit" else (False, password)
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
