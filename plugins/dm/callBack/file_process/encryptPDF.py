@@ -9,6 +9,22 @@ auth = "nabil"
 from logger import logger
 
 import fitz
+from pyromod          import listen
+from pyrogram.types   import ForceReply
+
+async def askPassword(bot, process: str):
+    try:
+        password = await bot.ask(
+            chat_id = callbackQuery.from_user.id,
+            reply_to_message_id = callbackQuery.message.id,
+            text = CHUNK["pyromodASK_1"].format(_work),
+            filters = filters.text,
+            reply_markup = ForceReply(True, "Enter Password..")
+        )
+        return (True, password) if password.text != "/exit" else (False, "Exit")
+    except Exception as Error:
+        logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
+        return False, Error
 
 async def encryptPDF(input_file: str, password: str, cDIR: str) -> ( bool, str ):
     try:
