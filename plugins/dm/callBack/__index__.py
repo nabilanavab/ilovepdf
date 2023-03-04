@@ -57,7 +57,7 @@ async def __index__(bot, callbackQuery):
         
         # Asks password for encryption, decryption
         if data in ["decrypt", "encrypt"]:
-            asked, password = await encryptPDF.askPassword(bot, "Decryption 🔓" if data == "decrypt" else "Encryption 🔐")
+            asked, password = await encryptPDF.askPassword(bot, callbackQuery, "Decryption 🔓" if data == "decrypt" else "Encryption 🔐")
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
             if password.text == "/exit":
                 await work.work(callbackQuery, "delete", False)
