@@ -17,17 +17,8 @@ Can you please try again..!""",
 HOME = {
     "HomeA" : "Hey {}..!!\n"
 "Welcome to {}.!\n\n"
-
 "With this tool, you can easily convert images to PDF, compress PDF files, split , merge, encrypt or decrypt PDFs, rotate PDF pages, and much more.\n\n"
-
-
-
-
-
-
 "Simply send me a PDF/IMAGE and it will perform the requested action. for help select '⚠️ HELP ⚠️' at any time.the PDF bot is here to make your life easier..\n\n"
-
-
 "Try it out now and see how it can help you with all of your PDF needs!",
     "HomeACB" : {
         "⚙️ SETTINGS ⚙️" : "Home|B",
@@ -489,25 +480,6 @@ merge = {
 Reason: {}"""
 }
 
-metaData = {
-    "inWork" : PROGRESS['workInP'],
-    "process" : document['process'],
-    "download" : PROGRESS['dlFile'],   # [❌]
-    "read" : "Please read this message again.. 🥴"
-}
-
-preview = {
-    "inWork" : PROGRESS['workInP'],
-    "process" : document['process'],
-    "error" : document['error'],
-    "download" : PROGRESS['dlFile'],
-    "_" : "PDF only have {} pages 🤓\n\n",
-    "__" : "PDF pages: {}\n\n",
-    "total" : "`Total pages: {}..` 🤌",
-    "album" : "`Preparing an Album..` 🤹",
-    "upload" : f"`Uploading: preview pages.. 🐬`"
-}
-
 stamp = {
     "stamp" : {
         "⚙️ PDF » STAMP ↓" : "nabilanavab",
@@ -549,44 +521,6 @@ annot : `{}`"""
 }
 
 work = {
-    "inWork" : PROGRESS['workInP'],
-    "process" : document['process'],
-    "download" : PROGRESS['dlFile'],
-    "takeTime" : PROGRESS['takeTime'],
-    "upload" : PROGRESS['upFile'],
-    "button" : document['cancelCB'],
-    "rot360" : "You have some **big problem..🙂**",
-    "ocrError" : "Owner Restricted 😎🤏",
-    "largeNo" : "Send a PDF file less than 5 pages.. 🙄",
-    "pyromodASK_1" : """__PDF {} »
-Now, please enter the PASSWORD :__
-
-/exit __to cancel__""",
-    "pyromodASK_2" : """__Rename PDF »
-Now, please enter the NEW NAME:__
-
-/exit __to cancel__""",
-    "exit" : "`process canceled.. `😏",
-    "ren_caption" : "__New Name:__ `{}`", 
-    "notENCRYPTED" : "`File is Not Encrypted..` 👀",
-    "compress" : """⚙️ ```Started Compressing.. 🌡️
-It might take some time..```💛""",
-    "decrypt" : """⚙️ ```Started Decrypting.. 🔓
-It might take some time..```💛""",
-    "encrypt" : """⚙️ ```Started Encrypting.. 🔐
-It might take some time..```💛""",
-    "ocr" : """⚙️ ```Adding OCR Layer.. ✍️
-It might take some time..```💛""",
-    "format" : """⚙️ ```Started Formatting.. 🤘
-It might take some time..```💛""",
-    "rename" : """⚙️ ```Renameing PDf.. ✏️
-It might take some time..```💛""",
-    "rot" : """⚙️ ```Rotating PDf.. 🤸
-It might take some time..```💛""",
-    "pdfTxt" : """⚙️ ```Extracting Text.. 🐾
-It might take some time..```💛""",
-    "fileNm" : """Old Filename: {}
-New Filename: {}""",
     "rotate" : {
         "⚙️ PDF » ROTATE ↓" : "nabilanavab",
         "90°" : "#rot90",
@@ -603,30 +537,6 @@ New Filename: {}""",
         "🎀 JSON 🎀" : "#textJ",
         "« BACK «" : "pdf1"
     }
-}
-
-PROCESS = {
-    "ocr" : "OCR added",
-    "decryptError" : "__Cannot Decrypt the file with__ `{}` 🕸️",
-    "decrypted" : "__Decrypted File__",
-    "encrypted" : "__Page Number__: {}\n__key__ 🔐: ||{}||",
-    "compressed" : """`Original Size : {}
-Compressed Size : {}
-
-Ratio : {:.2f} %`""",
-    "cantCompress" : "File Can't be Compressed More..🤐",
-    "pgNoError" : """__For Some Reason A4 FORMATTING Supports only for PDFs with less than 5 Pages__
-
-Total Pages: {} ⭐""",
-    "ocrError" : "`Already Have A Text Layer.. `😏",
-    "90" : "__Rotated 90°__",
-    "180" : "__Rotated 180°__",
-    "270" : "__Rotated 270°__",
-    "formatted" : "A4 Formatted File",
-    "M" : "♻ Extracted {} Pages ♻",
-    "H" : "HTML File",
-    "T" : "TXT File",
-    "J" : "JSON File"
 }
 
 pdf2TXT = {
@@ -776,14 +686,6 @@ __ Supported Files [png, jpeg, jpg]__
 /exit : to cancel""",
 }
 
-comb = {
-    "upFile" : PROGRESS['upFile'],
-    "inWork" : PROGRESS['workInP'],
-    "process" : document['process'],
-    "process" : document['process'],
-    "download" : PROGRESS['dlFile'],
-    "cancelCB" : {"⟨ Cancel ⟩" : "close|me"},
-}
 
 inline_query = {
     "capt" : "SET LANGUAGE ⚙️",
