@@ -31,10 +31,10 @@ async def previewPDF(input_file: str, cDIR: str) -> ( bool, str ):
             if iNPUT.page_count <= 10:
                 preview = list(range(iNPUT.page_count + 1))
             elif iNPUT.page_count % 2 == 1:
-                
+                pass
                 #preview = str(iNPUT.page_count[3:] + [iNPUT.page_count//2:(iNPUT.page_count//2)+2] + iNPUT.page_count[-3:1])
-            #else:
-                #pass
+            else:
+                pass
                 #preview = iNPUT.page_count[3:] + [(iNPUT.page_count//2)-1:(iNPUT.page_count//2)+3] + iNPUT.page_count[-3:1]
             
         return True, output_path
