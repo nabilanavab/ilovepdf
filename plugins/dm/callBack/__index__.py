@@ -69,7 +69,10 @@ async def __index__(bot, callbackQuery):
             if password.text == "/exit":
                 return await password.reply(CHUNK["exit"], quote = True)
         
-        dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
+        if callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
+            dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
+        else:
+            return await callbackQuery.message.reply_text("#old_queue\n\n`try by sending new file`", reply_markup = _, quote = True)
         
         # download the mentioned PDF file with progress updates
         input_file = await bot.download_media(
