@@ -69,6 +69,19 @@ async def __index__(bot, callbackQuery):
             )
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
             if password.text == "/exit":
+                await work.work(callbackQuery, "delete", False)
+                return await password.reply(CHUNK["exit"], quote = True)
+        elif data == "rename":
+            newName = await bot.ask(
+                chat_id = callbackQuery.from_user.id,
+                reply_to_message_id = callbackQuery.message.id,
+                text = CHUNK["pyromodASK_1"].format(_work),
+                filters = filters.text,
+                reply_markup = ForceReply(True, "Enter new File Name..")
+            )
+            # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
+            if newName.text == "/exit":
+                await work.work(callbackQuery, "delete", False)
                 return await password.reply(CHUNK["exit"], quote = True)
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
