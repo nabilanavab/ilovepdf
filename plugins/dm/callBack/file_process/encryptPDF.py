@@ -10,6 +10,7 @@ from logger import logger
 
 import fitz
 from pyromod          import listen
+from pyrogram         import filters
 from pyrogram.types   import ForceReply
 
 async def askPassword(bot, callbackQuery, question, process: str):
