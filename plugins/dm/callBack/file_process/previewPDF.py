@@ -36,7 +36,7 @@ async def previewPDF(input_file: str, cDIR: str) -> ( bool, str ):
                 preview = list(range(1, 4)) + \
                           list(range((iNPUT.page_count//2)-1, (iNPUT.page_count//2)+3)) + \
                           list(range(iNPUT.page_count-3, iNPUT.page_count))
-                
+            logger.debug(preview)
         return True, output_path
     
     except Exception as Error:
