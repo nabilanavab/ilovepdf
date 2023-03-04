@@ -4,6 +4,8 @@
 file_name = "plugins/dm/callBack/file_process/previewPDF.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
+media = {}
+
 # LOGGING INFO: DEBUG
 from logger import logger
 
@@ -68,10 +70,8 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                 # ADDING TO GROUP MEDIA IF POSSIBLE
                 else:
                     if len(media[chat_id]) == 1:
-                        media[chat_id].append(
-                            InputMediaPhoto(
-                                media = open(file, "rb"),
-                                caption = caption, parse_mode = "Markdown"
+                        media[chat_id].append(InputMediaPhoto(
+                                media = open(file, "rb"), caption = caption, parse_mode = "Markdown"
                                 )
                             )
                     else:
@@ -84,7 +84,8 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                 await dlMSG.edit(CHUNK["upload"], reply_markup = _)
                 await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
                 await pyTgLovePDF.send_media_group(
-                    chat_id, media[chat_id], reply_to_message_id = callbackQuery.message.id
+                    chat_id, media[chat_id],
+                    reply_to_message_id = callbackQuery.message.id
                 )
             del media[chat_id]
         return True, output_path
