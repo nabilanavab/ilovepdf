@@ -31,7 +31,7 @@ async def rotatePDF(input_file: str, angle: str, cDIR: str) -> ( bool, str ):
                 for page in iNPUT: page.set_rotation(180)
             elif angle == "rot270":
                 for page in iNPUT: page.set_rotation(-90)
-            doc.save(output_path)
+            iNPUT.save(output_path)
         return True, output_path
         
     except Exception as Error:
