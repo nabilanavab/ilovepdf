@@ -30,7 +30,7 @@ async def formatPDF(input_file: str, cDIR: str) -> ( bool, str ):
                 for page in iNPUT:
                     pg = oUTPUT.new_page(-1, width = width, height = height)
                     pg.show_pdf_page(pg.rect, iNPUT, page.number)
-            oUTPUT.save(output_path, garbage = 3, deflate = True)
+                oUTPUT.save(output_path, garbage = 3, deflate = True)
         return True, output_path
     
     except Exception as Error:
