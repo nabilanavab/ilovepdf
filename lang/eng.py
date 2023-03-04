@@ -589,10 +589,10 @@ It might take some time..```💛""",
 New Filename: {}""",
     "rotate" : {
         "⚙️ PDF » ROTATE ↓" : "nabilanavab",
-        "90°" : "work|rot90",
-        "180°" : "work|rot180",
-        "270°" : "work|rot270",
-        "360°" : "work|rot360",
+        "90°" : "#rot90",
+        "180°" : "#rot180",
+        "270°" : "#rot270",
+        "360°" : "#rot360",
         "« BACK «" : "pdf1"
     },
     "txt" : {
