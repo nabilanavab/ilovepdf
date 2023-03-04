@@ -8,13 +8,26 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 
 import os, fitz
-from plugins.utils               import *
+from plugins.utils      import *
 
 async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
+    """
+    Compressing a PDF file can significantly reduce its file size, making it
+    easier to share and store. This can be especially useful when sending files over
+    the internet, as smaller file sizes can lead to faster uploading and downloading times.
+    
+    parameter:
+        input_file : Here is the path of the file that the user entered
+        cDIR       : This is the location of the directory that belongs to the specific user.
+    
+    return:
+        bool        : Return True when the request is successful
+        output_path : This is the path where the output file can be found.
+    """
     try:
         output_path = f"{cDIR}/outPut.pdf"
-        with fitz.open(input_file) as inPut:
-            with fitz.open() as outPut:
+        with fitz.open(input_file) as iNPUT:
+            with fitz.open() as oUTPUT:
                 for pg in range(iNPUT.page_count):
                     iNPUT[pg].get_pixmap().save(f"{cDIR}/temp.png")
                     with Image.open(f"{cDIR}/temp.png") as image:
