@@ -158,7 +158,8 @@ async def __index__(bot, callbackQuery):
         
         # getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
-            callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name
+            callbackQuery.message,
+            callbackQuery.message.reply_to_message.document.file_name if data != "rename" else newName
         )
         if images.PDF_THUMBNAIL != THUMBNAIL:
             location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/temp.jpeg")
@@ -168,7 +169,7 @@ async def __index__(bot, callbackQuery):
         
         if data.startswith("text"):
             ext = {"textT" : ".txt", "textH" : ".html", "textJ" : ".json"}
-            FILE_NAME = FILE_NAME + ext[data]
+            FILE_NAME = FILE_NAME[:-4] + ext[data]
         
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
