@@ -840,6 +840,7 @@ common = {
     "inWork" : "WORK IN PROGRESS.. 🙇",
     "process" : "🚨 processing..",
     "pyromodASK_1" : "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",   # encrypt, decrypt
+    "pyromodASK_2" : "Enter PDF new Name:",
     "download" : "`Downloading your file..` 📥",
     "button" : { "⟨ Cancel ⟩" : "close|me" },
     "error" : "error: {} ",
