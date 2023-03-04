@@ -72,14 +72,15 @@ async def checkPdf(file_path, callbackQuery, lang_code):
         CHUNK, _ = await translate(text="checkPdf", lang_code=lang_code)
         
         with fitz.open(file_path) as doc:
-            if doc.metadata != None:
-                pdfMetaData = "".join(f"`{i} : {doc.metadata[i]}`\n" for i in doc.metadata if doc.metadata[i] != "")
+            isEncrypted, number_of_pages, metaData = doc.is_encrypted, doc.page_count, doc.metadata
+            if metaData != None:
+                pdfMetaData = "".join(f"`{i} : {metaData[i]}`\n" for i in metaData if metaData[i] != "")
                 """
                 for i in doc.metadata:
                     if doc.metadata[i] != "":
                         pdfMetaData += f"`{i} : {doc.metadata[i]}`\n
                 """
-            if doc.is_encrypted:
+            if isEncrypted:
                 # pdfMetaData = ""
                 try:
                     await callbackQuery.edit_message_text(
@@ -87,13 +88,13 @@ async def checkPdf(file_path, callbackQuery, lang_code):
                             callbackQuery.message.reply_to_message.document.file_name,
                             await gSF(callbackQuery.message.reply_to_message.document.file_size)
                         ) + "\n\n"
-                             + CHUNK["pg"].format(doc.page_count) + "\n\n" + pdfMetaData,
+                             + CHUNK["pg"].format(number_of_pages) + "\n\n" + pdfMetaData,
                         reply_markup = await createBUTTON(CHUNK["encryptCB"], order=11)
                     )
                 except Exception: pass
                 if callbackQuery.data != "work|decrypt":
                     await work(callbackQuery, "delete", False)
-                return "encrypted", doc.page_count
+                return "encrypted", number_of_pages
             else:
                 if callbackQuery.data != "merge":
                     await callbackQuery.edit_message_text(
@@ -101,10 +102,10 @@ async def checkPdf(file_path, callbackQuery, lang_code):
                             callbackQuery.message.reply_to_message.document.file_name,
                             await gSF(callbackQuery.message.reply_to_message.document.file_size)
                         ) + "\n\n"
-                             + CHUNK["pg"].format(doc.page_count) + "\n\n" + pdfMetaData,
+                             + CHUNK["pg"].format(number_of_pages) + "\n\n" + pdfMetaData,
                         reply_markup = await createBUTTON(CHUNK["pdfCB1"])
                     )
-                return "pass", doc.page_count
+                return "pass", number_of_pages
     # CODEC ERROR
     except Exception as e:
         logger.exception("🐞 %s /close: %s" %(file_name, e))
