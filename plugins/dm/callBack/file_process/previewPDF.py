@@ -26,7 +26,7 @@ async def previewPDF(input_file: str, cDIR: str) -> ( bool, str ):
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
             logger.debug(iNPUT.page_count)
-            logger.debug(iNPUT.page_count[3:])
+            logger.debug(str(iNPUT.page_count)[3:])
             
             if iNPUT.page_count <= 10:
                 preview = list(range(iNPUT.page_count + 1))
