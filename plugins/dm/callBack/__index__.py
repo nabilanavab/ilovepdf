@@ -57,9 +57,11 @@ async def __index__(bot, callbackQuery):
         
         # Asks password for encryption, decryption
         if data in ["decrypt", "encrypt"]:
-            asked, password = await encryptPDF.askPassword(bot, callbackQuery, "Decryption 🔓" if data == "decrypt" else "Encryption 🔐")
-            # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
-            if password.text == "/exit":
+            asked, password = await encryptPDF.askPassword(
+                bot, callbackQuery, question = CHUNK["pyromodASK_1"],
+                process = "Decryption 🔓" if data == "decrypt" else "Encryption 🔐"
+            )
+            if password == "Exit":
                 await work.work(callbackQuery, "delete", False)
                 return await password.reply(CHUNK["exit"], quote = True)
         elif data == "rename":
