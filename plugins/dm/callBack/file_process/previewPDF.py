@@ -56,6 +56,8 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
             directory = f'{cDIR}/pgs'
             imag = [os.path.join(directory, file) for file in os.listdir(directory)]
             imag.sort(key = os.path.getctime)
+            
+            logger.debug(f"{imag}imag")
             media[callbackQuery.message.chat.id] = []
             
             for file in imag:
