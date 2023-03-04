@@ -75,8 +75,7 @@ async def __index__(bot, callbackQuery):
             newName = await bot.ask(
                 chat_id = callbackQuery.from_user.id,
                 reply_to_message_id = callbackQuery.message.id,
-                text = CHUNK["pyromodASK_1"].format(_work),
-                filters = filters.text,
+                text = CHUNK["pyromodASK_2"], filters = filters.text,
                 reply_markup = ForceReply(True, "Enter new File Name..")
             )
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
