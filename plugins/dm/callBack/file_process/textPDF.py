@@ -14,6 +14,7 @@ async def textPDF(input_file: str, cDIR: str, data: str, message = None) -> ( bo
     - It allows you to access the text contained within a PDF file and use it for different purposes.
     For instance, you can search and index the extracted text to make it more easily accessible.
     - PDF to HTML conversion allows you to publish your PDF content online as web pages that are easily accessible and searchable.
+    - PDF to JSON, the structured data can be easily extracted and used for various purposes, such as data analysis or populating a database.
     
     parameter:
         input_file : Here is the path of the file that the user entered
@@ -38,7 +39,7 @@ async def textPDF(input_file: str, cDIR: str, data: str, message = None) -> ( bo
         
         with fitz.open(input_file) as iNPUT:
             if data != "message":
-                with open(output_path) as oUTPUT:
+                with open(output_path, "wb") as oUTPUT:
                     for page in iNPUT:
                         text = page.get_text(data).encode("utf8")
                         oUTPUT.write(text)
