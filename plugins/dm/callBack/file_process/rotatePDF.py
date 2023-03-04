@@ -16,11 +16,11 @@ async def rotatePDF(input_file: str, angle: str, cDIR: str) -> ( bool, str ):
     
     parameter:
         input_file : Here is the path of the file that the user entered
-        cDIR       : This is the location of the directory that belongs to the specific user.
+        cDIR       : This is the location of the directory that belongs to the specific user
     
     return:
         bool        : Return True when the request is successful
-        output_path : This is the path where the output file can be found.
+        output_path : This is the path where the output file can be found
     """
     try:
         output_path = f"{cDIR}/outPut.pdf"
