@@ -13,14 +13,15 @@ from plugins.utils               import *
 async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
-        
         with fitz.open(input_file) as inPut:
             with fitz.open() as outPut:
-                for page in inPut:
-                    logger.debug(page)
-                    outPage = outPut.new_page(-1, width=page.rect.width, height=page.rect.height)
-                    outPage.show_pdf_page(outPage.rect, inPut, page.number)
-                outPut.save(output_path)
+                for pg in range(iNPUT.page_count):
+                    iNPUT[pg].get_pixmap().save(f"{cDIR}/temp.png")
+                    with Image.open(f"{cDIR}/temp.png") as image:
+                        rect = iNPUT[pg].rect
+                        oUTPUT.new_page(pno = -1, width = rect.width, height = rect.height)
+                        oUTPUT[pg].insert_image(rect = rect, filename = f"{cDIR}/temp.png")
+                oUTPUT.save(output_path, garbage = 3, deflate = True)
         
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(input_file)
