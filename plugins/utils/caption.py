@@ -11,8 +11,9 @@ from plugins.utils    import util
 from configs.config   import settings
 
 async def caption(
-    data: str, lang_code :str = settings.DEFAULT_LANG,
-    args: list = None
+    data: str,
+    args: list = None,
+    lang_code :str = settings.DEFAULT_LANG
 ) -> str:
     try:
         """ return caption deepending upon the work """
@@ -20,7 +21,8 @@ async def caption(
         if data == "encrypt":
             _, __ = await util.translate(text = "common['encrypt_caption']", lang_code = lang_code)
             caption = _.format(*args)
-        
+        elif data == "rename":
+            _, __ = await util.translate(text = "common['rename_caption']", lang_code = lang_code)
         else:
             caption = ""
         
