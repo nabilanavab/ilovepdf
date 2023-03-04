@@ -73,15 +73,7 @@ async def checkPdf(file_path, callbackQuery, lang_code):
         
         # open pdf file from file_path
         with fitz.open(file_path) as doc:
-            if doc.metadata != None:
-                pdfMetaData = "".join(f"`{i} : {doc.metadata[i]}`\n" for i in doc.metadata if doc.metadata[i] != "")
-            else:
-                pdfMetaData = ""
-                """
-                for i in doc.metadata:
-                    if doc.metadata[i] != "":
-                        pdfMetaData += f"`{i} : {doc.metadata[i]}`\n
-                """
+            pdfMetaData = "".join(f"`{i} : {doc.metadata[i]}`\n" for i in doc.metadata if doc.metadata[i] != "") if doc.metadata else ""
             if doc.is_encrypted:
                 # pdfMetaData = ""
                 try:
