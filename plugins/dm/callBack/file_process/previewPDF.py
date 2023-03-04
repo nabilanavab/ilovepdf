@@ -82,7 +82,7 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                     break
             
             if await work.work(callbackQuery, "check", False):
-                await dlMSG.edit(CHUNK["upload"], reply_markup = _)
+                # await dlMSG.edit(CHUNK["upload"], reply_markup = _)
                 await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
                 await pyTgLovePDF.send_media_group(
                     callbackQuery.message.chat.id,
