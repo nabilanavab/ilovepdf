@@ -197,3 +197,5 @@ async def __index__(bot, callbackQuery):
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         await work.work(callbackQuery, "delete", False)
+
+# Author: @nabilanavab
