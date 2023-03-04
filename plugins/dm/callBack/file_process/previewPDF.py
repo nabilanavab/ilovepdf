@@ -29,11 +29,12 @@ async def previewPDF(input_file: str, cDIR: str, editMessage, callbackQuery) -> 
         parameter:
             input_file    : Here is the path of the file that the user entered
             cDIR          : This is the location of the directory that belongs to the specific user.
+            editMessage   : edit Message progress bar
             callbackQuery : callbackQuery message 
         
         return:
-            bool          : Return True when the request is successful
-            output_path   : This is the path where the output file can be found.
+            "finished"    : Return finished when the request is successful
+            "finished"    : Return finished when the request is successful
         """
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
