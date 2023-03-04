@@ -112,7 +112,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await saturatePDF.saturatePDF(cDIR = cDIR, input_file = input_file)
         
         elif data == "comb":
-            isSuccess, output_file = await combineSinglePage.combineSinglePage(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await combinePages.combinePages(cDIR = cDIR, input_file = input_file)
         
         elif data == "format":
             isSuccess, output_file = await formatPDF.formatPDF(cDIR = cDIR, input_file = input_file)
