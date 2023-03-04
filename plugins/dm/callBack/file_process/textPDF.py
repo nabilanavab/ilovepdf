@@ -10,6 +10,18 @@ from logger import logger
 import fitz
 
 async def textPDF(input_file: str, cDIR: str, data: str, message = None) -> ( bool, str ):
+    """
+    It allows you to access the text contained within a PDF file and use it for different purposes.
+    For instance, you can search and index the extracted text to make it more easily accessible. 
+    
+    parameter:
+        input_file : Here is the path of the file that the user entered
+        cDIR       : This is the location of the directory that belongs to the specific user.
+    
+    return:
+        bool/finished        : Return True when the request is successful
+        output_path/finished : This is the path where the output file can be found.
+    """
     try:
         if data == "textT":
             output_path = f"{cDIR}/outPut.txt"
