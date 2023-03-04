@@ -63,7 +63,7 @@ async def __index__(bot, callbackQuery):
                 await work.work(callbackQuery, "delete", False)
                 return await password.reply(CHUNK["exit"], quote = True)
         elif data == "rename":
-            notExit, newName = await encryptPDF.askPassword(
+            notExit, newName = await renamePDF.askName(
                 bot, callbackQuery, question = CHUNK["pyromodASK_2"]
             )
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
