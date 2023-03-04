@@ -9,9 +9,7 @@ from logger           import logger
 
 import os, time
 from plugins.utils    import *
-from pyromod          import listen
 from configs.config   import images
-from pyrogram.types   import ForceReply
 from pyrogram         import enums, Client as ILovePDF
 
 from .file_process import *
@@ -65,14 +63,11 @@ async def __index__(bot, callbackQuery):
                 await work.work(callbackQuery, "delete", False)
                 return await password.reply(CHUNK["exit"], quote = True)
         elif data == "rename":
-            newName = await bot.ask(
-                chat_id = callbackQuery.from_user.id,
-                reply_to_message_id = callbackQuery.message.id,
-                text = CHUNK["pyromodASK_2"], filters = filters.text,
-                reply_markup = ForceReply(True, "Enter new File Name..")
+            notExit, newName = await encryptPDF.askPassword(
+                bot, callbackQuery, question = CHUNK["pyromodASK_2"]
             )
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
-            if newName.text == "/exit":
+            if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await newName.reply(CHUNK["exit"], quote = True)
         
