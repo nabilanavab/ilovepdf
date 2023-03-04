@@ -10,6 +10,18 @@ from logger import logger
 import fitz
 
 async def combinePages(input_file: str, cDIR: str) -> ( bool, str ):
+    """
+    Combining PDF files allows you to merge multiple PDF documents into a single file.
+    This can be useful for organizing and streamlining your PDF files, as well as for making it easier to share and store them.
+    
+    parameter:
+        input_file : Here is the path of the file that the user entered
+        cDIR       : This is the location of the directory that belongs to the specific user.
+    
+    return:
+        bool        : Return True when the request is successful
+        output_path : This is the path where the output file can be found.
+    """
     try:
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
@@ -29,7 +41,7 @@ async def combinePages(input_file: str, cDIR: str) -> ( bool, str ):
                     # insert input page into the correct rectangle
                     page.show_pdf_page(r_tab[pages.number % 4], iNPUT, pages.number)
                     # by all means, save new file using garbage collection and compression
-            oUTPUT.save(output_path, garbage = 3, deflate = True)
+                oUTPUT.save(output_path, garbage = 3, deflate = True)
         return True, output_path
     
     except Exception as Error:
