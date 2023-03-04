@@ -69,13 +69,13 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                     qualityRate -= 5
                 # ADDING TO GROUP MEDIA IF POSSIBLE
                 else:
-                    if len(media[chat_id]) == 1:
-                        media[chat_id].append(InputMediaPhoto(
+                    if len(media[callbackQuery.message.chat.id]) == 1:
+                        media[callbackQuery.message.chat.id].append(InputMediaPhoto(
                                 media = open(file, "rb"), caption = caption, parse_mode = "Markdown"
                                 )
                             )
                     else:
-                        media[chat_id].append(
+                        media[callbackQuery.message.chat.id].append(
                             InputMediaPhoto(media = open(file, "rb"))
                             )
                     break
@@ -84,10 +84,11 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                 await dlMSG.edit(CHUNK["upload"], reply_markup = _)
                 await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
                 await pyTgLovePDF.send_media_group(
-                    chat_id, media[chat_id],
+                    callbackQuery.message.chat.id,
+                    media[callbackQuery.message.chat.id],
                     reply_to_message_id = callbackQuery.message.id
                 )
-            del media[chat_id]
+            del media[callbackQuery.message.chat.id]
         return True, output_path
     
     except Exception as Error:
