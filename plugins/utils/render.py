@@ -66,10 +66,9 @@ async def gSF(b, factor=2**10, suffix="B"):    # get_size_format
         return f"{b:.2f}Y{suffix}"
     except Exception: pass
 
-# == CHECKS PDF CODEC, IS ENCRYPTED OR NOT ==
-async def checkPdf(file_path, callbackQuery):
+# ======= CHECKS PDF CODEC, IS ENCRYPTED OR NOT ========
+async def checkPdf(file_path, callbackQuery, lang_code):
     try:
-        lang_code = await getLang(callbackQuery.message.chat.id)
         CHUNK, _ = await translate(text="checkPdf", lang_code=lang_code)
         
         with fitz.open(file_path) as doc:
