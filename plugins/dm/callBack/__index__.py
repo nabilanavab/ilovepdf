@@ -12,7 +12,7 @@ from plugins.utils    import *
 from pyromod          import listen
 from configs.config   import images
 from pyrogram.types   import ForceReply
-from pyrogram         import enums, filters, Client as ILovePDF
+from pyrogram         import enums, Client as ILovePDF
 
 from .file_process import *
 
@@ -57,11 +57,11 @@ async def __index__(bot, callbackQuery):
         
         # Asks password for encryption, decryption
         if data in ["decrypt", "encrypt"]:
-            asked, password = await encryptPDF.askPassword(
+            notExit, password = await encryptPDF.askPassword(
                 bot, callbackQuery, question = CHUNK["pyromodASK_1"],
                 process = "Decryption 🔓" if data == "decrypt" else "Encryption 🔐"
             )
-            if password == "Exit":
+            if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await password.reply(CHUNK["exit"], quote = True)
         elif data == "rename":
