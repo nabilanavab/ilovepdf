@@ -56,17 +56,8 @@ async def __index__(bot, callbackQuery):
         await callbackQuery.answer(CHUNK["process"])
         
         # Asks password for encryption, decryption
-        password = False
         if data in ["decrypt", "encrypt"]:
-            _work = "Decryption 🔓" if data == "decrypt" else "Encryption 🔐"
-            # PYROMOD ADD-ON (ASK'S PASSWORD)
-            password = await bot.ask(
-                chat_id = callbackQuery.from_user.id,
-                reply_to_message_id = callbackQuery.message.id,
-                text = CHUNK["pyromodASK_1"].format(_work),
-                filters = filters.text,
-                reply_markup = ForceReply(True, "Enter Password..")
-            )
+            asked, password = await encryptPDF.askPassword(bot, "Decryption 🔓" if data == "decrypt" else "Encryption 🔐")
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
             if password.text == "/exit":
                 await work.work(callbackQuery, "delete", False)
