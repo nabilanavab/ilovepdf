@@ -7,6 +7,23 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
+from pyromod          import listen
+from pyrogram         import filters
+from pyrogram.types   import ForceReply
+
+async def askName(bot, callbackQuery, question):
+    try:
+        newName = await bot.ask(
+            chat_id = callbackQuery.from_user.id,
+            reply_to_message_id = callbackQuery.message.id,
+            text = question, filters = filters.text,
+            reply_markup = ForceReply(True, "Enter new File Name..")
+        )
+        return (True, newName) if newName.text != "/exit" else (False, newName)
+    except Exception as Error:
+        logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
+        return False, Error
+        
 async def renamePDF(input_file: str):
     """
     Renaming PDF files can help you keep your files organized and easy to find.
@@ -21,6 +38,5 @@ async def renamePDF(input_file: str):
         input_file : This is the path where the output file can be found.
     """
     return True, input_file
-
 
 # Author: @nabilanavab
