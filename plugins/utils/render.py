@@ -73,8 +73,7 @@ async def checkPdf(file_path, callbackQuery, lang_code):
         
         with fitz.open(file_path) as doc:
             if doc.metadata != None:
-                pdfMetaData = ""
-                for i in doc.metadata pdfMetaData += f"`{i} : {doc.metadata[i]}`\n" if doc.metadata[i] != "" 
+                pdfMetaData = "".join(f"`{i} : {doc.metadata[i]}`\n" for i in doc.metadata if doc.metadata[i] != "")
                 """
                 for i in doc.metadata:
                     if doc.metadata[i] != "":
