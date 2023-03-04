@@ -177,10 +177,10 @@ async def __index__(bot, callbackQuery):
         
         # caption for "encrypt", "rename"
         if data in ["encrypt", "rename"]:
-            if data == "encrypt": [number_of_pages, password.text]
-            elif data == "rename": [FILE_NAME, newName.text]
+            if data == "encrypt": arg = [number_of_pages, password.text]
+            elif data == "rename": arg = [FILE_NAME, newName.text]
             _caption = await caption.caption(
-                data = data, lang_code = lang_code, args
+                data = data, lang_code = lang_code, args = arg
             )
         
         await dlMSG.edit(CHUNK['upload'], reply_markup = _)
