@@ -166,11 +166,6 @@ async def __index__(bot, callbackQuery):
                 return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
             return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
         
-        _caption = await caption.caption(
-            data = data, lang_code = lang_code,
-            args = [number_of_pages, password.text] if password else None
-        )
-        
         # getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
             callbackQuery.message,
@@ -179,6 +174,14 @@ async def __index__(bot, callbackQuery):
         if images.PDF_THUMBNAIL != THUMBNAIL:
             location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/temp.jpeg")
             THUMBNAIL = await formatThumb(location)
+        
+        # caption for "encrypt", "rename"
+        if data in ["encrypt", "rename"]:
+            if data == "encrypt": [number_of_pages, password.text]
+            elif data == "rename": [FILE_NAME, newName.text]
+            _caption = await caption.caption(
+                data = data, lang_code = lang_code, args
+            )
         
         await dlMSG.edit(CHUNK['upload'], reply_markup = _)
         
