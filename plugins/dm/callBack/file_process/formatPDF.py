@@ -10,6 +10,18 @@ from logger import logger
 import fitz
 
 async def formatPDF(input_file: str, cDIR: str) -> ( bool, str ):
+    """
+    A4 formatting is a technique for displaying and printing PDF documents, which involves
+    aligning all pages of the document within the standard A4 paper size
+    
+    parameter:
+        input_file : Here is the path of the file that the user entered
+        cDIR       : This is the location of the directory that belongs to the specific user.
+    
+    return:
+        bool        : Return True when the request is successful
+        output_path : This is the path where the output file can be found.
+    """
     try:
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
