@@ -102,7 +102,7 @@ async def __index__(bot, callbackQuery):
             await work.work(callbackQuery, "delete", False)
             return await dlMSG.delete()
         
-        if data == "baw":
+        elif data == "baw":
             isSuccess, output_file = await blackAndWhitePdf.blackAndWhitePdf(cDIR = cDIR, input_file = input_file)
         
         elif data == "sat":
@@ -125,6 +125,9 @@ async def __index__(bot, callbackQuery):
         
         elif data == "compress":
             isSuccess, output_file = await compressPDF.compressPDF(cDIR = cDIR, input_file = input_file)
+        
+        elif data == "preview":
+            isSuccess, output_file = await previewPDF.previewPDF(cDIR = cDIR, input_file = input_file)
         
         if not isSuccess:
             await work.work(callbackQuery, "delete", False)
