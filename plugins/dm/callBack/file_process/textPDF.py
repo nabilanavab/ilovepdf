@@ -9,28 +9,29 @@ from logger import logger
 
 import fitz
 
-async def textPDF(input_file: str, cDIR: str, data: str, message=None) -> ( bool, str ):
+async def textPDF(input_file: str, cDIR: str, data: str, message = None) -> ( bool, str ):
     try:
-        if data != "M":
-            return
-        
-        if data == "T":
-            output_path = f"{cDIR}/outPut.pdf"
+        if data == "textT":
+            output_path = f"{cDIR}/outPut.txt"
             data = "text"
-        elif data == "H":
-            output_path = f"{cDIR}/outPut.pdf"
+        elif data == "textH":
+            output_path = f"{cDIR}/outPut.html"
             data = "html"
-        elif data == "J":
-            output_path = f"{cDIR}/outPut.pdf"
+        elif data == "textJ":
+            output_path = f"{cDIR}/outPut.json"
             data = "json"
+        elif data == "textM":
+            data = "message"
         
         with fitz.open(input_file) as iNPUT:
-            with open(output_path) as oUTPUT:
-                for page in iNPUT:
-                    text = page.get_text(data).encode("utf8")
-                    oUTPUT.write(text)
-                    oUTPUT.write(bytes((12,)))
-                
+            if data != "message":
+                with open(output_path) as oUTPUT:
+                    for page in iNPUT:
+                        text = page.get_text(data).encode("utf8")
+                        oUTPUT.write(text)
+                        oUTPUT.write(bytes((12,)))
+            else:
+                pass
         return True, output_path
         
     except Exception as Error:
