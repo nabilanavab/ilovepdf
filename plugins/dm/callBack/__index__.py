@@ -156,6 +156,7 @@ async def __index__(bot, callbackQuery):
             args = [number_of_pages, password.text] if password else None
         )
         
+        logger.debug(output_file)
         # getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
             callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name
