@@ -26,11 +26,11 @@ async def rotatePDF(input_file: str, angle: str, cDIR: str) -> ( bool, str ):
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
             if angle == "rot90":
-                for page in doc: page.set_rotation(90)
+                for page in iNPUT: page.set_rotation(90)
             elif angle == "rot180":
-                for page in doc: page.set_rotation(180)
+                for page in iNPUT: page.set_rotation(180)
             elif angle == "rot270":
-                for page in doc: page.set_rotation(-90)
+                for page in iNPUT: page.set_rotation(-90)
             doc.save(output_path)
         return True, output_path
         
