@@ -8,7 +8,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 
 import os, fitz
-from plugins.utils      import *
+from PIL    import Image
 
 async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
