@@ -138,7 +138,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await rotatePDF.rotatePDF(cDIR = cDIR, input_file = input_file, angle = data)
         
         elif data.startswith("text"):
-            isSuccess, output_file = await rotatePDF.rotatePDF(cDIR = cDIR, input_file = input_file,  data = data, message = dlMSG)
+            isSuccess, output_file = await rotatePDF.rotatePDF(cDIR = cDIR, input_file = input_file, data = data, message = dlMSG)
         
         if isSuccess == "finished":
             # The condition isSuccess == "finished" indicates that all the work that needed to be
