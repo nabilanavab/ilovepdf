@@ -7,6 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from . import *
 
 __all__ = [
+    "previewPDF",
     "textPDF", "zoomPDF",
     "encryptPDF", "decryptPDF",
     "blackAndWhitePdf", "combinePages",
