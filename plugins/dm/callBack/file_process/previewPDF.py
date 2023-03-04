@@ -41,7 +41,7 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
             if iNPUT.page_count <= 10:
                 preview = list(range(1, iNPUT.page_count + 1))
             else:
-                preview = [0, 1, 2] + list(range(iNPUT.page_count//2 - 1, iNPUT.page_count//2 + 2)) + list(range(iNPUT.page_count-3, iNPUT.page_count))
+                preview = [1, 2, 3] + list(range(iNPUT.page_count//2 - 1, iNPUT.page_count//2 + 2)) + list(range(iNPUT.page_count-2, iNPUT.page_count+1))
             
             pdfMetaData = "".join(f"`{i} : {iNPUT.metadata[i]}`\n" for i in iNPUT.metadata if iNPUT.metadata[i] != "") if iNPUT.metadata else ""
             
