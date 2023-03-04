@@ -75,7 +75,6 @@ async def checkPdf(file_path, callbackQuery, lang_code):
         with fitz.open(file_path) as doc:
             pdfMetaData = "".join(f"`{i} : {doc.metadata[i]}`\n" for i in doc.metadata if doc.metadata[i] != "") if doc.metadata else ""
             if doc.is_encrypted:
-                # pdfMetaData = ""
                 try:
                     await callbackQuery.edit_message_text(
                         text = CHUNK["encrypt"].format(
@@ -85,8 +84,7 @@ async def checkPdf(file_path, callbackQuery, lang_code):
                              + CHUNK["pg"].format(doc.page_count) + "\n\n" + pdfMetaData,
                         reply_markup = await createBUTTON(CHUNK["encryptCB"], order=11)
                     )
-                except Exception as e:
-                    logger.exception("🐞 %s /close: %s" %(file_name, e))
+                except Exception: pass
                 if callbackQuery.data != "work|decrypt":
                     await work(callbackQuery, "delete", False)
                 return "encrypted", doc.page_count
