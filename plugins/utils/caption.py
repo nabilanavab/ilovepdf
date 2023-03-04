@@ -10,7 +10,7 @@ from logger           import logger
 from plugins.utils    import util
 from configs.config   import settings
 
-async def caption(data: str, lang_code :str = settings.DEFAULT_LANG, args = None) -> str:
+async def caption(data: str, args = None, lang_code :str = settings.DEFAULT_LANG) -> str:
     try:
         """ return caption deepending upon the work """
         
