@@ -121,7 +121,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await drawPDF.drawPDF(cDIR = cDIR, input_file = input_file)
         
         elif data == "zoom":
-            isSuccess, output_file = await splitSinglePage.splitSinglePage(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await zoomPDF.zoomPDF(cDIR = cDIR, input_file = input_file)
         
         elif data == "encrypt":
             isSuccess, output_file = await encryptPDF.encryptPDF(cDIR = cDIR, input_file = input_file, password = password.text)
