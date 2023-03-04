@@ -81,7 +81,7 @@ async def __index__(bot, callbackQuery):
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
             if newName.text == "/exit":
                 await work.work(callbackQuery, "delete", False)
-                return await password.reply(CHUNK["exit"], quote = True)
+                return await newName.reply(CHUNK["exit"], quote = True)
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
         
