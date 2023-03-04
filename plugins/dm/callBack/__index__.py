@@ -116,6 +116,9 @@ async def __index__(bot, callbackQuery):
             await work.work(callbackQuery, "delete", False)
             return await dlMSG.delete()
         
+        elif data == "rename"
+            isSuccess, output_file = await renamePDF.renamePDF(input_file = input_file)
+        
         elif data == "baw":
             isSuccess, output_file = await blackAndWhitePdf.blackAndWhitePdf(cDIR = cDIR, input_file = input_file)
         
