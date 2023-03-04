@@ -45,7 +45,7 @@ async def previewPDF(input_file: str, cDIR: str, editMessage, callbackQuery) -> 
             
             pdfMetaData = "".join(f"`{i} : {iNPUT.metadata[i]}`\n" for i in iNPUT.metadata if iNPUT.metadata[i] != "") if iNPUT.metadata else ""
             
-            await editMessage.edit(f"𝚏𝚎𝚝𝚌𝚑𝚒𝚗𝚐 𝚙𝚊𝚐𝚎𝚜: {preview} 🕵")
+            await editMessage.edit(f"`𝚏𝚎𝚝𝚌𝚑𝚒𝚗𝚐 𝚙𝚊𝚐𝚎𝚜: {preview}` 🙇")
             mat = fitz.Matrix(2, 2)
             os.mkdir(f'{cDIR}/pgs')
             for pageNo in preview:
@@ -83,7 +83,7 @@ async def previewPDF(input_file: str, cDIR: str, editMessage, callbackQuery) -> 
                             )
                         break
             
-            await editMessage.edit(f"𝚞𝚙𝚕𝚘𝚊𝚍𝚒𝚗𝚐 𝚊𝚕𝚋𝚞𝚖: {preview} 🙇")
+            await editMessage.edit(f"`𝚞𝚙𝚕𝚘𝚊𝚍𝚒𝚗𝚐 𝚊𝚕𝚋𝚞𝚖: {preview}` 🙇")
             if await work.work(callbackQuery, "check", False):
                 # await dlMSG.edit(CHUNK["upload"], reply_markup = _)
                 await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
