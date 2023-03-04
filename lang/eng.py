@@ -749,6 +749,7 @@ common = {
     "decrypt_error" : "Sorry, this password is invalid for decrypting the PDF file",
     "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
     "upload" : "`Started Uploading..` 📤",
-    "encrypt_caption": "__Page Number__: {}\n__key__ 🔐: ||{}||",
+    "encrypt_caption" : "__Page Number__: {}\n__key__ 🔐: ||{}||",
+    "rename_caption" : "old name: `{}`\new name: `{}`",
     "exit" : "Your request is about to be canceled 😏",
 }
