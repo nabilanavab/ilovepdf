@@ -156,7 +156,6 @@ async def __index__(bot, callbackQuery):
             args = [number_of_pages, password.text] if password else None
         )
         
-        logger.debug(output_file)
         # getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
             callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name
@@ -166,6 +165,11 @@ async def __index__(bot, callbackQuery):
             THUMBNAIL = await formatThumb(location)
         
         await dlMSG.edit(CHUNK['upload'], reply_markup = _)
+        
+        if data.startswith("text"):
+            ext = {"tectT" : ".txt", "textH" : ".html", "textJ" : ".json"}
+            FILE_NAME = FILE_NAME + ext[data]
+        
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
             file_name = FILE_NAME, quote = True, document = output_file, thumb = THUMBNAIL,
