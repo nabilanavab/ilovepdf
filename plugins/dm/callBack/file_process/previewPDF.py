@@ -44,7 +44,7 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
             
             mat = fitz.Matrix(2, 2)
             os.mkdir(f'{cDIR}/pgs')
-            for pageNo in totalPgList:
+            for pageNo in preview:
                 pix = iNPUT.load_page(int(pageNo) - 1).get_pixmap(matrix = mat)
                 # SAVING PREVIEW IMAGE
                 with open(f'{cDIR}/pgs/{pageNo}.jpg','wb'):
