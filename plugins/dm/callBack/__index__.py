@@ -114,6 +114,9 @@ async def __index__(bot, callbackQuery):
         elif data == "comb":
             isSuccess, output_file = await combineSinglePage.combineSinglePage(cDIR = cDIR, input_file = input_file)
         
+        elif data == "format":
+            isSuccess, output_file = await formatPDF.formatPDF(cDIR = cDIR, input_file = input_file)
+        
         elif data == "draw":
             isSuccess, output_file = await drawPDF.drawPDF(cDIR = cDIR, input_file = input_file)
         
