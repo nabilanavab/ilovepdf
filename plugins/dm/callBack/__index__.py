@@ -132,16 +132,16 @@ async def __index__(bot, callbackQuery):
         elif data == "preview":
             isSuccess, output_file = await previewPDF.previewPDF(cDIR = cDIR, input_file = input_file, callbackQuery = callbackQuery)
         
-        if not isSuccess:
-            await work.work(callbackQuery, "delete", False)
-            if data == "decrypt":
-                return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
-            return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
-        elif isSuccess == "finished":
+        if isSuccess == "finished":
             # The condition isSuccess == "finished" indicates that all the work that needed to be
             # done by the function has been completed and there is no need to send any other files
             await work.work(callbackQuery, "delete", False)
             return await dlMSG.delete()
+        elif not isSuccess:
+            await work.work(callbackQuery, "delete", False)
+            if data == "decrypt":
+                return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
+            return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
         
         _caption = await caption.caption(
             data = data, lang_code = lang_code,
