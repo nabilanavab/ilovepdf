@@ -56,32 +56,29 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
             directory = f'{cDIR}/pgs'
             imag = [os.path.join(directory, file) for file in os.listdir(directory)]
             imag.sort(key = os.path.getctime)
-            
-            logger.debug(f"{imag}imag")
             media[callbackQuery.message.chat.id] = []
             
             for file in imag:
                 await sleep(0.5)
                 qualityRate = 95
-                # print("size: ",file, " ",os.path.getsize(file)) LOG MESSAGE
-                # FILES WITH 10MB+ SIZE SHOWS AN ERROR FROM TELEGRAM 
-                # SO COMPRESS UNTIL IT COMES LESS THAN 10MB.. :(
-                if os.path.getsize(file) >= 1000000:
-                    picture = Image.open(file)
-                    picture.save(file, "JPEG", optimize = True, quality = qualityRate)
-                    qualityRate -= 5
-                # ADDING TO GROUP MEDIA IF POSSIBLE
-                else:
-                    if len(media[callbackQuery.message.chat.id]) == 1:
-                        media[callbackQuery.message.chat.id].append(InputMediaPhoto(
-                                media = open(file, "rb"), caption = caption, parse_mode = "Markdown"
-                                )
-                            )
+                for i in range(200):
+                    # FILES WITH 10MB+ SIZE SHOWS AN ERROR FROM TELEGRAM 
+                    # SO COMPRESS UNTIL IT COMES LESS THAN 10MB.. :(
+                    if os.path.getsize(file) >= 1000000:
+                         picture = Image.open(file)
+                        picture.save(file, "JPEG", optimize = True, quality = qualityRate)
+                        qualityRate -= 5
+                    # ADDING TO GROUP MEDIA IF POSSIBLE
                     else:
-                        media[callbackQuery.message.chat.id].append(
-                            InputMediaPhoto(media = open(file, "rb"))
+                        if len(media[callbackQuery.message.chat.id]) == 1:
+                            media[callbackQuery.message.chat.id].append(InputMediaPhoto(
+                                media = open(file, "rb"), caption = caption, parse_mode = "Markdown")
                             )
-                    break
+                        else:
+                            media[callbackQuery.message.chat.id].append(
+                                InputMediaPhoto(media = open(file, "rb"))
+                            )
+                        break
             
             logger.debug(media[callbackQuery.message.chat.id])
             if await work.work(callbackQuery, "check", False):
@@ -93,7 +90,7 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                     reply_to_message_id = callbackQuery.message.id
                 )
             del media[callbackQuery.message.chat.id]
-        return True, output_path
+        return "finished", "finished"
     
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
