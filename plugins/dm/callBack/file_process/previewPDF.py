@@ -38,14 +38,14 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
             if iNPUT.page_count <= 10:
                 preview = list(range(1, iNPUT.page_count + 1))
             else:
-                preview = ange = [0, 1, 2] + list(range(num_pages//2 - 1, num_pages//2 + 2)) + [-3, -2, -1]
+                preview = [0, 1, 2] + list(range(iNPUT.page_count//2 - 1, iNPUT.page_count//2 + 2)) + [-3, -2, -1]
             
-            pdfMetaData = "".join(f"`{i} : {doc.metadata[i]}`\n" for i in doc.metadata if doc.metadata[i] != "") if doc.metadata else ""
+            pdfMetaData = "".join(f"`{i} : {iNPUT.metadata[i]}`\n" for i in iNPUT.metadata if iNPUT.metadata[i] != "") if iNPUT.metadata else ""
             
             mat = fitz.Matrix(2, 2)
             os.mkdir(f'{cDIR}/pgs')
             for pageNo in totalPgList:
-                pix = doc.load_page(int(pageNo) - 1).get_pixmap(matrix = mat)
+                pix = iNPUT.load_page(int(pageNo) - 1).get_pixmap(matrix = mat)
                 # SAVING PREVIEW IMAGE
                 with open(f'{cDIR}/pgs/{pageNo}.jpg','wb'):
                     pix.save(f'{cDIR}/pgs/{pageNo}.jpg')
