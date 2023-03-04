@@ -135,6 +135,9 @@ async def __index__(bot, callbackQuery):
         elif data == "preview":
             isSuccess, output_file = await previewPDF.previewPDF(cDIR = cDIR, input_file = input_file, editMessage = dlMSG, callbackQuery = callbackQuery)
         
+        elif data.startswith("rot"):
+            isSuccess, output_file = await rotatePDF.rotatePDF(cDIR = cDIR, input_file = input_file, angle = data)
+        
         if isSuccess == "finished":
             # The condition isSuccess == "finished" indicates that all the work that needed to be
             # done by the function has been completed and there is no need to send any other files
