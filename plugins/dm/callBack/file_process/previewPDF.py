@@ -72,7 +72,9 @@ async def previewPDF(input_file: str, cDIR: str, callbackQuery) -> ( bool, str )
                     else:
                         if len(media[callbackQuery.message.chat.id]) == 1:
                             media[callbackQuery.message.chat.id].append(InputMediaPhoto(
-                                media = open(file, "rb"), caption = f"{preview}\n\n{pdfMetaData}", parse_mode = "Markdown")
+                                media = open(file, "rb"),
+                                caption = f"`𝚙𝚊𝚐𝚎𝚜: {preview}`\n\n{pdfMetaData}",
+                                parse_mode = "Markdown")
                             )
                         else:
                             media[callbackQuery.message.chat.id].append(
