@@ -178,7 +178,7 @@ async def __index__(bot, callbackQuery):
         # caption for "encrypt", "rename"
         if data in ["encrypt", "rename"]:
             if data == "encrypt": arg = [number_of_pages, password.text]
-            elif data == "rename": arg = [FILE_NAME, newName.text]
+            elif data == "rename": arg = [callbackQuery.message.reply_to_message.document.file_name, newName.text]
             _caption = await caption.caption(
                 data = data, lang_code = lang_code, args = arg
             )
