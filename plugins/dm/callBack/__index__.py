@@ -90,7 +90,7 @@ async def __index__(bot, callbackQuery):
         # If not, the program prompts the user to add metadata to the file.
         # This helps to ensure the proper handling of the file and prevent errors during the manipulation process.
         if "•" not in callbackQuery.message.text:
-            checked, number_of_pages = await render.checkPdf(input_file, callbackQuery)
+            checked, number_of_pages = await render.checkPdf(input_file, callbackQuery, lang_code)
             if data == "decrypt" and checked != "encrypted":
                 await work.work(callbackQuery, "delete", False)
                 return await dlMSG.edit(CHUNK['notEncrypt'])
