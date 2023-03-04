@@ -11,8 +11,9 @@ import fitz
 
 async def textPDF(input_file: str, cDIR: str, data: str, message = None) -> ( bool, str ):
     """
-    It allows you to access the text contained within a PDF file and use it for different purposes.
-    For instance, you can search and index the extracted text to make it more easily accessible. 
+    - It allows you to access the text contained within a PDF file and use it for different purposes.
+    For instance, you can search and index the extracted text to make it more easily accessible.
+    - PDF to HTML conversion allows you to publish your PDF content online as web pages that are easily accessible and searchable.
     
     parameter:
         input_file : Here is the path of the file that the user entered
