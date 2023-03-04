@@ -32,6 +32,7 @@ async def previewPDF(input_file: str, cDIR: str) -> ( bool, str ):
                 logger.debug(iNPUT.page_count[3:])
                 #preview = str(iNPUT.page_count[3:] + [iNPUT.page_count//2:(iNPUT.page_count//2)+2] + iNPUT.page_count[-3:1])
             else:
+                pass
                 #preview = iNPUT.page_count[3:] + [(iNPUT.page_count//2)-1:(iNPUT.page_count//2)+3] + iNPUT.page_count[-3:1]
             #logger.debug(preview)
             
