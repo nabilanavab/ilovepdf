@@ -21,13 +21,16 @@ index = filters.create(lambda _, __, query: query.data.startswith("#"))
 async def __index__(bot, callbackQuery):
     try:
         data = callbackQuery.data[1:]
-        logger.debug(data)
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         
         if await render.header(bot, callbackQuery, lang_code = lang_code):
             return
         
-        CHUNK, _ = await util.translate(text = "common", button="common['button']", lang_code = lang_code)
+        CHUNK, _ = await util.translate(text = "common", button = "common['button']", lang_code = lang_code)
+        
+        if not callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
+            await work.work(callbackQuery, "delete", False)
+            return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
         
         if data == "rot360":
             # Rotating a PDF by 360 degrees will result in the same orientation as the original document.
@@ -69,10 +72,7 @@ async def __index__(bot, callbackQuery):
             if password.text == "/exit":
                 return await password.reply(CHUNK["exit"], quote = True)
         
-        if callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
-            dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
-        else:
-            return await callbackQuery.message.reply_text("#old_queue\n\n`try by sending new file`", reply_markup = _, quote = True)
+        dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
         
         # download the mentioned PDF file with progress updates
         input_file = await bot.download_media(
