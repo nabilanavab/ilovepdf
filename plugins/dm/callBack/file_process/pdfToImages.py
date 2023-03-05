@@ -47,8 +47,9 @@ async def askimageList(bot, callbackQuery, questions, limit: int = 1000) -> ( bo
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
-async def imagesToPdf(input_file: str, cDIR: str, imageList: list) -> ( bool, str):
+async def pdfToImages(input_file: str, cDIR: str, callbackQuery, imageList: list) -> ( bool, str):
     try:
+        imageType = callbackQuery.data
         with fitz.open(input_file) as doc:
             mat = fitz.Matrix(2, 2)
             if len(imageList) >= 11:
@@ -90,9 +91,9 @@ async def imagesToPdf(input_file: str, cDIR: str, imageList: list) -> ( bool, st
                             picture.save(file, "JPEG", optimize = True,quality = qualityRate)
                             qualityRate -= 5; await asyncio.sleep(0.5)
                         else:
-                            if imageType == "image":
+                            if imageType == "#p2img|img":
                                 media[chat_id].append(InputMediaPhoto(open(file, "rb")))
-                            elif imageType == "Document":
+                            elif imageType == "#p2img|doc":
                                 mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                             break
                 
@@ -100,22 +101,22 @@ async def imagesToPdf(input_file: str, cDIR: str, imageList: list) -> ( bool, st
                     await dlMSG.edit(text = CHUNK["upload"].format(cnvrtpg, len(totalPgList)), reply_markup = cancel)
                 except Exception: pass
                 
-                if imageType == "image":
+                if imageType == "#p2img|img":
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
-                elif imageType == "Document":
+                elif imageType == "#p2img|doc":
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
                 
                 try:
-                    await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id] if imageType == "Document" else media[chat_id])
+                    await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id] if imageType == "#p2img|doc" else media[chat_id])
                 except Exception as e:
                     wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
                     mediaDoc[chat_id] = []
                     for file in imag:
-                        if imageType == "image":
+                        if imageType == "#p2img|img":
                             media[chat_id].append(InputMediaPhoto(open(file, "rb")))
-                        elif imageType == "Document":
+                        elif imageType == "#p2img|doc":
                             mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
-                    await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id] if imageType == "Document" else media[chat_id])
+                    await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id] if imageType == "#p2img|doc" else media[chat_id])
                 shutil.rmtree(f'{cDIR}/pgs')
             await dlMSG.edit(text = CHUNK["complete"],reply_markup = completed)
             return "finished", "finished"
