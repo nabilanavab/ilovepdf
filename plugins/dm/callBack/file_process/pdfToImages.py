@@ -33,7 +33,6 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
             text = question, filters = filters.text,
             reply_markup = ForceReply(True, "Eg: 7:13 [start:end], 2, 3, 21:27..")
         )
-        logger.debug(input_str.text)
         my_list = []
         for elem in input_str.text.split(','):
             try:
@@ -50,7 +49,7 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
-async def pdfToImages(input_file: str, cDIR: str, callbackQuery, imageList: list) -> ( bool, str):
+async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList: list) -> ( bool, str):
     try:
         imageType = callbackQuery.data
         with fitz.open(input_file) as doc:
