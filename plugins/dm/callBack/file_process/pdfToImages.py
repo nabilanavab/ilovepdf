@@ -17,7 +17,7 @@ from telebot.types  import InputMediaPhoto, InputMediaDocument
 media = {}
 mediaDoc = {}
 
-async def imageList(input_str: str, limit: int = 10000) -> ( bool, list ):
+async def askimageList(bot, callbackQuery, questions, limit: int = 1000) -> ( bool, list ):
     """
     return a list with a specific range of numbers and some specific values from the input
     
@@ -26,7 +26,13 @@ async def imageList(input_str: str, limit: int = 10000) -> ( bool, list ):
         [1, 2, 3, 4, 5, 18, 19, 20]    <---return
     """
     try:
-        for elem in input_str.split(','):
+        input_str = await bot.ask(
+            chat_id = callbackQuery.from_user.id,
+            reply_to_message_id = callbackQuery.message.id,
+            text = question[0], filters = filters.text,
+            reply_markup = ForceReply(True, "Eg: 7:13 [start:end], 2, 3, 21:27..")
+        )
+        for elem in input_str.text.split(','):
             try:
                 if ':' in elem:
                     start, end = map(int, elem.split(':'))
@@ -35,10 +41,13 @@ async def imageList(input_str: str, limit: int = 10000) -> ( bool, list ):
                     my_list.append(int(elem))
             except ValueError:
                 pass
-        return True, sorted(set([x for x in my_list if x <= limit]))
+        my_list = sorted(set([x for x in my_list if x <= limit]))
+        if len(my_list) == 0:
+            await callbackQuery.message.reply(question[1])
+            return False, False
+        return True, my_list
     except Exception as e:
         return False, Error
-
 
 async def imagesToPdf(input_file: str, cDIR: str, imageList: list) -> ( bool, str):
     try:
