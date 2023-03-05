@@ -89,7 +89,7 @@ async def _pdf(bot, callbackQuery):
                 data = data.split("|", 1)[1]
                 tTXT, tBTN = await util.translate(text = "pdf2IMG['imgRange']", lang_code = lang_code)
                 tTXT = await util.editDICT(inDir = tTXT, value = imgg[f"{data}"], front = f"{data}".upper())
-                tTXT = await util.createBUTTON(tTXT, "131")
+                tTXT = await util.createBUTTON(tTXT, "121")
                 return await callbackQuery.message.edit_reply_markup(tTXT)
         
         elif data.startswith("stp"):
