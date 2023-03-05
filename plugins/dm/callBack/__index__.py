@@ -54,7 +54,7 @@ async def __index__(bot, callbackQuery):
         await callbackQuery.answer(CHUNK["process"])
         
         # Asks password for encryption, decryption
-        if data in ["decrypt", "encrypt"]:
+        if data in ["decrypt", "encrypt", "rename", "Images", "document"]:
             notExit, password = await encryptPDF.askPassword(
                 bot, callbackQuery, question = CHUNK["pyromodASK_1"],
                 process = "Decryption 🔓" if data == "decrypt" else "Encryption 🔐"
@@ -70,6 +70,14 @@ async def __index__(bot, callbackQuery):
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await newName.reply(CHUNK["exit"], quote = True)
+        elif data in ["Images", "document"]:
+            notExit, imageList = await renamePDF.askName(
+                bot, callbackQuery, question = CHUNK["askImage"],
+                limit = callbackQuery.message.text.split("•")[1] if "•" in callbackQuery.message.text
+            )
+            if not notExit:
+                return await work.work(callbackQuery, "delete", False)
+                return await imageList.reply(CHUNK["pdfToImgError"], quote = True)
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
         
