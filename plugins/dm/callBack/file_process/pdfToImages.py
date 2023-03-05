@@ -17,7 +17,7 @@ from telebot.types  import InputMediaPhoto, InputMediaDocument
 media = {}
 mediaDoc = {}
 
-async def askimageList(bot, callbackQuery, questions, limit: int = 1000) -> ( bool, list ):
+async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( bool, list ):
     """
     return a list with a specific range of numbers and some specific values from the input
     
