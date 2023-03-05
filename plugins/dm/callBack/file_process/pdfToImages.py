@@ -53,6 +53,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
     try:
         imageType = callbackQuery.data
         with fitz.open(input_file) as doc:
+            number_of_pages = doc.page_count
             mat = fitz.Matrix(2, 2)
             if len(imageList) >= 11:
                 await dlMSG.pin(disable_notification = True, both_sides = True)
