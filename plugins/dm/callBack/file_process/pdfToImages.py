@@ -111,7 +111,8 @@ async def imagesToPdf(input_file: str, cDIR: str, imageList: list) -> ( bool, st
                     await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id] if imageType == "Document" else media[chat_id])
                 shutil.rmtree(f'{cDIR}/pgs')
             await dlMSG.edit(text = CHUNK["complete"],reply_markup = completed)
-            return "finished" "finished"
+            return "finished", "finished"
     except Exception as Error:
-        return False Error
+        logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
+        return False, Error
 # Author: @nabilanavab
