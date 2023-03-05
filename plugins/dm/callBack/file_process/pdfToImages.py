@@ -7,7 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-import fitz
+import fitz, os, shutil, asyncio
 from PIL            import Image
 from pyromod        import listen
 from pyrogram       import filters
