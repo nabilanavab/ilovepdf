@@ -33,7 +33,8 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
             text = question, filters = filters.text,
             reply_markup = ForceReply(True, "Eg: 7:13 [start:end], 2, 3, 21:27..")
         )
-        my_list = list()
+        logger.debug(input_str.text)
+        my_list = []
         for elem in input_str.text.split(','):
             try:
                 if ':' in elem:
@@ -44,7 +45,6 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
             except ValueError:
                 pass
         my_list = sorted(set([x for x in my_list if isinstance(x, int) and x <= limit]))
-        return (True, my_list) if len(my_list) != 0 else (False, my_list)
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
