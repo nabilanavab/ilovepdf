@@ -73,7 +73,7 @@ async def __index__(bot, callbackQuery):
         elif data in ["Images", "document"]:
             notExit, imageList = await renamePDF.askName(
                 bot, callbackQuery, question = CHUNK["askImage"],
-                limit = callbackQuery.message.text.split("•")[1] if "•" in callbackQuery.message.text
+                limit = callbackQuery.message.text.split("•")[1] if "•" in callbackQuery.message.text else 1000
             )
             if not notExit:
                 return await work.work(callbackQuery, "delete", False)
