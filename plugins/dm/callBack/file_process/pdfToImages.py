@@ -51,7 +51,7 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
 
 async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList: list) -> ( bool, str):
     try:
-        imageType = callbackQuery.data
+        imageType = callbackQuery.data[1:]
         with fitz.open(input_file) as doc:
             number_of_pages = doc.page_count
             mat = fitz.Matrix(2, 2)
@@ -113,6 +113,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                 try:
                     await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id] if imageType == "p2img|doc" else media[chat_id])
                 except Exception as e:
+                    logger.debug(e)
                     wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
                     mediaDoc[chat_id] = []
                     for file in imag:
