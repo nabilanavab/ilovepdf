@@ -29,7 +29,7 @@ async def askimageList(bot, callbackQuery, questions, limit: int = 1000) -> ( bo
         input_str = await bot.ask(
             chat_id = callbackQuery.from_user.id,
             reply_to_message_id = callbackQuery.message.id,
-            text = question[0], filters = filters.text,
+            text = question, filters = filters.text,
             reply_markup = ForceReply(True, "Eg: 7:13 [start:end], 2, 3, 21:27..")
         )
         for elem in input_str.text.split(','):
