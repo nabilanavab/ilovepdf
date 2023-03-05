@@ -16,7 +16,6 @@ from pdf            import pyTgLovePDF
 from telebot.types  import InputMediaPhoto, InputMediaDocument
 
 media = {}
-mediaDoc = {}
 
 async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( bool, list ):
     """
@@ -50,6 +49,11 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
         return False, Error
 
 async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList: list) -> ( bool, str):
+    """
+    
+    
+    
+    """
     try:
         imageType = callbackQuery.data[1:]
         with fitz.open(input_file) as doc:
@@ -81,11 +85,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                 imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                 imag.sort(key = os.path.getctime)
                 
-                if imageType == "p2img|img":
-                    media[chat_id] = []
-                elif imageType == "p2img|doc":
-                    mediaDoc[chat_id] = []
-                
+                media[chat_id] = []
                 for file in imag:
                     qualityRate = 95
                     for i in range(200):
@@ -94,15 +94,16 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                             picture.save(file, "JPEG", optimize = True,quality = qualityRate)
                             qualityRate -= 5; await asyncio.sleep(0.5)
                         else:
-                            if imageType == "#p2img|img":
+                            if imageType == "p2img|img":
                                 media[chat_id].append(InputMediaPhoto(open(file, "rb")))
-                            elif imageType == "#p2img|doc":
-                                mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
+                            elif imageType == "p2img|doc":
+                                media[chat_id].append(InputMediaDocument(open(file, "rb")))
                             break
                 
-                """try:
+                try:
+                    pass
                     #await dlMSG.edit(text="{}?{}".format(cnvrtpg, len(totalPgList)), reply_markup = cancel)
-                except Exception: pass"""
+                except Exception: pass
                 
                 if imageType == "p2img|img":
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
@@ -110,21 +111,14 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
                 
                 try:
-                    await pyTgLovePDF.send_media_group(
-                        callbackQuery.message.chat.id, mediaDoc[callbackQuery.message.chat.id] if imageType == "p2img|doc" else media[callbackQuery.message.chat.id]
-                    )
+                    await pyTgLovePDF.send_media_group(callbackQuery.message.chat.id, media[callbackQuery.message.chat.id])
                 except Exception as e:
                     logger.debug(e)
                     wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
-                    mediaDoc[callbackQuery.message.chat.id] = []
+                    media[callbackQuery.message.chat.id] = []
                     for file in imag:
-                        if imageType == "p2img|img":
-                            media[callbackQuery.message.chat.id].append(InputMediaPhoto(open(file, "rb")))
-                        elif imageType == "p2img|doc":
-                            mediaDoc[callbackQuery.message.chat.id].append(InputMediaDocument(open(file, "rb")))
-                    await pyTgLovePDF.send_media_group(
-                        callbackQuery.message.chat.id, mediaDoc[callbackQuery.message.chat.id] if imageType == "#p2img|doc" else media[callbackQuery.message.chat.id]
-                    )
+                        media[callbackQuery.message.chat.id].append(InputMediaPhoto(open(file, "rb")))
+                    await pyTgLovePDF.send_media_group(callbackQuery.message.chat.id, media[callbackQuery.message.chat.id])
                 shutil.rmtree(f'{cDIR}/pgs')
             #await dlMSG.edit(text="😁",reply_markup = completed)
             return "finished", "finished"
