@@ -56,7 +56,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
             mat = fitz.Matrix(2, 2)
             if len(imageList) >= 11:
                 await dlMSG.pin(disable_notification = True, both_sides = True)
-            await dlMSG.edit(text = CHUNK["total"],reply_markup = cancel)
+            #await dlMSG.edit(text = CHUNK["total"], reply_markup = cancel)
             
             convertedPages = 0
             for i in range(0, len(imageList), 10):
@@ -72,7 +72,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                     convertedPages += 1
                     if convertedPages % 5 == 0:
                         if not await work(callbackQuery, "check", False):
-                            return await dlMSG.edit(text = CHUNK["canceledAT"].format(cnvrtpg, totalPgList),reply_markup = canceled)
+                            return #await dlMSG.edit(text="{}/{}".format(cnvrtpg, totalPgList), reply_markup=canceled)
                     with open(f'{cDIR}/pgs/{pageNo}.jpg','wb'):
                         pix.save(f'{cDIR}/pgs/{pageNo}.jpg')
                 
@@ -100,7 +100,8 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                             break
                 
                 try:
-                    await dlMSG.edit(text = CHUNK["upload"].format(cnvrtpg, len(totalPgList)), reply_markup = cancel)
+                    pass
+                    #await dlMSG.edit(text="{}?{}".format(cnvrtpg, len(totalPgList)), reply_markup = cancel)
                 except Exception: pass
                 
                 if imageType == "#p2img|img":
@@ -120,7 +121,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                             mediaDoc[chat_id].append(InputMediaDocument(open(file, "rb")))
                     await pyTgLovePDF.send_media_group(chat_id, mediaDoc[chat_id] if imageType == "#p2img|doc" else media[chat_id])
                 shutil.rmtree(f'{cDIR}/pgs')
-            await dlMSG.edit(text = CHUNK["complete"],reply_markup = completed)
+            #await dlMSG.edit(text="😁",reply_markup = completed)
             return "finished", "finished"
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
