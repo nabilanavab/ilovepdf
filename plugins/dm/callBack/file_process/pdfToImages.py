@@ -42,11 +42,9 @@ async def askimageList(bot, callbackQuery, questions, limit: int = 1000) -> ( bo
             except ValueError:
                 pass
         my_list = sorted(set([x for x in my_list if x <= limit]))
-        if len(my_list) == 0:
-            await callbackQuery.message.reply(question[1])
-            return False, False
-        return True, my_list
+        return (True, my_list) if len(my_list) != 0 else (False, my_list)
     except Exception as e:
+        logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
 async def imagesToPdf(input_file: str, cDIR: str, imageList: list) -> ( bool, str):
