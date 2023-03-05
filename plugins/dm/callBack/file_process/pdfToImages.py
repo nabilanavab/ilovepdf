@@ -10,6 +10,7 @@ from logger import logger
 import fitz
 from PIL            import Image
 from pyromod        import listen
+from pyrogram       import filters
 from pyrogram.types import ForceReply
 from pdf            import pyTgLovePDF
 from telebot.types  import InputMediaPhoto, InputMediaDocument
@@ -43,7 +44,7 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
                 pass
         my_list = sorted(set([x for x in my_list if x <= limit]))
         return (True, my_list) if len(my_list) != 0 else (False, my_list)
-    except Exception as e:
+    except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
