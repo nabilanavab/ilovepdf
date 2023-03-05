@@ -35,6 +35,7 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
         )
         for elem in input_str.text.split(','):
             try:
+                my_list = list()
                 if ':' in elem:
                     start, end = map(int, elem.split(':'))
                     my_list.extend(range(start, end+1, 1))
