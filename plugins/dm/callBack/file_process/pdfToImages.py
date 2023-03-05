@@ -85,7 +85,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                 imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                 imag.sort(key = os.path.getctime)
                 
-                media[chat_id] = []
+                media[callbackQuery.message.chat.id] = []
                 for file in imag:
                     qualityRate = 95
                     for i in range(200):
@@ -95,9 +95,9 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                             qualityRate -= 5; await asyncio.sleep(0.5)
                         else:
                             if imageType == "p2img|img":
-                                media[chat_id].append(InputMediaPhoto(open(file, "rb")))
+                                media[callbackQuery.message.chat.id].append(InputMediaPhoto(open(file, "rb")))
                             elif imageType == "p2img|doc":
-                                media[chat_id].append(InputMediaDocument(open(file, "rb")))
+                                media[callbackQuery.message.chat.id].append(InputMediaDocument(open(file, "rb")))
                             break
                 
                 try:
