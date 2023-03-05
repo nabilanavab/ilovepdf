@@ -49,6 +49,11 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
         return False, Error
 
 async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList: list) -> ( bool, str):
+    """
+    
+    
+    
+    """
     try:
         imageType = callbackQuery.data[1:]
         with fitz.open(input_file) as doc:
