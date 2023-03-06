@@ -660,24 +660,17 @@ __Ensures the confidentiality of the message by preventing its forwarding and sa
 }
 
 common = {
-    "rot360" : "You have some big problem..🙂",                   # 360-degree = org. file
-    "ocrError" : "Owner Restricted 😎🤏",                        # only docker support
-    "notEncrypt": "File Not Encrypted.. 👀",
-    "largeNo" : "It contains too many pages, send me a pdf fewer than 5 pages 😐",
-    "inWork" : "WORK IN PROGRESS.. 🙇",
-    "process" : "🚨 processing..",
+    "rot360" : "You have some big problem..🙂", "ocrError" : "Owner Restricted 😎🤏", "notEncrypt": "File Not Encrypted.. 👀",
+    "largeNo" : "It contains too many pages, send me a pdf fewer than 5 pages 😐", "inWork" : "WORK IN PROGRESS.. 🙇", "process" : "🚨 processing..",
     "pyromodASK_1" : "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",   # encrypt, decrypt
-    "pyromodASK_2" : "Enter PDF new Name:",
-    "download" : "`Downloading your file..` 📥",
-    "button" : { "⟨ Cancel ⟩" : "close|me" },
-    "error" : "error: {} ",
+    "pyromodASK_2" : "Enter PDF new Name:", "download" : "`Downloading your file..` 📥", "button" : { "⟨ Cancel ⟩" : "close|me" }, "error" : "error: {} ",
     "decrypt_error" : "Sorry, this password is invalid for decrypting the PDF file",
     "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
-    "upload" : "`Started Uploading..` 📤",
-    "encrypt_caption" : "__Page Number__: {}\n__key__ 🔐: ||{}||",
-    "rename_caption" : "old name: `{}`\new name: `{}`",
-    "exit" : "Your request is about to be canceled 😏",
+    "upload" : "`Started Uploading..` 📤", "encrypt_caption" : "__Page Number__: {}\n__key__ 🔐: ||{}||",
+    "rename_caption" : "old name: `{}`\new name: `{}`", "exit" : "Your request is about to be canceled 😏",
     "askImage" : "Please enter the PDF page syntax that you would like to use,\n\nSyntax:\n\t"
                  "Range of page: `[start, end]`,\n\tSpecific page: `separated by commas`.\n\nExample: `1,3,5,12:19`",
     "pdfToImgError" : "`Invalid syntax for page number`.\n\nPlease enter a valid syntax for the page number,\nsuch as `[start:end]` or `[page_numbers]`.",
+    "total" : "`Total pages: {}..⏳`", "canceledAT" : "`Canceled at {}/{} pages..` 🙄", "upload" : "`Uploading: {}/{} pages.. 🐬`",
+    "cancelCB" : {"💤 CANCEL 💤" : "close|P2I"}, "canceledCB" : {"🍄 CANCELLED 🍄" : "close|P2IDONE"}, "completed" : {"😎 COMPLETED 😎" : "close|P2ICOMP"},
 }
