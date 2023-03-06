@@ -123,6 +123,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
             #await dlMSG.edit(text="😁",reply_markup = completed)
             return "finished", "finished"
     except Exception as Error:
+        shutil.rmtree(f'{cDIR}/pgs')
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 # Author: @nabilanavab
