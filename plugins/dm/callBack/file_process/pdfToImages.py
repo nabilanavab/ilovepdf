@@ -44,7 +44,7 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
             except ValueError:
                 pass
         my_list = sorted(set([x for x in my_list if isinstance(x, int) and x <= limit]))
-        return (True, my_list) if len(my_list) != 0 else (False, my_list)
+        return (True, my_list) if len(my_list) != 0 else (False, input_str)
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
