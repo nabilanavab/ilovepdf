@@ -49,20 +49,24 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
-async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList: list) -> ( bool, str):
+async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList: list, text: str) -> ( bool, str):
     """
     
     
     
     """
     try:
+        cancel = await util.createBUTTON(btn=CHUNK["cancelCB"])
+        canceled = await util.createBUTTON(btn=CHUNK["canceledCB"])
+        completed = await util.createBUTTON(btn=CHUNK["completed"])
+        
         imageType = callbackQuery.data[1:]
         with fitz.open(input_file) as doc:
             number_of_pages = doc.page_count
             mat = fitz.Matrix(2, 2)
             if len(imageList) >= 11:
                 await dlMSG.pin(disable_notification = True, both_sides = True)
-            #await dlMSG.edit(text = CHUNK["total"], reply_markup = cancel)
+            await dlMSG.edit(text=CHUNK["total"], reply_markup = cancel)
             
             convertedPages = 0
             for i in range(0, len(imageList), 10):
@@ -78,7 +82,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                     convertedPages += 1
                     if convertedPages % 5 == 0:
                         if not await work(callbackQuery, "check", False):
-                            return #await dlMSG.edit(text="{}/{}".format(cnvrtpg, totalPgList), reply_markup=canceled)
+                            return await dlMSG.edit(text=CHUNK["canceledAT"].format(convertedPages, totalPgList), reply_markup=canceled)
                     with open(f'{cDIR}/pgs/{pageNo}.jpg','wb'):
                         pix.save(f'{cDIR}/pgs/{pageNo}.jpg')
                 
@@ -101,8 +105,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                                 media[callbackQuery.message.chat.id].append(InputMediaDocument(open(file, "rb")))
                             break
                 try:
-                    pass
-                    #await dlMSG.edit(text="{}?{}".format(cnvrtpg, len(totalPgList)), reply_markup = cancel)
+                    await dlMSG.edit(text=CHUNK["upload"].format(convertedPages, len(totalPgList)), reply_markup = cancel)
                 except Exception: pass
                 
                 if imageType == "p2img|I":
@@ -119,7 +122,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                         media[callbackQuery.message.chat.id].append(InputMediaPhoto(open(file, "rb")))
                     await pyTgLovePDF.send_media_group(callbackQuery.message.chat.id, media[callbackQuery.message.chat.id])
                 shutil.rmtree(f'{cDIR}/pgs')
-            #await dlMSG.edit(text="😁",reply_markup = completed)
+            await dlMSG.edit(text=CHUNK["complete"],reply_markup = completed)
             return "finished", "finished"
     except Exception as Error:
         shutil.rmtree(f'{cDIR}/pgs')
