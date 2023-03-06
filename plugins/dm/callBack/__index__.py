@@ -76,7 +76,7 @@ async def __index__(bot, callbackQuery):
                 limit = int(callbackQuery.message.text.split("•")[1]) if "•" in callbackQuery.message.text else 1000
             )
             if not notExit:
-                return await work.work(callbackQuery, "delete", False)
+                await work.work(callbackQuery, "delete", False)
                 return await imageList.reply(CHUNK["pdfToImgError"], quote = True)
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
