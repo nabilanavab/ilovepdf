@@ -678,6 +678,6 @@ common = {
     "rename_caption" : "old name: `{}`\new name: `{}`",
     "exit" : "Your request is about to be canceled 😏",
     "askImage" : "Please enter the PDF page syntax that you would like to use,\n\nSyntax:\n\t"
-                 "Range of page: `[start, end]`,\n\tSpecific page: `separated by commas`.\nExample: `1,3,5,12:19`",
+                 "Range of page: `[start, end]`,\n\tSpecific page: `separated by commas`.\n\nExample: `1,3,5,12:19`",
     "pdfToImgError" : "`Invalid syntax for page number`.\n\nPlease enter a valid syntax for the page number,\nsuch as `[start:end]` or `[page_numbers]`.",
 }
