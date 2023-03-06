@@ -152,7 +152,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await textPDF.textPDF(cDIR = cDIR, input_file = input_file, data = data, message = dlMSG)
         
         elif data.startswith("p2img"):
-            isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file,
+            isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
                                                                    callbackQuery = callbackQuery, dlMSG = dlMSG, imageList = imageList)
         
         if isSuccess == "finished":
