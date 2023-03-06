@@ -390,29 +390,9 @@ split = {
         "Single Page 🐛" : "split|S",
         "« BACK «" : "pdf1"
     },
-    "over" : "`5 attempts over.. Process cancelled..`😏",
-    "pyromodASK_1" : """__PDF Split » By Range
-Now, Enter the range (start:end) :__
-
-/exit __to cancel__""",
-    "completed" : "`Downloading Completed..` ✅",
-    "error_1" : "`Syntax Error: justNeedStartAndEnd `🚶",
-    "error_2" : "`Syntax Error: errorInEndingPageNumber `🚶",
-    "error_3" : "`Syntax Error: errorInStartingPageNumber `🚶",
-    "error_4" : "`Syntax Error: pageNumberMustBeADigit` 🧠",
-    "error_5" : "`Syntax Error: noEndingPageNumber Or notADigit` 🚶",
-    "error_6" : "`Can't find any number..`😏",
-    "error_7" : "`Something went Wrong..`😅",
-    "error_8" : "`Enter Numbers less than {}..`😏",
-    "error_9" : "`1st Check Number of pages` 😏",
-    "upload" : "⚙️ `Started Uploading..` 📤"
 }
 
 pdf2IMG = {
-    "uploadfile" : split["upload"],
-    "inWork" : PROGRESS['workInP'],
-    "process" : document['process'],
-    "download" : PROGRESS['dlFile'],
     "toImage" : {
         "⚙️ PDF » IMAGES ↓" : "nabilanavab",
         "🖼 IMG 🖼" : "pdf|img|img",
@@ -427,26 +407,6 @@ pdf2IMG = {
         "🤧 CUSTOM 🤧" : "#p2img|{}",
         "« BACK «" : "pdf|img"
     },
-    "over" : "`5 attempt over.. Process canceled..`😏",
-    "pyromodASK_1" : """__Pdf - Img›Doc » Pages:
-Now, Enter the range (start:end) :__
-
-/exit __to cancel__""",
-    "pyromodASK_2" : """"__Pdf - Img›Doc » Pages:
-Now, Enter the Page Numbers seperated by__ (,) :
-
-/exit __to cancel__""",
-    "exit" : "`Process Canceled..` 😏",
-    "error_1" : "`Syntax Error: justNeedStartAndEnd `🚶",
-    "error_2" : "`Syntax Error: errorInEndingPageNumber `🚶",
-    "error_3" : "`Syntax Error: errorInStartingPageNumber `🚶",
-    "error_4" : "`Syntax Error: pageNumberMustBeADigit` 🧠",
-    "error_5" : "`Syntax Error: noEndingPageNumber Or notADigit` 🚶",
-    "error_6" : "`Can't find any number..`😏",
-    "error_7" : "`Something went Wrong..`😅",
-    "error_8" : "`PDF only have {} pages` 💩",
-    "error_9" : "`1st Check Number of pages` 😏",
-    "error_10" : "__Due to Some restrictions Bot Sends Only 50 pages as ZIP..__😅",
     "total" : "`Total pages: {}..⏳`",
     "upload" : "`Uploading: {}/{} pages.. 🐬`",
     "current" : "`Converted: {}/{} pages.. 🤞`",
@@ -634,44 +594,21 @@ wa = {
     },
     "op" : {
         "⚙️ PDF » WATERMARK » {} » OPCACiTY ↓" : "nabilanavab",
-        "𝟙𝟘" : "pdf|wa|{}|o01",
-        "𝟚𝟘" : "pdf|wa|{}|o02",
-        "𝟛𝟘" : "pdf|wa|{}|o03",
-        "𝟜𝟘" : "pdf|wa|{}|o04",
-        "𝟝𝟘" : "pdf|wa|{}|o05",
-        "𝟞𝟘" : "pdf|wa|{}|o06",
-        "𝟟𝟘" : "pdf|wa|{}|o07",
-        "𝟠𝟘" : "pdf|wa|{}|o08",
-        "𝟡𝟘" : "pdf|wa|{}|o09",
-        "𝟙𝟘𝟘" : "pdf|wa|{}|o10",
-        "« BACK «" : "pdf|wa"
+        "𝟙𝟘" : "pdf|wa|{}|o01", "𝟚𝟘" : "pdf|wa|{}|o02", "𝟛𝟘" : "pdf|wa|{}|o03", "𝟜𝟘" : "pdf|wa|{}|o04", "𝟝𝟘" : "pdf|wa|{}|o05",
+        "𝟞𝟘" : "pdf|wa|{}|o06", "𝟟𝟘" : "pdf|wa|{}|o07", "𝟠𝟘" : "pdf|wa|{}|o08", "𝟡𝟘" : "pdf|wa|{}|o09", "𝟙𝟘𝟘" : "pdf|wa|{}|o10", "« BACK «" : "pdf|wa"
     },
     "po" : {
         "⚙️ PDF » WATERMARK » POSiTiON ↓" : "nabilanavab",
-        "⬆️ ToP ⬆️" : "wa|{0}|{1}|pT",
-        "↔️ MiDDLE ↔️" : "wa|{0}|{1}|pM",
-        "⬇️ BoTToM ⬇️" : "wa|{0}|{1}|pB",
-        "« BACK «" : "pdf|wa|{0}"
+        "⬆️ ToP ⬆️" : "wa|{0}|{1}|pT", "↔️ MiDDLE ↔️" : "wa|{0}|{1}|pM", "⬇️ BoTToM ⬇️" : "wa|{0}|{1}|pB", "« BACK «" : "pdf|wa|{0}"
     },
     "poTXT" : {
         "⚙️ PDF » WATERMARK » POSiTiON ↓" : "nabilanavab",
-        "⬆️ ToP ⬆️" : "pdf|wa|{0}|{1}|pT",
-        "↔️ MiDDLE ↔️" : "pdf|wa|{0}|{1}|pM",
-        "⬇️ BoTToM ⬇️" : "pdf|wa|{0}|{1}|pB",
-        "« BACK «" : "pdf|wa|{0}"
+        "⬆️ ToP ⬆️" : "pdf|wa|{0}|{1}|pT", "↔️ MiDDLE ↔️" : "pdf|wa|{0}|{1}|pM", "⬇️ BoTToM ⬇️" : "pdf|wa|{0}|{1}|pB", "« BACK «" : "pdf|wa|{0}"
     },
     "color" : {
         "⚙️ PDF » WATERMARK » CoLoR ↓" : "nabilanavab",
-        "᠎᠎᠎⚪️" : "wa|{0}|{1}|{2}|W",
-        "᠎⚫️" : "wa|{0}|{1}|{2}|B",
-        "᠎᠎🟤" : "wa|{0}|{1}|{2}|C",
-        "᠎🔴" : "wa|{0}|{1}|{2}|R",
-        "᠎᠎🟢" : "wa|{0}|{1}|{2}|G",
-        "🔵" : "wa|{0}|{1}|{2}|N",
-        "᠎᠎🟡" : "wa|{0}|{1}|{2}|Y",
-        "᠎᠎🟠" : "wa|{0}|{1}|{2}|O",
-        "🟣" : "wa|{0}|{1}|{2}|V",
-        "« BACK «" : "pdf|wa|{0}|{1}"
+        "᠎᠎᠎⚪️" : "wa|{0}|{1}|{2}|W", "᠎⚫️" : "wa|{0}|{1}|{2}|B", "᠎᠎🟤" : "wa|{0}|{1}|{2}|C",  "᠎🔴" : "wa|{0}|{1}|{2}|R", "᠎᠎🟢" : "wa|{0}|{1}|{2}|G",
+        "🔵" : "wa|{0}|{1}|{2}|N", "᠎᠎🟡" : "wa|{0}|{1}|{2}|Y", "᠎᠎🟠" : "wa|{0}|{1}|{2}|O", "🟣" : "wa|{0}|{1}|{2}|V", "« BACK «" : "pdf|wa|{0}|{1}"
     }, 
     "txt" : """__Now, Send me any Text Message__
 
@@ -684,7 +621,6 @@ __ Supported Files [png, jpeg, jpg]__
 
 /exit : to cancel""",
 }
-
 
 inline_query = {
     "capt" : "SET LANGUAGE ⚙️",
@@ -722,15 +658,6 @@ __Ensures the confidentiality of the message by preventing its forwarding and sa
     },
     "link" : "**Here it is! This is what you were searching for..**",
     "error" : "Oops, it looks like something went wrong. Please try again later.\n\n`ERROR:` {}"
-}
-
-DELETE = {
-    "button" : {
-        "⚙️ PDF » SPLIT ↓" : "nabilanavab",
-        "With In Range 🦞" : "split|dR",
-        "Single Page 🐛" : "split|dS",
-        "« BACK «" : "pdf1"
-    },
 }
 
 common = {
