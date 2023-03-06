@@ -576,7 +576,6 @@ cbAns = [
 
 wa = {
     "exit" : split["exit"],
-    "over" : pdf2IMG['over'],
     "upFile" : PROGRESS['upFile'],
     "inWork" : PROGRESS['workInP'],
     "process" : document['process'],
