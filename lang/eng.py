@@ -752,5 +752,5 @@ common = {
     "rename_caption" : "old name: `{}`\new name: `{}`",
     "exit" : "Your request is about to be canceled 😏",
     "askImage" : "Please enter the PDF page syntax that you would like to use,\n\nSyntax:\n\tRange of page: `[start, end]`,\n\tSpecific page: `separated by commas`.",
-    "pdfToImgError" : "Invalid syntax for page number. Please enter a valid syntax for the page number, such as [start:end] or [page_numbers].",
+    "pdfToImgError" : "`Invalid syntax for page number`.\n\nPlease enter a valid syntax for the page number,\nsuch as `[start:end]` or `[page_numbers]`.",
 }
