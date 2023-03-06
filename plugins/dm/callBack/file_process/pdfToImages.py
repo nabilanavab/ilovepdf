@@ -97,9 +97,9 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                             picture.save(file, "JPEG", optimize = True,quality = qualityRate)
                             qualityRate -= 5; await asyncio.sleep(0.5)
                         else:
-                            if imageType == "p2img|img":
+                            if imageType == "p2img|I":
                                 media[callbackQuery.message.chat.id].append(InputMediaPhoto(open(file, "rb")))
-                            elif imageType == "p2img|doc":
+                            elif imageType == "p2img|D":
                                 media[callbackQuery.message.chat.id].append(InputMediaDocument(open(file, "rb")))
                             break
                 logger.debug(media[callbackQuery.message.chat.id])
@@ -108,9 +108,9 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                     #await dlMSG.edit(text="{}?{}".format(cnvrtpg, len(totalPgList)), reply_markup = cancel)
                 except Exception: pass
                 
-                if imageType == "p2img|img":
+                if imageType == "p2img|I":
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
-                elif imageType == "p2img|doc":
+                elif imageType == "p2img|D":
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
                 
                 try:
