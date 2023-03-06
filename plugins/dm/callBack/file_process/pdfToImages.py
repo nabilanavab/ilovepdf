@@ -51,9 +51,23 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> ( boo
 
 async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList: list, text: str) -> ( bool, str):
     """
+     function that allows you to fetch pages from a PDF file. Essentially, this means that you can extract specific pages
+     from a large PDF document without having to download the entire file. For example, if you only need a few pages from a
+     200-page PDF, you can use this function to extract just those pages and save yourself a lot of time and data usage.
+     This feature is especially helpful for users who frequently work with large PDF documents and need to extract specific
+     information quickly and efficiently.
     
-    
-    
+    parameter:
+        input_file    : Here is the path of the file that the user entered
+        cDIR          : This is the location of the directory that belongs to the specific user.
+        imageList     : List of page numbers that the user requires
+        dlMSG         : Edit Message progress bar
+        text          : Edit Message Content [progress]
+        callbackQuery : CallbackQuery 
+        
+    return:
+        "finished"    : Return finished when the request is successful
+        "finished"    : Return finished when the request is successful
     """
     try:
         cancel = await util.createBUTTON(btn=CHUNK["cancelCB"])
