@@ -8,6 +8,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 
 import fitz, os, shutil, asyncio
+from plugins.utils  import *
 from PIL            import Image
 from pyromod        import listen
 from pyrogram.types import ForceReply
