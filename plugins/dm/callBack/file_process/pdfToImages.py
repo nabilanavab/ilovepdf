@@ -10,9 +10,9 @@ from logger import logger
 import fitz, os, shutil, asyncio
 from PIL            import Image
 from pyromod        import listen
-from pyrogram       import filters
 from pyrogram.types import ForceReply
 from pdf            import pyTgLovePDF
+from pyrogram       import filters, enums
 from telebot.types  import InputMediaPhoto, InputMediaDocument
 
 media = {}
@@ -55,9 +55,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
     
     """
     try:
-        logger.debug(imageList)
         imageType = callbackQuery.data[1:]
-        logger.debug(imageType)
         with fitz.open(input_file) as doc:
             number_of_pages = doc.page_count
             mat = fitz.Matrix(2, 2)
@@ -86,7 +84,6 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                 directory = f'{cDIR}/pgs'
                 imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                 imag.sort(key = os.path.getctime)
-                logger.debug(imag)
                 
                 media[callbackQuery.message.chat.id] = []
                 for file in imag:
@@ -102,7 +99,6 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                             elif imageType == "p2img|D":
                                 media[callbackQuery.message.chat.id].append(InputMediaDocument(open(file, "rb")))
                             break
-                logger.debug(media[callbackQuery.message.chat.id])
                 try:
                     pass
                     #await dlMSG.edit(text="{}?{}".format(cnvrtpg, len(totalPgList)), reply_markup = cancel)
@@ -116,7 +112,6 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                 try:
                     await pyTgLovePDF.send_media_group(callbackQuery.message.chat.id, media[callbackQuery.message.chat.id])
                 except Exception as e:
-                    logger.debug(e)
                     wait = str(e).rsplit(' ', 1)[1]; await asyncio.sleep(int(wait))
                     media[callbackQuery.message.chat.id] = []
                     for file in imag:
