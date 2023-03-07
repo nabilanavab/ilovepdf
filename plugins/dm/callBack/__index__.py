@@ -70,6 +70,14 @@ async def __index__(bot, callbackQuery):
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await newName.reply(CHUNK["exit"], quote = True)
+        elif data == "merge":
+            notExit, mergeId = await renamePDF.askName(
+                bot, callbackQuery, question = CHUNK["pyromodASK_3"], size = CHUNK["sizeLoad"]
+            )
+            # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
+            if not notExit:
+                await work.work(callbackQuery, "delete", False)
+                return await newName.reply(CHUNK["exit"], quote = True)
         # ends with a means all pages.. so no questions
         elif (data.startswith("p2img") or data.startswith("split")) and not data.endswith("A"):
             notExit, imageList = await pdfToImages.askimageList(
