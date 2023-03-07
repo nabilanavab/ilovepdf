@@ -147,6 +147,9 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await previewPDF.previewPDF(cDIR = cDIR, input_file = input_file,
                                                                  editMessage = dlMSG, callbackQuery = callbackQuery)
         
+        elif data == "split":
+            isSuccess, output_file = await splitPDF.splitPDF(cDIR = cDIR, input_file = input_file, imageList = imageList)
+        
         elif data.startswith("rot"):
             isSuccess, output_file = await rotatePDF.rotatePDF(cDIR = cDIR, input_file = input_file, angle = data)
         
