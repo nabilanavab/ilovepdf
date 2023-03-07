@@ -672,5 +672,5 @@ common = {
                  "Range of page: `[start, end]`,\n\tSpecific page: `separated by commas`.\n\nExample: `1,3,5,12:19`",
     "pdfToImgError" : "`Invalid syntax for page number`.\n\nPlease enter a valid syntax for the page number,\nsuch as `[start:end]` or `[page_numbers]`.",
     "total" : "`Total pages: {}..⏳`", "canceledAT" : "`Canceled at {}/{} pages..` 🙄", "upload" : "`Uploading: {}/{} pages.. 🐬`",
-    "cancelCB" : {"💤 CANCEL 💤" : "close|P2I"}, "canceledCB" : {"🍄 CANCELLED 🍄" : "close|P2IDONE"}, "completed" : {"😎 COMPLETED 😎" : "close|P2ICOMP"},
+    "cancelCB" : {"💤 CANCEL 💤" : "close|P2I"}, "canceledCB" : {"🍄 CANCELLED 🍄" : "close|P2IDONE"}, "_completed" : {"😎 COMPLETED 😎" : "close|P2ICOMP"},
 }
