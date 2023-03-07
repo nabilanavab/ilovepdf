@@ -4,10 +4,12 @@
 file_name = "plugins/dm/callBack/file_process/mergePDF.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
-
 # LOGGING INFO: DEBUG
 from logger import logger
-from configs.config import settings
+
+import fitz
+from plugins.utils    import *
+from configs.config   import settings
 
 if settings.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
@@ -71,7 +73,7 @@ async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot) -> ( bool, st
         for iD in mergeId[1:]:
             # edit 
             downloadLoc = await bot.download_media(
-                message = iD, file_name = f"{cDIR}/{file_number}.pdf", progress = progress, 
+                message = iD, file_name = f"{cDIR}/{file_number}.pdf", progress = render.progress, 
                 progress_args = (mergeId[file_number], dlMSG, time.time())
             )
             checked, noOfPg = await checkPdf(f"{cDIR}/{i}.pdf", callbackQuery)
