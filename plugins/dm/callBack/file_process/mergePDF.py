@@ -9,9 +9,6 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 from configs.config import settings
 
-
-
-
 if settings.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
     MAX_FILE_SIZE_IN_kiB = MAX_FILE_SIZE * (10 ** 6)
@@ -69,8 +66,28 @@ async def mergePDF(input_file: str, cDIR: str, mergeId: list) -> ( bool, str):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         
+        file_number = 0
+        for iD in mergeId:
+            # edit 
+            downloadLoc = await bot.download_media(
+                message = iD, file_name = f"{cDIR}/{file_number}.pdf", progress = progress, 
+                progress_args = (mergeId[file_number], dlMSG, time.time())
+            )
+            checked, noOfPg = await checkPdf(f"{cDIR}/{i}.pdf", callbackQuery)
+            if not(checked == "pass"):
+                os.remove(f"{cDIR}/{i}.pdf")
         
+        directory = f'{cDIR}'
+        pdfList = [os.path.join(directory, file) for file in os.listdir(directory)]
+        pdfList.sort(key = os.path.getctime)
+        numbPdf = len(pdfList)
         
+        with fitz.open() as result:
+            for pdf in pdfList:
+                with fitz.open(pdf) as mfile:
+                    result.insert_pdf(mfile)
+            result.save(output_path)
+            
         return True, output_path
         
     except Exception as Error:
