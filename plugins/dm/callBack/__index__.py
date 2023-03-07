@@ -77,7 +77,7 @@ async def __index__(bot, callbackQuery):
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
-                return await newName.reply(CHUNK["exit"], quote = True)
+                return await mergeId.reply(CHUNK["exit"], quote = True)
         # ends with a means all pages.. so no questions
         elif (data.startswith("p2img") or data.startswith("split")) and not data.endswith("A"):
             notExit, imageList = await pdfToImages.askimageList(
