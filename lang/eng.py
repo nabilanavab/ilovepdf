@@ -403,8 +403,8 @@ pdf2IMG = {
     },
     "imgRange" : {
         "⚙️ PDF » IMAGES » {} ↓" : "nabilanavab",
-        "🙄 ALL 🙄" : "#p2img|{}",
-        "🤧 CUSTOM 🤧" : "#p2img|{}",
+        "🙄 ALL 🙄" : "#p2img|{}A",
+        "🤧 CUSTOM 🤧" : "#p2img|{}C",
         "« BACK «" : "pdf|img"
     },
     "cbAns" : "⚙️ okDA, Canceling.. ",
