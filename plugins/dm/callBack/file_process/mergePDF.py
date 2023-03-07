@@ -40,7 +40,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
                     )
                     return True, mergeId
                 mergeId.append(input_file.document.file_id)
-                size += askPDF.document.file_size
+                size += input_file.document.file_size
         return (True, mergeId) if input_file.text not in ["/exit", "/merge"] else (False, input_file)
     
     except Exception as Error:
