@@ -71,10 +71,17 @@ async def __index__(bot, callbackQuery):
                 await work.work(callbackQuery, "delete", False)
                 return await newName.reply(CHUNK["exit"], quote = True)
         # ends with a means all pages.. so no questions
-        elif (data.startswith("p2img") or data.startswith("split")) and not data.endswith("A"):
+        elif data.startswith("p2img") and not data.endswith("A"):
             notExit, imageList = await pdfToImages.askimageList(
                 bot, callbackQuery, question = CHUNK["askImage"],
                 limit = int(callbackQuery.message.text.split("•")[1]) if "•" in callbackQuery.message.text else 1000
+            )
+            if not notExit:
+                await work.work(callbackQuery, "delete", False)
+                return await imageList.reply(CHUNK["pdfToImgError"], quote = True)
+        elif data.startswith("split"):
+            notExit, splitData = await splitPDF.askiSplit(
+                bot, callbackQuery, question = CHUNK["askSplit"]
             )
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
