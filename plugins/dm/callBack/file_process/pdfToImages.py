@@ -72,7 +72,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
     try:
         cancel = await util.createBUTTON(btn=text["cancelCB"])
         canceled = await util.createBUTTON(btn=text["canceledCB"])
-        completed = await util.createBUTTON(btn=text["completed"])
+        completed = await util.createBUTTON(btn=text["_completed"])
         
         imageType = callbackQuery.data[1:]
         with fitz.open(input_file) as doc:
@@ -80,7 +80,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
             mat = fitz.Matrix(2, 2)
             if len(imageList) >= 11:
                 await dlMSG.pin(disable_notification = True, both_sides = True)
-            await dlMSG.edit(text=text["total"].format(len(imageList)), reply_markup = cancel)
+            await dlMSG.edit(text=text["total"].format(len(imageList)), reply_markup=cancel)
             
             convertedPages = 0
             for i in range(0, len(imageList), 10):
@@ -119,7 +119,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                                 media[callbackQuery.message.chat.id].append(InputMediaDocument(open(file, "rb")))
                             break
                 try:
-                    await dlMSG.edit(text=text["upload"].format(convertedPages, len(imageList)), reply_markup = cancel)
+                    await dlMSG.edit(text=text["upload"].format(convertedPages, len(imageList)), reply_markup=cancel)
                 except Exception: pass
                 
                 if imageType == "p2img|I":
@@ -136,7 +136,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                         media[callbackQuery.message.chat.id].append(InputMediaPhoto(open(file, "rb")))
                     await pyTgLovePDF.send_media_group(callbackQuery.message.chat.id, media[callbackQuery.message.chat.id])
                 shutil.rmtree(f'{cDIR}/pgs')
-            await dlMSG.edit(text=text["complete"],reply_markup = completed)
+            await dlMSG.edit(text=text["completed"], reply_markup=completed)
             return "finished", "finished"
     except Exception as Error:
         shutil.rmtree(f'{cDIR}/pgs')
