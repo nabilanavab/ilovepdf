@@ -32,7 +32,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
             if input_file.text == "/exit":
                 return false, input_file
             elif input_file.text == "/merge" and len(mergeId) >= 2:
-                return False, mergeId
+                return True, mergeId
             elif input_file.document:
                 if (MAX_FILE_SIZE and MAX_FILE_SIZE_IN_kiB <= int(size)) or int(size) >= 2000000000:
                     await callbackQuery.message.reply(
