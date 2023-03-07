@@ -23,7 +23,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
         mergeId = []
         size = 0
         
-        while len(mergeId) >= 10:
+        while len(mergeId) <= 10:
             input_file = await bot.ask(
                 chat_id = callbackQuery.from_user.id,
                 reply_to_message_id = callbackQuery.message.id,
