@@ -70,7 +70,7 @@ async def __index__(bot, callbackQuery):
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await newName.reply(CHUNK["exit"], quote = True)
-        elif data.startswith("p2img"):
+        elif data.startswith("p2img") and data.endswith("A"):
             notExit, imageList = await pdfToImages.askimageList(
                 bot, callbackQuery, question = CHUNK["askImage"],
                 limit = int(callbackQuery.message.text.split("•")[1]) if "•" in callbackQuery.message.text else 1000
