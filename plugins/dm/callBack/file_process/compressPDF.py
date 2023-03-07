@@ -9,9 +9,7 @@ from logger import logger
 
 import os, fitz
 from PIL    import Image
-
-from PyPDF2 import PdfReader, PdfWriter               #########################################################
-
+# from PyPDF2 import PdfReader, PdfWriter
 
 async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
@@ -30,7 +28,6 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         
         output_path = f"{cDIR}/outPut.pdf"
-        """
         with fitz.open(input_file) as iNPUT:
             with fitz.open() as oUTPUT:
                 for pg in range(iNPUT.page_count):
@@ -40,6 +37,7 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
                         oUTPUT.new_page(pno = -1, width = rect.width, height = rect.height)
                         oUTPUT[pg].insert_image(rect = rect, filename = f"{cDIR}/temp.png")
                 oUTPUT.save(output_path, garbage = 3, deflate = True)
+        
         """
         reader = PdfReader(input_file)
         writer = PdfWriter()
@@ -50,6 +48,7 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         writer.remove_images()
         with open(output_path, "wb") as f:
             writer.write(f)
+        """
         
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(input_file)
