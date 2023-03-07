@@ -260,7 +260,7 @@ File Size : `{}`""",
         "🔒 DECRYPT 🔓" : "#decrypt",
         "🗜️ COMPRESS 🗜️" : "#compress",
         "🤸 ROTATE 🤸" : "pdf|rotate",
-        "✂️ SPLIT ✂️" : "pdf|split",
+        "✂️ SPLIT ✂️" : "#split",
         "🧬 MERGE 🧬" : "#merge",
         "™️ STAMP ™️" : "#stamp",
         "✏️ RENAME ✏️" : "#rename",
@@ -378,20 +378,6 @@ gDocument.update(document)
 
 noHelp = f"`No one gonna help you` 😏"
 
-split = {
-    "work" : ["Range", "Single"],
-    "inWork" : PROGRESS['workInP'],
-    "download" : PROGRESS['dlFile'],
-    "cancelCB" : document['cancelCB'],
-    "exit" : "`Process Cancelled..` 😏",
-    "button" : {
-        "⚙️ PDF » SPLIT ↓" : "nabilanavab",
-        "With In Range 🦞" : "split|R",
-        "Single Page 🐛" : "split|S",
-        "« BACK «" : "pdf1"
-    },
-}
-
 pdf2IMG = {
     "toImage" : {
         "⚙️ PDF » IMAGES ↓" : "nabilanavab",
@@ -491,7 +477,7 @@ work = {
 
 pdf2TXT = {
     "upload" : PROGRESS["upFile"],
-    "exit" : split['exit'],
+    "exit" : "`Process Cancelled..` 😏",
     "nothing" : "Nothing to create.. 😏",
     "TEXT" : "`Create PDF From Text Messages »`",
     "start" : "Started Converting txt to Pdf..🎉",
@@ -566,7 +552,7 @@ cbAns = [
 ]
 
 wa = {
-    "exit" : split["exit"],
+    "exit" : "`Process Cancelled..` 😏",
     "upFile" : PROGRESS['upFile'],
     "inWork" : PROGRESS['workInP'],
     "process" : document['process'],
