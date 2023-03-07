@@ -67,7 +67,7 @@ async def gSF(b, factor=2**10, suffix="B"):    # get_size_format
     except Exception: pass
 
 # ======= CHECKS PDF CODEC, IS ENCRYPTED OR NOT ========
-async def checkPdf(file_path, callbackQuery, lang_code):
+async def checkPdf(file_path, callbackQuery, lang_code = settings.DEFAULT_LANG):
     try:
         CHUNK, _ = await translate(text="checkPdf", lang_code=lang_code)
         
