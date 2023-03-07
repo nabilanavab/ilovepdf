@@ -176,12 +176,10 @@ async def __index__(bot, callbackQuery):
             THUMBNAIL = await formatThumb(location)
         
         # caption for "encrypt", "rename"
-        if data in ["encrypt", "rename"]:
-            if data == "encrypt": arg = [number_of_pages, password.text]
-            elif data == "rename": arg = [callbackQuery.message.reply_to_message.document.file_name, newName.text]
-            _caption = await caption.caption(
-                data = data, lang_code = lang_code, args = arg
-            )
+        if data == "encrypt": arg = [number_of_pages, password.text]
+        elif data == "rename": arg = [callbackQuery.message.reply_to_message.document.file_name, newName.text]
+        else: arg = None
+        _caption = await caption.caption(data = data, lang_code = lang_code, args = arg)
         
         await dlMSG.edit(CHUNK['upload'], reply_markup = _)
         
