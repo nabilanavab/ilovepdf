@@ -74,6 +74,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
         canceled = await util.createBUTTON(btn=text["_canceledCB"])
         completed = await util.createBUTTON(btn=text["_completed"])
         
+        logger.debug(callbackQuery.data)
         imageType = "Img" if callbackQuery.data.startswith("p2img|I") else "Doc"
         with fitz.open(input_file) as doc:
             number_of_pages = doc.page_count
