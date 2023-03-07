@@ -20,8 +20,8 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
     return a list of pdf files ID saved on telegram
     """
     try:
-        mergeId = []
-        size = 0
+        mergeId = [callbackQuery.message.reply_to_message.document.file_id]
+        size = callbackQuery.message.reply_to_message.document.file_size
         
         while len(mergeId) <= 10:
             input_file = await bot.ask(
@@ -30,7 +30,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
                 text = question.format(len(mergeId)+1), filters = None,
             )
             if input_file.text == "/exit":
-                return false, input_file
+                return False, input_file
             elif input_file.text == "/merge" and len(mergeId) >= 2:
                 return True, mergeId
             elif input_file.document:
