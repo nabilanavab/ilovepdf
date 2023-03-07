@@ -218,7 +218,7 @@ async def _close(bot, callbackQuery):
         elif data == "P2I":
             lang_code = await util.getLang(callbackQuery.from_user.id)
             _, canceled = await util.translate(
-                text = "common['cbAns']", button = "pdf2IMG['canceledCB']", lang_code = lang_code
+                text = "common['cancelCB']", button = "common['_canceledCB']", lang_code = lang_code
             )
             await callbackQuery.answer(_)
             await callbackQuery.edit_message_reply_markup(canceled)
