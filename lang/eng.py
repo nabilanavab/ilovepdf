@@ -407,7 +407,6 @@ pdf2IMG = {
         "🤧 CUSTOM 🤧" : "#p2img|{}C",
         "« BACK «" : "pdf|img"
     },
-    "cbAns" : "⚙️ okDA, Canceling.. ",
 }
 
 merge = {
@@ -665,5 +664,5 @@ common = {
     "pdfToImgError" : "`Invalid syntax for page number`.\n\nPlease enter a valid syntax for the page number,\nsuch as `[start:end]` or `[page_numbers]`.",
     "_total" : "`Total pages: {}..⏳`", "_canceledAT" : "`Canceled at {}/{} pages..` 🙄", "_upload" : "`Uploading: {}/{} pages.. 🐬`",
     "_cancelCB" : {"💤 CANCEL 💤" : "close|P2I"}, "_canceledCB" : {"🍄 CANCELLED 🍄" : "close|P2IDONE"}, "_completed" : {"😎 COMPLETED 😎" : "close|P2ICOMP"},
-    "finished" : "Your current task has been completed successfully. 😎"
+    "finished" : "Your current task has been completed successfully. 😎", "cbAns" : "⚙️ okDA, Canceling.. ",
 }
