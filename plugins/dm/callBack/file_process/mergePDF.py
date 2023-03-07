@@ -17,6 +17,8 @@ if settings.MAX_FILE_SIZE:
 else:
     MAX_FILE_SIZE = False
 
+MERGEsize = {}
+
 async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list ):
     """
     return a list of pdf files ID saved on telegram
@@ -24,6 +26,8 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
     try:
         mergeId = [callbackQuery.message.reply_to_message.document.file_id]
         size = callbackQuery.message.reply_to_message.document.file_size
+        
+        MERGEsize[callbackQuery.message.chat.id] = []
         
         while len(mergeId) <= 10:
             input_file = await bot.ask(
@@ -42,6 +46,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
                     )
                     return True, mergeId
                 mergeId.append(input_file.document.file_id)
+                MERGEsize[callbackQuery.message.chat.id].append(input_file.document.file_size)
                 size += input_file.document.file_size
         return (True, mergeId) if input_file.text != "/exit" else (False, input_file)
     
@@ -75,7 +80,7 @@ async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot, callbackQuery
             await dlMSG.edit(f"`Downloading {file_number + 2}`", reply_markup=cancel)
             downloadLoc = await bot.download_media(
                 message = iD, file_name = f"{cDIR}/{file_number}.pdf", progress = render.progress, 
-                progress_args = (mergeId[file_number], dlMSG, time.time())
+                progress_args = (MERGEsize[callbackQuery.message.chat.id][file_number], dlMSG, time.time())
             )
             checked, noOfPg = await render.checkPdf(downloadLoc, callbackQuery)
             file_number += 1
