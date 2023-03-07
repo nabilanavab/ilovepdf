@@ -66,7 +66,7 @@ async def gSF(b, factor=2**10, suffix="B"):    # get_size_format
         return f"{b:.2f}Y{suffix}"
     except Exception: pass
 
-# ======= CHECKS PDF CODEC, IS ENCRYPTED OR NOT ========
+# =================== CHECKS PDF CODEC, IS ENCRYPTED OR NOT ====================
 async def checkPdf(file_path, callbackQuery, lang_code = settings.DEFAULT_LANG):
     try:
         CHUNK, _ = await translate(text="checkPdf", lang_code=lang_code)
@@ -89,7 +89,7 @@ async def checkPdf(file_path, callbackQuery, lang_code = settings.DEFAULT_LANG):
                     await work(callbackQuery, "delete", False)
                 return "encrypted", doc.page_count
             else:
-                if callbackQuery.data != "merge":
+                if callbackQuery.data != "#merge":
                     await callbackQuery.edit_message_text(
                         text = CHUNK["pdf"].format(
                             callbackQuery.message.reply_to_message.document.file_name,
