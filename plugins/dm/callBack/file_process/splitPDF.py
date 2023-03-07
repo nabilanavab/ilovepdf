@@ -9,7 +9,7 @@ from logger import logger
 
 from PyPDF2          import PdfFileWriter, PdfFileReader
 
-async def pdfToImages(input_file: str, cDIR: str, imageList: list) -> ( bool, str):
+async def splitPDF(input_file: str, cDIR: str, imageList: list) -> ( bool, str):
     """
      function that allows you to fetch pages from a PDF file. Essentially, this means that you can extract specific pages
      from a large PDF document without having to download the entire file. For example, if you only need a few pages from a
