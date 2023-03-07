@@ -80,7 +80,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
             mat = fitz.Matrix(2, 2)
             if len(imageList) >= 11:
                 await dlMSG.pin(disable_notification = True, both_sides = True)
-            await dlMSG.edit(text=text["total"], reply_markup = cancel)
+            await dlMSG.edit(text=text["total"].format(len(imageList)), reply_markup = cancel)
             
             convertedPages = 0
             for i in range(0, len(imageList), 10):
@@ -95,8 +95,8 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                         continue
                     convertedPages += 1
                     if convertedPages % 5 == 0:
-                        if not await work(callbackQuery, "check", False):
-                            return await dlMSG.edit(text=text["canceledAT"].format(convertedPages, totalPgList), reply_markup=canceled)
+                        if not await work.work(callbackQuery, "check", False):
+                            return await dlMSG.edit(text=text["canceledAT"].format(convertedPages, len(imageList)), reply_markup=canceled)
                     with open(f'{cDIR}/pgs/{pageNo}.jpg','wb'):
                         pix.save(f'{cDIR}/pgs/{pageNo}.jpg')
                 
@@ -119,7 +119,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                                 media[callbackQuery.message.chat.id].append(InputMediaDocument(open(file, "rb")))
                             break
                 try:
-                    await dlMSG.edit(text=text["upload"].format(convertedPages, len(totalPgList)), reply_markup = cancel)
+                    await dlMSG.edit(text=text["upload"].format(convertedPages, len(imageList)), reply_markup = cancel)
                 except Exception: pass
                 
                 if imageType == "p2img|I":
