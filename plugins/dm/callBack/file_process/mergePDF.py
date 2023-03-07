@@ -23,7 +23,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
         mergeId = []
         size = 0
         
-        while len(MERGE[chat_id]) >= 10:
+        while len(mergeId) >= 10:
             input_file = await bot.ask(
                 chat_id = callbackQuery.from_user.id,
                 reply_to_message_id = callbackQuery.message.id,
@@ -41,7 +41,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
                     return True, mergeId
                 mergeId.append(input_file.document.file_id)
                 size += askPDF.document.file_size
-        return True, mergeId
+        return (True, mergeId) if password.text not in ["/exit", "/merge"] else (False, input_file)
     
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
