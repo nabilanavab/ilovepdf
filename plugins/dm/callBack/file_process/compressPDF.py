@@ -47,7 +47,7 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         for page in reader.pages:
             page.compress_content_streams()  # This is CPU intensive!
             writer.add_page(page)
-        
+        writer.remove_images()
         with open(output_path, "wb") as f:
             writer.write(f)
         
