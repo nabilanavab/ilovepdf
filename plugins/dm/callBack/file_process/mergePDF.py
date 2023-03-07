@@ -7,7 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-import fitz
+import fitz, os, time
 from plugins.utils    import *
 from configs.config   import settings
 
