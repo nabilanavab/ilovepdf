@@ -27,7 +27,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
             input_file = await bot.ask(
                 chat_id = callbackQuery.from_user.id,
                 reply_to_message_id = callbackQuery.message.id,
-                text = question.format(len(mergeId + 1)), filters = None,
+                text = question.format(len(mergeId)+1), filters = None,
             )
             if input_file.text == "/exit":
                 return false, input_file
