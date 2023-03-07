@@ -407,15 +407,7 @@ pdf2IMG = {
         "🤧 CUSTOM 🤧" : "#p2img|{}",
         "« BACK «" : "pdf|img"
     },
-    "total" : "`Total pages: {}..⏳`",
-    "upload" : "`Uploading: {}/{} pages.. 🐬`",
-    "current" : "`Converted: {}/{} pages.. 🤞`",
-    "complete" : "`Uploading Completed.. `🏌️",
-    "canceledAT" : "`Canceled at {}/{} pages..` 🙄",
     "cbAns" : "⚙️ okDA, Canceling.. ",
-    "cancelCB" : {"💤 CANCEL 💤" : "close|P2I"},     # EDITABLE: ❌
-    "canceledCB" : {"🍄 CANCELLED 🍄" : "close|P2IDONE"},
-    "completed" : {"😎 COMPLETED 😎" : "close|P2ICOMP"}
 }
 
 merge = {
