@@ -159,7 +159,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await splitPDF.splitPDF(cDIR = cDIR, input_file = input_file, imageList = imageList)
         
         elif data == "merge":
-            isSuccess, output_file = await mergePDF.mergePDF(cDIR = cDIR, input_file = input_file,
+            isSuccess, output_file = await mergePDF.mergePDF(cDIR = cDIR, input_file = input_file, text = CHUNK,
                                                              mergeId = mergeId, bot = bot, dlMSG =dlMSG, callbackQuery = callbackQuery)
         
         elif data.startswith("rot"):
