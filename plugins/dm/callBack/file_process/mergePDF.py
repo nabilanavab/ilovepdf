@@ -67,7 +67,8 @@ async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot) -> ( bool, st
         output_path = f"{cDIR}/outPut.pdf"
         
         file_number = 0
-        for iD in mergeId:
+        # 1st or imput pdf is already downloaded
+        for iD in mergeId[1:]:
             # edit 
             downloadLoc = await bot.download_media(
                 message = iD, file_name = f"{cDIR}/{file_number}.pdf", progress = progress, 
@@ -80,7 +81,6 @@ async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot) -> ( bool, st
         directory = f'{cDIR}'
         pdfList = [os.path.join(directory, file) for file in os.listdir(directory)]
         pdfList.sort(key = os.path.getctime)
-        numbPdf = len(pdfList)
         
         with fitz.open() as result:
             for pdf in pdfList:
