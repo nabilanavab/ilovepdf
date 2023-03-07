@@ -7,7 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-from PyPDF2          import PdfFileWriter, PdfFileReader
+from PyPDF2          import PdfWriter, PdfReader
 
 async def splitPDF(input_file: str, cDIR: str, imageList: list) -> ( bool, str):
     """
