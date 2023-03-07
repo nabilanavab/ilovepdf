@@ -154,7 +154,7 @@ async def __index__(bot, callbackQuery):
         
         elif data.startswith("p2img"):
             isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
-                                                                   callbackQuery = callbackQuery, dlMSG = dlMSG, imageList = imageList)
+                                           callbackQuery = callbackQuery, dlMSG = dlMSG, imageList = imageList if not data.endswith("A") else "all")
         
         if isSuccess == "finished":
             # The condition isSuccess == "finished" indicates that all the work that needed to be
