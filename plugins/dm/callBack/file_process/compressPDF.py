@@ -41,11 +41,7 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
                         oUTPUT[pg].insert_image(rect = rect, filename = f"{cDIR}/temp.png")
                 oUTPUT.save(output_path, garbage = 3, deflate = True)
         """
-        
-        
-        
-        
-        reader = PdfReader(output_path)
+        reader = PdfReader(input_file)
         writer = PdfWriter()
         
         for page in reader.pages:
@@ -54,10 +50,6 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         
         with open(output_path, "wb") as f:
             writer.write(f)
-        
-        
-        
-        
         
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(input_file)
