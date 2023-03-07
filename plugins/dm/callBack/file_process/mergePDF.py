@@ -66,19 +66,23 @@ async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot, callbackQuery
         output_path : This is the path where the output file can be found.
     """
     try:
+        cancel = await util.createBUTTON(btn=text["_cancelCB"])
         output_path = f"{cDIR}/outPut.pdf"
         
         file_number = 0
         # 1st or imput pdf is already downloaded
         for iD in mergeId[1:]:
-            await dlMSG.edit(f"downloading {file_number + 2}")
+            await dlMSG.edit(f"`Downloading {file_number + 2}`", reply_markup=cancel)
             downloadLoc = await bot.download_media(
                 message = iD, file_name = f"{cDIR}/{file_number}.pdf", progress = render.progress, 
                 progress_args = (mergeId[file_number], dlMSG, time.time())
             )
             checked, noOfPg = await render.checkPdf(downloadLoc, callbackQuery)
+            file_number += 1
             if not(checked == "pass"):
                 os.remove(downloadLoc)
+        
+        await dlMSG.edit(f"`started merging {file_number} pdfs`", reply_markup=cancel)
         
         directory = f'{cDIR}'
         pdfList = [os.path.join(directory, file) for file in os.listdir(directory)]
