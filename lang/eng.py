@@ -395,27 +395,6 @@ pdf2IMG = {
     },
 }
 
-merge = {
-    "inWork" : PROGRESS['workInP'],
-    "process" : document['process'],
-    "upload" : PROGRESS['upFile'],
-    "load" : "__Due to Overload you can only merge 5 PDFs at a time__",
-    "sizeLoad" : "`Due to Overload Bot Only Support %sMb PDFs..", # removing %s show error
-    "pyromodASK" : """__MERGE pdfs » Total PDFs in queue: {}__
-
-/exit __to cancel__
-/merge __to merge__""",
-    "exit" : "`Process Cancelled..` 😏",
-    "total" : "`Total PDFs : {} 💡",
-    "current" : "__Started Downloading PDF : {} 📥__",
-    "cancel" : "`Merging Process Cancelled.. 😏`",
-    "started" : "__Merging Started.. __ 🪄",
-    "caption" : "`Merged PDF 🙂`",
-    "error" : """`May be File Encrypted..`
-
-Reason: {}"""
-}
-
 stamp = {
     "stamp" : {
         "⚙️ PDF » STAMP ↓" : "nabilanavab",
@@ -640,7 +619,8 @@ common = {
     "rot360" : "You have some big problem..🙂", "ocrError" : "Owner Restricted 😎🤏", "notEncrypt": "File Not Encrypted.. 👀",
     "largeNo" : "It contains too many pages, send me a pdf fewer than 5 pages 😐", "inWork" : "WORK IN PROGRESS.. 🙇", "process" : "🚨 processing..",
     "pyromodASK_1" : "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",   # encrypt, decrypt
-    "pyromodASK_2" : "Enter PDF new Name:", "download" : "`Downloading your file..` 📥", "button" : { "⟨ Cancel ⟩" : "close|me" }, "error" : "error: {} ",
+    "pyromodASK_2" : "Enter PDF new Name:", "pyromodASK_3" : "__MERGE pdfs » Total PDFs in queue: {}\n\n/exit to cancel\n/merge to merge__",
+    "download" : "`Downloading your file..` 📥", "button" : { "⟨ Cancel ⟩" : "close|me" }, "error" : "error: {} ",
     "decrypt_error" : "Sorry, this password is invalid for decrypting the PDF file",
     "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
     "upload" : "`Started Uploading..` 📤", "encrypt_caption" : "__Page Number__: {}\n__key__ 🔐: ||{}||",
@@ -651,4 +631,5 @@ common = {
     "_total" : "`Total pages: {}..⏳`", "_canceledAT" : "`Canceled at {}/{} pages..` 🙄", "_upload" : "`Uploading: {}/{} pages.. 🐬`",
     "_cancelCB" : {"💤 CANCEL 💤" : "close|P2I"}, "_canceledCB" : {"🍄 CANCELLED 🍄" : "close|P2IDONE"}, "_completed" : {"😎 COMPLETED 😎" : "close|P2ICOMP"},
     "finished" : "Your current task has been completed successfully. 😎", "cancelCB" : "⚙️ okDA, Canceling.. ",
+    "sizeLoad" : "`Due to Overload Bot Only Support %sMb PDFs..",
 }
