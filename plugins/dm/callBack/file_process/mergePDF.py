@@ -4,15 +4,19 @@
 file_name = "plugins/dm/callBack/file_process/mergePDF.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
+
+# LOGGING INFO: DEBUG
+from logger import logger
+from configs.config import settings
+
+
+
+
 if settings.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
     MAX_FILE_SIZE_IN_kiB = MAX_FILE_SIZE * (10 ** 6)
 else:
     MAX_FILE_SIZE = False
-
-# LOGGING INFO: DEBUG
-from logger import logger
-
 
 async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list ):
     """
