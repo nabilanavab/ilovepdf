@@ -37,7 +37,7 @@ async def splitPDF(input_file: str, cDIR: str, imageList: list) -> ( bool, str):
             if int(i) <= number_of_pages:
         """
         
-        splitOutput.addPage(splitInputPdf.getPage(int(i)-1)) for i in imageList if int(i) <= len(splitInputPdf.pages)
+        splitOutput.addPage(splitInputPdf.getPage(int(i)-1)) for i in imageList if int(i) <= len(splitInputPdf.pages) else pass
         
         with open(output_path, "wb") as output_stream:
             splitOutput.write(output_stream)
