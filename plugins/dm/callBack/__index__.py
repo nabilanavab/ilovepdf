@@ -159,8 +159,7 @@ async def __index__(bot, callbackQuery):
             # The condition isSuccess == "finished" indicates that all the work that needed to be
             # done by the function has been completed and there is no need to send any other files
             await work.work(callbackQuery, "delete", False)
-            if not data.startswith("p2img"):
-                return await dlMSG.delete()
+            return await dlMSG.delete() if not data.startswith("p2img") else ""
         elif not isSuccess:
             await work.work(callbackQuery, "delete", False)
             if data == "decrypt":
