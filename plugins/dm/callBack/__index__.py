@@ -71,7 +71,7 @@ async def __index__(bot, callbackQuery):
                 await work.work(callbackQuery, "delete", False)
                 return await newName.reply(CHUNK["exit"], quote = True)
         elif data == "merge":
-            notExit, mergeId = await renamePDF.askName(
+            notExit, mergeId = await mergePDF.askPDF(
                 bot, callbackQuery, question = CHUNK["pyromodASK_3"], size = CHUNK["sizeLoad"]
             )
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
