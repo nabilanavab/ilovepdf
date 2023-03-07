@@ -10,6 +10,9 @@ from logger import logger
 import os, fitz
 from PIL    import Image
 
+from PyPDF2 import PdfReader, PdfWriter               #########################################################
+
+
 async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
     Compressing a PDF file can significantly reduce its file size, making it
@@ -25,7 +28,9 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         output_path : This is the path where the output file can be found.
     """
     try:
+        
         output_path = f"{cDIR}/outPut.pdf"
+        """
         with fitz.open(input_file) as iNPUT:
             with fitz.open() as oUTPUT:
                 for pg in range(iNPUT.page_count):
@@ -35,6 +40,24 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
                         oUTPUT.new_page(pno = -1, width = rect.width, height = rect.height)
                         oUTPUT[pg].insert_image(rect = rect, filename = f"{cDIR}/temp.png")
                 oUTPUT.save(output_path, garbage = 3, deflate = True)
+        """
+        
+        
+        
+        
+        reader = PdfReader(output_path)
+        writer = PdfWriter()
+        
+        for page in reader.pages:
+            page.compress_content_streams()  # This is CPU intensive!
+            writer.add_page(page)
+        
+        with open(output_path, "wb") as f:
+            writer.write(f)
+        
+        
+        
+        
         
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(input_file)
