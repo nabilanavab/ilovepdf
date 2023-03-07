@@ -76,7 +76,7 @@ async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot, dlMSG) -> ( b
                 message = iD, file_name = f"{cDIR}/{file_number}.pdf", progress = render.progress, 
                 progress_args = (mergeId[file_number], dlMSG, time.time())
             )
-            checked, noOfPg = await checkPdf(f"{cDIR}/{i}.pdf", callbackQuery)
+            checked, noOfPg = await render.checkPdf(f"{cDIR}/{i}.pdf", callbackQuery)
             if not(checked == "pass"):
                 os.remove(f"{cDIR}/{i}.pdf")
         
