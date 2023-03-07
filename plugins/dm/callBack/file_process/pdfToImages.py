@@ -136,7 +136,7 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                         media[callbackQuery.message.chat.id].append(InputMediaPhoto(open(file, "rb")))
                     await pyTgLovePDF.send_media_group(callbackQuery.message.chat.id, media[callbackQuery.message.chat.id])
                 shutil.rmtree(f'{cDIR}/pgs')
-            await dlMSG.edit(text=text["_completed"], reply_markup=completed)
+            await dlMSG.edit(text=text["finished"], reply_markup=completed)
             return "finished", "finished"
     except Exception as Error:
         shutil.rmtree(f'{cDIR}/pgs')
