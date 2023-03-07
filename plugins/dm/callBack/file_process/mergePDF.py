@@ -71,7 +71,7 @@ async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot, callbackQuery
         file_number = 0
         # 1st or imput pdf is already downloaded
         for iD in mergeId[1:]:
-            # edit 
+            await dlMSG.edit(f"downloading {file_number + 2}")
             downloadLoc = await bot.download_media(
                 message = iD, file_name = f"{cDIR}/{file_number}.pdf", progress = render.progress, 
                 progress_args = (mergeId[file_number], dlMSG, time.time())
