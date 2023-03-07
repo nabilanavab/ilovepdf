@@ -74,9 +74,10 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
         canceled = await util.createBUTTON(btn=text["_canceledCB"])
         completed = await util.createBUTTON(btn=text["_completed"])
         
-        imageType = callbackQuery.data[1:]
+        imageType = "Img" if callbackQuery.data.startswith("p2img|I") else "Doc"
         with fitz.open(input_file) as doc:
             number_of_pages = doc.page_count
+            if callbackQuery.data.endswith("A"): imageList = list(range(1, number_of_pages+1))
             mat = fitz.Matrix(2, 2)
             if len(imageList) >= 11:
                 await dlMSG.pin(disable_notification = True, both_sides = True)
@@ -113,18 +114,18 @@ async def pdfToImages(input_file: str, cDIR: str, callbackQuery, dlMSG, imageLis
                             picture.save(file, "JPEG", optimize = True,quality = qualityRate)
                             qualityRate -= 5; await asyncio.sleep(0.5)
                         else:
-                            if imageType == "p2img|I":
+                            if imageType == "Img":
                                 media[callbackQuery.message.chat.id].append(InputMediaPhoto(open(file, "rb")))
-                            elif imageType == "p2img|D":
+                            elif imageType == "Doc":
                                 media[callbackQuery.message.chat.id].append(InputMediaDocument(open(file, "rb")))
                             break
                 try:
                     await dlMSG.edit(text=text["_upload"].format(convertedPages, len(imageList)), reply_markup=cancel)
                 except Exception: pass
                 
-                if imageType == "p2img|I":
+                if imageType == "Img":
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_PHOTO)
-                elif imageType == "p2img|D":
+                elif imageType == "Doc":
                     await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
                 
                 try:
