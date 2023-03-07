@@ -49,7 +49,7 @@ async def askPDF(bot, callbackQuery, question: str, size: str) -> ( bool, list )
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
-async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot, callbackQuery, dlMSG) -> ( bool, str):
+async def mergePDF(input_file: str, cDIR: str, mergeId: list, bot, callbackQuery, dlMSG, text) -> ( bool, str):
     """
     This function helps to merge multiple PDF files into a single PDF file. It takes a list of
     PDF file paths as input and combines them into one output PDF file. This can be useful for
