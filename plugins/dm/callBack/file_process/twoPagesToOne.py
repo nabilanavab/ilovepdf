@@ -1,7 +1,7 @@
-# fileName : plugins/dm/callBack/file_process/twoInOne.py
+# fileName : plugins/dm/callBack/file_process/twoPagesToOne.py
 # copyright ©️ 2021 nabilanavab
 
-file_name = "plugins/dm/callBack/file_process/twoInOne.py"
+file_name = "plugins/dm/callBack/file_process/twoPagesToOne.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
@@ -9,10 +9,11 @@ from logger import logger
 
 import fitz
 
-async def twoInOne(input_file: str, cDIR: str) -> ( bool, str ):
+async def twoPagesToOne(input_file: str, cDIR: str) -> ( bool, str ):
     """
-    A4 formatting is a technique for displaying and printing PDF documents, which involves
-    aligning all pages of the document within the standard A4 paper size
+    This function takes a PDF file with two pages per sheet and converts it to a single page per sheet format. 
+    The output file will contain all pages from the input file in sequential order, but with each pair of pages 
+    combined onto a single sheet. 
     
     parameter:
         input_file : Here is the path of the file that the user entered
@@ -29,7 +30,7 @@ async def twoInOne(input_file: str, cDIR: str) -> ( bool, str ):
                 width, height = fitz.paper_size("a4")
                 for page in iNPUT:
                     pg = oUTPUT.new_page(-1, width = width, height = height)
-                    logger.debug(f"{pg.rect}, {pg.x0}, {pg.x1}, {pg.y0}, {pg.y0}")
+                    logger.debug(f"{pg.rect}")
                     pg.show_pdf_page(pg.rect, iNPUT, page.number)
                 oUTPUT.save(output_path, garbage = 3, deflate = True)
         return True, output_path
