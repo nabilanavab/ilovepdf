@@ -13,7 +13,8 @@ async def askWatermark(bot, callbackQuery, question: str, data: str) -> ( bool, 
             watermark = await bot.ask(
                 chat_id = callbackQuery.from_user.id,
                 reply_to_message_id = callbackQuery.message.id,
-                text = question, filters = None
+                text = question, filters = None,
+                reply_markup = ForceReply(True, "Enter Watermark Text..") if data.startswith("wa|txt") else None
             )
             if watermark.text == "/exit":
                 return False, input_file
@@ -112,6 +113,7 @@ async def watermarkPDF(input_file: str, cDIR: str, callbackQuery, watermark, tex
         else:
             __, _type, _opacity, _position = callbackQuery.data.split("|")
         
+        #edit text
         if _type == "txt":
             success, output_file = await add_text_watermark(
                 input_file = input_file, output_file = output_path, watermark_text = watermark.text,
