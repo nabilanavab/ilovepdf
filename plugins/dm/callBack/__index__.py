@@ -187,6 +187,9 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await watermarkPDF.watermarkPDF(cDIR = cDIR, input_file = input_file,
                                                                      callbackQuery = callbackQuery, watermark = watermark, text = CHUNK["adding_wa"])
         
+        elif data.startswith("spP"):
+            isSuccess, output_file = await stampPDF.stampPDF(cDIR = cDIR, input_file = input_file, data = data)
+        
         if isSuccess == "finished":
             # The condition isSuccess == "finished" indicates that all the work that needed to be
             # done by the function has been completed and there is no need to send any other files
