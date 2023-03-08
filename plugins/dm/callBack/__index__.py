@@ -87,6 +87,15 @@ async def __index__(bot, callbackQuery):
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await imageList.reply(CHUNK["pdfToImgError"], quote = True)
+        elif data.startswith("wa"):
+            if data.startswith("wa|txt"): question = CHUNK["watermark_txt"]
+            elif data.startswith("wa|img"): question = CHUNK["watermark_img"]
+            elif data.startswith("wa|pdf"): question = CHUNK["watermark_pdf"]
+            notExit, watermark = await watermarkPDF.askWatermark(bot, callbackQuery, question = question)
+            # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
+            if not notExit:
+                await work.work(callbackQuery, "delete", False)
+                return await watermark.reply(CHUNK["exit"], quote = True)
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
         
@@ -171,6 +180,10 @@ async def __index__(bot, callbackQuery):
         elif data.startswith("p2img"):
             isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
                                            callbackQuery = callbackQuery, dlMSG = dlMSG, imageList = imageList if not data.endswith("A") else "all")
+        
+        elif data.startswith("wa"):
+            isSuccess, output_file = await watermarkPDF.watermarkPDF(cDIR = cDIR, input_file = input_file,
+                                                                     callbackQuery = callbackQuery, watermark = watermark)
         
         if isSuccess == "finished":
             # The condition isSuccess == "finished" indicates that all the work that needed to be
