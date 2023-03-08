@@ -249,34 +249,41 @@ File Size: `{}`""",
 BUTTONS = {
     "meta" : {
         "✔ WITHOUT PREVIEW ✔" : "#metadata",
-        "✅ WITH PREVIEW ✅" : "#preview"
+        "✅ WITH PREVIEW ✅" : "#preview",
+        "« BACK «" : "pdf"
     },
     "lock" : {
         "🔐 ENCRYPT 🔐" : "#encrypt",
-        "🔓 DECRYPT 🔓" : "#decrypt"
+        "🔓 DECRYPT 🔓" : "#decrypt",
+        "« BACK «" : "pdf"
     },
     "trim" : {
         "✂️ SPLIT ✂️" : "#split",
-        "🧬 MERGE 🧬" : "#merge"
+        "🧬 MERGE 🧬" : "#merge",
+        "« BACK «" : "pdf"
     },
     "format" : {
         "☝️ SINGLE ☝️" : "#1-format",
         "✌ DOUBLE ✌" : "#2-format",
         "🤟 TRIBLE 🤟" : "#3-format",
-        "😂 FOURBLE 😂" : "#4-format" 
+        "😂 FOURBLE 😂" : "#4-format",
+        "« BACK «" : "pdf"
     },
     "trade" : {
         "💦 WATERMARK 💦" : "pdf|wa",
-        "™️ STAMP ™️" : "#stamp"
+        "™️ STAMP ™️" : "#stamp",
+        "« BACK «" : "pdf"
     },
     "filter" : {
         "🎨 DRAW 🎨" : "#draw",
         "⚫ BLACK/WHITE ⚪" : "#bwa",
-        "🪐 SATURARE 🪐" : "#sat"
+        "🪐 SATURARE 🪐" : "#sat",
+        "« BACK «" : "pdf"
     },
     "addlt" : {
         "🟢 ADD PAGES 🟢" : "close|dev",
-        "🔴 DELETE PAGES 🔴" : "close|dev"
+        "🔴 DELETE PAGES 🔴" : "close|dev",
+        "« BACK «" : "pdf"
     },
     "toImage" : {
         "⚙️ PDF » IMAGES ↓" : "nabilanavab",
