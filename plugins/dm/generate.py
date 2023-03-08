@@ -118,7 +118,7 @@ async def _GEN(bot, callbackQuery):
         await log.footer(callbackQuery.message, output = logFile, lang_code = lang_code)
     except Exception as e:
         tTXT, tBTN = await util.translate(
-            text = "document['error']", button = "checkPdf['errorCB']", lang_code = lang_code
+            text = "document['error']", button = "PDF_MESSAGE['errorCB']", lang_code = lang_code
         )
         await gen.edit(tTXT.format(e), reply_markup = tBTN)
         try: shutil.rmtree(f"work/{chat_id}"); del HD[chat_id]
