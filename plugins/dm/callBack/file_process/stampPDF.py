@@ -1,7 +1,7 @@
-# fileName : plugins/dm/callBack/file_process/blackAndWhitePdf.py
+# fileName : plugins/dm/callBack/file_process/stampPDF.py
 # copyright ©️ 2021 nabilanavab
 
-file_name = "plugins/dm/callBack/file_process/blackAndWhitePdf.py"
+file_name = "plugins/dm/callBack/file_process/stampPDF.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
