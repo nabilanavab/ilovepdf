@@ -37,12 +37,9 @@ async def _pdf(bot, callbackQuery):
         await callbackQuery.answer()
         data = callbackQuery.data
         
-        if data == "pdf1":
+        if data == "pdf":
             # pdf : homePage(back2pdfreplyMessage)
-            tTXT, tBTN = await util.translate(button = "checkPdf['pdfCB1']", order = 22222221, lang_code = lang_code)
-            return await callbackQuery.message.edit_reply_markup(tBTN)
-        elif data == "pdf2":
-            tTXT, tBTN = await util.translate(button = "checkPdf['pdfCB2']", order = 12222221, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "PDF_MESSAGE['pdf_button']", order = 22222221, lang_code = lang_code)
             return await callbackQuery.message.edit_reply_markup(tBTN)
         
         data = data.split("|", 1)[1]
