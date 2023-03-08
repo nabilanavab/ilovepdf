@@ -28,8 +28,10 @@ async def twoPagesToOne(input_file: str, cDIR: str) -> ( bool, str ):
         with fitz.open(input_file) as iNPUT:
             with fitz.open() as oUTPUT:
                 width, height = fitz.paper_size("a4")
-                r1 = fitz.Rect(0, 0, width/2, height)
-                r2 = fitz.Rect(width/2, 0, width, height)
+                #r1 = fitz.Rect(0, 0, width/2, height)
+                #r2 = fitz.Rect(width/2, 0, width, height)
+                r1 = fitz.Rect(0, 0, width, height/2)
+                r2 = fitz.Rect(0, height/2, width, height)
                 r_tab = [ r1, r2 ]
                 for page in iNPUT:
                     if page.number % 2 == 0:
