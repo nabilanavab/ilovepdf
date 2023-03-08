@@ -38,7 +38,6 @@ async def _pdf(bot, callbackQuery):
         data = callbackQuery.data
         
         if data == "pdf":
-            # pdf : homePage(back2pdfreplyMessage)
             tTXT, tBTN = await util.translate(button = "PDF_MESSAGE['pdf_button']", order = 22222221, lang_code = lang_code)
             return await callbackQuery.message.edit_reply_markup(tBTN)
         
@@ -48,8 +47,22 @@ async def _pdf(bot, callbackQuery):
             tTXT, tBTN = await util.translate(button = "BUTTONS['rotate']", order = 1221, lang_code = lang_code)
         elif data == "txt":
             tTXT, tBTN = await util.translate(button = "BUTTONS['txt']", order = 1221, lang_code = lang_code)
+        elif data == "meta":
+            tTXT, tBTN = await util.translate(button = "BUTTONS['meta']", order = 111, lang_code = lang_code)
+        elif data == "lock":
+            tTXT, tBTN = await util.translate(button = "BUTTONS['lock']", order = 111, lang_code = lang_code)
+        elif data == "trim":
+            tTXT, tBTN = await util.translate(button = "BUTTONS['trim']", order = 111, lang_code = lang_code)
+        elif data == "format":
+            tTXT, tBTN = await util.translate(button = "BUTTONS['format']", order = 221, lang_code = lang_code)
+        elif data == "trade":
+            tTXT, tBTN = await util.translate(button = "BUTTONS['trade']", order = 111, lang_code = lang_code)
+        elif data == "filter":
+            tTXT, tBTN = await util.translate(button = "BUTTONS['filter']", order = 1111, lang_code = lang_code)
+        elif data == "addlt":
+            tTXT, tBTN = await util.translate(button = "BUTTONS['addlt']", order = 111, lang_code = lang_code)
         elif data == "T2P":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['font_btn']", order = 12121, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "pdf2TXT['font_btn']", order = 12121, lang_code = lang_code)
         
         elif data.startswith("wa"):
             if data == "wa":
@@ -99,7 +112,7 @@ async def _pdf(bot, callbackQuery):
         
         elif data.startswith("font"):
             data = data.split("|", 1)[1]
-            tTXT, _ = await util.translate(text = "BUTTONS['size_btn']", lang_code = lang_code)
+            tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
             tTXT = await util.editDICT(inDir = tTXT, value = f"{data}", front = f"{txt2pdf[data]}".upper())
             tTXT = await util.createBUTTON(tTXT, "12121")
             return await callbackQuery.message.edit_reply_markup(tTXT)
