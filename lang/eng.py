@@ -439,7 +439,7 @@ common = {
     "rot360" : "You have some big problem..🙂", "ocrError" : "Owner Restricted 😎🤏", "notEncrypt": "File Not Encrypted.. 👀",
     "largeNo" : "It contains too many pages, send me a pdf fewer than 5 pages 😐", "inWork" : "WORK IN PROGRESS.. 🙇", "process" : "🚨 processing..",
     "pyromodASK_1" : "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",   # encrypt, decrypt
-    "pyromodASK_2" : "Enter PDF new Name:", "pyromodASK_3" : "__MERGE pdfs » Total PDFs in queue: {}\n\n/exit to cancel\n/merge to merge__",
+    "pyromodASK_2" : "Enter PDF new Name:\n\n/exit to cancel", "pyromodASK_3" : "__MERGE pdfs » Total PDFs in queue: {}\n\n/exit to cancel\n/merge to merge__",
     "download" : "`Downloading your file..` 📥", "button" : { "⟨ Cancel ⟩" : "close|me" }, "error" : "error: {} ",
     "decrypt_error" : "Sorry, this password is invalid for decrypting the PDF file",
     "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
