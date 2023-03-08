@@ -118,7 +118,7 @@ async def watermarkPDF(input_file: str, cDIR: str, callbackQuery, watermark, tex
         #edit text
         if _type == "txt":
             success, output_file = await add_text_watermark(
-                input_file = input_file, output_file = output_path, watermark_text = watermark.text,
+                input_file = input_file, output_file = output_path, watermark_text = watermark,
                 opacity = _opacity[-2:], position = _position, color = _color
             )
             if not success:
