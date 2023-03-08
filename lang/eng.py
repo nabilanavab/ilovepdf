@@ -164,28 +164,14 @@ feedbackMsg = f"IF YOU ❤ THIS BOT, JOIN OUR [UPDATE CHANNEL]({settings.OWNED_C
 
 # BANNED USER UI
 BAN = {
-    "UCantUse" : """Hey {}
-
-FOR SOME REASON YOU CANT USE THIS BOT :(""",
-    "UCantUseDB" : """Hey {}
-
-FOR SOME REASON YOU CANT USE THIS BOT :(
-
-REASON: {}""",
-    "GroupCantUse" : """{} NEVER EXPECT A GOOD RESPONSE FROM ME
-
-ADMINS RESTRICTED ME FROM WORKING HERE.. 🤭""",
-    "GroupCantUseDB" : """{} NEVER EXPECT A GOOD RESPONSE FROM ME
-
-ADMINS RESTRICTED ME FROM WORKING HERE.. 🤭
-
-REASON: {}""",
+    "UCantUse" : """Hey {}\n\nFOR SOME REASON YOU CANT USE THIS BOT :(""",
+    "UCantUseDB" : """Hey {}\n\nFOR SOME REASON YOU CANT USE THIS BOT :(\n\nREASON: {}""",
+    "GroupCantUse" : """{} NEVER EXPECT A GOOD RESPONSE FROM ME\n\nADMINS RESTRICTED ME FROM WORKING HERE.. 🤭""",
+    "GroupCantUseDB" : """{} NEVER EXPECT A GOOD RESPONSE FROM ME\n\nADMINS RESTRICTED ME FROM WORKING HERE.. 🤭\n\nREASON: {}""",
     "cbNotU" : "Oops, Sorry to break your heart, this message is not for you 💔.\n\nBetter luck next time! 😏",
     "Fool" : "Please don't try to fool me.. 🤭",
     "banCB" : {
-        "Create your Own Bot": f"{settings.SOURCE_CODE}",
-        "Tutorial": f"{settings.SOURCE_CODE}",
-        "Update Channel": "https://telegram.dog/ilovepdf_bot"
+        "Create your Own Bot": f"{settings.SOURCE_CODE}", "Tutorial": f"{settings.SOURCE_CODE}", "Update Channel": "https://telegram.dog/ilovepdf_bot"
     },
     "Force" : """Wait [{}](tg://user?id={})..!!
 
@@ -218,7 +204,7 @@ BUTTONS = {
     "trim" : { "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
     "format" : { "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE ✌" : "#2-format", "🤟 TRIBLE 🤟" : "#3-format", "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
     "trade" : { "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stp", "« BACK «" : "pdf" },
-    "filter" : { "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#bwa", "🪐 SATURARE 🪐" : "#sat", "« BACK «" : "pdf" },
+    "filter" : { "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#baw", "🪐 SATURARE 🪐" : "#sat", "« BACK «" : "pdf" },
     "addlt" : { "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "close|dev", "« BACK «" : "pdf" },
     "toImage" : { "⚙️ PDF » IMAGES ↓" : "nabilanavab", "🖼 IMG 🖼" : "pdf|img|img", "📂 DOC 📂" : "pdf|img|doc",
         "🤐 ZIP 🤐" : "pdf|img|zip", "🎯 TAR 🎯" : "pdf|img|tar", "« BACK «" : "pdf" },
@@ -259,17 +245,14 @@ BUTTONS = {
 }
 
 PROGRESS = {
-    "progress" : """\n**Done ✅ : **{0}/{1}
-**Speed 🚀:** {2}/s
-**Estimated Time ⏳:** {3}""",
+    "progress" : """\n**Done ✅ : **{0}/{1}\n**Speed 🚀:** {2}/s\n**Estimated Time ⏳:** {3}""",
     "workInP" : "WORK IN PROGRESS.. 🙇",
     "upFile" : "`Started Uploading..`📤",
     "refresh" : { "♻️ Refresh ♻️" : "{}" },
     "dlFile" : "`Downloading your file..` 📥",
     "dlImage" : "`Downloading your Image..⏳`",
     "upFileCB" : {"📤 .. UPLOADING.. 📤" : "nabilanavab"},
-    "takeTime" : """```⚙️ Work in Progress..`
-`It might take some time..```💛""",
+    "takeTime" : """```⚙️ Work in Progress..\nIt might take some time..```💛""",
     "cbPRO_D" : ["📤 DOWNLOAD: {:.2f}% 📤", "🎯 CANCEL 🎯"],
     "cbPRO_U" : ["📤 UPLOADED: {:.2f}% 📤", "🎯 CANCEL 🎯"]
 }
