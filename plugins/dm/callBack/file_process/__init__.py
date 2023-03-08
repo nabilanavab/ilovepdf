@@ -13,7 +13,8 @@ __all__ = [
     "blackAndWhitePdf", "combinePages",
     "compressPDF", "decryptPDF", "drawPDF",
     "formatPDF", "ocrPDF", "rotatePDF", "saturatePDF",
-    "renamePDF", "pdfToImages", "splitPDF", "mergePDF", "watermarkPDF"
+    "renamePDF", "pdfToImages", "splitPDF", "mergePDF", "watermarkPDF",
+    "stampPDF"
 ]
 
 # Author: @nabilanavab
