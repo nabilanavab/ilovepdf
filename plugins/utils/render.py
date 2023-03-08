@@ -69,7 +69,7 @@ async def gSF(b, factor=2**10, suffix="B"):    # get_size_format
 # =================== CHECKS PDF CODEC, IS ENCRYPTED OR NOT ====================
 async def checkPdf(file_path, callbackQuery, lang_code = settings.DEFAULT_LANG):
     try:
-        CHUNK, _ = await translate(text="checkPdf", lang_code=lang_code)
+        CHUNK, _ = await translate(text="PDF_MESSAGE", lang_code=lang_code)
         
         # open pdf file from file_path
         with fitz.open(file_path) as doc:
@@ -96,7 +96,7 @@ async def checkPdf(file_path, callbackQuery, lang_code = settings.DEFAULT_LANG):
                             await gSF(callbackQuery.message.reply_to_message.document.file_size)
                         ) + "\n\n"
                              + CHUNK["pg"].format(doc.page_count) + "\n\n" + pdfMetaData,
-                        reply_markup = await createBUTTON(CHUNK["pdfCB1"])
+                        reply_markup = await createBUTTON(CHUNK["pdf_button"])
                     )
                 return "pass", doc.page_count
     # CODEC ERROR
