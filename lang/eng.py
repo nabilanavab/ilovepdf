@@ -247,78 +247,21 @@ File Size: `{}`""",
 }
 
 BUTTONS = {
-    "meta" : {
-        "✔ WITHOUT PREVIEW ✔" : "#metadata",
-        "✅ WITH PREVIEW ✅" : "#preview",
-        "« BACK «" : "pdf"
-    },
-    "lock" : {
-        "🔐 ENCRYPT 🔐" : "#encrypt",
-        "🔓 DECRYPT 🔓" : "#decrypt",
-        "« BACK «" : "pdf"
-    },
-    "trim" : {
-        "✂️ SPLIT ✂️" : "#split",
-        "🧬 MERGE 🧬" : "#merge",
-        "« BACK «" : "pdf"
-    },
-    "format" : {
-        "☝️ SINGLE ☝️" : "#1-format",
-        "✌ DOUBLE ✌" : "#2-format",
-        "🤟 TRIBLE 🤟" : "#3-format",
-        "😂 FOURBLE 😂" : "#4-format",
-        "« BACK «" : "pdf"
-    },
-    "trade" : {
-        "💦 WATERMARK 💦" : "pdf|wa",
-        "™️ STAMP ™️" : "#stamp",
-        "« BACK «" : "pdf"
-    },
-    "filter" : {
-        "🎨 DRAW 🎨" : "#draw",
-        "⚫ BLACK/WHITE ⚪" : "#bwa",
-        "🪐 SATURARE 🪐" : "#sat",
-        "« BACK «" : "pdf"
-    },
-    "addlt" : {
-        "🟢 ADD PAGES 🟢" : "close|dev",
-        "🔴 DELETE PAGES 🔴" : "close|dev",
-        "« BACK «" : "pdf"
-    },
-    "toImage" : {
-        "⚙️ PDF » IMAGES ↓" : "nabilanavab",
-        "🖼 IMG 🖼" : "pdf|img|img",
-        "📂 DOC 📂" : "pdf|img|doc",
-        "🤐 ZIP 🤐" : "pdf|img|zip",
-        "🎯 TAR 🎯" : "pdf|img|tar",
-        "« BACK «" : "pdf" 
-    },
-    "imgRange" : {
-        "⚙️ PDF » IMAGES » {} ↓" : "nabilanavab",
-        "🙄 ALL 🙄" : "#p2img|{}A",
-        "🤧 CUSTOM 🤧" : "#p2img|{}C",
-        "« BACK «" : "pdf|img"
-    },
-    "rotate" : {
-        "⚙️ PDF » ROTATE ↓" : "nabilanavab",
-        "90°" : "#rot90",
-        "180°" : "#rot180",
-        "270°" : "#rot270",
-        "360°" : "#rot360",
-        "« BACK «" : "pdf"
-    },
-    "txt" : {
-        "⚙️ PDF » TXT ↓" : "nabilanavab",
-        "📜 MESSAGE 📜" : "#textM",
-        "🧾 TXT FILE 🧾" : "#textT",
-        "🌐 HTML 🌐" : "#textH",
-        "🎀 JSON 🎀" : "#textJ",
-        "« BACK «" : "pdf"
-    },
-    "type" : {
-        "⚙️ PDF » WATERMARK ↓" : "nabilanavab",
-        "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img", "📎 PDF 📎" : "pdf|wa|pdf", "« BACK «" : "pdf|trade"
-    },
+    "meta" : { "✔ WITHOUT PREVIEW ✔" : "#metadata", "✅ WITH PREVIEW ✅" : "#preview", "« BACK «" : "pdf" },
+    "lock" : { "🔐 ENCRYPT 🔐" : "#encrypt", "🔓 DECRYPT 🔓" : "#decrypt", "« BACK «" : "pdf" },
+    "trim" : { "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
+    "format" : { "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE ✌" : "#2-format", "🤟 TRIBLE 🤟" : "#3-format", "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
+    "trade" : { "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stamp", "« BACK «" : "pdf" },
+    "filter" : { "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#bwa", "🪐 SATURARE 🪐" : "#sat", "« BACK «" : "pdf" },
+    "addlt" : { "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "close|dev", "« BACK «" : "pdf" },
+    "toImage" : { "⚙️ PDF » IMAGES ↓" : "nabilanavab", "🖼 IMG 🖼" : "pdf|img|img", "📂 DOC 📂" : "pdf|img|doc",
+        "🤐 ZIP 🤐" : "pdf|img|zip", "🎯 TAR 🎯" : "pdf|img|tar", "« BACK «" : "pdf" },
+    "imgRange" : { "⚙️ PDF » IMAGES » {} ↓" : "nabilanavab", "🙄 ALL 🙄" : "#p2img|{}A", "🤧 CUSTOM 🤧" : "#p2img|{}C", "« BACK «" : "pdf|img" },
+    "rotate" : { "⚙️ PDF » ROTATE ↓" : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", "« BACK «" : "pdf" },
+    "txt" : { "⚙️ PDF » TXT ↓" : "nabilanavab", "📜 MESSAGE 📜" : "#textM", "🧾 TXT FILE 🧾" : "#textT",
+        "🌐 HTML 🌐" : "#textH", "🎀 JSON 🎀" : "#textJ", "« BACK «" : "pdf" },
+    "type" : { "⚙️ PDF » WATERMARK ↓" : "nabilanavab", "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img",
+              "📎 PDF 📎" : "pdf|wa|pdf", "« BACK «" : "pdf|trade" },
     "op" : {
         "⚙️ PDF » WATERMARK » {} » OPCACiTY ↓" : "nabilanavab",
         "𝟙𝟘" : "pdf|wa|{}|o01", "𝟚𝟘" : "pdf|wa|{}|o02", "𝟛𝟘" : "pdf|wa|{}|o03", "𝟜𝟘" : "pdf|wa|{}|o04", "𝟝𝟘" : "pdf|wa|{}|o05",
@@ -338,34 +281,14 @@ BUTTONS = {
         "🔵" : "#wa|{0}|{1}|{2}|N", "᠎᠎🟡" : "#wa|{0}|{1}|{2}|Y", "᠎᠎🟠" : "#wa|{0}|{1}|{2}|O", "🟣" : "#wa|{0}|{1}|{2}|V", "« BACK «" : "pdf|wa|{0}|{1}"
     },
     "stamp" : {
-        "⚙️ PDF » STAMP ↓" : "nabilanavab",
-        "Not For Public Release 🤧" : "pdf|stp|10",
-        "For Public Release 🥱" : "pdf|stp|8",
-        "Confidential 🤫" : "pdf|stp|2",
-        "Departmental 🤝" : "pdf|stp|3",
-        "Experimental 🔬" : "pdf|stp|4",
-        "Expired 🐀" : "pdf|stp|5",
-        "Final 🔧" : "pdf|stp|6",
-        "For Comment 🗯️" : "pdf|stp|7",
-        "Not Approved 😒" : "pdf|stp|9",
-        "Approved 🥳" : "pdf|stp|0",
-        "Sold ✊" : "pdf|stp|11",
-        "Top Secret 😷" : "pdf|stp|12",
-        "Draft 👀" : "pdf|stp|13",
-        "AsIs 🤏" : "pdf|stp|1",
-        "« BACK «" : "pdf"
+        "⚙️ PDF » STAMP ↓" : "nabilanavab", "Not For Public Release 🤧" : "pdf|stp|10", "For Public Release 🥱" : "pdf|stp|8",
+        "Confidential 🤫" : "pdf|stp|2", "Departmental 🤝" : "pdf|stp|3", "Experimental 🔬" : "pdf|stp|4", "Expired 🐀" : "pdf|stp|5",
+        "Final 🔧" : "pdf|stp|6", "For Comment 🗯️" : "pdf|stp|7", "Not Approved 😒" : "pdf|stp|9", "Approved 🥳" : "pdf|stp|0",
+        "Sold ✊" : "pdf|stp|11", "Top Secret 😷" : "pdf|stp|12", "Draft 👀" : "pdf|stp|13", "AsIs 🤏" : "pdf|stp|1", "« BACK «" : "pdf"
     },
     "stampA" : {
-        "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab",
-        "Red ❤️" : "spP|{}|r",
-        "Blue 💙" : "spP|{}|b",
-        "Green 💚" : "spP|{}|g",
-        "Yellow 💛" : "spP|{}|c1",
-        "Pink 💜" : "spP|{}|c2",
-        "Hue 💚" : "spP|{}|c3",
-        "White 🤍" : "spP|{}|c4",
-        "Black 🖤" : "spP|{}|c5",
-        "« Back «" : "pdf|stp"
+        "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab", "Red ❤️" : "spP|{}|r", "Blue 💙" : "spP|{}|b", "Green 💚" : "spP|{}|g", "Yellow 💛" : "spP|{}|c1",
+        "Pink 💜" : "spP|{}|c2", "Hue 💚" : "spP|{}|c3", "White 🤍" : "spP|{}|c4", "Black 🖤" : "spP|{}|c5", "« Back «" : "pdf|stp"
     }
 }
 
