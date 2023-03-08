@@ -16,7 +16,7 @@ colorSet = {
     "c4" : (1, 1, 1), "c5" : (0, 0, 0)
 }
 
-async def stampPDF(input_file: str, cDIR: str, data str) -> ( bool, str ):
+async def stampPDF(input_file: str, cDIR: str, data: str) -> ( bool, str ):
     """
     The pdf stamp is a digital tool that enables users to apply a customizable stamp to a PDF document.
     The stamp can be used to indicate the document's status, such as "approved," "confidential," or "draft,".
