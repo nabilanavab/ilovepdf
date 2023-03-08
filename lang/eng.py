@@ -317,7 +317,7 @@ BUTTONS = {
     },
     "type" : {
         "⚙️ PDF » WATERMARK ↓" : "nabilanavab",
-        "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img", "📎 PDF 📎" : "pdf|wa|pdf", "« BACK «" : "pdf"
+        "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img", "📎 PDF 📎" : "pdf|wa|pdf", "« BACK «" : "pdf|trade"
     },
     "op" : {
         "⚙️ PDF » WATERMARK » {} » OPCACiTY ↓" : "nabilanavab",
