@@ -48,60 +48,58 @@ async def _pdf(bot, callbackQuery):
             tTXT, tBTN = await util.translate(button = "BUTTONS['rotate']", order = 1221, lang_code = lang_code)
         elif data == "txt":
             tTXT, tBTN = await util.translate(button = "BUTTONS['txt']", order = 1221, lang_code = lang_code)
-        elif data == "split":
-            tTXT, tBTN = await util.translate(button = "split['button']", order = 1221, lang_code = lang_code)
         elif data == "T2P":
-            tTXT, tBTN = await util.translate(button = "pdf2TXT['font_btn']", order = 12121, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['font_btn']", order = 12121, lang_code = lang_code)
         
         elif data.startswith("wa"):
             if data == "wa":
-                tTXT, tBTN = await util.translate(button = "wa['type']", order = 131, lang_code = lang_code)
+                tTXT, tBTN = await util.translate(button = "BUTTONS['type']", order = 131, lang_code = lang_code)
             else:
                 typ = data.split("|")[1]
                 if "o" not in data:
-                    tTXT, tBTN = await util.translate(text = "wa['op']", lang_code = lang_code)
+                    tTXT, tBTN = await util.translate(text = "BUTTONS['op']", lang_code = lang_code)
                     tTXT = await util.editDICT(inDir = tTXT, value = typ, front = f"{typ}".upper())
                     tTXT = await util.createBUTTON(tTXT, "1551")
                     return await callbackQuery.message.edit_reply_markup(tTXT)
                 elif "p" not in data:
                     data = data.split("|")[-1]
                     if typ == "txt":
-                        tTXT, tBTN = await util.translate(text = "wa['poTXT']", lang_code = lang_code)
+                        tTXT, tBTN = await util.translate(text = "BUTTONS['poTXT']", lang_code = lang_code)
                     else:
-                        tTXT, tBTN = await util.translate(text = "wa['po']", lang_code = lang_code)
+                        tTXT, tBTN = await util.translate(text = "BUTTONS['po']", lang_code = lang_code)
                     tTXT = await util.editDICT(inDir = tTXT, value = [typ, data], front = f"{typ}".upper())
                     tTXT = await util.createBUTTON(tTXT, "131")
                     return await callbackQuery.message.edit_reply_markup(tTXT)
                 else:
                     data, color = data.split("|")[-2:]
-                    tTXT, tBTN = await util.translate(text = "wa['color']", lang_code = lang_code)
+                    tTXT, tBTN = await util.translate(text = "BUTTONS['color']", lang_code = lang_code)
                     tTXT = await util.editDICT(inDir = tTXT, value = [typ, data, color], front = f"{typ}".upper())
                     tTXT = await util.createBUTTON(tTXT, "13331")
                     return await callbackQuery.message.edit_reply_markup(tTXT)
         
         elif data.startswith("img"):
             if data == "img":
-                tTXT, tBTN = await util.translate(button="pdf2IMG['toImage']", order=1221, lang_code=lang_code)
+                tTXT, tBTN = await util.translate(button="BUTTONS['toImage']", order=1221, lang_code=lang_code)
             else:
                 data = data.split("|", 1)[1]
-                tTXT, tBTN = await util.translate(text = "pdf2IMG['imgRange']", lang_code = lang_code)
+                tTXT, tBTN = await util.translate(text = "BUTTONS['imgRange']", lang_code = lang_code)
                 tTXT = await util.editDICT(inDir = tTXT, value = imgg[f"{data}"], front = f"{data}".upper())
                 tTXT = await util.createBUTTON(tTXT, "121")
                 return await callbackQuery.message.edit_reply_markup(tTXT)
         
         elif data.startswith("stp"):
             if data == "stp":
-                tTXT, tBTN = await util.translate(button="stamp['stamp']", order=1112222221, lang_code=lang_code)
+                tTXT, tBTN = await util.translate(button="BUTTONS['stamp']", order=1112222221, lang_code=lang_code)
             else:
                 data = int(data.split("|", 1)[1])
-                tTXT, _ = await util.translate(text = "stamp['stampA']", lang_code =lang_code)
+                tTXT, _ = await util.translate(text = "BUTTONS['stampA']", lang_code =lang_code)
                 tTXT = await util.editDICT(inDir = tTXT, value = f"{data}", front = f"{annotSet[data]}".upper())
                 tTXT = await utilo.createBUTTON(tTXT, "122221")
                 return await callbackQuery.message.edit_reply_markup(tTXT)
         
         elif data.startswith("font"):
             data = data.split("|", 1)[1]
-            tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
+            tTXT, _ = await util.translate(text = "BUTTONS['size_btn']", lang_code = lang_code)
             tTXT = await util.editDICT(inDir = tTXT, value = f"{data}", front = f"{txt2pdf[data]}".upper())
             tTXT = await util.createBUTTON(tTXT, "12121")
             return await callbackQuery.message.edit_reply_markup(tTXT)
