@@ -216,21 +216,10 @@ PDF_MESSAGE = {
 File Name : `{}`
 File Size : `{}`""",
     "pdf_button" : {
-        "⭐ META£ATA ⭐" : "pdf|meta",
-        "🖼️ IMAGES 🖼️" : "pdf|img",
-        "📑 TEXT 📑" : "pdf|txt",
-        "🤸 ROTATE 🤸" : "pdf|rotate",
-        "✂️ SPLIT/MERGE 🧬 " : "pdf|trim",
-        "🔐 ENCRY\DECRY 🔓" : "pdf|lock",
-        "😗 FORMAT 😗" : "pdf|format",
-        "💦 WATERMARK 💦" : "pdf|trade",
-        "🗜 COMPRES\OCR 🗜" : "pdf|comocr",
-        "✏️ RENAME ✏️" : "#rename",
-        "🔎 ZOOM 🔎" : "#zoom",
-        "🔗 URL 🔗" : "link",
-        "👻 FILTER 👻" : "pdf|filter",
-        "🟢 ADD/DLT 🔴" : "pdf|addlt",
-        "🚫 CLOSE 🚫" : "close|all"
+        "⭐ META£ATA ⭐" : "pdf|meta", "🖼️ IMAGES 🖼️" : "pdf|img", "📑 TEXT 📑" : "pdf|txt", "🤸 ROTATE 🤸" : "pdf|rotate",
+        "✂️ SPLIT/MERGE 🧬 " : "pdf|trim", "🔐 ENCRY\DECRY 🔓" : "pdf|lock", "😗 FORMAT 😗" : "pdf|format",
+        "💦 WATERMARK 💦" : "pdf|trade", "🗜 COMPRES\OCR 🗜" : "pdf|comocr", "✏️ RENAME ✏️" : "#rename", "🔎 ZOOM 🔎" : "#zoom",
+        "🔗 URL 🔗" : "link", "👻 FILTER 👻" : "pdf|filter", "🟢 ADD/DLT 🔴" : "pdf|addlt", "🚫 CLOSE 🚫" : "close|all"
     },
     "error" : """__I can't do anything with this file.__ 😏
 
@@ -251,7 +240,7 @@ BUTTONS = {
     "lock" : { "🔐 ENCRYPT 🔐" : "#encrypt", "🔓 DECRYPT 🔓" : "#decrypt", "« BACK «" : "pdf" },
     "trim" : { "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
     "format" : { "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE ✌" : "#2-format", "🤟 TRIBLE 🤟" : "#3-format", "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
-    "trade" : { "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stamp", "« BACK «" : "pdf" },
+    "trade" : { "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stp", "« BACK «" : "pdf" },
     "filter" : { "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#bwa", "🪐 SATURARE 🪐" : "#sat", "« BACK «" : "pdf" },
     "addlt" : { "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "close|dev", "« BACK «" : "pdf" },
     "toImage" : { "⚙️ PDF » IMAGES ↓" : "nabilanavab", "🖼 IMG 🖼" : "pdf|img|img", "📂 DOC 📂" : "pdf|img|doc",
