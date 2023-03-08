@@ -109,7 +109,7 @@ async def _pdf(bot, callbackQuery):
                 data = int(data.split("|", 1)[1])
                 tTXT, _ = await util.translate(text = "BUTTONS['stampA']", lang_code =lang_code)
                 tTXT = await util.editDICT(inDir = tTXT, value = f"{data}", front = f"{annotSet[data]}".upper())
-                tTXT = await utilo.createBUTTON(tTXT, "122221")
+                tTXT = await util.createBUTTON(tTXT, "122221")
                 return await callbackQuery.message.edit_reply_markup(tTXT)
         
         elif data.startswith("font"):
