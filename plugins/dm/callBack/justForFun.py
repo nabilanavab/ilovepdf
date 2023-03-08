@@ -26,16 +26,28 @@
                 ╰────────────────────────────────────────────────────────────────────────────╯
                 
                 
-                
-                ╭─────────────│ METADATA : pdf|meta │──────
+                ╭─────────────│ ⭐ META£ATA ⭐ : pdf|meta │────
                 │
                 │
-                ├───────────[ with preview : #preview ]
+                ├───────────[ ✔ WITHOUT PREVIEW ✔ : #metadata ]
                 │
-                ╰───────────[ with preview : #metadata ]
+                ╰────────────[ ✅ WITH PREVIEW ✅ : #preview ]
                 
                 
+                ╭─────────────│ 🔐 ENCRY\DECRY 🔓 : pdf|lock │──
+                │
+                │
+                ├──────────────[ 🔐 ENCRYPT 🔐 : #encrypt ]
+                │
+                ╰───────────────[ 🔓 DECRYPT 🔓 : #decrypt ]
                 
+                
+                ╭─────────────│ ✂️ SPLIT/MERGE 🧬 : pdf|trim │──
+                │
+                │
+                ├──────────────[ ✂️ SPLIT ✂️ : #split ]
+                │
+                ╰───────────────[ 🧬 MERGE 🧬 : #merge ]
                 
                 
                 
