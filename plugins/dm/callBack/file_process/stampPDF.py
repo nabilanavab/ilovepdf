@@ -8,6 +8,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 
 import fitz
+from ..callback       import annotSet
 
 colorSet = {
     "r" : (1, 0, 0), "b" : (0, 0, 1),
