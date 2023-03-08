@@ -91,7 +91,9 @@ async def __index__(bot, callbackQuery):
             if data.startswith("wa|txt"): question = CHUNK["watermark_txt"]
             elif data.startswith("wa|img"): question = CHUNK["watermark_img"]
             elif data.startswith("wa|pdf"): question = CHUNK["watermark_pdf"]
-            notExit, watermark = await watermarkPDF.askWatermark(bot, callbackQuery, question = question)
+            notExit, watermark = await watermarkPDF.askWatermark(
+                bot, callbackQuery, question = question, data = data
+            )
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
