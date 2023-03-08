@@ -7,6 +7,8 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger           import logger
 
+from pyrogram.types   import ForceReply
+
 async def askWatermark(bot, callbackQuery, question: str, data: str) -> ( bool, list ):
     try:
         while True:
