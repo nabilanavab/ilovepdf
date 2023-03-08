@@ -185,7 +185,7 @@ async def __index__(bot, callbackQuery):
         
         elif data.startswith("wa"):
             isSuccess, output_file = await watermarkPDF.watermarkPDF(cDIR = cDIR, input_file = input_file,
-                                                                     callbackQuery = callbackQuery, watermark = watermark)
+                                                                     callbackQuery = callbackQuery, watermark = watermark, text = CHUNK["adding_wa"])
         
         if isSuccess == "finished":
             # The condition isSuccess == "finished" indicates that all the work that needed to be
