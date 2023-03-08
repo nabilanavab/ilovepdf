@@ -73,7 +73,7 @@ async def add_text_watermark(input_file, output_file, watermark_text, opacity, p
             pdf.save(output_file)
         return True, output_file
     except Exception as Error:
-        logger.exception("1️⃣ 🐞 %s: %s" %(fileName, Error), exc_info = True)
+        logger.exception("1️⃣ 🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
 async def add_image_watermark(input_file, output_file, watermark, opacity, position):
@@ -101,7 +101,7 @@ async def add_image_watermark(input_file, output_file, watermark, opacity, posit
             file_handle.save(output_pdf)
         return True, output_file
     except Exception as Error:
-        logger.exception("2️⃣ 🐞 %s: %s" %(fileName, Error), exc_info = True)
+        logger.exception("2️⃣ 🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
 async def watermarkPDF(input_file: str, cDIR: str, callbackQuery, watermark, text) -> ( bool, str ):
@@ -123,5 +123,5 @@ async def watermarkPDF(input_file: str, cDIR: str, callbackQuery, watermark, tex
                 return False, output_file
         return True, output_file
     except Exception as Error:
-        logger.exception("2️⃣ 🐞 %s: %s" %(fileName, Error), exc_info = True)
+        logger.exception("2️⃣ 🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
