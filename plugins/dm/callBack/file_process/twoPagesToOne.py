@@ -32,7 +32,8 @@ async def twoPagesToOne(input_file: str, cDIR: str) -> ( bool, str ):
                 r2 = fitz.Rect(width/2, 0, width, height)
                 r_tab = [ r1, r2 ]
                 for page in iNPUT:
-                    pg = oUTPUT.new_page(-1, width = width, height = height)
+                    if page.number % 2 == 0:
+                        pg = oUTPUT.new_page(-1, width = width, height = height)
                     pg.show_pdf_page(r_tab[page.number % 2], iNPUT, page.number)
                 oUTPUT.save(output_path, garbage = 3, deflate = True)
         return True, output_path
