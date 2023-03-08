@@ -50,17 +50,17 @@ async def _pdf(bot, callbackQuery):
         elif data == "meta":
             tTXT, tBTN = await util.translate(button = "BUTTONS['meta']", order = 111, lang_code = lang_code)
         elif data == "lock":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['lock']", order = 111, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['lock']", order = 21, lang_code = lang_code)
         elif data == "trim":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['trim']", order = 111, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['trim']", order = 21, lang_code = lang_code)
         elif data == "format":
             tTXT, tBTN = await util.translate(button = "BUTTONS['format']", order = 221, lang_code = lang_code)
         elif data == "trade":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['trade']", order = 111, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['trade']", order = 21, lang_code = lang_code)
         elif data == "filter":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['filter']", order = 1111, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['filter']", order = 211, lang_code = lang_code)
         elif data == "addlt":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['addlt']", order = 111, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['addlt']", order = 21, lang_code = lang_code)
         elif data == "T2P":
             tTXT, tBTN = await util.translate(button = "pdf2TXT['font_btn']", order = 12121, lang_code = lang_code)
         
