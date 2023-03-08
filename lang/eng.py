@@ -119,56 +119,20 @@ SETTINGS = {
         "Now, Send me.. 😅\n\nFast.! I have no more time to go over the text.. 😏\n\n/cancel: to cancel"
     ],
     "thumb" : [
-        {
-            "SETTING ⚙️ » THUMBNAIL 📷" : "nabilanavab",
-            "♻ ADD ♻" : "set|thumb+",
-            "« BACK TO HOME «" : "Home|B"
-        },
-        {
-            "SETTING ⚙️ » THUMBNAIL 📷" : "nabilanavab",
-            "♻ CHANGE ♻" : "set|thumb+",
-            "🗑 DELETE 🗑" : "set|thumb-",
-            "« BACK TO HOME «" : "Home|B2S"
-        }
+        {"SETTING ⚙️ » THUMBNAIL 📷" : "nabilanavab", "♻ ADD ♻" : "set|thumb+", "« BACK TO HOME «" : "Home|B"},
+        {"SETTING ⚙️ » THUMBNAIL 📷" : "nabilanavab", "♻ CHANGE ♻" : "set|thumb+", "🗑 DELETE 🗑" : "set|thumb-", "« BACK TO HOME «" : "Home|B2S"}
     ],
     "fname" : [
-        {
-            "SETTING ⚙️ » FNAME 📷" : "nabilanavab",
-            "♻ ADD ♻" : "set|fname+",
-            "« BACK TO HOME «" : "Home|B2S"
-        },
-        {
-            "SETTING ⚙️ » FNAME 📷" : "nabilanavab",
-            "♻ CHANGE ♻" : "set|fname+",
-            "🗑 DELETE 🗑" : "set|fname-",
-            "« BACK TO HOME «" : "Home|B2S"
-        }
+        {"SETTING ⚙️ » FNAME 📷" : "nabilanavab", "♻ ADD ♻" : "set|fname+", "« BACK TO HOME «" : "Home|B2S"},
+        {"SETTING ⚙️ » FNAME 📷" : "nabilanavab", "♻ CHANGE ♻" : "set|fname+", "🗑 DELETE 🗑" : "set|fname-", "« BACK TO HOME «" : "Home|B2S"}
     ],
     "api" : [
-        {
-            "SETTING ⚙️ » API 📷" : "nabilanavab",
-            "♻ ADD ♻" : "set|api+",
-            "« BACK TO HOME «" : "Home|B2S"
-        },
-        {
-            "SETTING ⚙️ » API 📷" : "nabilanavab",
-            "♻ CHANGE ♻" : "set|api+",
-            "🗑 DELETE 🗑" : "set|api-",
-            "« BACK TO HOME «" : "Home|B2S"
-        }
+        {"SETTING ⚙️ » API 📷" : "nabilanavab", "♻ ADD ♻" : "set|api+", "« BACK TO HOME «" : "Home|B2S"},
+        {"SETTING ⚙️ » API 📷" : "nabilanavab", "♻ CHANGE ♻" : "set|api+", "🗑 DELETE 🗑" : "set|api-", "« BACK TO HOME «" : "Home|B2S"}
     ],
     "capt" : [
-        {
-            "SETTING ⚙️ » CAPTION 📷" : "nabilanavab",
-            "♻ ADD ♻" : "set|capt+",
-            "« BACK TO HOME «" : "Home|B2S"
-        },
-        {
-            "SETTING ⚙️ » CAPTION 📷" : "nabilanavab",
-            "♻ CHANGE ♻" : "set|capt+",
-            "🗑 DELETE 🗑" : "set|capt-",
-            "« BACK TO HOME «" : "Home|B2S"
-        }
+        {"SETTING ⚙️ » CAPTION 📷" : "nabilanavab", "♻ ADD ♻" : "set|capt+", "« BACK TO HOME «" : "Home|B2S"},
+        {"SETTING ⚙️ » CAPTION 📷" : "nabilanavab", "♻ CHANGE ♻" : "set|capt+", "🗑 DELETE 🗑" : "set|capt-", "« BACK TO HOME «" : "Home|B2S"}
     ]
 }
 
@@ -245,43 +209,27 @@ Hit on `"♻️retry♻️"` after joining.. 😅""",
     },
 }
 
-checkPdf = {
+PDF_MESSAGE = {
     "pg" : "`Number of Pages: •{}•` 🌟",
     "pdf" : """`What should I do with this file.?`
 
 File Name : `{}`
 File Size : `{}`""",
-    "pdfCB1" : {
-        "⭐ META£ATA ⭐" : "#metaData",
-        "🗳️ PREVIEW 🗳️" : "#preview",
+    "pdf_button" : {
+        "⭐ META£ATA ⭐" : "pdf|meta",
         "🖼️ IMAGES 🖼️" : "pdf|img",
-        "✏️ TEXT ✏️" : "pdf|txt",
-        "🔐 ENCRYPT 🔐" : "#encrypt",
-        "🔒 DECRYPT 🔓" : "#decrypt",
-        "🗜️ COMPRESS 🗜️" : "#compress",
+        "📑 TEXT 📑" : "pdf|txt",
         "🤸 ROTATE 🤸" : "pdf|rotate",
-        "✂️ SPLIT ✂️" : "#split",
-        "🧬 MERGE 🧬" : "#merge",
-        "™️ STAMP ™️" : "#stamp",
-        "✏️ RENAME ✏️" : "#rename",
+        "✂️ SPLIT/MERGE 🧬 " : "pdf|trim",
+        "🔐 ENCRY\DECRY 🔓" : "pdf|lock",
+        "😗 FORMAT 😗" : "pdf|format",
+        "💦 WATERMARK 💦" : "pdf|trade",
+        "🗜 COMPRES\OCR 🗜" : "pdf|comocr",
+        "✏️ RENAME ✏️" : "#rename"
+        "🔎 ZOOM 🔎" : "#zoom",
         "🔗 URL 🔗" : "link",
-        "» 🏴‍☠️ MORE 🏴‍☠️ »" : "pdf2",
-        "🚫 CLOSE 🚫" : "close|all"
-    },
-    "pdfCB2" : {
-        " ↓ SECOND PAGE  ↓ " : "nabilanavab",
-        "📝 OCR 📝" : "#ocr",
-        "🥷 A4 FORMAT 🥷" : "#format", 
-        "🖤 BLACK/WHITE 🤍" : "#baw",
-        "🍴 SATUTATION 🍴" : "#sat",
-        "📎 COMBINE PDF 📎" : "#comb",
-        "🔎 ZOOM PDF 🔎" : "#zoom",
-        "➖ DELETE PAGES ➖": "close|dev",
-        "➕ ADD PAGES ➕" : "close|dev",
-        "🎨 DRAW PDF 🎨" : "#draw",
-        "😈 CODEC 😈" : "close|dev",
-        "💦 WATERMARK 💦" : "pdf|wa",
-        "« 🏴‍☠️ BACK 🏴‍☠️ «" : "pdf1",
+        "👻 FILTER 👻" : "pdf|filter",
+        "🟢 ADD/DLT 🔴" : "pdf|addlt",
         "🚫 CLOSE 🚫" : "close|all"
     },
     "error" : """__I can't do anything with this file.__ 😏
@@ -296,6 +244,122 @@ File Size : `{}`""",
 File Name: `{}`
 File Size: `{}`""",
     "encryptCB" : {"🔓 DECRYPT 🔓" : "#decrypt", "🚫 CLOSE 🚫" : "close|all"}
+}
+
+BUTTONS = {
+    "meta" : {
+        "✔ WITHOUT PREVIEW ✔" : "#metadata",
+        "✅ WITH PREVIEW ✅" : "#preview"
+    },
+    "lock" : {
+        "🔐 ENCRYPT 🔐" : "#encrypt",
+        "🔓 DECRYPT 🔓" : "#decrypt"
+    },
+    "trim" : {
+        "✂️ SPLIT ✂️" : "#split",
+        "🧬 MERGE 🧬" : "#merge"
+    },
+    "format" : {
+        "☝️ SINGLE ☝️" : "#1-format",
+        "✌ DOUBLE ✌" : "#2-format",
+        "🤟 TRIBLE 🤟" : "#3-format",
+        "😂 FOURBLE 😂" : "#4-format" 
+    },
+    "trade" : {
+        "💦 WATERMARK 💦" : "pdf|wa",
+        "™️ STAMP ™️" : "#stamp"
+    },
+    "filter" : {
+        "🎨 DRAW 🎨" : "#draw",
+        "⚫ BLACK/WHITE ⚪" : "#bwa",
+        "🪐 SATURARE 🪐" : "#sat"
+    },
+    "addlt" : {
+        "🟢 ADD PAGES 🟢" : "close|dev",
+        "🔴 DELETE PAGES 🔴" : "close|dev"
+    },
+    "toImage" : {
+        "⚙️ PDF » IMAGES ↓" : "nabilanavab",
+        "🖼 IMG 🖼" : "pdf|img|img",
+        "📂 DOC 📂" : "pdf|img|doc",
+        "🤐 ZIP 🤐" : "pdf|img|zip",
+        "🎯 TAR 🎯" : "pdf|img|tar",
+        "« BACK «" : "pdf" 
+    },
+    "imgRange" : {
+        "⚙️ PDF » IMAGES » {} ↓" : "nabilanavab",
+        "🙄 ALL 🙄" : "#p2img|{}A",
+        "🤧 CUSTOM 🤧" : "#p2img|{}C",
+        "« BACK «" : "pdf|img"
+    },
+    "rotate" : {
+        "⚙️ PDF » ROTATE ↓" : "nabilanavab",
+        "90°" : "#rot90",
+        "180°" : "#rot180",
+        "270°" : "#rot270",
+        "360°" : "#rot360",
+        "« BACK «" : "pdf1"
+    },
+    "txt" : {
+        "⚙️ PDF » TXT ↓" : "nabilanavab",
+        "📜 MESSAGE 📜" : "#textM",
+        "🧾 TXT FILE 🧾" : "#textT",
+        "🌐 HTML 🌐" : "#textH",
+        "🎀 JSON 🎀" : "#textJ",
+        "« BACK «" : "pdf1"
+    },
+    "type" : {
+        "⚙️ PDF » WATERMARK ↓" : "nabilanavab",
+        "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img", "📎 PDF 📎" : "pdf|wa|pdf", "« BACK «" : "pdf2"
+    },
+    "op" : {
+        "⚙️ PDF » WATERMARK » {} » OPCACiTY ↓" : "nabilanavab",
+        "𝟙𝟘" : "pdf|wa|{}|o01", "𝟚𝟘" : "pdf|wa|{}|o02", "𝟛𝟘" : "pdf|wa|{}|o03", "𝟜𝟘" : "pdf|wa|{}|o04", "𝟝𝟘" : "pdf|wa|{}|o05",
+        "𝟞𝟘" : "pdf|wa|{}|o06", "𝟟𝟘" : "pdf|wa|{}|o07", "𝟠𝟘" : "pdf|wa|{}|o08", "𝟡𝟘" : "pdf|wa|{}|o09", "𝟙𝟘𝟘" : "pdf|wa|{}|o10", "« BACK «" : "pdf|wa"
+    },
+    "po" : {
+        "⚙️ PDF » WATERMARK » POSiTiON ↓" : "nabilanavab",
+        "⬆️ ToP ⬆️" : "wa|{0}|{1}|pT", "↔️ MiDDLE ↔️" : "wa|{0}|{1}|pM", "⬇️ BoTToM ⬇️" : "wa|{0}|{1}|pB", "« BACK «" : "pdf|wa|{0}"
+    },
+    "poTXT" : {
+        "⚙️ PDF » WATERMARK » POSiTiON ↓" : "nabilanavab",
+        "⬆️ ToP ⬆️" : "pdf|wa|{0}|{1}|pT", "↔️ MiDDLE ↔️" : "pdf|wa|{0}|{1}|pM", "⬇️ BoTToM ⬇️" : "pdf|wa|{0}|{1}|pB", "« BACK «" : "pdf|wa|{0}"
+    },
+    "color" : {
+        "⚙️ PDF » WATERMARK » CoLoR ↓" : "nabilanavab",
+        "᠎᠎᠎⚪️" : "#wa|{0}|{1}|{2}|W", "᠎⚫️" : "#wa|{0}|{1}|{2}|B", "᠎᠎🟤" : "#wa|{0}|{1}|{2}|C",  "᠎🔴" : "#wa|{0}|{1}|{2}|R", "᠎᠎🟢" : "#wa|{0}|{1}|{2}|G",
+        "🔵" : "#wa|{0}|{1}|{2}|N", "᠎᠎🟡" : "#wa|{0}|{1}|{2}|Y", "᠎᠎🟠" : "#wa|{0}|{1}|{2}|O", "🟣" : "#wa|{0}|{1}|{2}|V", "« BACK «" : "pdf|wa|{0}|{1}"
+    },
+    "stamp" : {
+        "⚙️ PDF » STAMP ↓" : "nabilanavab",
+        "Not For Public Release 🤧" : "pdf|stp|10",
+        "For Public Release 🥱" : "pdf|stp|8",
+        "Confidential 🤫" : "pdf|stp|2",
+        "Departmental 🤝" : "pdf|stp|3",
+        "Experimental 🔬" : "pdf|stp|4",
+        "Expired 🐀" : "pdf|stp|5",
+        "Final 🔧" : "pdf|stp|6",
+        "For Comment 🗯️" : "pdf|stp|7",
+        "Not Approved 😒" : "pdf|stp|9",
+        "Approved 🥳" : "pdf|stp|0",
+        "Sold ✊" : "pdf|stp|11",
+        "Top Secret 😷" : "pdf|stp|12",
+        "Draft 👀" : "pdf|stp|13",
+        "AsIs 🤏" : "pdf|stp|1",
+        "« BACK «" : "pdf1"
+    },
+    "stampA" : {
+        "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab",
+        "Red ❤️" : "spP|{}|r",
+        "Blue 💙" : "spP|{}|b",
+        "Green 💚" : "spP|{}|g",
+        "Yellow 💛" : "spP|{}|c1",
+        "Pink 💜" : "spP|{}|c2",
+        "Hue 💚" : "spP|{}|c3",
+        "White 🤍" : "spP|{}|c4",
+        "Black 🖤" : "spP|{}|c5",
+        "« Back «" : "pdf|stp"
+    }
 }
 
 PROGRESS = {
@@ -378,82 +442,6 @@ gDocument.update(document)
 
 noHelp = f"`No one gonna help you` 😏"
 
-pdf2IMG = {
-    "toImage" : {
-        "⚙️ PDF » IMAGES ↓" : "nabilanavab",
-        "🖼 IMG 🖼" : "pdf|img|img",
-        "📂 DOC 📂" : "pdf|img|doc",
-        "🤐 ZIP 🤐" : "pdf|img|zip",
-        "🎯 TAR 🎯" : "pdf|img|tar",
-        "« BACK «" : "pdf1" 
-    },
-    "imgRange" : {
-        "⚙️ PDF » IMAGES » {} ↓" : "nabilanavab",
-        "🙄 ALL 🙄" : "#p2img|{}A",
-        "🤧 CUSTOM 🤧" : "#p2img|{}C",
-        "« BACK «" : "pdf|img"
-    },
-}
-
-stamp = {
-    "stamp" : {
-        "⚙️ PDF » STAMP ↓" : "nabilanavab",
-        "Not For Public Release 🤧" : "pdf|stp|10",
-        "For Public Release 🥱" : "pdf|stp|8",
-        "Confidential 🤫" : "pdf|stp|2",
-        "Departmental 🤝" : "pdf|stp|3",
-        "Experimental 🔬" : "pdf|stp|4",
-        "Expired 🐀" : "pdf|stp|5",
-        "Final 🔧" : "pdf|stp|6",
-        "For Comment 🗯️" : "pdf|stp|7",
-        "Not Approved 😒" : "pdf|stp|9",
-        "Approved 🥳" : "pdf|stp|0",
-        "Sold ✊" : "pdf|stp|11",
-        "Top Secret 😷" : "pdf|stp|12",
-        "Draft 👀" : "pdf|stp|13",
-        "AsIs 🤏" : "pdf|stp|1",
-        "« BACK «" : "pdf1"
-    },
-    "stampA" : {
-        "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab",
-        "Red ❤️" : "spP|{}|r",
-        "Blue 💙" : "spP|{}|b",
-        "Green 💚" : "spP|{}|g",
-        "Yellow 💛" : "spP|{}|c1",
-        "Pink 💜" : "spP|{}|c2",
-        "Hue 💚" : "spP|{}|c3",
-        "White 🤍" : "spP|{}|c4",
-        "Black 🖤" : "spP|{}|c5",
-        "« Back «" : "pdf|stp"
-    },
-    "inWork" : PROGRESS['workInP'],
-    "process" : document['process'],
-    "download" : PROGRESS['dlFile'],
-    "upload" : PROGRESS['upFile'],
-    "stamping" : "`Started Stamping..` 💠",
-    "caption" : """stamped pdf\ncolor : `{}`
-annot : `{}`"""
-}
-
-work = {
-    "rotate" : {
-        "⚙️ PDF » ROTATE ↓" : "nabilanavab",
-        "90°" : "#rot90",
-        "180°" : "#rot180",
-        "270°" : "#rot270",
-        "360°" : "#rot360",
-        "« BACK «" : "pdf1"
-    },
-    "txt" : {
-        "⚙️ PDF » TXT ↓" : "nabilanavab",
-        "📜 MESSAGE 📜" : "#textM",
-        "🧾 TXT FILE 🧾" : "#textT",
-        "🌐 HTML 🌐" : "#textH",
-        "🎀 JSON 🎀" : "#textJ",
-        "« BACK «" : "pdf1"
-    }
-}
-
 pdf2TXT = {
     "upload" : PROGRESS["upFile"],
     "exit" : "`Process Cancelled..` 😏",
@@ -529,50 +517,6 @@ cbAns = [
     "Nothing Official About it.. 😅",
     "🎉 Completed.. 🏃"
 ]
-
-wa = {
-    "exit" : "`Process Cancelled..` 😏",
-    "upFile" : PROGRESS['upFile'],
-    "inWork" : PROGRESS['workInP'],
-    "process" : document['process'],
-    "download" : PROGRESS['dlFile'],
-    "error" : "Something went Wrong 🙂",
-    "cancelCB" : {"⟨ Cancel ⟩" : "close|me"},
-    "add" : "Adding watermark to PDF File 💩",
-    "waDL" : "__Getting watermark File..__ 🙄",
-    "type" : {
-        "⚙️ PDF » WATERMARK ↓" : "nabilanavab",
-        "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img", "📎 PDF 📎" : "pdf|wa|pdf", "« BACK «" : "pdf2"
-    },
-    "op" : {
-        "⚙️ PDF » WATERMARK » {} » OPCACiTY ↓" : "nabilanavab",
-        "𝟙𝟘" : "pdf|wa|{}|o01", "𝟚𝟘" : "pdf|wa|{}|o02", "𝟛𝟘" : "pdf|wa|{}|o03", "𝟜𝟘" : "pdf|wa|{}|o04", "𝟝𝟘" : "pdf|wa|{}|o05",
-        "𝟞𝟘" : "pdf|wa|{}|o06", "𝟟𝟘" : "pdf|wa|{}|o07", "𝟠𝟘" : "pdf|wa|{}|o08", "𝟡𝟘" : "pdf|wa|{}|o09", "𝟙𝟘𝟘" : "pdf|wa|{}|o10", "« BACK «" : "pdf|wa"
-    },
-    "po" : {
-        "⚙️ PDF » WATERMARK » POSiTiON ↓" : "nabilanavab",
-        "⬆️ ToP ⬆️" : "wa|{0}|{1}|pT", "↔️ MiDDLE ↔️" : "wa|{0}|{1}|pM", "⬇️ BoTToM ⬇️" : "wa|{0}|{1}|pB", "« BACK «" : "pdf|wa|{0}"
-    },
-    "poTXT" : {
-        "⚙️ PDF » WATERMARK » POSiTiON ↓" : "nabilanavab",
-        "⬆️ ToP ⬆️" : "pdf|wa|{0}|{1}|pT", "↔️ MiDDLE ↔️" : "pdf|wa|{0}|{1}|pM", "⬇️ BoTToM ⬇️" : "pdf|wa|{0}|{1}|pB", "« BACK «" : "pdf|wa|{0}"
-    },
-    "color" : {
-        "⚙️ PDF » WATERMARK » CoLoR ↓" : "nabilanavab",
-        "᠎᠎᠎⚪️" : "#wa|{0}|{1}|{2}|W", "᠎⚫️" : "#wa|{0}|{1}|{2}|B", "᠎᠎🟤" : "#wa|{0}|{1}|{2}|C",  "᠎🔴" : "#wa|{0}|{1}|{2}|R", "᠎᠎🟢" : "#wa|{0}|{1}|{2}|G",
-        "🔵" : "#wa|{0}|{1}|{2}|N", "᠎᠎🟡" : "#wa|{0}|{1}|{2}|Y", "᠎᠎🟠" : "#wa|{0}|{1}|{2}|O", "🟣" : "#wa|{0}|{1}|{2}|V", "« BACK «" : "pdf|wa|{0}|{1}"
-    }, 
-    "txt" : """__Now, Send me any Text Message__
-
-/exit : to cancel""", 
-    "pdf" : """__Send me the watermark pdf.__
-
-/exit : to cancel""",
-    "img" : """__Send me the watermark Image as file.__
-__ Supported Files [png, jpeg, jpg]__
-
-/exit : to cancel""",
-}
 
 inline_query = {
     "capt" : "SET LANGUAGE ⚙️",
