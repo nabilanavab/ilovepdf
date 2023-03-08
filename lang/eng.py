@@ -253,8 +253,8 @@ BUTTONS = {
         "Sold ✊" : "pdf|stp|11", "Top Secret 😷" : "pdf|stp|12", "Draft 👀" : "pdf|stp|13", "AsIs 🤏" : "pdf|stp|1", "« BACK «" : "pdf|trade"
     },
     "stampA" : {
-        "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab", "Red ❤️" : "spP|{}|r", "Blue 💙" : "spP|{}|b", "Green 💚" : "spP|{}|g", "Yellow 💛" : "spP|{}|c1",
-        "Pink 💜" : "spP|{}|c2", "Hue 💚" : "spP|{}|c3", "White 🤍" : "spP|{}|c4", "Black 🖤" : "spP|{}|c5", "« Back «" : "pdf|stp"
+        "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab", "Red ❤️" : "#spP|{}|r", "Blue 💙" : "#spP|{}|b", "Green 💚" : "#spP|{}|g", "Yellow 💛" : "#spP|{}|c1",
+        "Pink 💜" : "#spP|{}|c2", "Hue 💚" : "#spP|{}|c3", "White 🤍" : "#spP|{}|c4", "Black 🖤" : "#spP|{}|c5", "« Back «" : "pdf|stp"
     }
 }
 
