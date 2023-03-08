@@ -9,6 +9,7 @@ from logger           import logger
 
 async def askWatermark(bot, callbackQuery, question: str, data: str) -> ( bool, list ):
     try:
+        logger.debug(data)
         while True:
             watermark = await bot.ask(
                 chat_id = callbackQuery.from_user.id,
@@ -17,13 +18,13 @@ async def askWatermark(bot, callbackQuery, question: str, data: str) -> ( bool, 
             )
             if watermark.text == "/exit":
                 return False, input_file
-            elif data == "wa|img" and watermark.document:
+            elif data.startswith("wa|img") and watermark.document:
                 if os.path.splitext(watermark.document.file_name)[1].lower() in [".png", ".jpeg", ".jpg"]:
                     return True, [watermark.document.file_size, watermark.document.file_id]
-            elif data == "wa|pdf" and watermark.photo:
+            elif data.startswith("wa|pdf") and watermark.photo:
                 if os.path.splitext(watermark.document.file_name)[1].lower() == ".pdf":
                     return True, [watermark.document.file_size, watermark.document.file_id]
-            elif data == "wa|txt" and watermark.text:
+            elif data.startswith("wa|txt") and watermark.text:
                 return True, watermark.text
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
