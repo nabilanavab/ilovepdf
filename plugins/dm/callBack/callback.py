@@ -45,9 +45,9 @@ async def _pdf(bot, callbackQuery):
         data = data.split("|", 1)[1]
         
         if data == "rotate":
-            tTXT, tBTN = await util.translate(button = "work['rotate']", order = 1221, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['rotate']", order = 1221, lang_code = lang_code)
         elif data == "txt":
-            tTXT, tBTN = await util.translate(button = "work['txt']", order = 1221, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['txt']", order = 1221, lang_code = lang_code)
         elif data == "split":
             tTXT, tBTN = await util.translate(button = "split['button']", order = 1221, lang_code = lang_code)
         elif data == "T2P":
