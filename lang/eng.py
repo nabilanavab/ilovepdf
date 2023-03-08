@@ -225,7 +225,7 @@ File Size : `{}`""",
         "😗 FORMAT 😗" : "pdf|format",
         "💦 WATERMARK 💦" : "pdf|trade",
         "🗜 COMPRES\OCR 🗜" : "pdf|comocr",
-        "✏️ RENAME ✏️" : "#rename"
+        "✏️ RENAME ✏️" : "#rename",
         "🔎 ZOOM 🔎" : "#zoom",
         "🔗 URL 🔗" : "link",
         "👻 FILTER 👻" : "pdf|filter",
@@ -298,7 +298,7 @@ BUTTONS = {
         "180°" : "#rot180",
         "270°" : "#rot270",
         "360°" : "#rot360",
-        "« BACK «" : "pdf1"
+        "« BACK «" : "pdf"
     },
     "txt" : {
         "⚙️ PDF » TXT ↓" : "nabilanavab",
@@ -306,11 +306,11 @@ BUTTONS = {
         "🧾 TXT FILE 🧾" : "#textT",
         "🌐 HTML 🌐" : "#textH",
         "🎀 JSON 🎀" : "#textJ",
-        "« BACK «" : "pdf1"
+        "« BACK «" : "pdf"
     },
     "type" : {
         "⚙️ PDF » WATERMARK ↓" : "nabilanavab",
-        "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img", "📎 PDF 📎" : "pdf|wa|pdf", "« BACK «" : "pdf2"
+        "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img", "📎 PDF 📎" : "pdf|wa|pdf", "« BACK «" : "pdf"
     },
     "op" : {
         "⚙️ PDF » WATERMARK » {} » OPCACiTY ↓" : "nabilanavab",
@@ -346,7 +346,7 @@ BUTTONS = {
         "Top Secret 😷" : "pdf|stp|12",
         "Draft 👀" : "pdf|stp|13",
         "AsIs 🤏" : "pdf|stp|1",
-        "« BACK «" : "pdf1"
+        "« BACK «" : "pdf"
     },
     "stampA" : {
         "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab",
