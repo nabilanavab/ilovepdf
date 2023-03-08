@@ -141,16 +141,16 @@ async def __index__(bot, callbackQuery):
         elif data == "sat":
             isSuccess, output_file = await saturatePDF.saturatePDF(cDIR = cDIR, input_file = input_file)
         
-        elif data == "#1-format":
+        elif data == "1-format":
             isSuccess, output_file = await formatPDF.formatPDF(cDIR = cDIR, input_file = input_file)
         
-        elif data == "#2-format":
+        elif data == "2-format":
             isSuccess, output_file = await twoInOne.twoInOne(cDIR = cDIR, input_file = input_file)
         
-        elif data == "#3-format":
+        elif data == "3-format":
             isSuccess, output_file = await formatPDF.formatPDF(cDIR = cDIR, input_file = input_file)
         
-        elif data == "#4-format":
+        elif data == "4-format":
             isSuccess, output_file = await combinePages.combinePages(cDIR = cDIR, input_file = input_file)
         
         elif data == "draw":
