@@ -389,10 +389,10 @@ GENERATE = {
 }
 
 document = {
-    "reply" : checkPdf['pdf'],
+    "reply" : PDF_MESSAGE['pdf'],
     "upFile" : PROGRESS['upFile'],
     "process" : "⚙️ Processing..",
-    "replyCB" : checkPdf['pdfCB1'],
+    "replyCB" : PDF_MESSAGE['pdf_button'],
     "inWork" : PROGRESS['workInP'],
     "download" : PROGRESS['dlFile'],
     "refresh" : PROGRESS['refresh'],
