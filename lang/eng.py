@@ -92,8 +92,7 @@ FILE NAME      : {}""",
 HomeG = {
     "HomeA" : HOME['HomeA'],
     "HomeACB" : {
-        "🌍 LANGUAGE 🌍" : "set|lang",
-        "🛡️ HELP 🛡️": "Home|C",
+        "🌍 LANGUAGE 🌍" : "set|lang", "🛡️ HELP 🛡️": "Home|C",
         "📢 CHANNEL 📢" : f"{str(settings.OWNED_CHANNEL)}",
         "🌟 SOURCE CODE 🌟": f"{settings.SOURCE_CODE}",
         "🚶 CLOSE 🚶" : "close|mee",
@@ -136,20 +135,12 @@ SETTINGS = {
     ]
 }
 
-BOT_COMMAND = {
-    "start" : "Welcome message..",
-    "txt2pdf" : "Create text PDF's"
-}
+BOT_COMMAND = { "start" : "Welcome message..", "txt2pdf" : "Create text PDF's" }
 
 STATUS_MSG = {
     "_HOME" : {
-        "📊 ↓ SERVER ↓ 📊" : "nabilanavab",
-        "📶 STORAGE 📶" : "status|server",
-        "🥥 DATABASE 🥥" : "status|db",
-        "🌝 ↓ GET LIST ↓ 🌝": "nabilanavab",
-        "💎 ADMIN 💎" : "status|admin",
-        "👤 USERS 👤" : "status|users",
-        "« BACK «" : "Home|A"
+        "📊 ↓ SERVER ↓ 📊" : "nabilanavab", "📶 STORAGE 📶" : "status|server", "🥥 DATABASE 🥥" : "status|db",
+        "🌝 ↓ GET LIST ↓ 🌝": "nabilanavab", "💎 ADMIN 💎" : "status|admin", "👤 USERS 👤" : "status|users", "« BACK «" : "Home|A"
     },
     "DB" : """📂 DATABASE :
 
@@ -203,36 +194,22 @@ Due To The Huge Traffic Only **Channel Members** Can Use this Bot 🚶
 This Means That You Need To **Join** The Below Mentioned Channel for Using Me!
 
 Hit on `"♻️retry♻️"` after joining.. 😅""",
-    "ForceCB" : {
-        "🌟 JOIN CHANNEL 🌟" : "{0}",
-        "♻️ Refresh ♻️" : "refresh{1}"
-    },
+    "ForceCB" : { "🌟 JOIN CHANNEL 🌟" : "{0}", "♻️ Refresh ♻️" : "refresh{1}" },
 }
 
 PDF_MESSAGE = {
     "pg" : "`Number of Pages: •{}•` 🌟",
-    "pdf" : """`What should I do with this file.?`
-
-File Name : `{}`
-File Size : `{}`""",
+    "pdf" : "`What should I do with this file.?`\n\nFile Name : `{}`\nFile Size : `{}`",
     "pdf_button" : {
         "⭐ META£ATA ⭐" : "pdf|meta", "🖼️ IMAGES 🖼️" : "pdf|img", "📑 TEXT 📑" : "pdf|txt", "🤸 ROTATE 🤸" : "pdf|rotate",
         "✂️ SPLIT/MERGE 🧬 " : "pdf|trim", "🔐 ENCRY\DECRY 🔓" : "pdf|lock", "😗 FORMAT 😗" : "pdf|format",
         "💦 WATERMARK 💦" : "pdf|trade", "🗜 COMPRES\OCR 🗜" : "pdf|comocr", "✏️ RENAME ✏️" : "#rename", "🔎 ZOOM 🔎" : "#zoom",
         "🔗 URL 🔗" : "link", "👻 FILTER 👻" : "pdf|filter", "🟢 ADD/DLT 🔴" : "pdf|addlt", "🚫 CLOSE 🚫" : "close|all"
     },
-    "error" : """__I can't do anything with this file.__ 😏
-
-🐉  `CODEC ERROR`  🐉""",
-    "errorCB" : {
-        "❌ ERROR IN CODEC ❌" : "error",
-        "🔸 CLOSE 🔸" : "close|all"
-    },
-    "encrypt" : """`FILE IS ENCRYPTED` 🔐
-
-File Name: `{}`
-File Size: `{}`""",
-    "encryptCB" : {"🔓 DECRYPT 🔓" : "#decrypt", "🚫 CLOSE 🚫" : "close|all"}
+    "error" : "__I can't do anything with this file.__ 😏\n\n🐉  `CODEC ERROR`  🐉",
+    "errorCB" : { "❌ ERROR IN CODEC ❌" : "error", "🔸 CLOSE 🔸" : "close|all" },
+    "encrypt" : "`FILE IS ENCRYPTED` 🔐\n\nFile Name: `{}`\nFile Size: `{}`",
+    "encryptCB" : { "🔓 DECRYPT 🔓" : "#decrypt", "🚫 CLOSE 🚫" : "close|all" }
 }
 
 BUTTONS = {
@@ -273,7 +250,7 @@ BUTTONS = {
         "⚙️ PDF » STAMP ↓" : "nabilanavab", "Not For Public Release 🤧" : "pdf|stp|10", "For Public Release 🥱" : "pdf|stp|8",
         "Confidential 🤫" : "pdf|stp|2", "Departmental 🤝" : "pdf|stp|3", "Experimental 🔬" : "pdf|stp|4", "Expired 🐀" : "pdf|stp|5",
         "Final 🔧" : "pdf|stp|6", "For Comment 🗯️" : "pdf|stp|7", "Not Approved 😒" : "pdf|stp|9", "Approved 🥳" : "pdf|stp|0",
-        "Sold ✊" : "pdf|stp|11", "Top Secret 😷" : "pdf|stp|12", "Draft 👀" : "pdf|stp|13", "AsIs 🤏" : "pdf|stp|1", "« BACK «" : "pdf"
+        "Sold ✊" : "pdf|stp|11", "Top Secret 😷" : "pdf|stp|12", "Draft 👀" : "pdf|stp|13", "AsIs 🤏" : "pdf|stp|1", "« BACK «" : "pdf|trade"
     },
     "stampA" : {
         "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab", "Red ❤️" : "spP|{}|r", "Blue 💙" : "spP|{}|b", "Green 💚" : "spP|{}|g", "Yellow 💛" : "spP|{}|c1",
