@@ -73,15 +73,10 @@ HomeG = {
 }
 
 SETTINGS = {
-    "lang" : "Now, Select any language..",
-    "default" : ["DEFAULT ❌", "CUSTOM ✅"],
-    "cant" : "This feature cannot be used ❌",
-    "wait" : { "Waiting.. 🥱" : "nabilanavab" },
-    "feedbtn" : { "Report any bugs you find!" : settings.REPORT },
-    "chgLang" : {"SETTING ⚙️ » CHANGE LANG 🌐" : "nabilanavab"},
-    "askApi" : "\n\nOpen the **Below** link and Send me the secret code:",
-    "waitApi" : { "Open link ✅" : "https://www.convertapi.com/a/signin" },
-    "error" : "Something went wrong while retrieving data from the database",
+    "lang" : "Now, Select any language..", "default" : ["DEFAULT ❌", "CUSTOM ✅"], "cant" : "This feature cannot be used ❌",
+    "wait" : { "Waiting.. 🥱" : "nabilanavab" }, "feedbtn" : { "Report any bugs you find!" : settings.REPORT },
+    "chgLang" : {"SETTING ⚙️ » CHANGE LANG 🌐" : "nabilanavab"}, "askApi" : "\n\nOpen the **Below** link and Send me the secret code:",
+    "waitApi" : { "Open link ✅" : "https://www.convertapi.com/a/signin" }, "error" : "Something went wrong while retrieving data from the database",
     "result" : ["Settings cannot be updated ❌", "Settings Updated Successfully ✅"],
     "back" : [{ "« BACK TO HOME «" : "Home|B2S" }, { "« BACK TO HOME «" : "Home|B2A" }],
     "feedback" : "Bug warning! If my texts sound weird, it's probably Google Translate's fault."
@@ -211,196 +206,87 @@ BUTTONS = {
 
 PROGRESS = {
     "progress" : """\n**Done ✅ : **{0}/{1}\n**Speed 🚀:** {2}/s\n**Estimated Time ⏳:** {3}""",
-    "workInP" : "WORK IN PROGRESS.. 🙇",
-    "upFile" : "`Started Uploading..`📤",
-    "refresh" : { "♻️ Refresh ♻️" : "{}" },
-    "dlFile" : "`Downloading your file..` 📥",
-    "dlImage" : "`Downloading your Image..⏳`",
     "upFileCB" : {"📤 .. UPLOADING.. 📤" : "nabilanavab"},
-    "takeTime" : """```⚙️ Work in Progress..\nIt might take some time..```💛""",
     "cbPRO_D" : ["📤 DOWNLOAD: {:.2f}% 📤", "🎯 CANCEL 🎯"],
     "cbPRO_U" : ["📤 UPLOADED: {:.2f}% 📤", "🎯 CANCEL 🎯"]
 }
 
 GENERATE = {
-    "noQueue" : "`No Queue found..`😲",
-    "noImages" : "No image found.!! 😒",
-    "currDL" : "Downloaded {} Images 🥱",
-    "geting" : "File Name: `{}`\nPages: `{}`",
-    "getFileNm" : "Now Send Me a File Name 😒: ",
-    "deleteQueue" : "`Queue deleted Successfully..`🤧",
-    "getingCB" : {"📚 GENERATING PDF.." : "nabilanavab"},
+    "noQueue" : "`No Queue found..`😲", "noImages" : "No image found.!! 😒", "currDL" : "Downloaded {} Images 🥱", "geting" : "File Name: `{}`\nPages: `{}`",
+    "getFileNm" : "Now Send Me a File Name 😒: ", "deleteQueue" : "`Queue deleted Successfully..`🤧", "getingCB" : {"📚 GENERATING PDF.." : "nabilanavab"},
 }
 
-document = {
-    "reply" : PDF_MESSAGE['pdf'],
-    "upFile" : PROGRESS['upFile'],
-    "process" : "⚙️ Processing..",
-    "replyCB" : PDF_MESSAGE['pdf_button'],
-    "inWork" : PROGRESS['workInP'],
-    "download" : PROGRESS['dlFile'],
-    "refresh" : PROGRESS['refresh'],
-    "dlImage" : PROGRESS['dlImage'],
-    "takeTime" : PROGRESS['takeTime'],
-    "fromFile" : "`Converted: {} to {}`",
-    "unsupport" : "Unsupported file..🙄`",
-    "cancelCB" : { "⟨ Cancel ⟩" : "close|me" },
-    "generate" : { "GENERATE 📚" : "generate" },
-    "generateRN" : {
-        "GENERATE 📚" : "generate",
-        "RENAME ✍️" : "generateREN"
-    },
-    "noAPI" : """`Please add convert API.. 💩
-
-start » settings » api » add/change`""",
-    "error" : """SOMETHING went WRONG.. 🐉
-
-ERROR: `{}`""",
-    "setHdImg" : """Now Image To PDF is in HD mode 😈""",
-    "setDefault" : { "« Back to Default Quality «" : "close|hd" },
-    "useDOCKER" : "`File Not Supported, deploy bot using docker`",
-    "big" : """Due to Overload, Owner limits {}mb for pdf files 🙇
-
-`please Send me a file less than {}mb Size` 🙃""",
-    "bigCB" : {
-        "💎 Create 2Gb Support Bot 💎" : "https://github.com/nabilanavab/ilovepdf"
-    },
-    "imageAdded" : """`Added {} pages to your PDF..`🤓
-
-fileName: `{}.pdf`"""
+DOCUMENT = {
+    "replyCB" : { "😏 ALL IN ONE 😏" : "aio" , "😎 SINGLE USE 😎" : "pdf", "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all" }, "_replyCB" : PDF_MESSAGE['pdf_button']
+    "reply" : PDF_MESSAGE['pdf'], "upFile" : "`Started Uploading..`📤", "process" : "⚙️ Processing..", "inWork" : "WORK IN PROGRESS.. 🙇",
+    "download" : "`Downloading your file..` 📥", "refresh" : { "♻️ Refresh ♻️" : "{}" }, "dlImage" : "`Downloading your Image..⏳`",
+    "takeTime" : """```⚙️ Work in Progress..\nIt might take some time..```💛""", "fromFile" : "`Converted: {} to {}`",
+    "unsupport" : "Unsupported file..🙄`", "cancelCB" : { "⟨ Cancel ⟩" : "close|me" }, "generate" : { "GENERATE 📚" : "generate" },
+    "generateRN" : { "GENERATE 📚" : "generate", "RENAME ✍️" : "generateREN" }, "setHdImg" : """Now Image To PDF is in HD mode 😈""",
+    "noAPI" : """`Please add convert API.. 💩\n\nstart » settings » api » add/change`""", "error" : """SOMETHING went WRONG.. 🐉\n\nERROR: `{}`""",
+    "setDefault" : { "« Back to Default Quality «" : "close|hd" }, "useDOCKER" : "`File Not Supported, deploy bot using docker`",
+    "big" : """Due to Overload, Owner limits {}mb for pdf files 🙇\n\n`please Send me a file less than {}mb Size` 🙃""",
+    "bigCB" : { "💎 Create 2Gb Support Bot 💎" : "https://github.com/nabilanavab/ilovepdf" },
+    "imageAdded" : """`Added {} pages to your PDF..`🤓\n\nfileName: `{}.pdf`"""
 }
 
 gDocument = {
-    "admin" : """Due to Some Telegram Limits..
-
-I can only work as an admin
-__Please promote me as admin__ ☺️""",
+    "admin" : """Due to Some Telegram Limits..\n\nI can only work as an admin\n__Please promote me as admin__ ☺️""",
     "notDOC" : "Broh Please Reply to a Document or an Image..🤧",
-    "Gadmin" : """Only Group Admins Can Use This Bot
-Else Come to my Pm 😋""",
-    "adminO" : """`Only admins can do it..`
-
-Or try on your pdfs(__reply to your message__)"""
+    "Gadmin" : """Only Group Admins Can Use This Bot\nElse Come to my Pm 😋""",
+    "adminO" : """`Only admins can do it..`\n\nOr try on your pdfs(__reply to your message__)"""
 }
 gDocument.update(document)
 
 noHelp = f"`No one gonna help you` 😏"
 
 pdf2TXT = {
-    "upload" : PROGRESS["upFile"],
-    "exit" : "`Process Cancelled..` 😏",
-    "nothing" : "Nothing to create.. 😏",
-    "TEXT" : "`Create PDF From Text Messages »`",
+    "upload" : DOCUMENT['upFile'], "exit" : "`Process Cancelled..` 😏", "nothing" : "Nothing to create.. 😏", "TEXT" : "`Create PDF From Text Messages »`",
     "start" : "Started Converting txt to Pdf..🎉",
     "font_btn" : {
-        "TXT@PDF » SET FONT" : "nabilanavab",
-        "Times" : "pdf|font|t",
-        "Courier" : "pdf|font|c",
-        "Helvetica (Default)" : "pdf|font|h",
-        "Symbol" : "pdf|font|s",
-        "Zapfdingbats" : "pdf|font|z",
-        "🚫 CLOSE 🚫" : "close|me"
+        "TXT@PDF » SET FONT" : "nabilanavab", "Times" : "pdf|font|t", "Courier" : "pdf|font|c", "Helvetica (Default)" : "pdf|font|h",
+        "Symbol" : "pdf|font|s", "Zapfdingbats" : "pdf|font|z", "🚫 CLOSE 🚫" : "close|me"
     },
     "size_btn" : {
-        "TXT@PDF » {} » SET SCALE" : "nabilanavab",
-        "Portarate" : "t2p|{}|p",
-        "Landscape" : "t2p|{}|l",
-        "« Back «": "pdf|T2P"
+        "TXT@PDF » {} » SET SCALE" : "nabilanavab", "Portarate" : "t2p|{}|p", "Landscape" : "t2p|{}|l", "« Back «": "pdf|T2P"
     },
-    "askT" : """__TEXT TO PDF » Now, please enter a TITLE:__
-
-/exit __to cancel__\n/skip __to skip__""",
-    "askC" : """__TEXT TO PDF » Now, please enter paragraph {}:__
-
-/exit __to cancel__\n/create __to create__"""
+    "askT" : """__TEXT TO PDF » Now, please enter a TITLE:__\n\n/exit __to cancel__\n/skip __to skip__""",
+    "askC" : """__TEXT TO PDF » Now, please enter paragraph {}:__\n\n/exit __to cancel__\n/create __to create__"""
 }
 
 URL = {
-    "notPDF" : "`Not a PDF File",
-    "close" : { "close" : "close|all" },
-    "get" : {"🧭 Get PDF File 🧭" : "getFile"},
-    "error" : """🐉 SOMETHING WENT WRONG 🐉,
-
-ERROR: `{}`
-
-NB: In Groups, Bots Can Only fetch documents Send After Joining Group =)""",
-    "done" : "```Almost Done.. ✅\nNow, Started Uploading.. 📤```",
-    "_error_" : "send me any url or direct telegram pdf links",
-    "openCB" : {"Open In Browser" : "{}"},
-    "_error" : "`Some Thing Went Wrong =(`\n\n`{}`",
-    "_get" : """[Open Chat]({})
-
-**ABOUT CHAT ↓**
-Chat Type   : {}
-Chat Name : {}
-Chat Usr    : @{}
-Chat ID        : {}
-Date : {}
-
-**ABOUT MEDIA ↓**
-Media       : {}
-File Name : {}
-File Size   : {}
-File Type : {}"""
+    "notPDF" : "`Not a PDF File", "close" : { "close" : "close|all" }, "get" : {"🧭 Get PDF File 🧭" : "getFile"},
+    "error" : """🐉 SOMETHING WENT WRONG 🐉,\n\nERROR: `{}`\n\nNB: In Groups, Bots Can Only fetch documents Send After Joining Group =)""",
+    "done" : "```Almost Done.. ✅\nNow, Started Uploading.. 📤```", "_error_" : "send me any url or direct telegram pdf links",
+    "openCB" : {"Open In Browser" : "{}"}, "_error" : "`Some Thing Went Wrong =(`\n\n`{}`",
+    "_get" : """[Open Chat]({})\n\n**ABOUT CHAT ↓**\nChat Type   : {}\nChat Name : {}\nChat Usr    : @{}\nChat ID        : {}\nDate : {}
+\n**ABOUT MEDIA ↓**\nMedia       : {}\nFile Name : {}\nFile Size   : {}\nFile Type : {}"""
 }
 
 getFILE = {
-    "wait" : "Wait.. Let me.. 😜",
-    "inWork" : PROGRESS['workInP'],
-    "big" : "Send PDF url less than {}mb",
-    "dl" : {"📥 ..DOWNLOADING.. 📥" : "nabilanavab"},
-    "up" : {"📤 ..UPLOADING..  📤" : "nabilanavab"},
-    "complete" : {"😎 COMPLETED 😎" : f"{str(settings.SOURCE_CODE)}"}
+    "wait" : "Wait.. Let me.. 😜", "inWork" : DOCUMENT['inWork'], "big" : "Send PDF url less than {}mb", "dl" : {"📥 ..DOWNLOADING.. 📥" : "nabilanavab"},
+    "up" : {"📤 ..UPLOADING..  📤" : "nabilanavab"}, "complete" : {"😎 COMPLETED 😎" : f"{str(settings.SOURCE_CODE)}"}
 }
 
 cbAns = [
-    "This feature is Under Development ⛷️",
-    "Error annenn paranjille.. then what.. 😏",
-    "Process Canceled.. 😏",
-    "File Not Encrypted.. 👀",
-    "Nothing Official About it.. 😅",
-    "🎉 Completed.. 🏃"
+    "This feature is Under Development ⛷️", "Error annenn paranjille.. then what.. 😏", "Process Canceled.. 😏",
+    "File Not Encrypted.. 👀", "Nothing Official About it.. 😅", "🎉 Completed.. 🏃"
 ]
 
-inline_query = {
-    "capt" : "SET LANGUAGE ⚙️",
-    "des" : "By: @nabilanavab ❤",
-    "TOP" : { "Now, Select Language ⮷" : "nabilanavab" },
-}
+inline_query = {"capt" : "SET LANGUAGE ⚙️", "des" : "By: @nabilanavab ❤", "TOP" : { "Now, Select Language ⮷" : "nabilanavab" } }
 
 LINK = {
-    "gen" : "`🔗 Generating..`",
-    "_gen" : """```🔗 Generating..
-We're working on it!
-
-Please allow a moment for the processing to complete.```""",
-    "no" : "Unfortunately, we encountered an error 😓",
-    "type" : """`🔗 Generating..`
-
-**Public** 📢:
-__The file accessed via this link will be publicly available, allowing anyone to save and forward it__.
-
-
-**Protect** 🔐:
-__Ensures the confidentiality of the message by preventing its forwarding and saving__.""",
-    "notify" : "Get Notify when a someone fetch this pdf",
-    "notify_pvt" : {
-        "🔔 NOTIFY 🔔" : "link-pvt-ntf",
-        "🔕 MUTE 🔕" : "link-pvt-mut"
-    },
-    "notify_pub" : {
-        "🔔 NOTIFY 🔔" : "link-pbc-ntf",
-        "🔕 MUTE 🔕" : "link-pbc-mut"
-    },
-    "typeBTN" : {
-        "📢 PUBLIC 📢" : "link-pub",
-        "🔐 PRIVATE 🔐" : "link-pvt"
-    },
-    "link" : "**Here it is! This is what you were searching for..**",
-    "error" : "Oops, it looks like something went wrong. Please try again later.\n\n`ERROR:` {}"
+    "gen" : "`🔗 Generating..`", "no" : "Unfortunately, we encountered an error 😓", "notify" : "Get Notify when a someone fetch this pdf",
+    "_gen" : """```🔗 Generating..\nWe're working on it!\n\nPlease allow a moment for the processing to complete.```""",
+    "type" : """`🔗 Generating..`\n\n**Public** 📢:\n__The file accessed via this link will be publicly available, allowing anyone to save and forward it__.
+\n\n**Protect** 🔐:\n__Ensures the confidentiality of the message by preventing its forwarding and saving__.""",
+    "notify_pvt" : { "🔔 NOTIFY 🔔" : "link-pvt-ntf", "🔕 MUTE 🔕" : "link-pvt-mut"},
+    "notify_pub" : { "🔔 NOTIFY 🔔" : "link-pbc-ntf", "🔕 MUTE 🔕" : "link-pbc-mut"},
+    "typeBTN" : { "📢 PUBLIC 📢" : "link-pub", "🔐 PRIVATE 🔐" : "link-pvt" },
+    "link" : "**Here it is! This is what you were searching for..**", "error" : "Oops, it looks like something went wrong. Please try again later.\n\n`ERROR:` {}"
 }
 
-common = {
+INDEX = {
     "rot360" : "You have some big problem..🙂", "ocrError" : "Owner Restricted 😎🤏", "notEncrypt": "File Not Encrypted.. 👀",
     "largeNo" : "It contains too many pages, send me a pdf fewer than 5 pages 😐", "inWork" : "WORK IN PROGRESS.. 🙇", "process" : "🚨 processing..",
     "pyromodASK_1" : "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__",   # encrypt, decrypt
@@ -422,7 +308,6 @@ common = {
     "watermark_img" : "__Send me the watermark Image as file__\n__ Supported Files [png, jpeg, jpg]__\n\n/exit : to cancel",
     "adding_wa" : "Adding Watermark to PDF File 😎", "readAgain" : "please read this message again.. 🥴😲", "zipTAR" : "`converted {}/{}` 😎",
 }
-
 
 HELP = {
     "meta" : "⭐ META£ATA ⭐\n\n✔ ONLY METADATA ✔ : will help you fetch metadata from a PDF file.\n\n✅ Fetch 10 Random Images ✅ : will allow you to extract 10 random images from the PDF file if they exist.",
