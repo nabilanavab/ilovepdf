@@ -27,14 +27,14 @@ async def threePagesToOne(input_file: str, cDIR: str) -> ( bool, str ):
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
             with fitz.open() as oUTPUT:
-                width, height = fitz.paper_size("a4")
-                r1 = fitz.Rect(0, 0, height/3, width)
-                r2 = fitz.Rect(height/3, 0, height/3, width)
-                r3 = fitz.Rect((2*height)/3, 0, height/3, width)
+                height, width = fitz.paper_size("a4")
+                r1 = fitz.Rect(0, 0, width/3, height)
+                r2 = fitz.Rect(width/3, 0, width/3, height)
+                r3 = fitz.Rect((2*width)/3, 0, width/3, height)
                 r_tab = [ r1, r2, r3 ]
                 for page in iNPUT:
                     if page.number % 3 == 0:
-                        pg = oUTPUT.new_page(-1, width = height, height = width)
+                        pg = oUTPUT.new_page(-1, width = width, height = height)
                     pg.show_pdf_page(r_tab[page.number % 3], iNPUT, page.number)
                 oUTPUT.save(output_path, garbage = 3, deflate = True)
         return True, output_path
