@@ -14,7 +14,7 @@ help = filters.create(lambda _, __, query: query.data.startswith("nabilanavab"))
 @ILovePDF.on_callback_query(help)
 async def __index__(bot, callbackQuery):
     try:
-        data = callbackQuery.data[11:]
+        data = callbackQuery.data[12:]  # "nabilanavab|"
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         
         text, _ = await util.translate(text = f"HELP['{data}']", lang_code = lang_code)
