@@ -47,9 +47,9 @@ async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList:
             output_path = f'{cDIR}/zipORtar.{fileType}'
         
             if fileType == "zip":
-                path =  shutil.make_archive(output_file, 'zip', directory)
+                path =  shutil.make_archive(output_path, 'zip', directory)
             elif fileType == "tar":
-                path = shutil.make_archive(output_file, 'tar', directory)
+                path = shutil.make_archive(output_path, 'tar', directory)
         
         logger.debug(path)
         return True, output_path
