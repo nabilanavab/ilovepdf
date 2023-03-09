@@ -34,7 +34,7 @@ async def threePagesToOne(input_file: str, cDIR: str) -> ( bool, str ):
                 r_tab = [ r1, r2, r3 ]
                 for page in iNPUT:
                     if page.number % 3 == 0:
-                        pg = oUTPUT.new_page(-1, width = width, height = height)
+                        pg = oUTPUT.new_page(-1, width = height, height = width)
                     pg.show_pdf_page(r_tab[page.number % 3], iNPUT, page.number)
                 oUTPUT.save(output_path, garbage = 3, deflate = True)
         return True, output_path
