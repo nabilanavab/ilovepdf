@@ -41,7 +41,7 @@ async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList:
                     if not await work(callbackQuery, "check", False):
                         return await dlMSG.edit(text=text["_canceledAT"].format(convertedPages, len(imageList)), reply_markup=canceled)
                 with open(f'{cDIR}/pgs/{i}.jpg','wb'):
-                pix.save(f'{cDIR}/pgs/{i}.jpg')
+                    pix.save(f'{cDIR}/pgs/{i}.jpg')
             
             output_path = f'{cDIR}/zipORtar.{}'
         
