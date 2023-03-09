@@ -206,7 +206,7 @@ BUTTONS = {
                 "🤟 TRIBLE [HORIZ] 🤟" : "#3-format-H", "🤟 TRIBLE [VERTI] 🤟" : "#3-format-V", "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
     "trade" : { "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stp", "« BACK «" : "pdf" },
     "filter" : { "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#baw", "🪐 SATURARE 🪐" : "#sat", "« BACK «" : "pdf" },
-    "addlt" : { "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "close|dev", "« BACK «" : "pdf" },
+    "addlt" : { "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "#deletePg", "« BACK «" : "pdf" },
     "toImage" : { "⚙️ PDF » IMAGES ↓" : "nabilanavab", "🖼 IMG 🖼" : "pdf|img|img", "📂 DOC 📂" : "pdf|img|doc",
         "🤐 ZIP 🤐" : "pdf|img|zip", "🎯 TAR 🎯" : "pdf|img|tar", "« BACK «" : "pdf" },
     "imgRange" : { "⚙️ PDF » IMAGES » {} ↓" : "nabilanavab", "🙄 ALL 🙄" : "#p2img|{}A", "🤧 CUSTOM 🤧" : "#p2img|{}C", "« BACK «" : "pdf|img" },
