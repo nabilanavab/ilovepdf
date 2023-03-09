@@ -55,6 +55,7 @@ async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str
                     try:
                         await dlMSG.edit(text["_upload"].format(pageNo, doc.page_count), reply_markup=cancel)
                     except Exception: pass
+            await dlMSG.edit(text=text["finished"], reply_markup=completed)
         return "finished", "finished"
     
     except Exception as Error:
