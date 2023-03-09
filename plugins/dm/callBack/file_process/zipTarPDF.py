@@ -20,7 +20,7 @@ async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList:
         canceled = await util.createBUTTON(btn=text["_canceledCB"])
         completed = await util.createBUTTON(btn=text["_completed"])
         
-        fileType = "Zip" if callbackQuery.data.startswith("#p2img|zip") else "Tar"
+        fileType = "zip" if callbackQuery.data.startswith("#p2img|zip") else "tar"
         
         with fitz.open(input_file) as doc:
             directory = f'{cDIR}/pgs'
@@ -44,12 +44,14 @@ async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList:
                 with open(f'{cDIR}/pgs/{i}.jpg','wb'):
                     pix.save(f'{cDIR}/pgs/{i}.jpg')
             
-            output_path = f'{cDIR}/zipORtar.{fileType.lower()}'
+            output_path = f'{cDIR}/zipORtar.{fileType}'
         
-            if data in ["zipA", "zipR", "zipS"]:
-                shutil.make_archive(output_file, 'zip', directory)
-            elif data in ["tarA", "tarR", "tarS"]:
-                path = shutil.make_archive(output_file, 'tar', directory) 
+            if fileType == "zip":
+                path =  shutil.make_archive(output_file, 'zip', directory)
+            elif fileType == "tar":
+                path = shutil.make_archive(output_file, 'tar', directory)
+        
+        logger.debug(path)
         return True, output_path
     
     except Exception as Error:
