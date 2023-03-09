@@ -48,7 +48,7 @@ async def _pdf(bot, callbackQuery):
         elif data == "txt":
             tTXT, tBTN = await util.translate(button = "BUTTONS['txt']", order = 1221, lang_code = lang_code)
         elif data == "meta":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['meta']", order = 1111, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['meta']", order = 121, lang_code = lang_code)
         elif data == "lock":
             tTXT, tBTN = await util.translate(button = "BUTTONS['lock']", order = 121, lang_code = lang_code)
         elif data == "trim":
