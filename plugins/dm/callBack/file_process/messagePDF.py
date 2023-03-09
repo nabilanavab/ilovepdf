@@ -13,11 +13,7 @@ from pyrogram.errors       import FloodWait
 
 async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str) -> ( bool, str):
     """
-    Function that allows you to fetch pages from a PDF file. Essentially, this means that you can extract specific pages
-    from a large PDF document without having to download the entire file. For example, if you only need a few pages from a
-    200-page PDF, you can use this function to extract just those pages and save yourself a lot of time and data usage.
-    This feature is especially helpful for users who frequently work with large PDF documents and need to extract specific
-    information quickly and efficiently.
+    The function takes the file path of a PDF file as input and returns the extracted text from the PDF file as output..
     
     parameter:
         input_file    : Here is the path of the file that the user entered
@@ -57,7 +53,7 @@ async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str
                             await callbackQuery.message.reply(f"{pdfText}", quote=False)
                 if await work.work(callbackQuery, "check", False):
                     try:
-                        await dlMSG.edit("------- {}".format(pageNo), reply_markup=cancel)
+                        await dlMSG.edit(text["_upload"].format(pageNo, doc.page_count), reply_markup=cancel)
                     except Exception: pass
         return "finished", "finished"
     
