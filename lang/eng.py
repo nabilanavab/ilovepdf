@@ -448,7 +448,8 @@ common = {
     "rename_caption" : "old name: `{}`\new name: `{}`", "exit" : "Your request is about to be canceled 😏",
     "askImage" : "Please enter the PDF page syntax that you would like to use,\n\nSyntax:\n\t"
                  "Range of page: `[start, end]`,\n\tSpecific page: `separated by commas`.\n\nExample: `1,3,5,12:19`",
-    "pdfToImgError" : "`Invalid syntax for page number`.\n\nPlease enter a valid syntax for the page number,\nsuch as `[start:end]` or `[page_numbers]`.",
+    "pdfToImgError" : "`Invalid syntax for page number`\n`NB: Pdf only have {} pages` ⭐."
+                      "\n\nPlease enter a valid syntax for the page number,\nsuch as `[start:end]` or `[page_numbers]`.",
     "_total" : "`Total pages: {}..⏳`", "_canceledAT" : "`Canceled at {}/{} pages..` 🙄", "_upload" : "`Uploading: {}/{} pages.. 🐬`",
     "_cancelCB" : {"💤 CANCEL 💤" : "close|P2I"}, "_canceledCB" : {"🍄 CANCELLED 🍄" : "close|P2IDONE"}, "_completed" : {"😎 COMPLETED 😎" : "close|P2ICOMP"},
     "finished" : "Your current task has been completed successfully. 😎", "cancelCB" : "⚙️ okDA, Canceling.. ",
