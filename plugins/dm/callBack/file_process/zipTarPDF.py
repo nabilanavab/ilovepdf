@@ -31,12 +31,13 @@ async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList:
             
             await dlMSG.edit(text=text["_total"].format(len(imageList)), reply_markup=cancel)
             mat = fitz.Matrix(2, 2)
+            convertedPages = 0
             
             for i in imageList:
                 page = doc.load_page(i-1)
                 pix = page.get_pixmap(matrix = mat)
-                cnvrtpg += 1
-                if cnvrtpg % 5 == 0:
+                convertedPages += 1
+                if convertedPages % 5 == 0:
                     return await dlMSG.edit(text="`processing {}/{}` 😎".format(convertedPages, len(imageList)), reply_markup=canceled)
                     if not await work(callbackQuery, "check", False):
                         return await dlMSG.edit(text=text["_canceledAT"].format(convertedPages, len(imageList)), reply_markup=canceled)
