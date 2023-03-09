@@ -9,7 +9,7 @@ from logger import logger
 
 import fitz
 
-async def textPDF(input_file: str, cDIR: str, data: str, message = None) -> ( bool, str ):
+async def textPDF(input_file: str, cDIR: str, data: str) -> ( bool, str ):
     """
     - It allows you to access the text contained within a PDF file and use it for different purposes.
     For instance, you can search and index the extracted text to make it more easily accessible.
@@ -34,18 +34,14 @@ async def textPDF(input_file: str, cDIR: str, data: str, message = None) -> ( bo
         elif data == "textJ":
             output_path = f"{cDIR}/outPut.json"
             data = "json"
-        elif data == "textM":
-            data = "message"
         
         with fitz.open(input_file) as iNPUT:
-            if data != "message":
-                with open(output_path, "wb") as oUTPUT:
-                    for page in iNPUT:
-                        text = page.get_text(data).encode("utf8")
-                        oUTPUT.write(text)
-                        oUTPUT.write(bytes((12,)))
-            else:
-                pass
+            with open(output_path, "wb") as oUTPUT:
+                for page in iNPUT:
+                    text = page.get_text(data).encode("utf8")
+                    oUTPUT.write(text)
+                    oUTPUT.write(bytes((12,)))
+        
         return True, output_path
         
     except Exception as Error:
