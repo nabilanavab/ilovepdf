@@ -204,7 +204,7 @@ async def __index__(bot, callbackQuery):
                                            callbackQuery = callbackQuery, dlMSG = dlMSG, imageList = imageList if not data.endswith("A") else "all")
         
         elif data.startswith(tuple(["p2img|zip", "p2img|tar"])):
-            isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
+            isSuccess, output_file = await zipTarPDF.zipTarPDF(cDIR = cDIR, input_file = input_file, text = CHUNK,
                                            callbackQuery = callbackQuery, dlMSG = dlMSG, imageList = imageList if not data.endswith("A") else "all")
         
         elif data.startswith("wa"):
