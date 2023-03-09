@@ -188,7 +188,7 @@ PDF_MESSAGE = {
     "pdf" : "`What should I do with this file.?`\n\nFile Name : `{}`\nFile Size : `{}`",
     "pdf_button" : {
         "⭐ META£ATA ⭐" : "pdf|meta", "🖼️ IMAGES 🖼️" : "pdf|img", "📑 TEXT 📑" : "pdf|txt", "🤸 ROTATE 🤸" : "pdf|rotate",
-        "✂️ SPLIT/MERGE 🧬 " : "pdf|trim", "🔐 ENCRY\DECRY 🔓" : "pdf|lock", "😗 FORMAT 😗" : "pdf|format",
+        "✂️ SPLIT/MERGE 🧬" : "pdf|trim", "🔐 ENCRY\DECRY 🔓" : "pdf|lock", "😗 FORMAT 😗" : "pdf|format",
         "💦 WATERMARK 💦" : "pdf|trade", "🗜 COMPRES\OCR 🗜" : "pdf|comocr", "✏️ RENAME ✏️" : "#rename", "🔎 ZOOM 🔎" : "#zoom",
         "🔗 URL 🔗" : "link", "👻 FILTER 👻" : "pdf|filter", "🟢 ADD/DLT 🔴" : "pdf|addlt", "🚫 CLOSE 🚫" : "close|all"
     },
@@ -199,14 +199,15 @@ PDF_MESSAGE = {
 }
 
 BUTTONS = {
-    "meta" : { "✔ WITHOUT PREVIEW ✔" : "#metadata", "✅ WITH PREVIEW ✅" : "#preview", "« BACK «" : "pdf" },
-    "lock" : { "🔐 ENCRYPT 🔐" : "#encrypt", "🔓 DECRYPT 🔓" : "#decrypt", "« BACK «" : "pdf" },
-    "trim" : { "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
-    "format" : { "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE [HORIZ] ✌" : "#2-format-H", "✌ DOUBLE [VERTI] ✌" : "#2-format-V",
-                "🤟 TRIBLE [HORIZ] 🤟" : "#3-format-H", "🤟 TRIBLE [VERTI] 🤟" : "#3-format-V", "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
-    "trade" : { "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stp", "« BACK «" : "pdf" },
-    "filter" : { "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#baw", "🪐 SATURARE 🪐" : "#sat", "« BACK «" : "pdf" },
-    "addlt" : { "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "#deletePg", "« BACK «" : "pdf" },
+    "meta" : { "❓ META£ATA:HELP ❓" : "nabilanavab|meta", "✔ WITHOUT PREVIEW ✔" : "#metadata", "✅ WITH PREVIEW ✅" : "#preview", "« BACK «" : "pdf" },
+    "lock" : { "❓ ENCRYPT\DECRYPT:HELP ❓" : "nabilanavab|lock", "🔐 ENCRYPT 🔐" : "#encrypt", "🔓 DECRYPT 🔓" : "#decrypt", "« BACK «" : "pdf" },
+    "trim" : { "❓ SPLIT/MERGE:HELP ❓" : "nabilanavab|trim", "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
+    "format" : { "❓ FORMAT:HELP ❓" : "nabilanavab|format", "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE [HORIZ] ✌" : "#2-format-H",
+                 "✌ DOUBLE [VERTI] ✌" : "#2-format-V", "🤟 TRIBLE [HORIZ] 🤟" : "#3-format-H", "🤟 TRIBLE [VERTI] 🤟" : "#3-format-V",
+                "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
+    "trade" : { "❓ WATERMARK:HELP ❓" : "nabilanavab|trade", "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stp", "« BACK «" : "pdf" },
+    "filter" : { "❓ FILTER:HELP ❓" : "nabilanavab|format", "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#baw", "🪐 SATURARE 🪐" : "#sat", "« BACK «" : "pdf" },
+    "addlt" : { "❓ ADD/DELETE PAGES:HELP ❓" : "nabilanavab|format", "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "#deletePg", "« BACK «" : "pdf" },
     "toImage" : { "⚙️ PDF » IMAGES ↓" : "nabilanavab", "🖼 IMG 🖼" : "pdf|img|img", "📂 DOC 📂" : "pdf|img|doc",
         "🤐 ZIP 🤐" : "pdf|img|zip", "🎯 TAR 🎯" : "pdf|img|tar", "« BACK «" : "pdf" },
     "imgRange" : { "⚙️ PDF » IMAGES » {} ↓" : "nabilanavab", "🙄 ALL 🙄" : "#p2img|{}A", "🤧 CUSTOM 🤧" : "#p2img|{}C", "« BACK «" : "pdf|img" },
