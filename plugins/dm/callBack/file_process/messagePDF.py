@@ -8,6 +8,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 
 import fitz
+from pyrogram.errors       import FloodWait
 
 async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str) -> ( bool, str):
     """
@@ -60,7 +61,6 @@ async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str
         return "finished", "finished"
     
     except Exception as Error:
-        shutil.rmtree(f'{cDIR}/pgs')
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
 
