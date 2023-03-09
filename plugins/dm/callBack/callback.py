@@ -148,7 +148,7 @@ async def _aio(bot, callbackQuery):
             await callbackQuery.message.edit_reply_markup(tBTN)
             input_str = await bot.listen(
                 chat_id = callbackQuery.from_user.id, reply_to_message_id = callbackQuery.message.id,
-                text = question, filters = None, reply_markup = ForceReply(True, "Enter Password.. 🔑")
+                filters = None, reply_markup = ForceReply(True, "Enter Password.. 🔑")
             )
             while not input_str.text: await input_str.delete()
             tTXT, tBTN = await util.translate(text = "AIO['waitPASS']", button = "AIO['out_button']", order = 222, lang_code = lang_code)
