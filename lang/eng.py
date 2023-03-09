@@ -230,13 +230,13 @@ DOCUMENT = {
     "imageAdded" : """`Added {} pages to your PDF..`🤓\n\nfileName: `{}.pdf`"""
 }
 
-gDocument = {
+gDOCUMENT = {
     "admin" : """Due to Some Telegram Limits..\n\nI can only work as an admin\n__Please promote me as admin__ ☺️""",
     "notDOC" : "Broh Please Reply to a Document or an Image..🤧",
     "Gadmin" : """Only Group Admins Can Use This Bot\nElse Come to my Pm 😋""",
     "adminO" : """`Only admins can do it..`\n\nOr try on your pdfs(__reply to your message__)"""
 }
-gDocument.update(document)
+gDOCUMENT.update(DOCUMENT)
 
 noHelp = f"`No one gonna help you` 😏"
 
