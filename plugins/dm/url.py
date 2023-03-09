@@ -50,7 +50,7 @@ async def _url(bot, message):
             try: await message.reply_chat_action(enums.ChatAction.TYPING)
             except Exception: pass
             
-            _, __ = await util.translate(text = "document['process']", button = "URL['close']", lang_code = lang_code)
+            _, __ = await util.translate(text = "DOCUMENT['process']", button = "URL['close']", lang_code = lang_code)
             data = await message.reply(text = _, quote = True, reply_markup = __)
             await asyncio.sleep(0.5)
             await data.edit(text = _ + ".", reply_markup = __)
@@ -90,9 +90,9 @@ async def _url(bot, message):
                 try:
                     cDIR = await work.work(message, "create", True)
                     if not cDIR:
-                        tTXT, tBTN = await util.translate(text = 'document["refresh"]', lang_code = lang_code)
+                        tTXT, tBTN = await util.translate(text = 'DOCUMENT["refresh"]', lang_code = lang_code)
                         tBTN = await createBUTTON(await editDICT(inDir = tTXT, value = "refresh"))
-                        tTXT, _ = await util.translate(text = 'document["inWork"]', lang_code = lang_code)
+                        tTXT, _ = await util.translate(text = 'DOCUMENT["inWork"]', lang_code = lang_code)
                         return await data.edit(tTXT, reply_markup = tBTN)   # work exists
                     
                     response = requests.get(url)
