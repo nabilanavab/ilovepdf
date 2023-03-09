@@ -199,7 +199,11 @@ async def __index__(bot, callbackQuery):
         elif data.startswith("text"):
             isSuccess, output_file = await textPDF.textPDF(cDIR = cDIR, input_file = input_file, data = data, message = dlMSG)
         
-        elif data.startswith("p2img"):
+        elif data.startswith(tuple(["p2img|I", "p2img|D"):
+            isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
+                                           callbackQuery = callbackQuery, dlMSG = dlMSG, imageList = imageList if not data.endswith("A") else "all")
+        
+        elif data.startswith(tuple(["p2img|zip", "p2img|tar"):
             isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
                                            callbackQuery = callbackQuery, dlMSG = dlMSG, imageList = imageList if not data.endswith("A") else "all")
         
