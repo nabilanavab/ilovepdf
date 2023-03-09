@@ -29,8 +29,8 @@ async def threePagesToOne(input_file: str, cDIR: str) -> ( bool, str ):
             with fitz.open() as oUTPUT:
                 width, height = fitz.paper_size("a4")
                 r1 = fitz.Rect(0, 0, width, height/3)
-                r2 = fitz.Rect(height/3, 0, width, (2*height)/3)
-                r3 = fitz.Rect((2*height)/3, 0, width, height)
+                r2 = fitz.Rect(0, height/3, width, (2*height)/3)
+                r3 = fitz.Rect(0, (2*height)/3, width, height)
                 r_tab = [ r1, r2, r3 ]
                 for page in iNPUT:
                     if page.number % 3 == 0:
