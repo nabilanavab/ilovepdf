@@ -87,7 +87,7 @@ async def __index__(bot, callbackQuery):
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await imageList.reply(
-                    CHUNK["pdfToImgError"].format(callbackQuery.message.text.split("•")[1] if "•" in callbackQuery.message.text), quote = True
+                    CHUNK["pdfToImgError"].format(callbackQuery.message.text.split("•")[1] if "•" in callbackQuery.message.text else "_"), quote = True
                 )
         elif data.startswith("wa"):
             if data.startswith("wa|txt"): question = CHUNK["watermark_txt"]
