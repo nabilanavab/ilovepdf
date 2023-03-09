@@ -6,10 +6,7 @@ from configs.config   import settings
 
 # REPLY MESSAGE FOR BROKEN WORKS
 RESTART = {
-    "msg" : """☠ `𝐎𝐕𝐄𝐑𝐋𝐎𝐀𝐃 𝐃𝐄𝐂𝐓𝐄𝐂𝐓𝐄𝐃`☠:\n__𝐬𝐞𝐫𝐯𝐞𝐫 𝐫𝐞𝐬𝐭𝐚𝐫𝐭𝐞𝐝__ \n
-I noticed that your work was also in queue
-
-Can you please try again..!""",
+    "msg" : """☠ `𝐎𝐕𝐄𝐑𝐋𝐎𝐀𝐃 𝐃𝐄𝐂𝐓𝐄𝐂𝐓𝐄𝐃`☠:\n__𝐬𝐞𝐫𝐯𝐞𝐫 𝐫𝐞𝐬𝐭𝐚𝐫𝐭𝐞𝐝__ \n\nI noticed that your work was also in queue\n\nCan you please try again..!""",
     "btn" : { "🚶 CLOSE 🚶" : "close|mee" }
 }
 
