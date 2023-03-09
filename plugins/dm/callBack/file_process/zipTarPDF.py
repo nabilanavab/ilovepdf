@@ -30,6 +30,7 @@ async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList:
             elif callbackQuery.data.endswith("A"): imageList = list(range(1, 50))
             
             await dlMSG.edit(text=text["_total"].format(len(imageList)), reply_markup=cancel)
+            mat = fitz.Matrix(2, 2)
             
             for i in imageList:
                 page = doc.load_page(i-1)
