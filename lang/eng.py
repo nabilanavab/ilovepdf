@@ -229,7 +229,9 @@ DOCUMENT = {
 AIO = {
     "aio" : "Does the PDF file require a password to open ?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`",
     "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","🔐 ENCRYPTED 🔐":"aioInput|enc","🔓 DECRYPTED 🔓":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" }
-    
+    "waitPASS" : { "Now send Password.. 😪" : "nabilanavab|aioInput" },
+    "passMSG" : "Does the PDF file require a password to open ?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`\n\nPassword: ||{}||",
+    "out_button" : {"efc" : "fvdc", "cefre" : "Fdcdfv", "ERfcer" : "FVDFV"}
 }
 
 gDOCUMENT = {
