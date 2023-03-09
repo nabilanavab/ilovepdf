@@ -57,7 +57,7 @@ async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str
                             await callbackQuery.message.reply(f"{pdfText}", quote=False)
                 if await work.work(callbackQuery, "check", False):
                     try:
-                        await message.edit(tTXT.format(pageNo), reply_markup=cancel)
+                        await dlMSG.edit("------- {}".format(pageNo), reply_markup=cancel)
                     except Exception: pass
         return "finished", "finished"
     
