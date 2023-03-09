@@ -43,7 +43,7 @@ async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList:
                 with open(f'{cDIR}/pgs/{i}.jpg','wb'):
                     pix.save(f'{cDIR}/pgs/{i}.jpg')
             
-            output_path = f'{cDIR}/zipORtar.{}'
+            output_path = f'{cDIR}/zipORtar.{fileType.lower()}'
         
             if data in ["zipA", "zipR", "zipS"]:
                 shutil.make_archive(output_file, 'zip', directory)
