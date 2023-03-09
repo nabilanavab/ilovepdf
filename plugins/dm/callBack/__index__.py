@@ -148,7 +148,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await twoPagesToOne.twoPagesToOne(cDIR = cDIR, input_file = input_file)
         
         elif data == "3-format":
-            isSuccess, output_file = await formatPDF.formatPDF(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await threePagesToOne.threePagesToOne(cDIR = cDIR, input_file = input_file)
         
         elif data == "4-format":
             isSuccess, output_file = await combinePages.combinePages(cDIR = cDIR, input_file = input_file)
