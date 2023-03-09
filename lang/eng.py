@@ -138,8 +138,7 @@ Hit on `"♻️retry♻️"` after joining.. 😅""",
 }
 
 PDF_MESSAGE = {
-    "pg" : "`Number of Pages: •{}•` 🌟",
-    "pdf" : "`What should I do with this file.?`\n\nFile Name : `{}`\nFile Size : `{}`",
+    "pg" : "`Number of Pages: •{}•` 🌟", "pdf" : "`What should I do with this file.?`\n\nFile Name : `{}`\nFile Size : `{}`",
     "pdf_button" : {
         "⭐ META£ATA ⭐" : "pdf|meta", "🖼️ IMAGES 🖼️" : "pdf|img", "📑 TEXT 📑" : "pdf|txt", "🤸 ROTATE 🤸" : "pdf|rotate",
         "✂️ SPLIT/MERGE 🧬" : "pdf|trim", "🔐 ENCRY\DECRY 🔓" : "pdf|lock", "😗 FORMAT 😗" : "pdf|format",
@@ -225,6 +224,12 @@ DOCUMENT = {
     "big" : """Due to Overload, Owner limits {}mb for pdf files 🙇\n\n`please Send me a file less than {}mb Size` 🙃""",
     "bigCB" : { "💎 Create 2Gb Support Bot 💎" : "https://github.com/nabilanavab/ilovepdf" },
     "imageAdded" : """`Added {} pages to your PDF..`🤓\n\nfileName: `{}.pdf`"""
+}
+
+AIO = {
+    "aio" = "Does the PDF file require a password to open ?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`",
+    "aio_button" = {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","🔐 ENCRYPTED 🔐":"aioInput|enc","🔓 DECRYPTED 🔓":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" }
+    
 }
 
 gDOCUMENT = {
