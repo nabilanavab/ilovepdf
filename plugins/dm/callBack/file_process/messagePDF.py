@@ -42,7 +42,7 @@ async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str
                 if 1 <= len(pdfText) <= 1000:
                     try:
                         await callbackQuery.message.reply(f"```🅿🅰🅶🅴 : {pageNo}\n\n{pdfText}```\n@ilovepdf_bot", quote=pageNo==1)
-                    except FloodWait as e::
+                    except FloodWait as e:
                         await asyncio.sleep(e.value+1)
                         await callbackQuery.message.reply(f"{pdfText}", quote=False)
                 elif 1000 <= len(pdfText):
