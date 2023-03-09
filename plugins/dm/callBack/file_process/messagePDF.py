@@ -10,12 +10,12 @@ from logger import logger
 import fitz
 
 async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str) -> ( bool, str):
-  """
-     function that allows you to fetch pages from a PDF file. Essentially, this means that you can extract specific pages
-     from a large PDF document without having to download the entire file. For example, if you only need a few pages from a
-     200-page PDF, you can use this function to extract just those pages and save yourself a lot of time and data usage.
-     This feature is especially helpful for users who frequently work with large PDF documents and need to extract specific
-     information quickly and efficiently.
+    """
+    Function that allows you to fetch pages from a PDF file. Essentially, this means that you can extract specific pages
+    from a large PDF document without having to download the entire file. For example, if you only need a few pages from a
+    200-page PDF, you can use this function to extract just those pages and save yourself a lot of time and data usage.
+    This feature is especially helpful for users who frequently work with large PDF documents and need to extract specific
+    information quickly and efficiently.
     
     parameter:
         input_file    : Here is the path of the file that the user entered
@@ -57,8 +57,8 @@ async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str
                     try:
                         await message.edit(tTXT.format(pageNo), reply_markup=cancel)
                     except Exception: pass
-        return "finished" "finished"
-        
+        return "finished", "finished"
+    
     except Exception as Error:
         shutil.rmtree(f'{cDIR}/pgs')
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
