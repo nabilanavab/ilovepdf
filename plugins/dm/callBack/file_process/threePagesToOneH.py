@@ -1,7 +1,7 @@
-# fileName : plugins/dm/callBack/file_process/threePagesToOne.py
+# fileName : plugins/dm/callBack/file_process/threePagesToOneH.py
 # copyright ©️ 2021 nabilanavab
 
-file_name = "plugins/dm/callBack/file_process/threePagesToOne.py"
+file_name = "plugins/dm/callBack/file_process/threePagesToOneH.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 # LOGGING INFO: DEBUG
@@ -9,7 +9,7 @@ from logger import logger
 
 import fitz
 
-async def threePagesToOne(input_file: str, cDIR: str) -> ( bool, str ):
+async def threePagesToOneH(input_file: str, cDIR: str) -> ( bool, str ):
     """
     This function takes a PDF file with three pages per sheet and converts it to a single page per sheet format. 
     The output file will contain all pages from the input file in sequential order, but with each pair of pages 
