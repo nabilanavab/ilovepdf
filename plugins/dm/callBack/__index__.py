@@ -193,7 +193,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await mergePDF.mergePDF(cDIR = cDIR, input_file = input_file, text = CHUNK,
                                                              mergeId = mergeId, bot = bot, dlMSG =dlMSG, callbackQuery = callbackQuery)
         elif data == "textM":
-            isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
+            isSuccess, output_file = await messagePDF.messagePDF(cDIR = cDIR, input_file = input_file, text = CHUNK,
                                                                    callbackQuery = callbackQuery, dlMSG = dlMSG)
         
         elif data.startswith("rot"):
