@@ -148,7 +148,8 @@ async def _aio(bot, callbackQuery):
             tTXT, tBTN = await util.translate(button = "AIO['waitPASS']", order = 1, lang_code = lang_code)
             await callbackQuery.message.edit_reply_markup(tBTN)
             input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
-            while not input_str.text: await input_str.delete()
+            logger.debud(input_str.text)
+            # while not input_str.text: await input_str.delete()
             await input_str.delete()
             tTXT, tBTN = await util.translate(text = "AIO['passMSG']", button = "AIO['out_button']", order = 222, lang_code = lang_code)
             return await callbackQuery.message.edit(
