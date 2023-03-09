@@ -64,7 +64,7 @@ async def pymuConvert2PDF(cDIR, edit, input_file, lang_code):
                 pdf.save(f"{cDIR}/outPut.pdf", garbage=4, deflate=True,)
         return True
     except Exception as e:
-        tTXT, tBTN = await translate(text="document['error']", lang_code=lang_code)
+        tTXT, tBTN = await translate(text="DOCUMENT['error']", lang_code=lang_code)
         await edit.edit(
             text = tTXT.format(e),
             reply_markup = await createBUTTON(btn={"👍" : "try+", "👎" : "try-"})
@@ -81,7 +81,7 @@ async def cvApi2PDF(cDIR, edit, input_file, lang_code, API):
         ).save_files(f"{cDIR}/outPut.pdf")
         return True
     except Exception as e:
-        tTXT, tBTN = await translate(text="document['error']", lang_code=lang_code)
+        tTXT, tBTN = await translate(text="DOCUMENT['error']", lang_code=lang_code)
         await edit.edit(tTXT.format(e))
         return False
 
@@ -92,7 +92,7 @@ async def word2PDF(cDIR, edit, input_file, lang_code):
         doc.save(f"{cDIR}/outPut.pdf")
         return True
     except Exception as e:
-        tTXT, tBTN = await translate(text="document['error']", lang_code=lang_code)
+        tTXT, tBTN = await translate(text="DOCUMENT['error']", lang_code=lang_code)
         await edit.edit(tTXT.format(e))
         return False
 
@@ -104,7 +104,7 @@ async def documents(bot, message):
         try: await message.reply_chat_action(enums.ChatAction.TYPING)
         except Exception: pass
         lang_code = await util.getLang(message.chat.id)
-        CHUNK, _ = await util.translate(text="document", lang_code = lang_code)
+        CHUNK, _ = await util.translate(text="DOCUMENT", lang_code = lang_code)
         if await work.work(message, "check", True):
             tBTN = await util.createBUTTON(
                 await editDICT(inDir = CHUNK["refresh"], value = "refresh")
