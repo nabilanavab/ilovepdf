@@ -199,7 +199,7 @@ PDF_MESSAGE = {
 }
 
 BUTTONS = {
-    "meta" : { "❓ META£ATA:HELP ❓" : "nabilanavab|meta", "✔ WITHOUT PREVIEW ✔" : "#metadata", "✅ WITH PREVIEW ✅" : "#preview", "« BACK «" : "pdf" },
+    "meta" : { "❓ META£ATA:HELP ❓" : "nabilanavab|meta", "✔ ONLY METADATA ✔" : "#metadata", "✅ Fetch 10 Random Images ✅" : "#preview", "« BACK «" : "pdf" },
     "lock" : { "❓ ENCRYPT\DECRYPT:HELP ❓" : "nabilanavab|lock", "🔐 ENCRYPT 🔐" : "#encrypt", "🔓 DECRYPT 🔓" : "#decrypt", "« BACK «" : "pdf" },
     "trim" : { "❓ SPLIT/MERGE:HELP ❓" : "nabilanavab|trim", "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
     "format" : { "❓ FORMAT:HELP ❓" : "nabilanavab|format", "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE [HORIZ] ✌" : "#2-format-H",
@@ -458,4 +458,10 @@ common = {
     "watermark_txt" : "__Now, Send me a Text Message__\n\n/exit : to cancel", "watermark_pdf" : "__Send me the watermark pdf.__\n\n/exit : to cancel",
     "watermark_img" : "__Send me the watermark Image as file__\n__ Supported Files [png, jpeg, jpg]__\n\n/exit : to cancel",
     "adding_wa" : "Adding Watermark to PDF File 😎", "readAgain" : "please read this message again.. 🥴😲"
+}
+
+
+HELP = {
+    "meta" : "⭐ META£ATA ⭐\n\n'✔ ONLY METADATA ✔' : will help you fetch metadata from a PDF file.\n'✅ Fetch 10 Random Images ✅' : will allow you to extract 10 random images from the PDF file if they exist.",
+    
 }
