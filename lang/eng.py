@@ -200,12 +200,12 @@ PDF_MESSAGE = {
 
 BUTTONS = {
     "meta" : { "❓ META£ATA:HELP ❓" : "nabilanavab|meta", "✔ ONLY METADATA ✔" : "#metadata", "✅ Fetch 10 Random Images ✅" : "#preview", "« BACK «" : "pdf" },
-    "lock" : { "❓ ENCRYPT\DECRYPT:HELP ❓" : "nabilanavab|lock", "🔐 ENCRYPT 🔐" : "#encrypt", "🔓 DECRYPT 🔓" : "#decrypt", "« BACK «" : "pdf" },
-    "trim" : { "❓ SPLIT/MERGE:HELP ❓" : "nabilanavab|trim", "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
+    "lock" : { "❓ ENCRYPT/DECRYPT:HELP ❓" : "nabilanavab|lock", "🔐 ENCRYPT 🔐" : "#encrypt", "🔓 DECRYPT 🔓" : "#decrypt", "« BACK «" : "pdf" },
+    "trim" : { "❓ SPLIT/MERGE PDF:HELP ❓" : "nabilanavab|trim", "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
     "format" : { "❓ FORMAT:HELP ❓" : "nabilanavab|format", "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE [HORIZ] ✌" : "#2-format-H",
                  "✌ DOUBLE [VERTI] ✌" : "#2-format-V", "🤟 TRIBLE [HORIZ] 🤟" : "#3-format-H", "🤟 TRIBLE [VERTI] 🤟" : "#3-format-V",
                 "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
-    "comocr" : { "❓ COMPRESS/OCR PDF:HELP ❓" : "nabilanavab|comocr", "🗜 COMPRESS 🗜" : "#compress", "OCR" : "#ocr", "« BACK «" : "pdf" },
+    "comocr" : { "❓ COMPRESS/OCR PDF:HELP ❓" : "nabilanavab|comocr", "🗜 COMPRESS 🗜" : "#compress", "📝 OCR 📝" : "#ocr", "« BACK «" : "pdf" },
     "trade" : { "❓ WATERMARK:HELP ❓" : "nabilanavab|trade", "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stp", "« BACK «" : "pdf" },
     "filter" : { "❓ FILTER:HELP ❓" : "nabilanavab|format", "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#baw", "🪐 SATURARE 🪐" : "#sat", "« BACK «" : "pdf" },
     "addlt" : { "❓ ADD/DELETE PAGES:HELP ❓" : "nabilanavab|format", "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "#deletePg", "« BACK «" : "pdf" },
@@ -463,6 +463,6 @@ common = {
 
 
 HELP = {
-    "meta" : "⭐ META£ATA ⭐\n\n'✔ ONLY METADATA ✔' : will help you fetch metadata from a PDF file.\n'✅ Fetch 10 Random Images ✅' : will allow you to extract 10 random images from the PDF file if they exist.",
+    "meta" : "⭐ META£ATA ⭐\n\n✔ ONLY METADATA ✔ : will help you fetch metadata from a PDF file.\n\n✅ Fetch 10 Random Images ✅ : will allow you to extract 10 random images from the PDF file if they exist.",
     
 }
