@@ -242,8 +242,8 @@ async def __index__(bot, callbackQuery):
         
         await dlMSG.edit(CHUNK['upload'], reply_markup = _)
         
-        if data.startswith("text"):
-            ext = {"textT" : ".txt", "textH" : ".html", "textJ" : ".json"}
+        if data.startswith(tuple(["text", "p2img"])):
+            ext = {"textT" : ".txt", "textH" : ".html", "textJ" : ".json", "p2img|zip" : ".zip", "p2img|tar" : ".tar"}
             FILE_NAME = FILE_NAME[:-4] + ext[data]
         
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
