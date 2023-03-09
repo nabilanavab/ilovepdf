@@ -137,13 +137,29 @@ async def _aio(bot, callbackQuery):
         data = callbackQuery.data
         
         if data == "aio":
-            tTXT, tBTN = await util.translate(text="AIO['aio']", button = "AIO['aio_button']", order = 22222221, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(text="AIO['aio']", button = "AIO['aio_button']", order = 121, lang_code = lang_code)
             return await callbackQuery.message.edit(
-                text=tTXT.format(callbackQuery.message.reply_to_message.document.file_name, 
+                text = tTXT.format(callbackQuery.message.reply_to_message.document.file_name, 
                                  await render.gSF(callbackQuery.message.reply_to_message.document.file_size)),
                 reply_markup = tBTN
             )
-        
+        elif data == "aioInput|enc":
+            tTXT, tBTN = await util.translate(button = "AIO['waitPASS']", order = 1, lang_code = lang_code)
+            await callbackQuery.message.edit_reply_markup(tBTN)
+            input_str = await bot.listen(
+                chat_id = callbackQuery.from_user.id, reply_to_message_id = callbackQuery.message.id,
+                text = question, filters = None, reply_markup = ForceReply(True, "Enter Password.. 🔑")
+            )
+            while not input_str.text: await input_str.delete()
+            tTXT, tBTN = await util.translate(text = "AIO['waitPASS']", button = "AIO['out_button']", order = 222, lang_code = lang_code)
+            return await callbackQuery.message.edit(
+                text = tTXT.format(callbackQuery.message.reply_to_message.document.file_name, 
+                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text ),
+                reply_markup = tBTN
+            )
+        elif data == "aioInput|dec":
+            tTXT, tBTN = await util.translate(button = "AIO['out_button']", order = 222, lang_code = lang_code)
+            return await callbackQuery.message.edit_reply_markup(tBTN)
         data = data.split("|", 1)[1]
         
     except Exception as Error:
