@@ -192,11 +192,14 @@ async def __index__(bot, callbackQuery):
         elif data == "merge":
             isSuccess, output_file = await mergePDF.mergePDF(cDIR = cDIR, input_file = input_file, text = CHUNK,
                                                              mergeId = mergeId, bot = bot, dlMSG =dlMSG, callbackQuery = callbackQuery)
+        elif data == "textM":
+            isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
+                                                                   callbackQuery = callbackQuery, dlMSG = dlMSG)
         
         elif data.startswith("rot"):
             isSuccess, output_file = await rotatePDF.rotatePDF(cDIR = cDIR, input_file = input_file, angle = data)
         
-        elif data.startswith("text"):
+        elif data.startswith("text") and data != "textM":
             isSuccess, output_file = await textPDF.textPDF(cDIR = cDIR, input_file = input_file, data = data, message = dlMSG)
         
         elif data.startswith(tuple(["p2img|I", "p2img|D"])):
