@@ -420,7 +420,7 @@ common = {
     "sizeLoad" : "`Due to Overload Bot Only Support %sMb PDFs..", "mergeDl" : "`Downloadeding {}`", "merge" : "`started merging {} pdfs`",
     "watermark_txt" : "__Now, Send me a Text Message__\n\n/exit : to cancel", "watermark_pdf" : "__Send me the watermark pdf.__\n\n/exit : to cancel",
     "watermark_img" : "__Send me the watermark Image as file__\n__ Supported Files [png, jpeg, jpg]__\n\n/exit : to cancel",
-    "adding_wa" : "Adding Watermark to PDF File 😎", "readAgain" : "please read this message again.. 🥴😲"
+    "adding_wa" : "Adding Watermark to PDF File 😎", "readAgain" : "please read this message again.. 🥴😲", "zipTAR" : "`converted {}/{}` 😎",
 }
 
 
