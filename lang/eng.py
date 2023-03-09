@@ -21,41 +21,19 @@ HOME = {
 "Simply send me a PDF/IMAGE and it will perform the requested action. for help select '⚠️ HELP ⚠️' at any time.the PDF bot is here to make your life easier..\n\n"
 "Try it out now and see how it can help you with all of your PDF needs!",
     "HomeACB" : {
-        "⚙️ SETTINGS ⚙️" : "Home|B",
-        "🌍 LANGUAGE 🌍" : "set|lang",
-        "⚠️ HELP ⚠️" : "Home|C",
-        "📢 CHANNEL 📢" : f"{str(settings.OWNED_CHANNEL)}",
-        "🌟 SOURCE CODE 🌟" : f"{str(settings.SOURCE_CODE)}",
+        "⚙️ SETTINGS ⚙️" : "Home|B", "🌍 LANGUAGE 🌍" : "set|lang", "⚠️ HELP ⚠️" : "Home|C",
+        "📢 CHANNEL 📢" : f"{str(settings.OWNED_CHANNEL)}", "🌟 SOURCE CODE 🌟" : f"{str(settings.SOURCE_CODE)}",
         "➕ ADD IN GROUP ➕" : "https://t.me/{}?startgroup=True"
     },
     "HomeAdminCB" : {
-        "⚙️ SETTINGS ⚙️" : "Home|B",
-        "🌍 LANGUAGE 🌍" : "set|lang",
-        "⚠️ HELP ⚠️" : "Home|C",
-        "📢 CHANNEL 📢" : f"{str(settings.OWNED_CHANNEL)}",
-        "🌟 SOURCE CODE 🌟" : f"{str(settings.SOURCE_CODE)}",
-        "🗽 STATUS 🗽" : f"status|home",
-        "➕ ADD IN GROUP ➕" : "https://t.me/{}?startgroup=True",
-        "🚶 CLOSE 🚶" : "close|mee"
+        "⚙️ SETTINGS ⚙️" : "Home|B", "🌍 LANGUAGE 🌍" : "set|lang", "⚠️ HELP ⚠️" : "Home|C",
+        "📢 CHANNEL 📢" : f"{str(settings.OWNED_CHANNEL)}", "🌟 SOURCE CODE 🌟" : f"{str(settings.SOURCE_CODE)}",
+        "🗽 STATUS 🗽" : f"status|home", "➕ ADD IN GROUP ➕" : "https://t.me/{}?startgroup=True", "🚶 CLOSE 🚶" : "close|mee"
     },
-    "HomeB" : """SETTINGS PAGE ⚙️
-
-USER NAME   : {}
-USER ID           : {}
-USERNAME    : {}
-JOIN DATE      : {}
-
-LANGUAGE    : {}
-API                    : {}
-THUMB            : {}
-CAPTION         : {}
-FILE NAME      : {}""",
+    "HomeB" : "SETTINGS PAGE ⚙️\n\nUSER NAME   : {}\nUSER ID           : {}\nUSERNAME    : {}\nJOIN DATE      : {}\n\nLANGUAGE    : {}\n"
+        "API                    : {}\nTHUMB            : {}\nCAPTION         : {}\nFILE NAME      : {}""",
     "HomeBCB" : {
-        "📍 THUMB 📍" : "set|thumb",
-        "📈 NAME 📈" : "set|fname",
-        "💩 API 💩" : "set|api",
-        "📅 CAPTION 📅" : "set|capt",
-        "« BACK TO HOME «" : "Home|B2A"
+        "📍 THUMB 📍" : "set|thumb", "📈 NAME 📈" : "set|fname", "💩 API 💩" : "set|api", "📅 CAPTION 📅" : "set|capt", "« BACK TO HOME «" : "Home|B2A"
     },
     "HomeC" : """**Some of the main features are:**
  
@@ -82,20 +60,15 @@ FILE NAME      : {}""",
  ◍ ```Once the bot has completed the action, it will send you the results. If the action was successful, you will receive the output. If the action was not successful, the bot will let you know and provide any relevant error messages.```
  ◍ ```Any user found to be distributing or sharing pornographic content on the bot will be permanently banned```
 **Send any image to start:** 😁""",
-    "HomeDCB" : {
-        "⚠️ HELP ⚠️" : "Home|C",
-        "» BACK HOME »" : "Home|A"
-    }  
+    "HomeDCB" : { "⚠️ HELP ⚠️" : "Home|C", "» BACK HOME »" : "Home|A" }
 }
 
 # GROUP WELCOME MESSAGE
 HomeG = {
     "HomeA" : HOME['HomeA'],
     "HomeACB" : {
-        "🌍 LANGUAGE 🌍" : "set|lang", "🛡️ HELP 🛡️": "Home|C",
-        "📢 CHANNEL 📢" : f"{str(settings.OWNED_CHANNEL)}",
-        "🌟 SOURCE CODE 🌟": f"{settings.SOURCE_CODE}",
-        "🚶 CLOSE 🚶" : "close|mee",
+        "🌍 LANGUAGE 🌍" : "set|lang", "🛡️ HELP 🛡️": "Home|C", "📢 CHANNEL 📢" : f"{str(settings.OWNED_CHANNEL)}",
+        "🌟 SOURCE CODE 🌟": f"{settings.SOURCE_CODE}", "🚶 CLOSE 🚶" : "close|mee",
     }
 }
 
@@ -142,22 +115,11 @@ STATUS_MSG = {
         "📊 ↓ SERVER ↓ 📊" : "nabilanavab", "📶 STORAGE 📶" : "status|server", "🥥 DATABASE 🥥" : "status|db",
         "🌝 ↓ GET LIST ↓ 🌝": "nabilanavab", "💎 ADMIN 💎" : "status|admin", "👤 USERS 👤" : "status|users", "« BACK «" : "Home|A"
     },
-    "DB" : """📂 DATABASE :
-
-**◍ Database Users :** `{}` 📍
-**◍ Database Chats :** `{}` 📍""",
-    "SERVER" : """**◍ Total Space     :** `{}`
-**◍ Used Space     :** `{}({}%)`
-**◍ Free Space      :** `{}`
-**◍ CPU Usage      :** `{}`%
-**◍ RAM Usage     :** `{}`%
-**◍ Current Work  :** `{}`
-**◍ Message Id     :** `{}`""",
-    "USERS" : "Users in Database are.",
-    "NO_DB" : "No dataBASE set Yet 💩",
-    "ADMIN" : "**Total ADMIN:** __{}__\n",
-    "BACK" : { "« BACK «" : "status|home" },
-    "HOME" : "`Now, select any option below to get current STATUS 💱.. `",
+    "DB" : """📂 DATABASE :\n\n**◍ Database Users :** `{}` 📍\n**◍ Database Chats :** `{}` 📍""",
+    "SERVER" : "**◍ Total Space     :** `{}`\n**◍ Used Space     :** `{}({}%)`\n**◍ Free Space      :** `{}`\n**◍ CPU Usage      :** `{}`%"
+               "**◍ RAM Usage     :** `{}`%\n**◍ Current Work  :** `{}`\n**◍ Message Id     :** `{}`",
+    "USERS" : "Users in Database are.", "NO_DB" : "No dataBASE set Yet 💩", "ADMIN" : "**Total ADMIN:** __{}__\n",
+    "BACK" : { "« BACK «" : "status|home" }, "HOME" : "`Now, select any option below to get current STATUS 💱.. `",
 }
 
 feedbackMsg = f"IF YOU ❤ THIS BOT, JOIN OUR [UPDATE CHANNEL]({settings.OWNED_CHANNEL}) TO STAY INFORMED.\n\n[Write a FEEDBACK 📋]({settings.FEEDBACK})"
