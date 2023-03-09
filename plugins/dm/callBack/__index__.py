@@ -243,6 +243,7 @@ async def __index__(bot, callbackQuery):
         await dlMSG.edit(CHUNK['upload'], reply_markup = _)
         
         if data.startswith(tuple(["text", "p2img"])):
+            if data.startswith("p2img"): data=data[:-2]
             ext = {"textT" : ".txt", "textH" : ".html", "textJ" : ".json", "p2img|zip" : ".zip", "p2img|tar" : ".tar"}
             FILE_NAME = FILE_NAME[:-4] + ext[data]
         
