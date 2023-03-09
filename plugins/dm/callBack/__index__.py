@@ -127,7 +127,7 @@ async def __index__(bot, callbackQuery):
         else:
             number_of_pages = int(callbackQuery.message.text.split("•")[1])
         
-        if data == "metaData":
+        if data == "metadata":
             # After the metadata has been added, the progress message will be deleted
             await work.work(callbackQuery, "delete", False)
             return await dlMSG.delete()
@@ -182,7 +182,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await splitPDF.splitPDF(cDIR = cDIR, input_file = input_file, imageList = imageList)
         
         elif data == "deletePg":
-            isSuccess, output_file = await splitPDF.splitPDF(cDIR = cDIR, input_file = input_file, imageList = imageList)
+            isSuccess, output_file = await deletePDFPg.deletePDFPg(cDIR = cDIR, input_file = input_file, imageList = imageList)
         
         elif data == "merge":
             isSuccess, output_file = await mergePDF.mergePDF(cDIR = cDIR, input_file = input_file, text = CHUNK,
