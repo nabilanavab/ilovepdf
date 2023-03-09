@@ -14,7 +14,8 @@ __all__ = [
     "compressPDF", "decryptPDF", "drawPDF",
     "formatPDF", "ocrPDF", "rotatePDF", "saturatePDF",
     "renamePDF", "pdfToImages", "splitPDF", "mergePDF", "watermarkPDF",
-    "stampPDF", "twoPagesToOne", "threePagesToOne", "twoPagesToOneH", "threePagesToOneH"
+    "stampPDF", "twoPagesToOne", "threePagesToOne", "twoPagesToOneH", "threePagesToOneH",
+    "deletePDFPg"
 ]
 
 # Author: @nabilanavab
