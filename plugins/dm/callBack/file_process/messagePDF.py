@@ -8,6 +8,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 
 import fitz
+from plugins.utils         import *
 from pyrogram.errors       import FloodWait
 
 async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str) -> ( bool, str):
@@ -54,7 +55,7 @@ async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str
                         except FloodWait as e:
                             await asyncio.sleep(e.value+1)
                             await callbackQuery.message.reply(f"{pdfText}", quote=False)
-                if await work(callbackQuery, "check", False):
+                if await work.work(callbackQuery, "check", False):
                     try:
                         await message.edit(tTXT.format(pageNo), reply_markup=cancel)
                     except Exception: pass
