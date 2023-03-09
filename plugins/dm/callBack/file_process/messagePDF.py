@@ -50,9 +50,9 @@ async def messagePDF(input_file: str, cDIR: str, callbackQuery, dlMSG, text: str
                     for i, j in enumerate(slice, start=1):
                         try:
                             await callbackQuery.message.reply(f"```🅿🅰🅶🅴 : {pageNo}-{i}\n\n{j}```\n\n@ilovepdf_bot", quote=pageNo==1)
-                            except FloodWait as e:
-                                await asyncio.sleep(e.value+1)
-                                await callbackQuery.message.reply(f"{pdfText}", quote=False)
+                        except FloodWait as e:
+                            await asyncio.sleep(e.value+1)
+                            await callbackQuery.message.reply(f"{pdfText}", quote=False)
                 if await work(callbackQuery, "check", False):
                     try:
                         await message.edit(tTXT.format(pageNo), reply_markup=cancel)
