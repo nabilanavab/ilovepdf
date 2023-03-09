@@ -227,8 +227,8 @@ DOCUMENT = {
 }
 
 AIO = {
-    "aio" = "Does the PDF file require a password to open ?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`",
-    "aio_button" = {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","🔐 ENCRYPTED 🔐":"aioInput|enc","🔓 DECRYPTED 🔓":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" }
+    "aio" : "Does the PDF file require a password to open ?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`",
+    "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","🔐 ENCRYPTED 🔐":"aioInput|enc","🔓 DECRYPTED 🔓":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" }
     
 }
 
