@@ -134,7 +134,7 @@ async def _aio(bot, callbackQuery):
             return
         
         await callbackQuery.answer()
-        data = data.split("|", 1)[1]
+        data = callbackQuery.data
         
         if data == "aio":
             tTXT, tBTN = await util.translate(text="AIO['aio']", button = "AIO['aio_button']", order = 22222221, lang_code = lang_code)
@@ -143,6 +143,8 @@ async def _aio(bot, callbackQuery):
                                  await render.gSF(callbackQuery.message.reply_to_message.document.file_size)),
                 reply_markup = tBTN
             )
+        
+        data = data.split("|", 1)[1]
         
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
