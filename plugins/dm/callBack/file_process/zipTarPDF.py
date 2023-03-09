@@ -7,9 +7,8 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-import fitz, shutil
+import fitz, os, shutil
 from plugins.utils  import *
-
 
 async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList: list, text: str) -> ( bool, str):
     """
