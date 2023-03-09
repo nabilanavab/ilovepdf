@@ -27,7 +27,7 @@ async def deletePDFPg(input_file: str, cDIR: str, imageList: list) -> ( bool, st
         
         with fitz.open(input_file) as iNPUT:
             del iNPUT[imageList]
-            iNPUT.sasve(output_path)
+            iNPUT.save(output_path)
         
         return True, output_path
     
