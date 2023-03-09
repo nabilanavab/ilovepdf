@@ -7,7 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-from fitz
+import fitz
 
 async def deletePDFPg(input_file: str, cDIR: str, imageList: list) -> ( bool, str):
     """
