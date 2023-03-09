@@ -217,7 +217,7 @@ GENERATE = {
 }
 
 DOCUMENT = {
-    "replyCB" : { "😏 ALL IN ONE 😏" : "aio" , "😎 SINGLE USE 😎" : "pdf", "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all" }, "_replyCB" : PDF_MESSAGE['pdf_button']
+    "replyCB" : { "😏 ALL IN ONE 😏" : "aio" , "😎 SINGLE USE 😎" : "pdf", "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all" }, "_replyCB" : PDF_MESSAGE['pdf_button'],
     "reply" : PDF_MESSAGE['pdf'], "upFile" : "`Started Uploading..`📤", "process" : "⚙️ Processing..", "inWork" : "WORK IN PROGRESS.. 🙇",
     "download" : "`Downloading your file..` 📥", "refresh" : { "♻️ Refresh ♻️" : "{}" }, "dlImage" : "`Downloading your Image..⏳`",
     "takeTime" : """```⚙️ Work in Progress..\nIt might take some time..```💛""", "fromFile" : "`Converted: {} to {}`",
