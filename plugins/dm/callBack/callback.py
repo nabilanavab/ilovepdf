@@ -14,6 +14,7 @@ from pyrogram        import Client as ILovePDF, filters
 imgg = {
     "img" : "I", "doc" : "D", "zip" : "zip", "tar" : "tar"
 }
+
 annotSet = {
     0 : "STAMP_Approved", 1 : "STAMP_AsIs", 2 : "STAMP_Confidential", 3 : "STAMP_Departmental",
     4 : "STAMP_Experimental", 5 : "STAMP_Expired", 6 : "STAMP_Final", 7 : "STAMP_ForComment",
@@ -166,7 +167,6 @@ async def _aio(bot, callbackQuery):
 
 
 common = filters.create(lambda _, __, query: query.data.startswith("-|"))
-
 @ILovePDF.on_callback_query(common)
 async def _common(bot, callbackQuery):
     try:
