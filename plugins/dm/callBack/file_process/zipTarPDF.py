@@ -44,15 +44,14 @@ async def zipTarPDF(input_file: str, cDIR: str, callbackQuery, dlMSG, imageList:
                 with open(f'{cDIR}/pgs/{i}.jpg','wb'):
                     pix.save(f'{cDIR}/pgs/{i}.jpg')
             
-            output_path = f'{cDIR}/zipORtar.{fileType}'
+            output_path = f'{cDIR}/zipORtar'
         
             if fileType == "zip":
                 path =  shutil.make_archive(output_path, 'zip', directory)
             elif fileType == "tar":
                 path = shutil.make_archive(output_path, 'tar', directory)
         
-        logger.debug(path)
-        return True, output_path
+        return True, path
     
     except Exception as Error:
         shutil.rmtree(f'{cDIR}/pgs')
