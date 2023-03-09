@@ -79,7 +79,7 @@ async def __index__(bot, callbackQuery):
                 await work.work(callbackQuery, "delete", False)
                 return await mergeId.reply(CHUNK["exit"], quote = True)
         # ends with a means all pages.. so no questions
-        elif (data.startswith("p2img") and not data.endswith("A")) or data.startswith(tuple("split", "deletePg")) :
+        elif (data.startswith("p2img") and not data.endswith("A")) or data.startswith(tuple(["split", "deletePg"])) :
             notExit, imageList = await pdfToImages.askimageList(
                 bot, callbackQuery, question = CHUNK["askImage"],
                 limit = int(callbackQuery.message.text.split("•")[1]) if "•" in callbackQuery.message.text else 1000
@@ -179,6 +179,9 @@ async def __index__(bot, callbackQuery):
                                                                  editMessage = dlMSG, callbackQuery = callbackQuery)
         
         elif data == "split":
+            isSuccess, output_file = await splitPDF.splitPDF(cDIR = cDIR, input_file = input_file, imageList = imageList)
+        
+        elif data == "deletePg":
             isSuccess, output_file = await splitPDF.splitPDF(cDIR = cDIR, input_file = input_file, imageList = imageList)
         
         elif data == "merge":
