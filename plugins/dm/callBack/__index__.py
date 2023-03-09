@@ -144,7 +144,7 @@ async def __index__(bot, callbackQuery):
         elif data == "1-format":
             isSuccess, output_file = await formatPDF.formatPDF(cDIR = cDIR, input_file = input_file)
         
-        elif data == "2-format-H":
+        elif data == "2-format-V":
             isSuccess, output_file = await twoPagesToOne.twoPagesToOne(cDIR = cDIR, input_file = input_file)
         
         elif data == "2-format-H":
