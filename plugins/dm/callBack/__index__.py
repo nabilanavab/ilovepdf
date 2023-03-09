@@ -26,11 +26,14 @@ async def __index__(bot, callbackQuery):
         
         CHUNK, _ = await util.translate(text = "common", button = "common['button']", lang_code = lang_code)
         
-        if not callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
+        if data == "metadata" and "•" in callbackQuery.message.text:
+            return await callbackQuery.answer(CHUNK['readAgain'])
+        
+        elif not callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
             await work.work(callbackQuery, "delete", False)
             return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
         
-        if data == "rot360":
+        elif data == "rot360":
             # Rotating a PDF by 360 degrees will result in the same orientation as the original document.
             # Therefore, returning a useless callback answer
             return await callbackQuery.answer(CHUNK['rot360'])
