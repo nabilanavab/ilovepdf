@@ -4,7 +4,7 @@ fileName = "plugins/group/document.py"
 
 import os, fitz, asyncio
 from ..dm.document  import *
-from plugins.utils        import *
+from plugins.utils  import *
 from configs.config import *
 from pdf            import PDF
 from PIL            import Image
@@ -18,7 +18,7 @@ async def gDOC(bot, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
         lang_code = await getLang(message.chat.id)
-        CHUNK, _ = await translate(text = "gDocument", lang_code = lang_code)
+        CHUNK, _ = await translate(text = "gDOCUMENT", lang_code = lang_code)
         
         # CHECKS BOTS RIGHT: ADMIN
         status = await bot.get_chat_member(message.chat.id, myID[0].id)
@@ -217,4 +217,3 @@ async def gDOC(bot, message):
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
         await work(message, "delete", True)
 
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
