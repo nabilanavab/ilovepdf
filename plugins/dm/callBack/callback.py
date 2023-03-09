@@ -48,21 +48,21 @@ async def _pdf(bot, callbackQuery):
         elif data == "txt":
             tTXT, tBTN = await util.translate(button = "BUTTONS['txt']", order = 1221, lang_code = lang_code)
         elif data == "meta":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['meta']", order = 111, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['meta']", order = 1111, lang_code = lang_code)
         elif data == "lock":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['lock']", order = 21, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['lock']", order = 121, lang_code = lang_code)
         elif data == "trim":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['trim']", order = 21, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['trim']", order = 121, lang_code = lang_code)
         elif data == "format":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['format']", order = 12211, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['format']", order = 112211, lang_code = lang_code)
         elif data == "trade":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['trade']", order = 21, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['trade']", order = 121, lang_code = lang_code)
         elif data == "filter":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['filter']", order = 211, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['filter']", order = 1211, lang_code = lang_code)
         elif data == "comocr":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['comocr']", order = 21, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['comocr']", order = 121, lang_code = lang_code)
         elif data == "addlt":
-            tTXT, tBTN = await util.translate(button = "BUTTONS['addlt']", order = 21, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "BUTTONS['addlt']", order = 121, lang_code = lang_code)
         elif data == "T2P":
             tTXT, tBTN = await util.translate(button = "pdf2TXT['font_btn']", order = 12121, lang_code = lang_code)
         
