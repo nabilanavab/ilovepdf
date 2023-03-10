@@ -196,8 +196,8 @@ async def _aio(bot, callbackQuery):
                 btn = [InlineKeyboardButton(key, value)]
                 # F
                 try: btn.append(InlineKeyboardButton(
-                        tTXT['false'] if all_data[index] else tTXT['true'] ,
-                        tTXT['out_values'][index].format(F="F" if all_data[index] else "T"))
+                        tTXT['true'] if all_data[index] else tTXT['false'] ,
+                        tTXT['out_values'][index].format(F="{T}" if all_data[index] else "{F}"))
                     )
                 except: pass
                 aio_list_btn.append(btn)
