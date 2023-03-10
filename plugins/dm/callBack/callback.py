@@ -166,7 +166,7 @@ async def _aio(bot, callbackQuery):
         
         data = data.split("|", 1)[1]
         buttons = callbackQuery.message.reply_markup.inline_keyboard.InlineKeyboardMarkup
-        callback = [button.callback_data for button in buttons]
+        callback = [i.callback_data for i in button for button in buttons]
         logger.debug(callback)
         
     except Exception as Error:
