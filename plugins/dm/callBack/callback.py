@@ -165,9 +165,10 @@ async def _aio(bot, callbackQuery):
         
         # data1 = "meta/enc/form/comp/water/en.." , data2 = "{}/True/False"
         data1, data2 = data.split("|")[1:]
-        
+        logger.debug(f"{data1}, {data2}")
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for index, button in enumerate(buttons) for element in button if index % 2 == 0]
+        logger.debug(callback)
         all_data = [ True if element.split("|")[-1]=="T" else False for element in callback ]
         dataARRANGEMENT = { "meta" : 0, "enc" : 1, "form" : 2, "comp" : 3, "water" : 4, "rn" : 5 }
         
