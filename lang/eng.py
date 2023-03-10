@@ -231,10 +231,10 @@ AIO = {
     "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","🔐 ENCRYPTED 🔐":"aioInput|enc","🔓 DECRYPTED 🔓":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" },
     "waitPASS" : { "Now send Password.. 😪" : "nabilanavab|aioInput" },
     "passMSG" : "`What should I do with this file.?`🤔💭\n\nFile Name : `{}`\nFile Size : `{}`\n\nPassword: ||{}||",
-    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|meta", "🟢 {false} 🟢" : "aio|meta|{false}", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "🟢  {false}  🟢" : "aio|enc|{false}",
-        "😗 FORMAT 😗" : "nabilanavab|aio|form", "🟢   {false}   🟢" : "aio|form|{false}", "🗜 COMPRESS 🗜": "nabilanavab|aio|comp", "🟢    {false}    🟢" : "aio|comp|{false}", 
-        "💦 WATERMARK 💦" : "nabilanavab|aio|water", "🟢     {false}     🟢" : "aio|water|{false}", "✏️ RENAME ✏️" : "nabilanavab|aio|rn", "🟢      {false}      🟢" : "aio|rn|{false}",
-        "🚶‍♂️ BACK 🚶‍♂️" : "aio" }
+    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|met", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "😗 FORMAT 😗" : "nabilanavab|aio|for",
+        "🗜 COMPRESS 🗜": "nabilanavab|aio|com", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm", 
+        "🚶‍♂️ BACK 🚶‍♂️" : "aio" },
+    "out_values": ["aio|met|{F}", "aio|enc|{F}", "aio|for|{F}", "aio|com|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]
 }
 
 gDOCUMENT = {
