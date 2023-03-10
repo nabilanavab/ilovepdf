@@ -165,7 +165,7 @@ async def _aio(bot, callbackQuery):
             return await callbackQuery.message.edit_reply_markup(tBTN)
         
         data = data.split("|", 1)[1]
-        buttons = callbackQuery.message.reply_markup.inline_keyboard
+        buttons = callbackQuery.message.reply_markup.inline_keyboard.InlineKeyboardMarkup
         callback = [button.callback_data for button in buttons]
         logger.debug(callback)
         
