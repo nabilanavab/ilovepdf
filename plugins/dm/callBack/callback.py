@@ -125,7 +125,6 @@ async def _pdf(bot, callbackQuery):
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
 
-
 aio = filters.create(lambda _, __, query: query.data.startswith("aio"))
 @ILovePDF.on_callback_query(aio)
 async def _aio(bot, callbackQuery):
@@ -164,14 +163,23 @@ async def _aio(bot, callbackQuery):
             tTXT, tBTN = await util.translate(button = "AIO['out_button']", order = 22222222, lang_code = lang_code)
             return await callbackQuery.message.edit_reply_markup(tBTN)
         
+        # data1 = "meta/enc/form/comp/water/en.." , data2 = "{}/True/False"
+        data1, data2 = data.split("|")[1:]
+        
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [ element.callback_data for button in buttons for element in button ]
-        data = [True if index/2==0 and element.split("|")[-1]=="T" else False for index, element in enumerate(callback)]
-        logger.debug(data)
+        all_data = [ True if element.split("|")[-1]=="T" else False for element in callback ]
+        dataARRANGEMENT = { "meta" : 0, "enc" : 1, "form" : 2, "comp" : 3, "water" : 4, "rn" : 5 }
+        
+        logger.debug(all_data)
+        if dataARRANGEMENT.get(data) == True:
+            all_data[dataARRANGEMENT.get(data)] = False
+        elif dataARRANGEMENT.get(data) == False:
+            all_data[dataARRANGEMENT.get(data)] = True
+        logger.debug(all_data)
         
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
-
 
 common = filters.create(lambda _, __, query: query.data.startswith("-|"))
 @ILovePDF.on_callback_query(common)
