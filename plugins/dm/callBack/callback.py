@@ -191,7 +191,10 @@ async def _aio(bot, callbackQuery):
             aio_list_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
                 btn = [InlineKeyboardButton(key, value)]
-                try: btn.append(InlineKeyboardButton(tTXT['false'] if all_data[index] else tTXT['true'] , tTXT['out_values'][index]))
+                try: btn.append(InlineKeyboardButton(
+                        tTXT['false'] if all_data[index] else tTXT['true'] ,
+                        tTXT['out_values'][index].format(F="T" if all_data[index] else "F"))
+                    )
                 except: pass
                 aio_list_btn.append(btn)
             return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
