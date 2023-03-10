@@ -145,18 +145,24 @@ async def _aio(bot, callbackQuery):
             )
         # encrypted input pdf file
         elif data == "aioInput|enc":
-            tTXT, tBTN = await util.translate(button = "AIO['waitPASS']", order = 1, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
+            tBTN = util.createBUTTON(btn=tTXT['waitPASS'])
             await callbackQuery.message.edit_reply_markup(tBTN)
             input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
             while not input_str.text:
                 await input_str.delete()
                 input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
             await input_str.delete()
-            tTXT, tBTN = await util.translate(text = "AIO['passMSG']", button = "AIO['out_button']", order = 2222222, lang_code = lang_code)
+            
+            settings_btn = []
+            for index, (key, value) in enumerate(tTXT['out_button'].items()):
+                btn = [InlineKeyboardButton(key, value)]
+                btn.append[InlineKeyboardButton(tTXT['false'] if tTXT['out_values'][index].endswith("{F}" else tTXT['true'] ), tTXT['out_values'][index])]
+            
             return await callbackQuery.message.edit(
-                text = tTXT.format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
+                text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
                     await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300] ),
-                reply_markup = tBTN
+                reply_markup = InlineKeyboardMarkup(settings_btn)
             )
         # non encrypted input pdf file
         elif data == "aioInput|dec":
@@ -178,9 +184,10 @@ async def _aio(bot, callbackQuery):
         
         if data1 in ["meta", "form", "comp"]:
             tTXT, tBTN = await util.translate(text="AIO['out_button']", lang_code = lang_code)
-            new_dict = {}
-            for index, (key, value) in enumerate(tTXT.items()):
-                new_dict[key.format(false="dfg")] = value.format(false=all_data[index%2])
+            
+            for i, j in inDir.items():
+                
+            
             tBTN = await util.createBUTTON(btn=tTXT)
             return await callbackQuery.message.edit_reply_markup(tBTN)
             
