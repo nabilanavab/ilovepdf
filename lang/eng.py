@@ -234,7 +234,7 @@ AIO = {
     "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|meta", "🟢 {false} 🟢" : "aio|meta|{false}", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "🟢  {false}  🟢" : "aio|enc|{false}",
         "😗 FORMAT 😗" : "nabilanavab|aio|form", "🟢   {false}   🟢" : "aio|form|{false}", "🗜 COMPRESS 🗜": "nabilanavab|aio|comp", "🟢    {false}    🟢" : "aio|comp|{false}", 
         "💦 WATERMARK 💦" : "nabilanavab|aio|water", "🟢     {false}     🟢" : "aio|water|{false}", "✏️ RENAME ✏️" : "nabilanavab|aio|rn", "🟢      {false}      🟢" : "aio|rn|{false}",
-        "🚶‍♂️ BACK 🚶‍♂️" : "aioInput|enc" }
+        "🚶‍♂️ BACK 🚶‍♂️" : "aio" }
 }
 
 gDOCUMENT = {
