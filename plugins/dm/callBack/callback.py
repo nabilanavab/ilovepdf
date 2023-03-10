@@ -144,6 +144,7 @@ async def _aio(bot, callbackQuery):
                                  await render.gSF(callbackQuery.message.reply_to_message.document.file_size)),
                 reply_markup = tBTN
             )
+        # encrypted input pdf file
         elif data == "aioInput|enc":
             tTXT, tBTN = await util.translate(button = "AIO['waitPASS']", order = 1, lang_code = lang_code)
             await callbackQuery.message.edit_reply_markup(tBTN)
@@ -152,20 +153,26 @@ async def _aio(bot, callbackQuery):
                 await input_str.delete()
                 input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
             await input_str.delete()
-            tTXT, tBTN = await util.translate(text = "AIO['passMSG']", button = "AIO['out_button']", order = 222, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(text = "AIO['passMSG']", button = "AIO['out_button']", order = 2222222, lang_code = lang_code)
             return await callbackQuery.message.edit(
-                text = tTXT.format(callbackQuery.message.reply_to_message.document.file_name, 
-                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text ),
+                text = tTXT.format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
+                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300] ),
                 reply_markup = tBTN
             )
+        # non encrypted input pdf file
         elif data == "aioInput|dec":
-            tTXT, tBTN = await util.translate(button = "AIO['out_button']", order = 222, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(button = "AIO['out_button']", order = 22222222, lang_code = lang_code)
             return await callbackQuery.message.edit_reply_markup(tBTN)
+        
         data = data.split("|", 1)[1]
+        
+        logger.debug(callbackQuery.message)
+        logger.debug("-------------------------------------------------------------------------------")
+        logger.debug(callbackQuery.message.reply_markup)
+        
         
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
-
 
 
 common = filters.create(lambda _, __, query: query.data.startswith("-|"))
