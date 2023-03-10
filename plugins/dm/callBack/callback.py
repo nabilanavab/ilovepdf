@@ -165,7 +165,11 @@ async def _aio(bot, callbackQuery):
             return await callbackQuery.message.edit_reply_markup(tBTN)
         
         data = data.split("|", 1)[1]
-        logger.debug(callbackQuery.message.reply_markup)
+        button = callbackQuery.message.reply_markup["inline_keyboard"]
+        logger.debug(button)
+        for i in button:
+            for j in i:
+                logger.debug("------------------------------------------");logger.debug(j)
         
         
     except Exception as Error:
