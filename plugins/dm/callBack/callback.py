@@ -177,7 +177,7 @@ async def _aio(bot, callbackQuery):
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         logger.debug(callback)
-        all_data = [ False if element.endswith(('F', '{F}')) else True for element in callback ]
+        all_data = [ False if element.endswith('{F}') else True for element in callback ]
         dataARRANGEMENT = { "met" : 0, "enc" : 1, "for" : 2, "com" : 3, "wat" : 4, "rnm" : 5 }
         
         logger.debug(all_data)
@@ -194,7 +194,6 @@ async def _aio(bot, callbackQuery):
             aio_list_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
                 btn = [InlineKeyboardButton(key, value)]
-                # F
                 try: btn.append(InlineKeyboardButton(
                         tTXT['true'] if all_data[index] else tTXT['false'] ,
                         tTXT['out_values'][index].format(F="{T}" if all_data[index] else "{F}"))
