@@ -158,8 +158,9 @@ async def _aio(bot, callbackQuery):
             settings_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
                 btn = [InlineKeyboardButton(key, value)]
-                btn.append[InlineKeyboardButton(tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'] , tTXT['out_values'][index])]
-            
+                try:
+                    btn.append[InlineKeyboardButton(tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'] , tTXT['out_values'][index])]
+                except: pass
             return await callbackQuery.message.edit(
                 text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
                     await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300] ),
