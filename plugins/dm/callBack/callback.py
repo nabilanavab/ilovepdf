@@ -180,7 +180,7 @@ async def _aio(bot, callbackQuery):
             tTXT, tBTN = await util.translate(text="AIO['out_button']", lang_code = lang_code)
             new_dict = {}
             for index, (key, value) in enumerate(tTXT.items()):
-                new_dict[key.format("dfg")] = value.format(all_data[index%2])
+                new_dict[key.format(false="dfg")] = value.format(false=all_data[index%2])
             tBTN = await util.createBUTTON(btn=tTXT)
             return await callbackQuery.message.edit_reply_markup(tBTN)
             
