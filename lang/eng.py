@@ -142,8 +142,8 @@ PDF_MESSAGE = {
     "pdf_button" : {
         "⭐ META£ATA ⭐" : "pdf|meta", "🖼️ IMAGES 🖼️" : "pdf|img", "📑 TEXT 📑" : "pdf|txt", "🤸 ROTATE 🤸" : "pdf|rotate",
         "✂️ SPLIT/MERGE 🧬" : "pdf|trim", "🔐 ENCRY\DECRY 🔓" : "pdf|lock", "😗 FORMAT 😗" : "pdf|format",
-        "💦 WATERMARK 💦" : "pdf|trade", "🗜 COMPRESS\OCR 🗜" : "pdf|comocr", "✏️ RENAME ✏️" : "#rename", "🔎 ZOOM 🔎" : "#zoom",
-        "🔗 URL 🔗" : "link", "👻 FILTER 👻" : "pdf|filter", "🟢 ADD/DLT 🔴" : "pdf|addlt", "🚫 CLOSE 🚫" : "close|all"
+        "💦 WATERMARK 💦" : "pdf|trade", "🗜 COMPRESS\OCR 🔎" : "pdf|comocr", "✏️ RENAME ✏️" : "#rename", "🔎 ZOOM 🔎" : "#zoom",
+        "🔗 URL 🔗" : "link", "👻 FILTER 👻" : "pdf|filter", "🟢 ADD/DLT 🔴" : "pdf|addlt", "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all"
     },
     "error" : "__I can't do anything with this file.__ 😏\n\n🐉  `CODEC ERROR`  🐉",
     "errorCB" : { "❌ ERROR IN CODEC ❌" : "error", "🔸 CLOSE 🔸" : "close|all" },
@@ -231,7 +231,9 @@ AIO = {
     "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","🔐 ENCRYPTED 🔐":"aioInput|enc","🔓 DECRYPTED 🔓":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" },
     "waitPASS" : { "Now send Password.. 😪" : "nabilanavab|aioInput" },
     "passMSG" : "Does the PDF file require a password to open ?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`\n\nPassword: ||{}||",
-    "out_button" : {"efc" : "fvdc", "cefre" : "Fdcdfv", "ERfcer" : "FVDFV"}
+    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|meta", "🟢 TRUE 🟢" : "aio|meta|{}", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "🟢 TRUE 🟢" : "aio|enc|{}",
+                    "😗 FORMAT 😗" : "aio|format|{}",  "🟢 TRUE 🟢" : "aio|meta|{}", "🗜 COMPRESS 🗜": "aio|comp|{}", "🟢 TRUE 🟢" : "aio|meta|{}",
+                   "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all" }
 }
 
 gDOCUMENT = {
