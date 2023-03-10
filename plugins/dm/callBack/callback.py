@@ -164,10 +164,10 @@ async def _aio(bot, callbackQuery):
             tTXT, tBTN = await util.translate(button = "AIO['out_button']", order = 22222222, lang_code = lang_code)
             return await callbackQuery.message.edit_reply_markup(tBTN)
         
-        data = data.split("|", 1)[1]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [ element.callback_data for button in buttons for element in button ]
-        logger.debug(callback)
+        data = [ True for index, _ in callback if index/2==0 and callback.split("|")[-1]== "T" else False]
+        logger.debug(data)
         
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
