@@ -231,8 +231,8 @@ AIO = {
     "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","🔐 ENCRYPTED 🔐":"aioInput|enc","🔓 DECRYPTED 🔓":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" },
     "waitPASS" : { "Now send Password.. 😪" : "nabilanavab|aioInput" },
     "passMSG" : "Does the PDF file require a password to open ?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`\n\nPassword: ||{}||",
-    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|meta", "🟢 TRUE 🟢" : "aio|meta|{}", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "🟢 TRUE 🟢" : "aio|enc|{}",
-                    "😗 FORMAT 😗" : "aio|format|{}", "🟢 TRUE 🟢" : "aio|meta|{}", "🗜 COMPRESS 🗜": "aio|comp|{}", "🟢 TRUE 🟢" : "aio|meta|{}",
+    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|meta", "🟢 true 🟢" : "aio|meta|{}", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "🟢 TRUE 🟢" : "aio|enc|{}",
+                    "😗 FORMAT 😗" : "aio|format|{}", "🟢 tRUE 🟢" : "aio|form|{}", "🗜 COMPRESS 🗜": "aio|comp|{}", "🟢 trUE 🟢" : "aio|meta|{}",
                    "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all" }
 }
 
