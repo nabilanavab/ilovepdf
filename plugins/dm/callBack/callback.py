@@ -173,13 +173,13 @@ async def _aio(bot, callbackQuery):
         dataARRANGEMENT = { "meta" : 0, "enc" : 1, "form" : 2, "comp" : 3, "water" : 4, "rn" : 5 }
         
         logger.debug(all_data)
-        logger.debug(isinstance(dataARRANGEMENT.get(data), int))
-        if isinstance(dataARRANGEMENT.get(data), int):
+        logger.debug(isinstance(dataARRANGEMENT.get(data1), int))
+        if isinstance(dataARRANGEMENT.get(data1), int):
             logger.debug(all_data[dataARRANGEMENT.get(data)])
-            if all_data[dataARRANGEMENT.get(data)] == False:
-                all_data[dataARRANGEMENT.get(data)] = True
-            if all_data[dataARRANGEMENT.get(data)] == True:
-                all_data[dataARRANGEMENT.get(data)] = False
+            if all_data[dataARRANGEMENT.get(data1)] == False:
+                all_data[dataARRANGEMENT.get(data1)] = True
+            if all_data[dataARRANGEMENT.get(data1)] == True:
+                all_data[dataARRANGEMENT.get(data1)] = False
         logger.debug(all_data)
         
     except Exception as Error:
