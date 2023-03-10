@@ -173,7 +173,7 @@ async def _aio(bot, callbackQuery):
         dataARRANGEMENT = { "meta" : 0, "enc" : 1, "form" : 2, "comp" : 3, "water" : 4, "rn" : 5 }
         
         logger.debug(all_data)
-        if isinstance(dataARRANGEMENT.get(data), int)
+        if isinstance(dataARRANGEMENT.get(data), int):
             if all_data[dataARRANGEMENT.get(data)] == False:
                 all_data[dataARRANGEMENT.get(data)] = True
             if all_data[dataARRANGEMENT.get(data)] == True:
