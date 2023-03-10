@@ -174,12 +174,16 @@ async def _aio(bot, callbackQuery):
         if isinstance(data_1, int):
             if all_data[data_1] == False: all_data[data_1] = True
             elif all_data[data_1] == True: all_data[data_1] = False
+        else: return
         
         if data1 in ["meta", "form", "comp"]:
             tTXT, tBTN = await util.translate(text="AIO['out_button']".format(*all_data), lang_code = lang_code)
+            for index, (key, value) in enumurate(tTXT.items()):
+                del tTXT[key]
+                tTXT[key.format()] = value.format(all_data[index])
             tBTN = await util.createBUTTON(btn=tTXT)
-            return  await callbackQuery.message.edit_reply_markup(tBTN)
-                
+            return await callbackQuery.message.edit_reply_markup(tBTN)
+            
         
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
