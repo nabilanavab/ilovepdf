@@ -165,7 +165,7 @@ async def _aio(bot, callbackQuery):
             return await callbackQuery.message.edit_reply_markup(tBTN)
         
         data = data.split("|", 1)[1]
-        logger.debug(callbackQuery.message.reply_markup.callback_data)
+        logger.debug(callbackQuery.message.reply_markup)
         
         
     except Exception as Error:
