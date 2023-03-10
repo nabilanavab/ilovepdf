@@ -155,18 +155,17 @@ async def _aio(bot, callbackQuery):
                 input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
             await input_str.delete()
             
-            settings_btn = []
+            aio_list_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
                 btn = [InlineKeyboardButton(key, value)]
                 try:
                     btn.append(InlineKeyboardButton(tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'] , tTXT['out_values'][index]))
                 except: pass
-                settings_btn.append(btn)
-            logger.debug(btn)
+                aio_list_btn.append(btn)
             return await callbackQuery.message.edit(
                 text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
                     await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300] ),
-                reply_markup = InlineKeyboardMarkup(settings_btn)
+                reply_markup = InlineKeyboardMarkup(aio_list_btn)
             )
         # non encrypted input pdf file
         elif data == "aioInput|dec":
@@ -187,12 +186,15 @@ async def _aio(bot, callbackQuery):
         else: return
         
         if data1 in ["meta", "form", "comp"]:
-            tTXT, tBTN = await util.translate(text="AIO['out_button']", lang_code = lang_code)
+            tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
             
-            # for i, j in inDir.items():
-                
-            tBTN = await util.createBUTTON(btn=tTXT)
-            return await callbackQuery.message.edit_reply_markup(tBTN)
+            aio_list_btn = []
+            for index, (key, value) in enumerate(tTXT['out_button'].items()):
+                btn = [InlineKeyboardButton(key, value)]
+                try: btn.append(InlineKeyboardButton(tTXT['false'] if all_data[index] else tTXT['true'] , tTXT['out_values'][index]))
+                except: pass
+                aio_list_btn.append(btn)
+            return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
             
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
