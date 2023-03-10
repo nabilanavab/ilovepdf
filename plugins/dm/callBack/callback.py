@@ -179,12 +179,14 @@ async def _aio(bot, callbackQuery):
         all_data = [ False if element.split("|")[-1]=="{F}" else True for element in callback ]
         dataARRANGEMENT = { "met" : 0, "enc" : 1, "for" : 2, "com" : 3, "wat" : 4, "rnm" : 5 }
         
+        logger.dubug(all_data)
         data_1 = dataARRANGEMENT.get(data1)
         if isinstance(data_1, int):
             if all_data[data_1] == False: all_data[data_1] = True
             elif all_data[data_1] == True: all_data[data_1] = False
         else: return
         
+        logger.dubug(all_data)
         if data1 in ["met", "for", "com"]:
             tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
             
