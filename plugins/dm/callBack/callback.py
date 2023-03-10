@@ -167,7 +167,7 @@ async def _aio(bot, callbackQuery):
         data1, data2 = data.split("|")[1:]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
-        all_data = [ True if element.split("|")[-1]=="T" else False for element in callback ] + ["adjustment" ]
+        all_data = [ True if element.split("|")[-1]=="T" else False for element in callback ]
         dataARRANGEMENT = { "meta" : 0, "enc" : 1, "form" : 2, "comp" : 3, "water" : 4, "rn" : 5 }
         
         data_1 = dataARRANGEMENT.get(data1)
@@ -180,7 +180,7 @@ async def _aio(bot, callbackQuery):
             tTXT, tBTN = await util.translate(text="AIO['out_button']", lang_code = lang_code)
             new_dict = {}
             for index, (key, value) in enumerate(tTXT.items()):
-                new_dict[key.format("dfg")] = value.format(all_data[index])
+                new_dict[key.format("dfg")] = value.format(all_data[index%2])
             tBTN = await util.createBUTTON(btn=tTXT)
             return await callbackQuery.message.edit_reply_markup(tBTN)
             
