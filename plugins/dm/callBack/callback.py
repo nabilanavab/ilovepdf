@@ -170,10 +170,10 @@ async def _aio(bot, callbackQuery):
         all_data = [ True if element.split("|")[-1]=="T" else False for element in callback ]
         dataARRANGEMENT = { "meta" : 0, "enc" : 1, "form" : 2, "comp" : 3, "water" : 4, "rn" : 5 }
         
-        data1 = dataARRANGEMENT.get(data1)
-        if isinstance(data1, int):
-            if all_data[data1] == False: all_data[data1] = True
-            elif all_data[data1] == True: all_data[data1] = False
+        data_1 = dataARRANGEMENT.get(data1)
+        if isinstance(data_1, int):
+            if all_data[data_1] == False: all_data[data_1] = True
+            elif all_data[data_1] == True: all_data[data_1] = False
         
         if data1 in ["meta", "form", "comp"]:
             tTXT, tBTN = await util.translate(text="AIO['out_button']".format(*all_data), lang_code = lang_code)
