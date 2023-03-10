@@ -161,6 +161,7 @@ async def _aio(bot, callbackQuery):
                 try:
                     btn.append[InlineKeyboardButton(tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'] , tTXT['out_values'][index])]
                 except: pass
+            logger.debug(btn)
             return await callbackQuery.message.edit(
                 text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
                     await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300] ),
@@ -192,44 +193,7 @@ async def _aio(bot, callbackQuery):
             tBTN = await util.createBUTTON(btn=tTXT)
             return await callbackQuery.message.edit_reply_markup(tBTN)
             
-        
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
-
-common = filters.create(lambda _, __, query: query.data.startswith("-|"))
-@ILovePDF.on_callback_query(common)
-async def _common(bot, callbackQuery):
-    try:
-        if callbackQuery.data == "-|refresh":
-            await callbackQuery.answer("👍")
-            BUTTON1, _ = await util.translate(text = "inline_query['TOP']", lang_code = "eng")
-            _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=-l{lang}" for lang in langList }
-            BUTTON1.update(_lang); BUTTON1.update({"♻" : "-|refresh"})
-            BUTTON1 = await util.createBUTTON(
-                btn = BUTTON1, order = int(f"1{((len(BUTTON1)-2)//3)*'3'}{(len(BUTTON1)-2)%3}1")
-            )
-            time = datetime.now()
-            
-            return await bot.edit_inline_text(
-                callbackQuery.inline_message_id,
-                text = "set Language: 🌐\n\n"
-                       f"i ❤ PDF\nBot: @{myID[0].username}\n"
-                       "Update Channel: @ilovepdf_bot\n\n"
-                       f"`UPDATED: {time.strftime('%d:%B:%Y, %A')}`\n"
-                       f"`TIME: {time.strftime('%I:%M %p')}`",
-                reply_markup = BUTTON1
-            )
-        
-        lang_code = await util.getLang(callbackQuery.message.chat.id)
-        data = callbackQuery.data.split("|")[1]
-        if await render.header(bot, callbackQuery, lang_code=lang_code):
-            return
-        
-        if data == "error":
-            tTXT, tBTN = await util.translate(text = "cbAns[2]", lang_code = lang_code)
-            return await callbackQuery.answer(tTXT)
-    
-    except Exception as e:
-        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
 
 # Author: @nabilanavab
