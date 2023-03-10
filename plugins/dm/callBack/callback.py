@@ -177,7 +177,7 @@ async def _aio(bot, callbackQuery):
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         all_data = [ True if element.split("|")[-1]=="T" else False for element in callback ]
-        dataARRANGEMENT = { "meta" : 0, "enc" : 1, "form" : 2, "comp" : 3, "water" : 4, "rn" : 5 }
+        dataARRANGEMENT = { "met" : 0, "enc" : 1, "for" : 2, "com" : 3, "wat" : 4, "rnm" : 5 }
         
         data_1 = dataARRANGEMENT.get(data1)
         if isinstance(data_1, int):
@@ -185,7 +185,7 @@ async def _aio(bot, callbackQuery):
             elif all_data[data_1] == True: all_data[data_1] = False
         else: return
         
-        if data1 in ["meta", "form", "comp"]:
+        if data1 in ["met", "for", "com"]:
             tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
             
             aio_list_btn = []
