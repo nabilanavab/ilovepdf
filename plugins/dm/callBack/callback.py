@@ -176,6 +176,7 @@ async def _aio(bot, callbackQuery):
         data1, data2 = data.split("|")[1:]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
+        logger.debug(callback)
         all_data = [ False if element.endswith("{F}") else True for element in callback ]
         dataARRANGEMENT = { "met" : 0, "enc" : 1, "for" : 2, "com" : 3, "wat" : 4, "rnm" : 5 }
         
