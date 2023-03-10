@@ -163,7 +163,7 @@ async def _aio(bot, callbackQuery):
             tTXT, tBTN = await util.translate(button = "AIO['out_button']", order = 22222222, lang_code = lang_code)
             return await callbackQuery.message.edit_reply_markup(tBTN)
         
-        # data1 = "meta/enc/form/comp/water/en.." , data2 = "{}/True/False"
+        # data1 = "meta/enc/form/comp/water/n.." , data2 = "{}/True/False"
         data1, data2 = data.split("|")[1:]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
@@ -175,7 +175,11 @@ async def _aio(bot, callbackQuery):
             if all_data[data1] == False: all_data[data1] = True
             elif all_data[data1] == True: all_data[data1] = False
         
-        logger.debug(all_data)
+        if data1 in ["meta", "form", "comp"]:
+            tTXT, tBTN = await util.translate(text="AIO['out_button']".format(*all_data), lang_code = lang_code)
+            tBTN = await util.createBUTTON(btn=tTXT)
+            return  await callbackQuery.message.edit_reply_markup(tBTN)
+                
         
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
