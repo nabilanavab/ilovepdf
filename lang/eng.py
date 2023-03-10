@@ -231,9 +231,9 @@ AIO = {
     "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","🔐 ENCRYPTED 🔐":"aioInput|enc","🔓 DECRYPTED 🔓":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" },
     "waitPASS" : { "Now send Password.. 😪" : "nabilanavab|aioInput" },
     "passMSG" : "`What should I do with this file.?`🤔💭\n\nFile Name : `{}`\nFile Size : `{}`\n\nPassword: ||{}||",
-    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|meta", "🟢 true 🟢" : "aio|meta|{}", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "🟢 TRUE 🟢" : "aio|enc|{}",
-        "😗 FORMAT 😗" : "aio|format|{}", "🟢 tRUE 🟢" : "aio|form|{}", "🗜 COMPRESS 🗜": "aio|comp|{}", "🟢 trUE 🟢" : "aio|comp|{}", 
-        "💦 WATERMARK 💦" : "nabilanavab|aio|water", "🟢 TRuE 🟢" : "aio|water|{}", "✏️ RENAME ✏️" : "nabilanavab|aio|rn", "🟢 TRuE 🟢" : "aio|rn|{}",
+    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|meta", "🟢 TRUE 🟢" : "aio|meta|{}", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "🟢  TRUE  🟢" : "aio|enc|{}",
+        "😗 FORMAT 😗" : "aio|format|{}", "🟢   TRUE   🟢" : "aio|form|{}", "🗜 COMPRESS 🗜": "aio|comp|{}", "🟢    TRUE    🟢" : "aio|comp|{}", 
+        "💦 WATERMARK 💦" : "nabilanavab|aio|water", "🟢     TRUE     🟢" : "aio|water|{}", "✏️ RENAME ✏️" : "nabilanavab|aio|rn", "🟢      TRUE      🟢" : "aio|rn|{}",
         "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all" }
 }
 
