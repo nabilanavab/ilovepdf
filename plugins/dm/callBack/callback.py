@@ -186,9 +186,8 @@ async def _aio(bot, callbackQuery):
         if data1 in ["meta", "form", "comp"]:
             tTXT, tBTN = await util.translate(text="AIO['out_button']", lang_code = lang_code)
             
-            for i, j in inDir.items():
+            # for i, j in inDir.items():
                 
-            
             tBTN = await util.createBUTTON(btn=tTXT)
             return await callbackQuery.message.edit_reply_markup(tBTN)
             
