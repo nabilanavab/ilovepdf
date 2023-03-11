@@ -209,7 +209,7 @@ async def _aio(bot, callbackQuery):
                 input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
             await input_str.delete()
             
-            if input_str.text != "/exit"
+            if input_str.text != "/exit":
                 data_1 = dataARRANGEMENT.get(data1)
                 if isinstance(data_1, int):
                     if all_data[data_1] == False: all_data[data_1] = True
