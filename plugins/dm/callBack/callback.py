@@ -186,7 +186,8 @@ async def _aio(bot, callbackQuery):
             )
         
         message_data = callbackQuery.message.text.replace("||", "`").split("`")
-        logger.debug(message_data)
+        for i in message_data:
+            logger.debug(i)
         
         # data1 = "meta/enc/form/comp/water/n.." , data2 = "{}/True/False"
         data1, data2 = data.split("|")[1:]
