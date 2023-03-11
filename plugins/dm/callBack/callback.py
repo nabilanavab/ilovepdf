@@ -176,19 +176,16 @@ async def _aio(bot, callbackQuery):
         data1, data2 = data.split("|")[1:]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
-        logger.debug(callback)
         all_data = [ False if element.endswith('{F}') else True for element in callback ]
         dataARRANGEMENT = { "met" : 0, "enc" : 1, "for" : 2, "com" : 3, "wat" : 4, "rnm" : 5 }
         
-        logger.debug(all_data)
-        data_1 = dataARRANGEMENT.get(data1)
-        if isinstance(data_1, int):
-            if all_data[data_1] == False: all_data[data_1] = True
-            elif all_data[data_1] == True: all_data[data_1] = False
-        else: return
-        
-        logger.debug(all_data)
         if data1 in ["met", "for", "com"]:
+            data_1 = dataARRANGEMENT.get(data1)
+            if isinstance(data_1, int):
+                if all_data[data_1] == False: all_data[data_1] = True
+                elif all_data[data_1] == True: all_data[data_1] = False
+            else: return
+            
             tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
             
             aio_list_btn = []
@@ -201,7 +198,37 @@ async def _aio(bot, callbackQuery):
                 except: pass
                 aio_list_btn.append(btn)
             return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
+        
+        elif data1 in ["enc", "rnm"]:
+            tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
+            tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
+            await callbackQuery.message.edit_reply_markup(tBTN)
+            input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
+            while not input_str.text:
+                await input_str.delete()
+                input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
+            await input_str.delete()
             
+            if input_str.text == "/exit":
+                return
+            
+            data_1 = dataARRANGEMENT.get(data1)
+            if isinstance(data_1, int):
+                if all_data[data_1] == False: all_data[data_1] = True
+                elif all_data[data_1] == True: all_data[data_1] = False
+            else: return
+            
+            aio_list_btn = []
+            for index, (key, value) in enumerate(tTXT['out_button'].items()):
+                btn = [InlineKeyboardButton(key, value)]
+                try: btn.append(InlineKeyboardButton(
+                        tTXT['true'] if all_data[index] else tTXT['false'] ,
+                        tTXT['out_values'][index].format(F="{T}" if all_data[index] else "{F}"))
+                    )
+                except: pass
+                aio_list_btn.append(btn)
+            return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
+        
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
 
