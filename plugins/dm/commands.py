@@ -11,6 +11,7 @@ import os, shutil
 from plugins.utils   import *
 from pdf             import PDF
 from configs.beta    import BETA
+from configs.db      import dataBASE,
 from pyrogram        import Client as ILovePDF, enums, filters
 
 if dataBASE.MONGODB_URI:
