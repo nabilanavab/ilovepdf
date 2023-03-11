@@ -43,7 +43,7 @@ async def _cancelI2P(bot, message):
 
 # ❌ BETA USER (/beta) ❌
 @ILovePDF.on_message(filters.private & filters.command(["beta"]) & filters.incoming)
-async def _cancelI2P(bot, message):
+async def _betaMode(bot, message):
     try:
         if message.chat.id in dm.ADMINS:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
