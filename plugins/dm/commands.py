@@ -44,7 +44,7 @@ async def _cancelI2P(bot, message):
 @ILovePDF.on_message(filters.private & filters.command(["beta"]) & filters.incoming)
 async def _cancelI2P(bot, message):
     try:
-        if message.chat.id in dm.ADMIN:
+        if message.chat.id in dm.ADMINS:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
         if message.chat.id not in BETA:
             await db.set_key(id=message.chat.id, key="beta", value="True")
