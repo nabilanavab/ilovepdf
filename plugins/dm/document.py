@@ -179,7 +179,7 @@ async def documents(bot, message):
             input_file = f"{cDIR}/input_file{fileExt}"
             # DOWNLOAD PROGRESS
             downloadLoc = await bot.download_media(
-                message = message.document.file_id, file_name = input_file, progress = progress,
+                message = message.document.file_id, file_name = input_file, progress = render.progress,
                 progress_args = (message.document.file_size, pdfMsgId, time.time())
             )
             # CHECKS PDF DOWNLOADED OR NOT
