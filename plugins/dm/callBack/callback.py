@@ -194,8 +194,8 @@ async def _aio(bot, callbackQuery):
         data1, data2 = data.split("|")[1:]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
-        all_data = [ False if element.endswith('{F}') else element.split("|")[-1] for element in callback ]
-        dataARRANGEMENT = { "met" : 0, "enc" : 1, "for" : 2, "com" : 3, "wat" : 4, "rnm" : 5 }
+        all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ]
+        dataARRANGEMENT = { "met" : 0, "pre" : 1, "txt" : 2, "rot" : 3, "enc" : 4, "for" : 5, "com" : 6, "wat" : 7, "rnm" : 8 }
         
         logger.debug(all_data)
         if data1 in [ "met", "pre", "com" ]:
@@ -212,7 +212,7 @@ async def _aio(bot, callbackQuery):
                 btn = [InlineKeyboardButton(key, value)]
                 try: btn.append(InlineKeyboardButton(
                         tTXT['true'] if all_data[index] else tTXT['false'] ,
-                        tTXT['out_values'][index].format(F="{T}" if all_data[index] else "{F}"))
+                        tTXT['out_values'][index].format(F=all_data[index]))
                     )
                 except: pass
                 aio_list_btn.append(btn)
