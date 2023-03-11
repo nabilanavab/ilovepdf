@@ -221,7 +221,7 @@ async def _aio(bot, callbackQuery):
         elif data1 in [ "enc", "rnm", "wat" ]:
             tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
             
-            if data2 == "{F}":
+            if data2 != "{F}":
                 tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
                 await callbackQuery.message.edit_reply_markup(tBTN)
                 input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
