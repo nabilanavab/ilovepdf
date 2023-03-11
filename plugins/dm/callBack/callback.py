@@ -186,7 +186,7 @@ async def _aio(bot, callbackQuery):
             )
         
         message_data = callbackQuery.message.text.replace("||", "`").split("`")
-        logger.debug(callbackQuery.message.text)
+        logger.debug(callbackQuery.message)
         for i in message_data:
             logger.debug(i)
             logger.debug("\n--------------------------------")
