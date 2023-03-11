@@ -9,6 +9,7 @@ from logger           import logger
 
 import os, shutil
 from plugins.utils   import *
+from configs.config  import dm 
 from pdf             import PDF
 from configs.beta    import BETA
 from configs.db      import dataBASE
@@ -40,9 +41,11 @@ async def _cancelI2P(bot, message):
         await message.reply_text(trans_txt, quote = True)
 
 # ❌ BETA USER (/beta) ❌
-@ILovePDF.on_message((filters.private | filters.group) & filters.command(["beta"]) & filters.incoming)
+@ILovePDF.on_message(filters.private & filters.command(["beta"]) & filters.incoming)
 async def _cancelI2P(bot, message):
     try:
+        if message.chat.id in dm.ADMIN:
+            logger.debug(f"Beta Users:\n\n{BETA}\n\n")
         if message.chat.id not in BETA:
             await db.set_key(id=userINFO.id, key="beta", value="True")
             BETA.append(message.chat.id)
