@@ -220,20 +220,24 @@ async def _aio(bot, callbackQuery):
         
         elif data1 in [ "enc", "rnm", "wat" ]:
             tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
-            tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
-            await callbackQuery.message.edit_reply_markup(tBTN)
-            input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
-            while not input_str.text:
-                await input_str.delete()
-                input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
-            await input_str.delete()
             
-            if input_str.text != "/exit":
-                data_1 = dataARRANGEMENT.get(data1)
-                if isinstance(data_1, int):
-                    if all_data[data_1] == "{F}": all_data[data_1] = "{T}"
-                    elif all_data[data_1] == "{T}": all_data[data_1] = "{F}"
-                else: return
+            if data2 == "{F}":
+                tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
+                await callbackQuery.message.edit_reply_markup(tBTN)
+                input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
+                while not input_str.text:
+                    await input_str.delete()
+                    input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
+                await input_str.delete()
+                
+                if input_str.text != "/exit":
+                    data_1 = dataARRANGEMENT.get(data1)
+                    if isinstance(data_1, int):
+                        if all_data[data_1] == "{F}": all_data[data_1] = "{T}"
+                        elif all_data[data_1] == "{T}": all_data[data_1] = "{F}"
+                    else: return
+            else:
+                all_data[data_1] = "{F}"
             
             aio_list_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
