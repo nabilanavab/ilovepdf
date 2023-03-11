@@ -252,7 +252,7 @@ async def _aio(bot, callbackQuery):
                 "rot" : [ "rot90", "rot180", "rot360", "{F}" ],
                 "for" : [ "format1", "format2v", "format2h", "format3v", "format3h", "format4", "{F}" ]
             }
-            current_index = options[data1].index([data2])
+            current_index = options[data1].index(data2)
             next_index = current_index+1 if not len(options[data1])==current_index+1 else 0
             data_1 = dataARRANGEMENT.get(data1)
             if isinstance(data_1, int):
