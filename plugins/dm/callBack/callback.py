@@ -196,30 +196,15 @@ async def _aio(bot, callbackQuery):
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ]
         dataARRANGEMENT = { "met" : 0, "pre" : 1, "txt" : 2, "rot" : 3, "enc" : 4, "for" : 5, "com" : 6, "wat" : 7, "rnm" : 8 }
         
-        logger.debug(all_data)
+        tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
+        
         if data1 in [ "met", "pre", "com" ]:
             data_1 = dataARRANGEMENT.get(data1)
             if isinstance(data_1, int):
                 if all_data[data_1] == "{F}": all_data[data_1] = "{T}"
                 elif all_data[data_1] == "{T}": all_data[data_1] = "{F}"
             else: return
-            
-            tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
-            
-            aio_list_btn = []
-            for index, (key, value) in enumerate(tTXT['out_button'].items()):
-                btn = [InlineKeyboardButton(key, value)]
-                try: btn.append(InlineKeyboardButton(
-                        tTXT['true'] if all_data[index]=="{T}" else tTXT['false'] if all_data[index] in ["{F}", "{T}"] else all_data[index].upper(),
-                        tTXT['out_values'][index].format(F=all_data[index]))
-                    )
-                except: pass
-                aio_list_btn.append(btn)
-            return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
-        
         elif data1 in [ "enc", "rnm", "wat" ]:
-            tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
-            
             if data2 == "{F}":
                 tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
                 await callbackQuery.message.edit_reply_markup(tBTN)
@@ -235,18 +220,6 @@ async def _aio(bot, callbackQuery):
             else:
                 data_1 = dataARRANGEMENT.get(data1)
                 all_data[data_1] = "{F}"
-            
-            aio_list_btn = []
-            for index, (key, value) in enumerate(tTXT['out_button'].items()):
-                btn = [InlineKeyboardButton(key, value)]
-                try: btn.append(InlineKeyboardButton(
-                        tTXT['true'] if all_data[index]=="{T}" else tTXT['false'] if all_data[index] in ["{F}", "{T}"] else all_data[index].upper(),
-                        tTXT['out_values'][index].format(F=all_data[index]))
-                    )
-                except: pass
-                aio_list_btn.append(btn)
-            return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
-        
         if data1 in [ "txt", "rot", "for" ]:
             options = {
                 "txt" : [ "text", "html", "json", "{F}" ],
@@ -260,18 +233,16 @@ async def _aio(bot, callbackQuery):
                 all_data[data_1] = options[data1][next_index]
             else: return
             
-            tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
-            
-            aio_list_btn = []
-            for index, (key, value) in enumerate(tTXT['out_button'].items()):
-                btn = [InlineKeyboardButton(key, value)]
-                try: btn.append(InlineKeyboardButton(
-                        tTXT['true'] if all_data[index]=="{T}" else tTXT['false'] if all_data[index] in ["{F}", "{T}"] else all_data[index].upper(),
-                        tTXT['out_values'][index].format(F=all_data[index]))
-                    )
-                except: pass
-                aio_list_btn.append(btn)
-            return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
+        aio_list_btn = []
+        for index, (key, value) in enumerate(tTXT['out_button'].items()):
+            btn = [InlineKeyboardButton(key, value)]
+            try: btn.append(InlineKeyboardButton(
+                    tTXT['true'] if all_data[index]=="{T}" else tTXT['false'] if all_data[index] in ["{F}", "{T}"] else all_data[index].upper(),
+                    tTXT['out_values'][index].format(F=all_data[index]))
+                )
+            except: pass
+            aio_list_btn.append(btn)
+        return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
         
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
