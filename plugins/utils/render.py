@@ -147,7 +147,7 @@ async def _progress(current, total, message, start):
         )
         estimated_total_time = TimeFormatter(time_to_completion)
         lang_code = await getLang(message.chat.id)
-        tTXT, tBTN = await translate(text="PROGRESS['progress']", button="document['cancelCB']", lang_code=lang_code)
+        tTXT, tBTN = await translate(text="PROGRESS['progress']", button="DOCUMENT['cancelCB']", lang_code=lang_code)
         tmp = progress + tTXT.format(
             await gSF(current), await gSF(total), await gSF(speed),
             estimated_total_time if estimated_total_time != '' else "0 s"
