@@ -16,14 +16,15 @@ iLovePDF = '''
 '''
 
 import asyncio, os, shutil
+from plugins.utils         import *
 from configs.db            import *
-from logger                import logger
-from lang                  import __users__
-from pyromod               import listen
 from configs.log           import log
+from configs.beta          import BETA
+from logger                import logger
+from pyromod               import listen
+from lang                  import __users__
 from pyrogram.errors       import FloodWait
 from pyrogram              import Client as ILovePDF
-from plugins.utils import *
 from telebot.async_telebot import AsyncTeleBot
 from configs.config        import bot, settings, images
 from pyrogram.types        import (
@@ -61,6 +62,8 @@ class Bot(ILovePDF):
             BANNED_USR_DB.extend(b_users)
             BANNED_GRP_DB.extend(b_chats)
             
+            beta_users = await db.get_beta()
+            BATA.extend(beta_users)
             # ---------------- Loads UsersId with custom THUMBNAIL ----------------------------------------------------------------------------------------------------
             users = await db.get_all_users()   # Get all users' Data
             async for user in users:
