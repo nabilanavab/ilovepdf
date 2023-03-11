@@ -152,7 +152,7 @@ PDF_MESSAGE = {
 }
 
 BUTTONS = {
-    "meta" : { "❓ META£ATA:HELP ❓" : "nabilanavab|meta", "✔ ONLY METADATA ✔" : "#metadata", "✅ Fetch 10 Random Images ✅" : "#preview", "« BACK «" : "pdf" },
+    "meta" : { "❓ META£ATA:HELP ❓" : "nabilanavab|meta", "✔ ONLY METADATA ✔" : "#metadata", "✅ WITH PREVIEW ✅" : "#preview", "« BACK «" : "pdf" },
     "lock" : { "❓ ENCRYPT/DECRYPT:HELP ❓" : "nabilanavab|lock", "🔐 ENCRYPT 🔐" : "#encrypt", "🔓 DECRYPT 🔓" : "#decrypt", "« BACK «" : "pdf" },
     "trim" : { "❓ SPLIT/MERGE PDF:HELP ❓" : "nabilanavab|trim", "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
     "format" : { "❓ FORMAT:HELP ❓" : "nabilanavab|format", "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE [HORIZ] ✌" : "#2-format-H",
@@ -231,11 +231,12 @@ AIO = {
     "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","✅ YES ✅":"aioInput|enc", "🔴 NO 🔴":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" },
     "waitPASS" : { "Now send Password.. 😪" : "nabilanavab|aioInput" },
     "passMSG" : "`What should I do with this file.?`🤔💭\n\nInput:\n\tFile Name : `{}`\n\tFile Size : `{}`\n\tPassword : ||{}||\n\n"
-        "Output:\n\tFile Name : `{}`\n\tWatermark : `{}`\n\tPassword : ||{}||",
-    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|met", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "😗 FORMAT 😗" : "nabilanavab|aio|for",
-        "🗜 COMPRESS 🗜": "nabilanavab|aio|com", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm", 
-        "🚶‍♂️ BACK 🚶‍♂️" : "aio" },
-    "out_values": ["aio|met|{F}", "aio|enc|{F}", "aio|for|{F}", "aio|com|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]
+        "Output:\n\tFile Name : `•{}•`\n\tWatermark : `•{}•`\n\tPassword : ||•{}•||",
+    "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|met", "📸 PREVIEW 📸" : "nabilanavab|aio|pre", "📑 TEXT 📑" : "nabilanavab|aio|txt",
+        "ROTATE" : "nabilanavab|aio|rot", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "😗 FORMAT 😗" : "nabilanavab|aio|for",
+        "🗜 COMPRESS 🗜": "nabilanavab|aio|com", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm", "🚶‍♂️ BACK 🚶‍♂️" : "aio"
+    },
+    "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|enc|{F}", "aio|for|{F}", "aio|com|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]
 }
 
 gDOCUMENT = {
