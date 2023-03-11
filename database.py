@@ -60,7 +60,7 @@ class Database:
         return b_users, b_chats
     
     #---------------------------- GET BETA USERS, CHAT LIST [LOADED 1ST] ----------------------------
-    async def get_banned(self):
+    async def get_beta(self):
         users = self.col.find({"beta" : {"$regex" : "^(?!\s*$).+"}})
         beta_users = [ user['id'] async for user in users ]
         return b_users
