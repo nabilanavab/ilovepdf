@@ -36,8 +36,7 @@ async def _cancelI2P(bot, message):
         trans_txt, trans_btn = await util.translate( text = "GENERATE['deleteQueue']", lang_code = lang_code)
         await message.reply_text(trans_txt, quote = True)
         shutil.rmtree(f"work/{message.chat.id}")
-    except Exception as e:
-        logger.exception("🐞 %s : %s" %(file_name, Error))
+    except Exception:
         trans_txt, trans_btn = await util.translate(text = "GENERATE['noQueue']", lang_code = lang_code)
         await message.reply_text(trans_txt, quote = True)
 
