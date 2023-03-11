@@ -13,6 +13,9 @@ from pdf             import PDF
 from configs.beta    import BETA
 from pyrogram        import Client as ILovePDF, enums, filters
 
+if dataBASE.MONGODB_URI:
+    from database import db
+
 # ❌ CANCELS CURRENT PDF TO IMAGES WORK ❌
 @ILovePDF.on_message((filters.private | filters.group) & filters.command(["cancel"]) & filters.incoming)
 async def cancelP2I(bot, message):
