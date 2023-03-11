@@ -47,11 +47,11 @@ async def _cancelI2P(bot, message):
         if message.chat.id in dm.ADMIN:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
         if message.chat.id not in BETA:
-            await db.set_key(id=userINFO.id, key="beta", value="True")
+            await db.set_key(id=message.chat.id, key="beta", value="True")
             BETA.append(message.chat.id)
             return await message.reply_text("`Now you are a beta user..` ☺", quote = True)
         else:
-            await db.dlt_key(id=userINFO.id, key="banned")
+            await db.dlt_key(id=message.chat.id, key="banned")
             BETA.append(message.chat.id)
             return await message.reply_text("`Now you are not part in beta test..` 😐", quote = True)
     except Exception as Error:
