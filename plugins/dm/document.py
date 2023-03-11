@@ -17,6 +17,7 @@ from pdf            import PDF
 from configs.db     import DATA
 from PIL            import Image
 from configs.config import settings, images
+from images         import beta
 from pyrogram       import Client as ILovePDF, filters, enums
 
 try:
@@ -127,7 +128,7 @@ async def documents(bot, message):
             await asyncio.sleep(0.5)
             await pdfMsgId.edit(CHUNK["process"] + ".")
             await asyncio.sleep(0.5)
-            tBTN = await util.createBUTTON(CHUNK["replyCB"] if message.chat.id in images.beta.BETA else CHUNK["_replyCB"])
+            tBTN = await util.createBUTTON(CHUNK["replyCB"] if message.chat.id in beta.BETA else CHUNK["_replyCB"])
             await pdfMsgId.edit(
                 text = CHUNK["reply"].format(message.document.file_name,
                 await render.gSF(message.document.file_size)), reply_markup = tBTN
