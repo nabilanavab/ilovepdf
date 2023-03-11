@@ -171,7 +171,8 @@ async def _aio(bot, callbackQuery):
         # non encrypted input pdf file
         elif data == "aioInput|dec":
             tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
-            io_list_btn = []
+            
+            aio_list_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
                 btn = [InlineKeyboardButton(key, value)]
                 try:
