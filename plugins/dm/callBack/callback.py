@@ -185,7 +185,7 @@ async def _aio(bot, callbackQuery):
                 reply_markup = InlineKeyboardMarkup(aio_list_btn)
             )
         
-        message_data = callbackQuery.message.text.split(tuple("`","`"))
+        message_data = callbackQuery.message.text.split(('`', '`'))
         logger.debug(message_data)
         
         # data1 = "meta/enc/form/comp/water/n.." , data2 = "{}/True/False"
