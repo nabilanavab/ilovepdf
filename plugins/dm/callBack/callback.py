@@ -165,8 +165,7 @@ async def _aio(bot, callbackQuery):
                 aio_list_btn.append(btn)
             return await callbackQuery.message.edit(
                 text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
-                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300] 
-                    None, None, None ),
+                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300], None, None, None ),
                 reply_markup = InlineKeyboardMarkup(aio_list_btn)
             )
         # non encrypted input pdf file
