@@ -24,7 +24,7 @@ async def __index__(bot, callbackQuery):
         if await render.header(bot, callbackQuery, lang_code = lang_code):
             return
         
-        CHUNK, _ = await util.translate(text = "common", button = "common['button']", lang_code = lang_code)
+        CHUNK, _ = await util.translate(text = "INDEX", button = "INDEX['button']", lang_code = lang_code)
         
         if data == "metadata" and "•" in callbackQuery.message.text:
             return await callbackQuery.answer(CHUNK['readAgain'])
