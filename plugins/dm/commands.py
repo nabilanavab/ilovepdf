@@ -10,15 +10,14 @@ from logger           import logger
 import os, shutil
 from plugins.utils   import *
 from pdf             import PDF
-from asyncio         import sleep
-from configs.config  import dm, settings
+from configs.beta    import BETA
 from pyrogram        import Client as ILovePDF, enums, filters
 
 # ❌ CANCELS CURRENT PDF TO IMAGES WORK ❌
 @ILovePDF.on_message((filters.private | filters.group) & filters.command(["cancel"]) & filters.incoming)
 async def cancelP2I(bot, message):
     try:
-        await work(message, "delete", True)
+        await work.work(message, "delete", True)
         return await message.delete()
     except Exception: pass
 
@@ -35,5 +34,20 @@ async def _cancelI2P(bot, message):
     except Exception:
         trans_txt, trans_btn = await util.translate(text = "GENERATE['noQueue']", lang_code = lang_code)
         await message.reply_text(trans_txt, quote = True)
+
+# ❌ BETA USER (/beta) ❌
+@ILovePDF.on_message((filters.private | filters.group) & filters.command(["beta"]) & filters.incoming)
+async def _cancelI2P(bot, message):
+    try:
+        if message.chat.id not in BETA:
+            await db.set_key(id=userINFO.id, key="beta", value="True")
+            BETA.append(message.chat.id)
+            return await message.reply_text("`Now you are a beta user..` ☺", quote = True)
+        else:
+            await db.dlt_key(id=userINFO.id, key="banned")
+            BETA.append(message.chat.id)
+            return await message.reply_text("`Now you are not part in beta test..` 😐", quote = True)
+    except Exception as Error:
+        logger.exception("🐞 %s : %s" %(file_name, Error))
 
 # Author: @nabilanavab
