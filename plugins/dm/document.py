@@ -127,7 +127,7 @@ async def documents(bot, message):
             await asyncio.sleep(0.5)
             await pdfMsgId.edit(CHUNK["process"] + ".")
             await asyncio.sleep(0.5)
-            tBTN = await util.createBUTTON(CHUNK["replyCB"])
+            tBTN = await util.createBUTTON(CHUNK["replyCB"] if message.chat.id in images.beta.BETA else CHUNK["_replyCB"])
             await pdfMsgId.edit(
                 text = CHUNK["reply"].format(message.document.file_name,
                 await render.gSF(message.document.file_size)), reply_markup = tBTN
