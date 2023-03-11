@@ -7,18 +7,13 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger           import logger
 
-import convertapi
-import os, time, fitz
-import shutil, asyncio
-from plugins.utils  import *
+from ..utils        import *
 from .photo         import HD
-from configs.log    import log
+form configs        import *
 from pdf            import PDF
-from configs.db     import DATA
 from PIL            import Image
-from configs.config import settings, images
-from images         import beta
 from pyrogram       import Client as ILovePDF, filters, enums
+import convertapi, os, time, fitz, shutil, asyncio
 
 try:
     import aspose.words as word
@@ -27,9 +22,9 @@ except Exception:
     wordSupport = False
 
 # ========| MAXIMUM FILE SIZE (IF IN config var.) |=======
-if settings.MAX_FILE_SIZE:
+if config.settings.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
-    MAX_FILE_SIZE_IN_kiB = int(settings.MAX_FILE_SIZE) * (10 **6 )
+    MAX_FILE_SIZE_IN_kiB = int(config.settings.MAX_FILE_SIZE) * (10 **6 )
 else:
     MAX_FILE_SIZE = False
 
@@ -119,7 +114,7 @@ async def documents(bot, message):
         if MAX_FILE_SIZE and message.document.file_size >= int(MAX_FILE_SIZE_IN_kiB):
             tBTN = await util.createBUTTON(CHUNK["bigCB"])
             return await message.reply_photo(
-                photo = images.BIG_FILE, caption = CHUNK["big"].format(MAX_FILE_SIZE, MAX_FILE_SIZE),
+                photo = config.images.BIG_FILE, caption = CHUNK["big"].format(MAX_FILE_SIZE, MAX_FILE_SIZE),
                 reply_markup = tBTN
             )
         # REPLY TO .PDF FILE EXTENSION
@@ -142,7 +137,7 @@ async def documents(bot, message):
                     if len(HD[message.chat.id]) >= 16:
                        return
                     HD[message.chat.id].append(message.document.file_id)
-                    generateCB = "document['generate']" if settings.DEFAULT_NAME else  "document['generateRN']"
+                    generateCB = "document['generate']" if config.settings.DEFAULT_NAME else  "document['generateRN']"
                     tTXT, tBTN = await util.translate(
                         text="document['imageAdded']", button=generateCB, lang_code=lang_code
                     )
@@ -158,7 +153,7 @@ async def documents(bot, message):
                           f"{message.from_user.id}/{message.from_user.id}.jpg"
                       ).convert("RGB")
                 PDF[message.from_user.id].append(img)
-                generateCB = "generate" if settings.DEFAULT_NAME else "generateRN"
+                generateCB = "generate" if config.settings.DEFAULT_NAME else "generateRN"
                 tBTN = await util.createBUTTON(CHUNK[generateCB])
                 return await imageDocReply.edit(
                     text = CHUNK["imageAdded"].format(
@@ -170,9 +165,9 @@ async def documents(bot, message):
         # FILES TO PDF
         elif (fileExt.lower() in pymu2PDF) or (fileExt.lower() in cnvrt_api_2PDF) or (fileExt.lower() in wordFiles):
             
-            if (fileExt.lower() in cnvrt_api_2PDF) and (((not DATA.get(message.chat.id, 0) \
-                or (DATA.get(message.chat.id, 0) and not DATA.get(message.chat.id, 0)[0])) \
-                and settings.CONVERT_API is False)):
+            if (fileExt.lower() in cnvrt_api_2PDF) and (((not db.DATA.get(message.chat.id, 0) \
+                or (db.DATA.get(message.chat.id, 0) and not db.DATA.get(message.chat.id, 0)[0])) \
+                and config.settings.CONVERT_API is False)):
                 return await message.reply_text(CHUNK["noAPI"], quote = True)
             
             if (fileExt.lower() in wordFiles) and not wordSupport:
@@ -200,7 +195,7 @@ async def documents(bot, message):
             
             elif fileExt.lower() in cnvrt_api_2PDF:
                 FILE_NAME, FILE_CAPT, THUMBNAIL, API = await thumbName(message, f"{fileNm}.pdf", getAPI=True)
-                API = API if not(API == False) else settings.CONVERT_API
+                API = API if not(API == False) else config.settings.CONVERT_API
                 isError = await cvApi2PDF(cDIR, pdfMsgId, input_file, lang_code, API)
             
             elif fileExt.lower() in wordFiles:
@@ -210,7 +205,7 @@ async def documents(bot, message):
             if not isError:
                 return await work.work(message, "delete", True)
             
-            if images.PDF_THUMBNAIL != THUMBNAIL:
+            if config.images.PDF_THUMBNAIL != THUMBNAIL:
                 location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/thumb.jpeg")
                 THUMBNAIL = await formatThumb(location)
             
@@ -235,7 +230,7 @@ async def documents(bot, message):
         else:
             return await message.reply_text(CHUNK["unsupport"], quote=True)
         
-        await log.footer(message, output=logFile, lang_code=lang_code)
+        await log.log.footer(message, output=logFile, lang_code=lang_code)
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
         await work.work(message, "delete", True)
