@@ -63,7 +63,7 @@ class Database:
     async def get_beta(self):
         users = self.col.find({"beta" : {"$regex" : "^(?!\s*$).+"}})
         beta_users = [ user['id'] async for user in users ]
-        return b_users
+        return beta_users
     
     #--------------------------------------- SET THUMBNAIL --------------------------------------------
     async def set_key(self, id, key, value, typ="user"):
