@@ -234,6 +234,7 @@ async def _aio(bot, callbackQuery):
                     data_1 = dataARRANGEMENT.get(data1)
                     all_data[data_1] = "{T}"
             else:
+                data_1 = dataARRANGEMENT.get(data1)
                 all_data[data_1] = "{F}"
             
             aio_list_btn = []
