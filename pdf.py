@@ -63,7 +63,7 @@ class Bot(ILovePDF):
             BANNED_GRP_DB.extend(b_chats)
             
             beta_users = await db.get_beta()
-            BATA.extend(beta_users)
+            BETA.extend(beta_users)
             # ---------------- Loads UsersId with custom THUMBNAIL ----------------------------------------------------------------------------------------------------
             users = await db.get_all_users()   # Get all users' Data
             async for user in users:
