@@ -9,7 +9,7 @@ from logger           import logger
 
 from ..utils        import *
 from .photo         import HD
-form configs        import *
+from configs        import *
 from pdf            import PDF
 from PIL            import Image
 from pyrogram       import Client as ILovePDF, filters, enums
