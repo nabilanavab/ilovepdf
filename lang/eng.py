@@ -201,10 +201,8 @@ BUTTONS = {
 }
 
 PROGRESS = {
-    "progress" : """\n**Done ✅ : **{0}/{1}\n**Speed 🚀:** {2}/s\n**Estimated Time ⏳:** {3}""",
-    "upFileCB" : {"📤 .. UPLOADING.. 📤" : "nabilanavab"},
-    "cbPRO_D" : ["📤 DOWNLOAD: {:.2f}% 📤", "🎯 CANCEL 🎯"],
-    "cbPRO_U" : ["📤 UPLOADED: {:.2f}% 📤", "🎯 CANCEL 🎯"]
+    "progress" : """\n**Done ✅ : **{0}/{1}\n**Speed 🚀:** {2}/s\n**Estimated Time ⏳:** {3}""", "upFileCB" : {"📤 .. UPLOADING.. 📤" : "nabilanavab"},
+    "cbPRO_D" : ["📤 DOWNLOAD: {:.2f}% 📤", "🎯 CANCEL 🎯"], "cbPRO_U" : ["📤 UPLOADED: {:.2f}% 📤", "🎯 CANCEL 🎯"]
 }
 
 GENERATE = {
@@ -233,7 +231,7 @@ AIO = {
     "passMSG" : "`What should I do with this file.?`🤔💭\n\nInput:\n\tFile Name : `{}`\n\tFile Size   : `{}`\n\tPassword : ||•{}•||\n\n"
         "Output:\n\tFile Name   : `•{}•`\n\tWatermark : `•{}•`\n\tPassword    : ||•{}•||",
     "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|met", "📸 PREVIEW 📸" : "nabilanavab|aio|pre", "📑 TEXT 📑" : "nabilanavab|aio|txt",
-        "ROTATE" : "nabilanavab|aio|rot", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "😗 FORMAT 😗" : "nabilanavab|aio|for",
+        "🤸 ROTATE 🤸" : "nabilanavab|aio|rot", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "😗 FORMAT 😗" : "nabilanavab|aio|for",
         "🗜 COMPRESS 🗜": "nabilanavab|aio|com", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm", "🚶‍♂️ BACK 🚶‍♂️" : "aio"
     },
     "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|enc|{F}", "aio|for|{F}", "aio|com|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]
