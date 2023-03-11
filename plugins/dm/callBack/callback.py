@@ -248,7 +248,7 @@ async def _aio(bot, callbackQuery):
         
         if data1 in [ "txt", "rot", "for" ]:
             options = {
-                "txt" : [ "text", "html", "json", "{f}" ],
+                "txt" : [ "text", "html", "json", "{F}" ],
                 "rot" : [ "rot90", "rot180", "rot360", "{F}" ],
                 "for" : [ "format1", "format2v", "format2h", "format3v", "format3h", "format4", "{F}" ]
             }
