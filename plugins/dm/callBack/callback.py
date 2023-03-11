@@ -170,11 +170,18 @@ async def _aio(bot, callbackQuery):
             )
         # non encrypted input pdf file
         elif data == "aioInput|dec":
-            tTXT, tBTN = await util.translate(text = "AIO['passMSG']", button = "AIO['out_button']", order = 22222222, lang_code = lang_code)
+            tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
+            io_list_btn = []
+            for index, (key, value) in enumerate(tTXT['out_button'].items()):
+                btn = [InlineKeyboardButton(key, value)]
+                try:
+                    btn.append(InlineKeyboardButton(tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'] , tTXT['out_values'][index]))
+                except: pass
+                aio_list_btn.append(btn)
             return await callbackQuery.message.edit(
-                text = tTXT.format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
+                text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
                     await render.gSF(callbackQuery.message.reply_to_message.document.file_size), None, None, None, None ),
-                reply_markup = tBTN
+                reply_markup = InlineKeyboardMarkup(aio_list_btn)
             )
         
         message_data = callbackQuery.message.split(("`","`"))
