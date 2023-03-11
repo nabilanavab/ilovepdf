@@ -209,14 +209,12 @@ async def _aio(bot, callbackQuery):
                 input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
             await input_str.delete()
             
-            if input_str.text == "/exit":
-                return
-            
-            data_1 = dataARRANGEMENT.get(data1)
-            if isinstance(data_1, int):
-                if all_data[data_1] == False: all_data[data_1] = True
-                elif all_data[data_1] == True: all_data[data_1] = False
-            else: return
+            if input_str.text != "/exit"
+                data_1 = dataARRANGEMENT.get(data1)
+                if isinstance(data_1, int):
+                    if all_data[data_1] == False: all_data[data_1] = True
+                    elif all_data[data_1] == True: all_data[data_1] = False
+                else: return
             
             aio_list_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
