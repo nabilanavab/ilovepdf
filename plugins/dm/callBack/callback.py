@@ -246,11 +246,17 @@ async def _aio(bot, callbackQuery):
                 aio_list_btn.append(btn)
             return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
         
-        if data1 in [ "txt", "rot", "form" ]:
+        if data1 in [ "txt", "rot", "for" ]:
+            options = {
+                "txt" : [ "text", "html", "json", "{f}" ],
+                "rot" : [ "rot90", "rot180", "rot360", "{F}" ],
+                "for" : [ "format1", "format2v", "format2h", "format3v", "format3h", "format4", "{F}" ]
+            }
+            current_index = options[data1].index([data2])
+            next_index = current_index+1 if not len(options[data1])==current_index+1 else 0
             data_1 = dataARRANGEMENT.get(data1)
             if isinstance(data_1, int):
-                if all_data[data_1] == False: all_data[data_1] = True
-                elif all_data[data_1] == True: all_data[data_1] = False
+                all_data[data_1] = options[data1][next_index]
             else: return
             
             tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
@@ -259,8 +265,8 @@ async def _aio(bot, callbackQuery):
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
                 btn = [InlineKeyboardButton(key, value)]
                 try: btn.append(InlineKeyboardButton(
-                        tTXT['true'] if all_data[index] else tTXT['false'] ,
-                        tTXT['out_values'][index].format(F="{T}" if all_data[index] else "{F}"))
+                        all_data[index].upper() if all_data[index]!="{F}" else tTXT['false'] ,
+                        tTXT['out_values'][index].format(F=all_data[index]))
                     )
                 except: pass
                 aio_list_btn.append(btn)
