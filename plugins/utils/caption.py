@@ -15,10 +15,10 @@ async def caption(data: str, args = None, lang_code :str = settings.DEFAULT_LANG
         """ return caption deepending upon the work """
         
         if data == "encrypt":
-            _, __ = await util.translate(text = "common['encrypt_caption']", lang_code = lang_code)
+            _, __ = await util.translate(text = "INDEX['encrypt_caption']", lang_code = lang_code)
             caption = _.format(*args)
         elif data == "rename":
-            _, __ = await util.translate(text = "common['rename_caption']", lang_code = lang_code)
+            _, __ = await util.translate(text = "INDEX['rename_caption']", lang_code = lang_code)
             caption = _.format(*args)
         else:
             caption = ""
