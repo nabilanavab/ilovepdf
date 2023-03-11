@@ -170,12 +170,15 @@ async def _aio(bot, callbackQuery):
             )
         # non encrypted input pdf file
         elif data == "aioInput|dec":
-            tTXT, tBTN = await util.translate(button = "AIO['out_button']", order = 22222222, lang_code = lang_code)
-            return await callbackQuery.message.edit_reply_markup(tBTN)
-        
+            tTXT, tBTN = await util.translate(text = "AIO['passMSG']", button = "AIO['out_button']", order = 22222222, lang_code = lang_code)
+            return await callbackQuery.message.edit(
+                text = tTXT.format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
+                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300], None, None, None ),
+                reply_markup = tBTN
+            )
         
         message_data = callbackQuery.message.split(("`","`"))
-        
+        logger.debug(message_data)
         
         # data1 = "meta/enc/form/comp/water/n.." , data2 = "{}/True/False"
         data1, data2 = data.split("|")[1:]
