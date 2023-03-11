@@ -201,8 +201,8 @@ async def _aio(bot, callbackQuery):
         if data1 in [ "met", "pre", "com" ]:
             data_1 = dataARRANGEMENT.get(data1)
             if isinstance(data_1, int):
-                if all_data[data_1] == False: all_data[data_1] = True
-                elif all_data[data_1] == True: all_data[data_1] = False
+                if all_data[data_1] == "{F}": all_data[data_1] = "{T}"
+                elif all_data[data_1] == "{T}": all_data[data_1] = "{F}"
             else: return
             
             tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
