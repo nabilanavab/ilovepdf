@@ -52,7 +52,7 @@ async def _cancelI2P(bot, message):
             return await message.reply_text("`Now you are a beta user..` ☺", quote = True)
         else:
             await db.dlt_key(id=message.chat.id, key="banned")
-            BETA.append(message.chat.id)
+            BETA.remove(message.chat.id)
             return await message.reply_text("`Now you are not part in beta test..` 😐", quote = True)
     except Exception as Error:
         logger.exception("🐞 %s : %s" %(file_name, Error))
