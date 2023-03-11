@@ -59,6 +59,12 @@ class Database:
         b_users = [ user['id'] async for user in users ]
         return b_users, b_chats
     
+    #---------------------------- GET BETA USERS, CHAT LIST [LOADED 1ST] ----------------------------
+    async def get_banned(self):
+        users = self.col.find({"beta" : {"$regex" : "^(?!\s*$).+"}})
+        beta_users = [ user['id'] async for user in users ]
+        return b_users
+    
     #--------------------------------------- SET THUMBNAIL --------------------------------------------
     async def set_key(self, id, key, value, typ="user"):
         if typ == "user":
