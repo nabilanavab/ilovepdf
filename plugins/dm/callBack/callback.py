@@ -186,9 +186,8 @@ async def _aio(bot, callbackQuery):
             )
         
         message_data = callbackQuery.message.text.split("•")
-        for i in message_data:
-            logger.debug(i)
-            logger.debug("\n--------------------------------")
+        inPassword, outName, watermark, outPassword  = message_data[::2]
+        logger.debug(f"{inPassword}, {outName}, {watermark}, {outPassword}")
         
         # data1 = "meta/enc/form/comp/water/n.." , data2 = "{}/True/False"
         data1, data2 = data.split("|")[1:]
