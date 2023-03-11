@@ -231,8 +231,8 @@ async def _aio(bot, callbackQuery):
             if input_str.text != "/exit":
                 data_1 = dataARRANGEMENT.get(data1)
                 if isinstance(data_1, int):
-                    if all_data[data_1] == False: all_data[data_1] = True
-                    elif all_data[data_1] == True: all_data[data_1] = False
+                    if all_data[data_1] == "{F}": all_data[data_1] = "{T}"
+                    elif all_data[data_1] == "{T}": all_data[data_1] = "{F}"
                 else: return
             
             aio_list_btn = []
