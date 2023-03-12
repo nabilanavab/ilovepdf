@@ -78,6 +78,7 @@ async def __index__(bot, callbackQuery):
             elif job == "compress" and work_info:
                 isSuccess, output_file = await compressPDF.compressPDF(input_file=input_file, cDIR=cDIR)
             elif job == "text" and work_info:
+                logger.debug(f"text{WORKS['text'][1]}")
                 isSuccess, output_file = await textPDF.textPDF(input_file=input_file, cDIR=cDIR, data=f"text{WORKS['text'][1]}")
             elif job == "rotate" and work_info:
                 isSuccess, output_file = await rotatePDF.rotatePDF(input_file=input_file, angle=all_data[4].lower(), cDIR=cDIR)
@@ -96,10 +97,10 @@ async def __index__(bot, callbackQuery):
                     isSuccess, output_file = await combinePages.combinePages(input_file=input_file, cDIR=cDIR)
             elif job == "encrypt" and work_info:
                 isSuccess, output_file = await encryptPDF.encryptPDF(input_file=input_file, password=outPassword, cDIR=cDIR)
-            elif job == "watermark" and work_info:
-                pass
-            elif job == "rename" and work_info:
-                pass
+#             elif job == "watermark" and work_info:
+#                 pass
+#             elif job == "rename" and work_info:
+#                 pass
             
             logger.debug(f"{job} : {isSuccess} - {output_file}")
             if isSuccess is True:
