@@ -9,7 +9,6 @@ from logger           import logger
 
 import os, time
 from plugins.utils    import *
-from plugins.utils    import work
 from configs.config   import images
 from pyrogram         import enums, filters, Client as ILovePDF
 
