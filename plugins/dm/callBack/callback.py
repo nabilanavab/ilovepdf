@@ -9,6 +9,7 @@ from configs.db      import myID
 from logger          import logger
 from datetime        import datetime
 from lang            import langList
+from pyrogram.types  import ForceReply
 from pyrogram        import Client as ILovePDF, filters
 from pyrogram.types  import InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -151,8 +152,10 @@ async def _aio(bot, callbackQuery):
             if data == "aioInput|enc":
                 #tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
                 #await callbackQuery.message.edit_reply_markup(tBTN)
-                input_str = await bot.ask(text = "question", chat_id = callbackQuery.from_user.id)
-                logger.debug(input_str)
+                input_str = await bot.ask(
+                    text = tTXT['waitPASS'], chat_id = callbackQuery.from_user.id,
+                    reply_to_message_id = callbackQuery.message.id, reply_markup = ForceReply(True, tTXT['waitPASS'])
+                )
                 while not input_str.text:
                     await input_str.delete()
                     input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
