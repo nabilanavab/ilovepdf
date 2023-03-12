@@ -101,8 +101,8 @@ async def __index__(bot, callbackQuery):
                     isSuccess, output_file = await combinePages.combinePages(input_file=input_file, cDIR=cDIR)
             elif job == "encrypt" and work_info:
                 isSuccess, output_file = await encryptPDF.encryptPDF(input_file=input_file, password=outPassword, cDIR=cDIR)
-#             elif job == "watermark" and work_info:
-#                 pass
+            elif job == "watermark" and work_info:
+                isSuccess, output_file = await watermark45.watermarkPDF(input_file=input_file, cDIR=cDIR, watermark=watermark)
             elif job == "rename" and work_info:
                 pass
             
