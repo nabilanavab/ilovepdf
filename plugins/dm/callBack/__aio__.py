@@ -101,7 +101,8 @@ async def __index__(bot, callbackQuery):
             elif job == "rename" and work_info:
                 pass
             
-            if isSuccess:
+            logger.debug(f"{job} : {isSuccess} - {output_file}")
+            if isSuccess is True:
                 os.remove(input_file)
                 os.rename(output_file, input_file)
         
