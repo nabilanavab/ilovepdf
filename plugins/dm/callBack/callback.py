@@ -160,7 +160,7 @@ async def _aio(bot, callbackQuery):
             aio_list_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
                 btn = [ InlineKeyboardButton(key, value) ]
-                if index+1 <= len(tTXT['out_values'][index]):
+                if index+1 < len(tTXT['out_values'][index]):
                     btn.append(InlineKeyboardButton(
                         tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'],
                         tTXT['out_values'][index])
@@ -228,6 +228,7 @@ async def _aio(bot, callbackQuery):
             else:
                 next_key, next_value = list(tTXT['out_button'].items())[index+1]
                 btn.append(InlineKeyboardButton(next_key, next_value))
+                break
             aio_list_btn.append(btn)
         
         if data1 not in [ "enc", "rnm", "wat" ] or all_data[dataARRANGEMENT.get(data1)] == "{F}":
