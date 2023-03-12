@@ -227,7 +227,7 @@ DOCUMENT = {
 AIO = {
     "true" : "✅ TRUE ✅", "false" : "🔴 FALSE 🔴", "aio" : "Does the PDF file require a password to open.?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`",
     "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","✅ YES ✅":"aioInput|enc", "🔴 NO 🔴":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" },
-    "waitPASS" : { "Now send Password.. 😪" : "nabilanavab|aioInput" },
+    "waitPASS" : { "Now send me any text message.. 😪" : "nabilanavab|aioInput" },
     "passMSG" : "`What should I do with this file.?`🤔💭\n\nInput:\n\tFile Name : `{}`\n\tFile Size   : `{}`\n\tPassword : ||•{}•||\n\n"
         "Output:\n\tFile Name   : `•{}•`\n\tWatermark : `•{}•`\n\tPassword    : ||•{}•||",
     "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|met", "📸 PREVIEW 📸" : "nabilanavab|aio|pre", "📑 TEXT 📑" : "nabilanavab|aio|txt",
