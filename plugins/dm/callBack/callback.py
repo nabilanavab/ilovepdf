@@ -165,6 +165,10 @@ async def _aio(bot, callbackQuery):
                         tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'],
                         tTXT['out_values'][index])
                     )
+                else:
+                    next_key, next_value = list(tTXT['out_button'].items())[index+1]
+                    btn.append(InlineKeyboardButton(next_key, next_value))
+                    aio_list_btn.append(btn); break
                 aio_list_btn.append(btn)
             return await callbackQuery.message.edit(
                 text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
