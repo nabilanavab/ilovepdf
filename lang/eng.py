@@ -227,13 +227,13 @@ DOCUMENT = {
 AIO = {
     "true" : "✅ TRUE ✅", "false" : "🔴 FALSE 🔴", "aio" : "Does the PDF file require a password to open.?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`",
     "aio_button" : {"❓ INPUT FILE:HELP ❓":"nabilanavab|aioInput","✅ YES ✅":"aioInput|enc", "🔴 NO 🔴":"aioInput|dec","⏭ MOVE ⏭":"aioInput|dec" },
-    "waitPASS" : { "Now send me any text message.. 😪" : "nabilanavab|aioInput" },
+    "waitPASS" : "Now send me any text message.. 😪",
     "passMSG" : "`What should I do with this file.?`🤔💭\n\nInput:\n\tFile Name : `{}`\n\tFile Size   : `{}`\n\tPassword : ||•{}•||\n\n"
         "Output:\n\tFile Name   : `•{}•`\n\tWatermark : `•{}•`\n\tPassword    : ||•{}•||",
     "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|met", "📸 PREVIEW 📸" : "nabilanavab|aio|pre","🗜 COMPRESS 🗜": "nabilanavab|aio|com",
         "📑 TEXT 📑" : "nabilanavab|aio|txt", "🤸 ROTATE 🤸" : "nabilanavab|aio|rot", "😗 FORMAT 😗" : "nabilanavab|aio|for",
         "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm",
-        "🚶‍♂️ BACK 🚶‍♂️" : "aio", "🆗 PROCESS 🆗" : "^aio"
+        "🚶‍♂️ BACK 🚶‍♂️" : "aio", "🆗 PROCESS 🆗" : "^"
     },
     "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|com|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|for|{F}", "aio|enc|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]
 }
