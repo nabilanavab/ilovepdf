@@ -184,6 +184,7 @@ async def _aio(bot, callbackQuery):
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ]
         dataARRANGEMENT = { "met" : 0, "pre" : 1, "txt" : 2, "rot" : 3, "enc" : 4, "for" : 5, "com" : 6, "wat" : 7, "rnm" : 8 }
         
+        logger.debug(all_data)
         tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
         
         if data1 in [ "met", "pre", "com" ]:
