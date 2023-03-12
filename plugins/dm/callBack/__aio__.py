@@ -100,6 +100,10 @@ async def __index__(bot, callbackQuery):
                 pass
             elif job == "rename" and work_info:
                 pass
+            
+            if isSuccess:
+                os.remove(input_file)
+                os.rename(output_file, input_file)
         
         await work.work(callbackQuery, "delete", False)
     
