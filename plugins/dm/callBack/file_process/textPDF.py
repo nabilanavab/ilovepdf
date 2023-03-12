@@ -34,6 +34,8 @@ async def textPDF(input_file: str, cDIR: str, data: str) -> ( bool, str ):
         elif data == "textJ":
             output_path = f"{cDIR}/outPut.json"
             data = "json"
+        else:
+            return False, "NoSuchFormatHere"
         
         with fitz.open(input_file) as iNPUT:
             with open(output_path, "wb") as oUTPUT:
