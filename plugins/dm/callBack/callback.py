@@ -176,7 +176,7 @@ async def _aio(bot, callbackQuery):
             return await callbackQuery.message.edit(
                 text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
                     await render.gSF(callbackQuery.message.reply_to_message.document.file_size),
-                    input_str.text[:300] if data == "aioInput|enc" else None, None, None, None ),
+                    str(input_str.text)[:50] if data == "aioInput|enc" else None, None, None, None ),
                 reply_markup = InlineKeyboardMarkup(aio_list_btn)
             )
         
