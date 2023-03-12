@@ -227,7 +227,7 @@ async def _aio(bot, callbackQuery):
                 )
             else:
                 next_key, next_value = list(my_dict.items())[index+1]
-                btn.append(InlineKeyboardButton(next_key, next_value)])
+                btn.append(InlineKeyboardButton(next_key, next_value))
             aio_list_btn.append(btn)
         
         if data1 not in [ "enc", "rnm", "wat" ] or all_data[dataARRANGEMENT.get(data1)] == "{F}":
