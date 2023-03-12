@@ -147,8 +147,8 @@ async def _aio(bot, callbackQuery):
         
         # encrypted/non encrypted input pdf file
         elif data in [ "aioInput|enc", "aioInput|dec" ]:
+            tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
             if data == "aioInput|enc":
-                tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
                 tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
                 await callbackQuery.message.edit_reply_markup(tBTN)
                 input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
