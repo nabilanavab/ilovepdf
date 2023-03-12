@@ -26,15 +26,15 @@ async def __index__(bot, callbackQuery):
         
         CHUNK, _ = await util.translate(text = "INDEX", button = "INDEX['button']", lang_code = lang_code)
         
-        if not callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
-            await work.work(callbackQuery, "delete", False)
-            return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
-        
         # create a brand new directory to store all of your important user data
         cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
             return await callbackQuery.answer(CHUNK["inWork"])
         await callbackQuery.answer(CHUNK["process"])
+        
+        if not callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
+            await work.work(callbackQuery, "delete", False)
+            return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
         
@@ -68,8 +68,30 @@ async def __index__(bot, callbackQuery):
             "watermark" : watermark if all_data[7]!="{F}" and watermark!=None else False,
             "rename" : outName if all_data[8]!="{F}" and outName!=None else False,
         }
-        logger.debug(WORKS)
         
+        for work, work_info in WORKS.items():
+            if work == "metadata" and work_info:
+                _ , __ = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
+            elif work == "preview" and work_info:
+                _ , __ = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
+            elif work == "compress" and work_info:
+                _, __ = await compressPDF.compressPDF(input_file=input_file, cDIR=cDIR)
+            elif work == "text" and work_info:
+                _, __ = await textPDF.textPDF(input_file=input_file, cDIR=cDIR, data=f"text{all_data[3]}")
+            elif work == "rotate" and work_info:
+                _, __ = await rotatePDF.rotatePDF(input_file=input_file, angle=all_data[4].lower(), cDIR: str)
+            elif work == "format" and work_info:
+                if work_info
+            elif work == "encrypt" and work_info:
+                
+            elif work == "watermark" and work_info:
+                
+            elif work == "rename" and work_info:
+                
+            
+            if ( _ or _ == "finished" ) and __ != "finished":
+                os.remove(f"{cDIR}/inPut.pdf")
+                os.rename(__, f"{cDIR}/inPut.pdf")
         await work.work(callbackQuery, "delete", False)
     
     except Exception as Error:
