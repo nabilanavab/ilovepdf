@@ -145,43 +145,31 @@ async def _aio(bot, callbackQuery):
                 reply_markup = tBTN
             )
         
-        # encrypted input pdf file
-        elif data == "aioInput|enc":
-            tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
-            tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
-            await callbackQuery.message.edit_reply_markup(tBTN)
-            input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
-            while not input_str.text:
-                await input_str.delete()
+        # encrypted/non encrypted input pdf file
+        elif data in [ "aioInput|enc", "aioInput|dec" ]:
+            if data == "aioInput|enc":
+                tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
+                tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
+                await callbackQuery.message.edit_reply_markup(tBTN)
                 input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
-            await input_str.delete()
+                while not input_str.text:
+                    await input_str.delete()
+                    input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
+                await input_str.delete()
             
             aio_list_btn = []
             for index, (key, value) in enumerate(tTXT['out_button'].items()):
-                btn = [InlineKeyboardButton(key, value)]
-                try:
-                    btn.append(InlineKeyboardButton(tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'] , tTXT['out_values'][index]))
-                except: pass
+                btn = [ InlineKeyboardButton(key, value) ]
+                if index+1 <= len(all_data):
+                    btn.append(InlineKeyboardButton(
+                        tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'],
+                        tTXT['out_values'][index])
+                    )
                 aio_list_btn.append(btn)
             return await callbackQuery.message.edit(
                 text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
-                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), input_str.text[:300], None, None, None ),
-                reply_markup = InlineKeyboardMarkup(aio_list_btn)
-            )
-        # non encrypted input pdf file
-        elif data == "aioInput|dec":
-            tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
-            
-            aio_list_btn = []
-            for index, (key, value) in enumerate(tTXT['out_button'].items()):
-                btn = [InlineKeyboardButton(key, value)]
-                try:
-                    btn.append(InlineKeyboardButton(tTXT['false'] if tTXT['out_values'][index].endswith("{F}") else tTXT['true'] , tTXT['out_values'][index]))
-                except: pass
-                aio_list_btn.append(btn)
-            return await callbackQuery.message.edit(
-                text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
-                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), None, None, None, None ),
+                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size),
+                    input_str.text[:300] if data == "aioInput|enc" else None, None, None, None ),
                 reply_markup = InlineKeyboardMarkup(aio_list_btn)
             )
         
