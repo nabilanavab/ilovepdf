@@ -53,7 +53,7 @@ async def __index__(bot, callbackQuery):
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
         
-        logger.debug(f"{inPassword}, {outName}, {watermark}, {outPassword}"
+        logger.debug(f"{inPassword}, {outName}, {watermark}, {outPassword}")
         logger.debug(all_data)
                      
         await work.work(callbackQuery, "delete", False)
