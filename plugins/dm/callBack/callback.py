@@ -159,6 +159,7 @@ async def _aio(bot, callbackQuery):
                 while not input_str.text:
                     await input_str.delete()
                     input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
+                await input_str.message.delete()
                 await input_str.delete()
             
             aio_list_btn = []
