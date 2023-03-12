@@ -182,9 +182,8 @@ async def _aio(bot, callbackQuery):
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
-        dataARRANGEMENT = { "met" : 0, "pre" : 1, "txt" : 2, "rot" : 3, "enc" : 4, "for" : 5, "com" : 6, "wat" : 7, "rnm" : 8 }
+        dataARRANGEMENT = { "met" : 0, "pre" : 1, "comp" : 2, "txt" : 3, "rot" : 4, "for" : 5, "enc" : 6, "wat" : 7, "rnm" : 8 }
         
-        logger.debug(all_data)
         tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
         
         if data1 in [ "met", "pre", "com" ]:
@@ -212,7 +211,7 @@ async def _aio(bot, callbackQuery):
         elif data1 in [ "txt", "rot", "for" ]:
             options = {
                 "txt" : [ "text", "html", "json", "{F}" ],
-                "rot" : [ "rot90", "rot180", "rot360", "{F}" ],
+                "rot" : [ "rot90", "rot180", "rot270", "{F}" ],
                 "for" : [ "format1", "format2v", "format2h", "format3v", "format3h", "format4", "{F}" ]
             }
             current_index = options[data1].index(data2)
@@ -225,13 +224,11 @@ async def _aio(bot, callbackQuery):
         aio_list_btn = []
         for index, (key, value) in enumerate(tTXT['out_button'].items()):
             btn = [InlineKeyboardButton(key, value)]
-            logger.debug(btn)
             if index+1 <= len(all_data):
                 btn.append(InlineKeyboardButton(
                     tTXT['true'] if all_data[index]=="{T}" else tTXT['false'] if all_data[index] in ["{F}", "{T}"] else all_data[index].upper(),
                     tTXT['out_values'][index].format(F=all_data[index]))
                 )
-                logger.debug(all_data[index])
             else:
                 next_key, next_value = list(tTXT['out_button'].items())[index+1]
                 btn.append(InlineKeyboardButton(next_key, next_value))
