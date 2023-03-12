@@ -203,7 +203,7 @@ async def _aio(bot, callbackQuery):
                 except: pass
                 await input_str.delete()
                 
-                if input_str.test and input_str.text != "/exit":
+                if input_str.text and input_str.text != "/exit":
                     data_1 = dataARRANGEMENT.get(data1)
                     all_data[data_1] = "{T}"
             else:
