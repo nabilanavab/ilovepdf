@@ -226,7 +226,7 @@ async def _aio(bot, callbackQuery):
                     tTXT['out_values'][index].format(F=all_data[index]))
                 )
             else:
-                next_key, next_value = list(my_dict.items())[index+1]
+                next_key, next_value = list(tTXT['out_button'].items())[index+1]
                 btn.append(InlineKeyboardButton(next_key, next_value))
             aio_list_btn.append(btn)
         
