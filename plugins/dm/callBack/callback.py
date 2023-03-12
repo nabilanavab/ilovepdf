@@ -239,7 +239,7 @@ async def _aio(bot, callbackQuery):
             except: pass
             aio_list_btn.append(btn)
         
-        if data1 not in [ "enc", "rnm", "wat" ] or all_data[dataARRANGEMENT.get(data1)] == "{T}":
+        if data1 not in [ "enc", "rnm", "wat" ] or all_data[dataARRANGEMENT.get(data1)] == "{F}":
             return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
         else:
             message_data = callbackQuery.message.text.split("•")
