@@ -73,8 +73,8 @@ async def __index__(bot, callbackQuery):
             await dlMSG.edit(text = job, reply_markup = _)
             if job == "metadata" and work_info:
                 isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
-            elif job == "preview" and work_info:
-                isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
+#             elif job == "preview" and work_info:
+#                 isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
             elif job == "compress" and work_info:
                 isSuccess, output_file = await compressPDF.compressPDF(input_file=input_file, cDIR=cDIR)
             elif job == "text" and work_info:
