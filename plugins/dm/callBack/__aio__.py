@@ -53,9 +53,19 @@ async def __index__(bot, callbackQuery):
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
         
-        logger.debug(f"{inPassword}, {outName}, {watermark}, {outPassword}")
-        logger.debug(all_data)
-                     
+        WORKS = {
+            "metadata" : True if all_data[0]=="{T}" else False,
+            "preview" : True if all_data[1]=="{T}" else False,
+            "compress" : True if all_data[2]=="{T}" else False,
+            "text" : all_data[3] if all_data[3]!="{F}" else False,
+            "rotate" : all_data[4] if all_data[4]=="{F}" else False,
+            "format" : all_data[5] if all_data[5]=="{F}" else False,
+            "encrypt" : outPassword if outPassword!=None else False,
+            "watermark" : watermark if watermark!=None else False,
+            "rename" : outName if outName!=None else False,
+        }
+        logger.debug(WORKS)
+        
         await work.work(callbackQuery, "delete", False)
     
     except Exception as Error:
