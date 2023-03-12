@@ -70,6 +70,7 @@ async def __index__(bot, callbackQuery):
         }
         
         for work, work_info in WORKS.items():
+            await dlMSG.edit(text = work, reply_markup = _)
             if work == "metadata" and work_info:
                 _ , __ = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
             elif work == "preview" and work_info:
@@ -79,15 +80,26 @@ async def __index__(bot, callbackQuery):
             elif work == "text" and work_info:
                 _, __ = await textPDF.textPDF(input_file=input_file, cDIR=cDIR, data=f"text{all_data[3]}")
             elif work == "rotate" and work_info:
-                _, __ = await rotatePDF.rotatePDF(input_file=input_file, angle=all_data[4].lower(), cDIR: str)
+                _, __ = await rotatePDF.rotatePDF(input_file=input_file, angle=all_data[4].lower(), cDIR=cDIR)
             elif work == "format" and work_info:
-                if work_info
+                if work_info == "format1":
+                    _, __ = await formatPDF.formatPDF.(input_file=input_file, cDIR=cDIR)
+                elif work_info == "format2v":
+                    _, __ = await twoPagesToOne.twoPagesToOne(input_file=input_file, cDIR=cDIR)
+                elif work_info == "format2h":
+                    _, __ = await twoPagesToOneH.twoPagesToOneH(input_file=input_file, cDIR=cDIR)
+                elif work_info == "format3v":
+                    _, __ = await threePagesToOne.threePagesToOne(input_file=input_file, cDIR=cDIR)
+                elif work_info == "format3h":
+                    _, __ = await threePagesToOneH.threePagesToOneH(input_file=input_file, cDIR=cDIR)
+                elif work_info == "format4":
+                    _, __ = await combinePages.combinePages(input_file=input_file, cDIR=cDIR)
             elif work == "encrypt" and work_info:
-                
+                _, __ = await encryptPDF.encryptPDF(input_file=input_file, password=outPassword, cDIR=cDIR)
             elif work == "watermark" and work_info:
-                
+                pass
             elif work == "rename" and work_info:
-                
+                pass
             
             if ( _ or _ == "finished" ) and __ != "finished":
                 os.remove(f"{cDIR}/inPut.pdf")
