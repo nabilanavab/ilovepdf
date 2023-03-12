@@ -247,7 +247,9 @@ async def _aio(bot, callbackQuery):
             
             return await callbackQuery.message.edit(
                 text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
-                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), inPassword, outName, watermark, outPassword ),
+                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), inPassword ,
+                    input_str.text if data1=="rnm" else outName, input_str.text if data1=="wat" else watermark,
+                    input_str.text if data1=="enc" else outPassword ),
                 reply_markup = InlineKeyboardMarkup(aio_list_btn)
             )
     except Exception as Error:
