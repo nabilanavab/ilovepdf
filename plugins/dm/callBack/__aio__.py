@@ -83,7 +83,7 @@ async def __index__(bot, callbackQuery):
                 _, __ = await rotatePDF.rotatePDF(input_file=input_file, angle=all_data[4].lower(), cDIR=cDIR)
             elif work == "format" and work_info:
                 if work_info == "format1":
-                    _, __ = await formatPDF.formatPDF.(input_file=input_file, cDIR=cDIR)
+                    _, __ = await formatPDF.formatPDF(input_file=input_file, cDIR=cDIR)
                 elif work_info == "format2v":
                     _, __ = await twoPagesToOne.twoPagesToOne(input_file=input_file, cDIR=cDIR)
                 elif work_info == "format2h":
