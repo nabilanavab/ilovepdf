@@ -200,7 +200,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await rotatePDF.rotatePDF(cDIR = cDIR, input_file = input_file, angle = data)
         
         elif data.startswith("text") and data != "textM":
-            isSuccess, output_file = await textPDF.textPDF(cDIR = cDIR, input_file = input_file, data = data, message = dlMSG)
+            isSuccess, output_file = await textPDF.textPDF(cDIR = cDIR, input_file = input_file, data = data)
         
         elif data.startswith(tuple(["p2img|I", "p2img|D"])):
             isSuccess, output_file = await pdfToImages.pdfToImages(cDIR = cDIR, input_file = input_file, text = CHUNK,
