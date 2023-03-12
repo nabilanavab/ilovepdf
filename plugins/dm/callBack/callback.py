@@ -183,7 +183,7 @@ async def _aio(bot, callbackQuery):
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
-        dataARRANGEMENT = { "met" : 0, "pre" : 1, "comp" : 2, "txt" : 3, "rot" : 4, "for" : 5, "enc" : 6, "wat" : 7, "rnm" : 8 }
+        dataARRANGEMENT = { "met" : 0, "pre" : 1, "com" : 2, "txt" : 3, "rot" : 4, "for" : 5, "enc" : 6, "wat" : 7, "rnm" : 8 }
         
         tTXT, tBTN = await util.translate(text="AIO", lang_code = lang_code)
         
