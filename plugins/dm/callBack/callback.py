@@ -152,14 +152,14 @@ async def _aio(bot, callbackQuery):
             if data == "aioInput|enc":
                 #tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
                 #await callbackQuery.message.edit_reply_markup(tBTN)
-                input_str = await bot.ask(
+                (qn, input_str) = await bot.ask(
                     text = tTXT['waitPASS'], chat_id = callbackQuery.from_user.id,
                     reply_to_message_id = callbackQuery.message.id, reply_markup = ForceReply(True, tTXT['waitPASS'])
                 )
                 while not input_str.text:
                     await input_str.delete()
                     input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
-                await input_str.message.delete()
+                await qn.delete()
                 await input_str.delete()
             
             aio_list_btn = []
