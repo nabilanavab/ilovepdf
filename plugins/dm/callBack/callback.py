@@ -185,10 +185,6 @@ async def _aio(bot, callbackQuery):
                 reply_markup = InlineKeyboardMarkup(aio_list_btn)
             )
         
-        message_data = callbackQuery.message.text.split("•")
-        inPassword, outName, watermark, outPassword  = message_data[1::2]
-        logger.debug(f"{inPassword}, {outName}, {watermark}, {outPassword}")
-        
         # data1 = "meta/enc/form/comp/water/n.." , data2 = "{}/True/False"
         data1, data2 = data.split("|")[1:]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
@@ -220,7 +216,7 @@ async def _aio(bot, callbackQuery):
             else:
                 data_1 = dataARRANGEMENT.get(data1)
                 all_data[data_1] = "{F}"
-        if data1 in [ "txt", "rot", "for" ]:
+        elif data1 in [ "txt", "rot", "for" ]:
             options = {
                 "txt" : [ "text", "html", "json", "{F}" ],
                 "rot" : [ "rot90", "rot180", "rot360", "{F}" ],
@@ -242,8 +238,18 @@ async def _aio(bot, callbackQuery):
                 )
             except: pass
             aio_list_btn.append(btn)
-        return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
         
+        if data1 not in [ "enc", "rnm", "wat" ]:
+            return await callbackQuery.message.edit_reply_markup(InlineKeyboardMarkup(aio_list_btn))
+        else:
+            message_data = callbackQuery.message.text.split("•")
+            inPassword, outName, watermark, outPassword  = message_data[1::2]
+            
+            return await callbackQuery.message.edit(
+                text = tTXT['passMSG'].format(callbackQuery.message.reply_to_message.document.file_name,   #password 300 char limit
+                    await render.gSF(callbackQuery.message.reply_to_message.document.file_size), inPassword, outName, watermark, outPassword ),
+                reply_markup = InlineKeyboardMarkup(aio_list_btn)
+            )
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
 
