@@ -78,7 +78,7 @@ async def __index__(bot, callbackQuery):
             elif job == "compress" and work_info:
                 isSuccess, output_file = await compressPDF.compressPDF(input_file=input_file, cDIR=cDIR)
             elif job == "text" and work_info:
-                isSuccess, output_file = await textPDF.textPDF(input_file=input_file, cDIR=cDIR, data=f"text{all_data[3][1]}")
+                isSuccess, output_file = await textPDF.textPDF(input_file=input_file, cDIR=cDIR, data=f"text{WORKS["text"][1]}")
             elif job == "rotate" and work_info:
                 isSuccess, output_file = await rotatePDF.rotatePDF(input_file=input_file, angle=all_data[4].lower(), cDIR=cDIR)
             elif job == "format" and work_info:
