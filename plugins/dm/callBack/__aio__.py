@@ -26,6 +26,10 @@ async def __index__(bot, callbackQuery):
         
         CHUNK, _ = await util.translate(text = "INDEX", button = "INDEX['button']", lang_code = lang_code)
         
+        if not callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
+            await work.work(callbackQuery, "delete", False)
+            return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
+        
         # create a brand new directory to store all of your important user data
         cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
