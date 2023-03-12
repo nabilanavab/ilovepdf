@@ -69,8 +69,8 @@ async def __index__(bot, callbackQuery):
             "rename" : outName if all_data[8]!="{F}" and outName!=None else False,
         }
         
+        await dlMSG.edit(text = job, reply_markup = _)
         for job, work_info in WORKS.items():
-            await dlMSG.edit(text = job, reply_markup = _)
             if job == "metadata" and work_info:
                 isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
             elif job == "preview" and work_info:
@@ -100,10 +100,7 @@ async def __index__(bot, callbackQuery):
                 pass
             elif job == "rename" and work_info:
                 pass
-            
-            if ( isSuccess or isSuccess == "finished" ) and output_file != "finished":
-                os.remove(f"{cDIR}/inPut.pdf")
-                os.rename(output_file, f"{cDIR}/inPut.pdf")
+        
         await work.work(callbackQuery, "delete", False)
     
     except Exception as Error:
