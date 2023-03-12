@@ -149,9 +149,10 @@ async def _aio(bot, callbackQuery):
         elif data in [ "aioInput|enc", "aioInput|dec" ]:
             tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
             if data == "aioInput|enc":
-                tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
-                await callbackQuery.message.edit_reply_markup(tBTN)
-                input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
+                #tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
+                #await callbackQuery.message.edit_reply_markup(tBTN)
+                input_str = await bot.ask(text = "question", chat_id = callbackQuery.from_user.id)
+                logger.debug(input_str)
                 while not input_str.text:
                     await input_str.delete()
                     input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
