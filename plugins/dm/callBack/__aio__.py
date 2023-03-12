@@ -70,7 +70,7 @@ async def __index__(bot, callbackQuery):
         }
         
         for job, work_info in WORKS.items():
-            await dlMSG.edit(text = work, reply_markup = _)
+            await dlMSG.edit(text = job, reply_markup = _)
             if job == "metadata" and work_info:
                 isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
             elif job == "preview" and work_info:
