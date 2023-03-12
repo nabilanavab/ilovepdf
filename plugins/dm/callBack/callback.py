@@ -220,7 +220,7 @@ async def _aio(bot, callbackQuery):
         aio_list_btn = []
         for index, (key, value) in enumerate(tTXT['out_button'].items()):
             btn = [InlineKeyboardButton(key, value)]
-            if index-1 <= len(all_data):
+            if index <= len(all_data):
                 btn.append(InlineKeyboardButton(
                     tTXT['true'] if all_data[index]=="{T}" else tTXT['false'] if all_data[index] in ["{F}", "{T}"] else all_data[index].upper(),
                     tTXT['out_values'][index].format(F=all_data[index]))
