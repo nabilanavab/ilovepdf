@@ -150,8 +150,6 @@ async def _aio(bot, callbackQuery):
         elif data in [ "aioInput|enc", "aioInput|dec" ]:
             tTXT, tBTN = await util.translate(text = "AIO", order = 1, lang_code = lang_code)
             if data == "aioInput|enc":
-                #tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
-                #await callbackQuery.message.edit_reply_markup(tBTN)
                 input_str = await bot.ask(
                     text = tTXT['waitPASS'], chat_id = callbackQuery.from_user.id,
                     reply_to_message_id = callbackQuery.message.id, reply_markup = ForceReply(True, tTXT['waitPASS'])
@@ -197,15 +195,15 @@ async def _aio(bot, callbackQuery):
             else: return
         elif data1 in [ "enc", "rnm", "wat" ]:
             if data2 == "{F}":
-                tBTN = await util.createBUTTON(btn=tTXT['waitPASS'])
-                await callbackQuery.message.edit_reply_markup(tBTN)
-                input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
-                while not input_str.text:
-                    await input_str.delete()
-                    input_str = await bot.listen(chat_id = callbackQuery.from_user.id)
+                input_str = await bot.ask(
+                    text = tTXT['waitPASS'], chat_id = callbackQuery.from_user.id,
+                    reply_to_message_id = callbackQuery.message.id, reply_markup = ForceReply(True, tTXT['waitPASS'])
+                )
+                try: await input_str.reply_to_message.delete()
+                except: pass
                 await input_str.delete()
                 
-                if input_str.text != "/exit":
+                if input_str.test and input_str.text != "/exit":
                     data_1 = dataARRANGEMENT.get(data1)
                     all_data[data_1] = "{T}"
             else:
