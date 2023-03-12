@@ -232,7 +232,8 @@ AIO = {
         "Output:\n\tFile Name   : `•{}•`\n\tWatermark : `•{}•`\n\tPassword    : ||•{}•||",
     "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|met", "📸 PREVIEW 📸" : "nabilanavab|aio|pre", "📑 TEXT 📑" : "nabilanavab|aio|txt",
         "🤸 ROTATE 🤸" : "nabilanavab|aio|rot", "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "😗 FORMAT 😗" : "nabilanavab|aio|for",
-        "🗜 COMPRESS 🗜": "nabilanavab|aio|com", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm", "🚶‍♂️ BACK 🚶‍♂️" : "aio"
+        "🗜 COMPRESS 🗜": "nabilanavab|aio|com", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm", "🚶‍♂️ BACK 🚶‍♂️" : "aio",
+        "🆗 PROCESS 🆗" : "^aio"
     },
     "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|enc|{F}", "aio|for|{F}", "aio|com|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]
 }
