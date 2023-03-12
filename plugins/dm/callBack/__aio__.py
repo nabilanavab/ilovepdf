@@ -103,11 +103,11 @@ async def __index__(bot, callbackQuery):
                 isSuccess, output_file = await encryptPDF.encryptPDF(input_file=input_file, password=outPassword, cDIR=cDIR)
 #             elif job == "watermark" and work_info:
 #                 pass
-#             elif job == "rename" and work_info:
-#                 pass
+            elif job == "rename" and work_info:
+                pass
             
             logger.debug(f"{job} : {isSuccess} - {output_file}")
-            if isSuccess is True:
+            if isSuccess is True and input_file != output_file:
                 os.remove(input_file)
                 os.rename(output_file, input_file)
         
