@@ -9,8 +9,8 @@ from logger           import logger
 
 import os, time
 from plugins.utils    import *
-from plugins.utils    import work
 from configs.config   import images
+from plugins.utils    import work as wrk
 from pyrogram         import enums, filters, Client as ILovePDF
 
 from .file_process import *
@@ -28,11 +28,11 @@ async def __index__(bot, callbackQuery):
         CHUNK, _ = await util.translate(text = "INDEX", button = "INDEX['button']", lang_code = lang_code)
         
         if not callbackQuery.message.reply_to_message and callbackQuery.message.reply_to_message.document:
-            await work.work(callbackQuery, "delete", False)
+            await wrk.work(callbackQuery, "delete", False)
             return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
         
         # create a brand new directory to store all of your important user data
-        cDIR = await work.work(callbackQuery, "create", False)
+        cDIR = await wrk.work(callbackQuery, "create", False)
         if not cDIR:
             return await callbackQuery.answer(CHUNK["inWork"])
         await callbackQuery.answer(CHUNK["process"])
@@ -51,7 +51,7 @@ async def __index__(bot, callbackQuery):
         
         # The program checks the size of the file and the file on the server to avoid errors when canceling the download
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
-            return await work.work(callbackQuery, "delete", False)
+            return await wrk.work(callbackQuery, "delete", False)
         
         inPassword, outName, watermark, outPassword  = callbackQuery.message.text.split("•")[1::2]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
@@ -105,10 +105,10 @@ async def __index__(bot, callbackQuery):
             if ( _ or _ == "finished" ) and __ != "finished":
                 os.remove(f"{cDIR}/inPut.pdf")
                 os.rename(__, f"{cDIR}/inPut.pdf")
-        await work.work(callbackQuery, "delete", False)
+        await wrk.work(callbackQuery, "delete", False)
     
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
-        await work.work(callbackQuery, "delete", False)
+        await wrk.work(callbackQuery, "delete", False)
 
 # Author: @nabilanavab
