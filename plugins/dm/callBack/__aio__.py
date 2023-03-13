@@ -9,10 +9,9 @@ from logger           import logger
 
 import os, time
 from plugins.utils    import *
+from .file_process    import *
 from configs.config   import images
 from pyrogram         import enums, filters, Client as ILovePDF
-
-from .file_process import *
 
 index = filters.create(lambda _, __, query: query.data.startswith("^"))
 @ILovePDF.on_callback_query(index)
@@ -85,52 +84,51 @@ async def __index__(bot, callbackQuery):
                 return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
             
         for job, work_info in WORKS.items():
-            await dlMSG.edit(text = f"```{job.upper()} work in progress..🔰\nwait it might take some time.. 💔```", reply_markup = _)
+            await dlMSG.edit(text = CHUNK['aio'].format(job.upper()), reply_markup = _)
             work_in_this_loop = False
             if job == "metadata" and work_info:
-                isSuccess, output_file = await metadataPDF.metadataPDF(input_file=input_file, cDIR=cDIR, message=dlMSG)
+                isSuccess, output_file = await metadataPDF.metadataPDF(input_file = input_file, cDIR = cDIR, message = dlMSG)
                 await callbackQuery.message.reply_text(output_file, quote = True)
             elif job == "preview" and work_info:
-                isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
+                isSuccess, output_file = await previewPDF.previewPDF(input_file = input_file, cDIR = cDIR, editMessage = dlMSG, callbackQuery = callbackQuery)
             elif job == "compress" and work_info:
-                isSuccess, output_file = await compressPDF.compressPDF(input_file=input_file, cDIR=cDIR)
+                isSuccess, output_file = await compressPDF.compressPDF(input_file = input_file, cDIR = cDIR)
                 work_in_this_loop = True
             elif job == "text" and work_info:
-                isSuccess, output_file = await textPDF.textPDF(input_file=input_file, cDIR=cDIR, data=f"text{WORKS['text'][0].upper()}")
+                isSuccess, output_file = await textPDF.textPDF(input_file = input_file, cDIR = cDIR, data = f"text{WORKS['text'][0].upper()}")
                 await callbackQuery.message.reply_document(
                     file_name = output_file.split("/")[-1], quote = True, document = output_file,
                     progress = render._progress, progress_args = (dlMSG, time.time()) 
                 )
             elif job == "rotate" and work_info:
-                isSuccess, output_file = await rotatePDF.rotatePDF(input_file=input_file, angle=all_data[4].lower(), cDIR=cDIR)
+                isSuccess, output_file = await rotatePDF.rotatePDF(input_file = input_file, angle = all_data[4].lower(), cDIR = cDIR)
                 work_in_this_loop = True
             elif job == "format" and work_info:
                 if work_info == "format1":
-                    isSuccess, output_file = await formatPDF.formatPDF(input_file=input_file, cDIR=cDIR)
+                    isSuccess, output_file = await formatPDF.formatPDF(input_file = input_file, cDIR = cDIR)
                     work_in_this_loop = True
                 elif work_info == "format2v":
-                    isSuccess, output_file = await twoPagesToOne.twoPagesToOne(input_file=input_file, cDIR=cDIR)
+                    isSuccess, output_file = await twoPagesToOne.twoPagesToOne(input_file = input_file, cDIR = cDIR)
                     work_in_this_loop = True
                 elif work_info == "format2h":
-                    isSuccess, output_file = await twoPagesToOneH.twoPagesToOneH(input_file=input_file, cDIR=cDIR)
+                    isSuccess, output_file = await twoPagesToOneH.twoPagesToOneH(input_file = input_file, cDIR = cDIR)
                     work_in_this_loop = True
                 elif work_info == "format3v":
-                    isSuccess, output_file = await threePagesToOne.threePagesToOne(input_file=input_file, cDIR=cDIR)
+                    isSuccess, output_file = await threePagesToOne.threePagesToOne(input_file = input_file, cDIR = cDIR)
                     work_in_this_loop = True
                 elif work_info == "format3h":
-                    isSuccess, output_file = await threePagesToOneH.threePagesToOneH(input_file=input_file, cDIR=cDIR)
+                    isSuccess, output_file = await threePagesToOneH.threePagesToOneH(input_file = input_file, cDIR = cDIR)
                     work_in_this_loop = True
                 elif work_info == "format4":
-                    isSuccess, output_file = await combinePages.combinePages(input_file=input_file, cDIR=cDIR)
+                    isSuccess, output_file = await combinePages.combinePages(input_file = input_file, cDIR = cDIR)
                     work_in_this_loop = True
             elif job == "encrypt" and work_info:
-                isSuccess, output_file = await encryptPDF.encryptPDF(input_file=input_file, password=outPassword, cDIR=cDIR)
+                isSuccess, output_file = await encryptPDF.encryptPDF(input_file = input_file, password = outPassword, cDIR = cDIR)
                 work_in_this_loop = True
             elif job == "watermark" and work_info:
-                isSuccess, output_file = await watermark45.watermarkPDF(input_file=input_file, cDIR=cDIR, watermark=watermark)
+                isSuccess, output_file = await watermark45.watermarkPDF(input_file = input_file, cDIR = cDIR, watermark = watermark)
                 work_in_this_loop = True
             
-            logger.debug(f"{job} : {isSuccess} - {output_file}")
             if work_in_this_loop:
                 os.remove(input_file)
                 os.rename(output_file, input_file)
@@ -140,12 +138,13 @@ async def __index__(bot, callbackQuery):
                 if _upload != "{F}": break
             else:
                 await dlMSG.delete()
+                completed = await util.createBUTTON(btn = text["_completed"])
+                await callbackQuery.message.reply_text(text = CHUNK["finished"], reply_markup = completed, quote = True)
                 return await work.work(callbackQuery, "delete", False)
-
+        
         # getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
-            callbackQuery.message,
-            callbackQuery.message.reply_to_message.document.file_name if data != "rename" else newName.text
+            callbackQuery.message, callbackQuery.message.reply_to_message.document.file_name if data != "rename" else newName.text
         )
         if images.PDF_THUMBNAIL != THUMBNAIL:
             location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/temp.jpeg")
@@ -158,6 +157,8 @@ async def __index__(bot, callbackQuery):
         )
         
         await dlMSG.delete()
+        completed = await util.createBUTTON(btn = text["_completed"])
+        await callbackQuery.message.reply_text(text = CHUNK["finished"], reply_markup = completed, quote = True)
         await work.work(callbackQuery, "delete", False)
     
     except Exception as Error:
