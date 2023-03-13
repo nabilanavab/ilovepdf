@@ -17,7 +17,7 @@ from asyncio        import sleep
 from pdf            import pyTgLovePDF
 from telebot.types  import InputMediaPhoto
 
-async def previewPDF(input_file: str, cDIR: str, editMessage, callbackQuery) -> ( bool, str ):
+async def previewPDF(input_file: str, cDIR: str, editMessage, cancel, callbackQuery) -> ( bool, str ):
     try:
         """
         This function returns PDF images with their metadata.
