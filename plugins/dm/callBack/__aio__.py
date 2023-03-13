@@ -41,11 +41,6 @@ async def __index__(bot, callbackQuery):
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
         
-        DEFAULT_WORKS = {
-            "metadata" : "{F}", "preview" : "{F}", "compress" : "{F}", "text" : "{F}", "rotate" : "{F}",
-            "format" : "{F}", "encrypt" : "{F}", "watermark" : "{F}", "rename" : "{F}"
-        }
-        
         WORKS = {
             "metadata" : True if all_data[0]=="{T}" else False,
             "preview" : True if all_data[1]=="{T}" else False,
@@ -57,8 +52,9 @@ async def __index__(bot, callbackQuery):
             "watermark" : watermark if all_data[7]!="{F}" and watermark!=None else False,
             "rename" : outName if all_data[8]!="{F}" and outName!=None else False,
         }
+        logger.debug(f"{all_data}\n{WORKS}")
         
-        if DEFAULT_WORKS == WORKS:
+        if all_data == WORKS:
             return await callbackQuery.answer("atleast add one work.. 💔")
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
