@@ -77,7 +77,7 @@ async def __index__(bot, callbackQuery):
             return await work.work(callbackQuery, "delete", False)
         
         for job, work_info in WORKS.items():
-            await dlMSG.edit(text = job, reply_markup = _)
+            await dlMSG.edit(text = f"```{job.upper()} work in progress..🔰\nwait it might take some time.. 💔```", reply_markup = _)
             work_in_this_loop = False
             if job == "metadata" and work_info:
                 isSuccess, output_file = await metadataPDF.metadataPDF(input_file=input_file, cDIR=cDIR, message=dlMSG)
