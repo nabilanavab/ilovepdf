@@ -136,11 +136,8 @@ async def __index__(bot, callbackQuery):
                 os.rename(output_file, input_file)
         
         if inPassword == "None":
-            logger.debug(f"{inPassword} : {type(inPassword)}")
-            logger.debug(all_data[2:])
             for _upload in all_data[2:]:
-                if _upload is not False:
-                    break
+                if _upload != "{F}": break
             else:
                 await dlMSG.delete()
                 return await work.work(callbackQuery, "delete", False)
