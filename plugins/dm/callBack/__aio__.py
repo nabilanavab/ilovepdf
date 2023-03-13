@@ -36,6 +36,31 @@ async def __index__(bot, callbackQuery):
             return await callbackQuery.answer(CHUNK["inWork"])
         await callbackQuery.answer(CHUNK["process"])
         
+        inPassword, outName, watermark, outPassword  = callbackQuery.message.text.split("•")[1::2]
+        buttons = callbackQuery.message.reply_markup.inline_keyboard
+        callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
+        all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
+        
+        DEFAULT_WORKS = {
+            "metadata" : "{F}", "preview" : "{F}", "compress" : "{F}", "text" : "{F}", "rotate" : "{F}",
+            "format" : "{F}", "encrypt" : "{F}", "watermark" : "{F}", "rename" : "{F}"
+        }
+        
+        WORKS = {
+            "metadata" : True if all_data[0]=="{T}" else False,
+            "preview" : True if all_data[1]=="{T}" else False,
+            "compress" : True if all_data[2]=="{T}" else False,
+            "text" : all_data[3] if all_data[3]!="{F}" else False,
+            "rotate" : all_data[4] if all_data[4]!="{F}" else False,
+            "format" : all_data[5] if all_data[5]!="{F}" else False,
+            "encrypt" : outPassword if all_data[6]!="{F}" and outPassword!=None else False,
+            "watermark" : watermark if all_data[7]!="{F}" and watermark!=None else False,
+            "rename" : outName if all_data[8]!="{F}" and outName!=None else False,
+        }
+        
+        if DEFAULT_WORKS == WORKS:
+            return await callbackQuery.answer("atleast add one work.. 💔")
+        
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
         
         # download the mentioned PDF file with progress updates
@@ -51,23 +76,6 @@ async def __index__(bot, callbackQuery):
         # The program checks the size of the file and the file on the server to avoid errors when canceling the download
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
             return await work.work(callbackQuery, "delete", False)
-        
-        inPassword, outName, watermark, outPassword  = callbackQuery.message.text.split("•")[1::2]
-        buttons = callbackQuery.message.reply_markup.inline_keyboard
-        callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
-        all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
-        
-        WORKS = {
-            "metadata" : True if all_data[0]=="{T}" else False,
-            "preview" : True if all_data[1]=="{T}" else False,
-            "compress" : True if all_data[2]=="{T}" else False,
-            "text" : all_data[3] if all_data[3]!="{F}" else False,
-            "rotate" : all_data[4] if all_data[4]!="{F}" else False,
-            "format" : all_data[5] if all_data[5]!="{F}" else False,
-            "encrypt" : outPassword if all_data[6]!="{F}" and outPassword!=None else False,
-            "watermark" : watermark if all_data[7]!="{F}" and watermark!=None else False,
-            "rename" : outName if all_data[8]!="{F}" and outName!=None else False,
-        }
         
         for job, work_info in WORKS.items():
             await dlMSG.edit(text = job, reply_markup = _)
