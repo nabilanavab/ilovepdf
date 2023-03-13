@@ -104,13 +104,17 @@ async def __index__(bot, callbackQuery):
                 isSuccess, output_file = await encryptPDF.encryptPDF(input_file=input_file, password=outPassword, cDIR=cDIR)
             elif job == "watermark" and work_info:
                 isSuccess, output_file = await watermark45.watermarkPDF(input_file=input_file, cDIR=cDIR, watermark=watermark)
-            elif job == "rename" and work_info:
-                pass
             
             logger.debug(f"{job} : {isSuccess} - {output_file}")
             if isSuccess is True and input_file != output_file:
                 os.remove(input_file)
                 os.rename(output_file, input_file)
+        
+        await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
+        await callbackQuery.message.reply_document(
+            file_name = outName if all_data[8]!="{F}" else callbackQuery.message.reply_to_message.document.file_name, quote = True, document = output_file,
+            thumb = THUMBNAIL, aption = f"{_caption}\n\n{FILE_CAPT}", progress = render._progress, progress_args = (dlMSG, time.time()) 
+        )
         
         await work.work(callbackQuery, "delete", False)
     
