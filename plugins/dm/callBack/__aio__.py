@@ -138,7 +138,7 @@ async def __index__(bot, callbackQuery):
                 if _upload != "{F}": break
             else:
                 await dlMSG.delete()
-                completed = await util.createBUTTON(btn = text["_completed"])
+                completed = await util.createBUTTON(btn = CHUNK["_completed"])
                 await callbackQuery.message.reply_text(text = CHUNK["finished"], reply_markup = completed, quote = True)
                 return await work.work(callbackQuery, "delete", False)
         
@@ -157,7 +157,7 @@ async def __index__(bot, callbackQuery):
         )
         
         await dlMSG.delete()
-        completed = await util.createBUTTON(btn = text["_completed"])
+        completed = await util.createBUTTON(btn = CHUNK["_completed"])
         await callbackQuery.message.reply_text(text = CHUNK["finished"], reply_markup = completed, quote = True)
         await work.work(callbackQuery, "delete", False)
     
