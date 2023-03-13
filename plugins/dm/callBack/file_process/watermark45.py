@@ -9,7 +9,7 @@ from logger           import logger
 
 import fitz
 
-async def add_text_watermark(input_file, output_file, watermark_text, opacity, position, color):
+async def add_text_watermark(input_file, output_file, watermark_text):
     try:
         with fitz.open(input_file) as pdf:
             for page in pdf:
