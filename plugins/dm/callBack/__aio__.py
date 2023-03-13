@@ -138,7 +138,7 @@ async def __index__(bot, callbackQuery):
         
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
-            file_name = outName if if all_data[8].endswith(".pdf") else f"{outName}.pdf" if all_data[8]!="{F}" else callbackQuery.message.reply_to_message.document.file_name,
+            file_name = outName if all_data[8].endswith(".pdf") else f"{outName}.pdf" if all_data[8]!="{F}" else callbackQuery.message.reply_to_message.document.file_name,
             quote = True, document = output_file if work_in_this_loop else input_file, thumb = THUMBNAIL, progress = render._progress, progress_args = (dlMSG, time.time()) 
         )
         
