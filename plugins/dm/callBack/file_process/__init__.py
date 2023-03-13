@@ -15,7 +15,7 @@ __all__ = [
     "formatPDF", "ocrPDF", "rotatePDF", "saturatePDF",
     "renamePDF", "pdfToImages", "splitPDF", "mergePDF", "watermarkPDF",
     "stampPDF", "twoPagesToOne", "threePagesToOne", "twoPagesToOneH", "threePagesToOneH",
-    "deletePDFPg", "zipTarPDF", "messagePDF", 
+    "deletePDFPg", "zipTarPDF", "messagePDF", "metadataPDF", "watermark45"
 ]
 
 # Author: @nabilanavab
