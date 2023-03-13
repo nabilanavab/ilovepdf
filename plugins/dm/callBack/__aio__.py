@@ -38,12 +38,12 @@ async def __index__(bot, callbackQuery):
         WORKS = {
             "metadata" : True if all_data[0]=="{T}" else False,
             "preview" : True if all_data[1]=="{T}" else False,
-            "compress" : True if all_data[2]=="{T}" else False,
             "text" : all_data[3] if all_data[3]!="{F}" else False,
             "rotate" : all_data[4] if all_data[4]!="{F}" else False,
             "format" : all_data[5] if all_data[5]!="{F}" else False,
-            "encrypt" : outPassword if all_data[6]!="{F}" and outPassword!=None else False,
             "watermark" : watermark if all_data[7]!="{F}" and watermark!=None else False,
+            "compress" : True if all_data[2]=="{T}" else False,
+            "encrypt" : outPassword if all_data[6]!="{F}" and outPassword!=None else False,
             "rename" : outName if all_data[8]!="{F}" and outName!=None else False,
         }
         DEFAULT_WORK = {
