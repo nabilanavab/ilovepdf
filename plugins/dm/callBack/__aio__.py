@@ -77,7 +77,7 @@ async def __index__(bot, callbackQuery):
             return await work.work(callbackQuery, "delete", False)
         
         if inPassword != None:
-            isSuccess, output_file = await decryptPDF.decryptPDF(cDIR = cDIR, input_file = input_file, password = password.text)
+            isSuccess, output_file = await decryptPDF.decryptPDF(input_file = input_file, cDIR = cDIR, password = inPassword)
             if isSuccess:
                 os.remove(input_file)
                 os.rename(output_file, input_file)
