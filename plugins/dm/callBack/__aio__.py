@@ -30,7 +30,8 @@ async def __index__(bot, callbackQuery):
             await work.work(callbackQuery, "delete", False)
             return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
         
-        inPassword, outName, watermark, outPassword  = callbackQuery.message.text.split("•")[1::2]
+        #eval
+        inPassword, outName, watermark, outPassword  = eval(callbackQuery.message.text.split("•")[1::2])
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
@@ -76,7 +77,7 @@ async def __index__(bot, callbackQuery):
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
             return await work.work(callbackQuery, "delete", False)
         
-        if inPassword != None:
+        if inPassword != "None":
             isSuccess, output_file = await decryptPDF.decryptPDF(input_file = input_file, cDIR = cDIR, password = inPassword)
             if isSuccess:
                 os.remove(input_file)
@@ -135,7 +136,7 @@ async def __index__(bot, callbackQuery):
                 os.remove(input_file)
                 os.rename(output_file, input_file)
         
-        if inPassword == None:
+        if inPassword == "None":
             logger.debug(inPassword)
             for _upload in all_data[2:]:
                 if _upload is not False:
