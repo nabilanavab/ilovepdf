@@ -30,8 +30,7 @@ async def __index__(bot, callbackQuery):
             await work.work(callbackQuery, "delete", False)
             return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
         
-        #eval
-        inPassword, outName, watermark, outPassword  = eval(callbackQuery.message.text.split("•")[1::2])
+        inPassword, outName, watermark, outPassword  = callbackQuery.message.text.split("•")[1::2]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
         all_data = [ '{F}' if element.endswith('{F}') else element.split("|")[-1] for element in callback ][:-1]
@@ -42,10 +41,10 @@ async def __index__(bot, callbackQuery):
             "text" : all_data[3] if all_data[3]!="{F}" else False,
             "rotate" : all_data[4] if all_data[4]!="{F}" else False,
             "format" : all_data[5] if all_data[5]!="{F}" else False,
-            "watermark" : watermark if all_data[7]!="{F}" and watermark!=None else False,
+            "watermark" : watermark if all_data[7]!="{F}" and watermark!="None" else False,
             "compress" : True if all_data[2]=="{T}" else False,
-            "encrypt" : outPassword if all_data[6]!="{F}" and outPassword!=None else False,
-            "rename" : outName if all_data[8]!="{F}" and outName!=None else False,
+            "encrypt" : outPassword if all_data[6]!="{F}" and outPassword!="None" else False,
+            "rename" : outName if all_data[8]!="{F}" and outName!="None" else False,
         }
         DEFAULT_WORK = {
             'metadata': False, 'preview': False, 'compress': False, 'text': False, 'rotate': False,
@@ -136,7 +135,7 @@ async def __index__(bot, callbackQuery):
                 os.remove(input_file)
                 os.rename(output_file, input_file)
         
-        if inPassword == None:
+        if inPassword == "None":
             logger.debug(inPassword)
             for _upload in all_data[2:]:
                 if _upload is not False:
