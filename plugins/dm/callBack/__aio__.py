@@ -136,7 +136,8 @@ async def __index__(bot, callbackQuery):
                 os.rename(output_file, input_file)
         
         if inPassword == "None":
-            logger.debug(inPassword)
+            logger.debug(f"{inPassword} : {type(inPassword)}")
+            logger.debug(all_data[2:])
             for _upload in all_data[2:]:
                 if _upload is not False:
                     break
