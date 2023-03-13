@@ -81,18 +81,17 @@ async def __index__(bot, callbackQuery):
             work_in_this_loop = False
             if job == "metadata" and work_info:
                 isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
-#             elif job == "preview" and work_info:
-#                 isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
+            elif job == "preview" and work_info:
+                isSuccess, output_file = await previewPDF.previewPDF(input_file=input_file, cDIR=cDIR, editMessage=dlMSG, callbackQuery=callbackQuery)
             elif job == "compress" and work_info:
                 isSuccess, output_file = await compressPDF.compressPDF(input_file=input_file, cDIR=cDIR)
                 work_in_this_loop = True
-            elif job == "text" and woek_info:
+            elif job == "text" and work_info:
                 isSuccess, output_file = await textPDF.textPDF(input_file=input_file, cDIR=cDIR, data=f"text{WORKS['text'][0].upper()}")
                 await callbackQuery.message.reply_document(
                     file_name = output_file.split("/")[-1], quote = True, document = output_file,
                     progress = render._progress, progress_args = (dlMSG, time.time()) 
                 )
-                work_in_this_loop = True
             elif job == "rotate" and work_info:
                 isSuccess, output_file = await rotatePDF.rotatePDF(input_file=input_file, angle=all_data[4].lower(), cDIR=cDIR)
                 work_in_this_loop = True
