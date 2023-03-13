@@ -52,9 +52,12 @@ async def __index__(bot, callbackQuery):
             "watermark" : watermark if all_data[7]!="{F}" and watermark!=None else False,
             "rename" : outName if all_data[8]!="{F}" and outName!=None else False,
         }
-        logger.debug(f"{all_data}\n{WORKS}")
+        DEFAULT_WORK = {
+            'metadata': False, 'preview': False, 'compress': False, 'text': False, 'rotate': False,
+            'format': False, 'encrypt': False, 'watermark': False, 'rename': False
+        }
         
-        if all_data == WORKS:
+        if DEFAULT_WORK == WORKS:
             return await callbackQuery.answer("atleast add one work.. 💔")
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
