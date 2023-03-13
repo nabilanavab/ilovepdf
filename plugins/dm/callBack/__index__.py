@@ -180,7 +180,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await compressPDF.compressPDF(cDIR = cDIR, input_file = input_file)
         
         elif data == "preview":
-            isSuccess, output_file = await previewPDF.previewPDF(cDIR = cDIR, input_file = input_file,
+            isSuccess, output_file = await previewPDF.previewPDF(cDIR = cDIR, input_file = input_file, cancel = _,
                                                                  editMessage = dlMSG, callbackQuery = callbackQuery)
         
         elif data == "split":
