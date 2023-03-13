@@ -126,5 +126,7 @@ async def watermarkPDF(input_file: str, cDIR: str, callbackQuery, watermark, tex
                 return False, output_file
         return True, output_file
     except Exception as Error:
-        logger.exception("2️⃣ 🐞 %s: %s" %(file_name, Error), exc_info = True)
+        logger.exception("3️⃣ 🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
+
+# Author: @nabilanavab
