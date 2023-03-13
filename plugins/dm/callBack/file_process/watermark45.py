@@ -22,7 +22,7 @@ async def add_text_watermark(input_file, output_file, watermark_text):
                 txt_bottom, txt_left =  int((page.bound().width-text_width)/2), int((page.bound().height-page.bound().height/20)/2)
                 
                 tw.append((txt_bottom, txt_left), watermark_text, fontsize = int(page.bound().height//20), font = font)
-                tw.write_text(page, rotate = 45)
+                tw.write_text(page)
                 
             pdf.save(output_file)
         return True, output_file
