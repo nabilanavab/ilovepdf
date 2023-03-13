@@ -148,6 +148,7 @@ async def __index__(bot, callbackQuery):
             document = output_file if work_in_this_loop else input_file, thumb = THUMBNAIL, progress = render._progress, progress_args = (dlMSG, time.time()) 
         )
         
+        await dlMSG.delete()
         await work.work(callbackQuery, "delete", False)
     
     except Exception as Error:
