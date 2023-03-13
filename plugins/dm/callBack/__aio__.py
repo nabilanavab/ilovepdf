@@ -81,7 +81,9 @@ async def __index__(bot, callbackQuery):
             if isSuccess:
                 os.remove(input_file)
                 os.rename(output_file, input_file)
-        
+            else:
+                return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
+            
         for job, work_info in WORKS.items():
             await dlMSG.edit(text = f"```{job.upper()} work in progress..🔰\nwait it might take some time.. 💔```", reply_markup = _)
             work_in_this_loop = False
