@@ -17,7 +17,7 @@ async def add_text_watermark(input_file, output_file, watermark_text):
                 font = fitz.Font(fontname="tiit")
                 text_width = font.text_length(watermark_text, fontsize=int(page.bound().height//20))
                 
-                tw = fitz.TextWriter(page.rect, opacity = int(opacity)/10, color = (0, 0, 0))
+                tw = fitz.TextWriter(page.rect, opacity = .5, color = (0, 0, 0))
                 
                 txt_bottom, txt_left =  int((page.bound().width-text_width)/2), int((page.bound().height-page.bound().height/20)/2)
                 
