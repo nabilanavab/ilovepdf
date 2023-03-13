@@ -30,12 +30,6 @@ async def __index__(bot, callbackQuery):
             await work.work(callbackQuery, "delete", False)
             return await callbackQuery.message.reply_text("#old_queue 💔\n\n`try by sending new file`", reply_markup = _, quote = True)
         
-        # create a brand new directory to store all of your important user data
-        cDIR = await work.work(callbackQuery, "create", False)
-        if not cDIR:
-            return await callbackQuery.answer(CHUNK["inWork"])
-        await callbackQuery.answer(CHUNK["process"])
-        
         inPassword, outName, watermark, outPassword  = callbackQuery.message.text.split("•")[1::2]
         buttons = callbackQuery.message.reply_markup.inline_keyboard
         callback = [element.callback_data for button in buttons for index, element in enumerate(button, start=1) if index % 2 == 0]
@@ -59,6 +53,12 @@ async def __index__(bot, callbackQuery):
         
         if DEFAULT_WORK == WORKS:
             return await callbackQuery.answer("atleast add one work.. 💔")
+        
+        # create a brand new directory to store all of your important user data
+        cDIR = await work.work(callbackQuery, "create", False)
+        if not cDIR:
+            return await callbackQuery.answer(CHUNK["inWork"])
+        await callbackQuery.answer(CHUNK["process"])
         
         dlMSG = await callbackQuery.message.reply_text(CHUNK["download"], reply_markup = _, quote = True)
         
