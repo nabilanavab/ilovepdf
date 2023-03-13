@@ -135,13 +135,14 @@ async def __index__(bot, callbackQuery):
                 os.remove(input_file)
                 os.rename(output_file, input_file)
         
-        for _upload in all_data[2:]:
-            if _upload not is False:
-                break
-        else:
-            await dlMSG.delete()
-            return await work.work(callbackQuery, "delete", False)
-        
+        if not inPassword:
+            for _upload in all_data[2:]:
+                if _upload is not False:
+                    break
+            else:
+                await dlMSG.delete()
+                return await work.work(callbackQuery, "delete", False)
+
         # getting thumbnail
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(
             callbackQuery.message,
