@@ -35,12 +35,9 @@ async def watermarkPDF(input_file: str, cDIR: str, watermark) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         
-        if _type == "txt":
-            success, output_file = await add_text_watermark(
-                input_file = input_file, output_file = output_path, watermark_text = watermark,
-            )
-            if not success:
-                return False, output_file
+        success, output_file = await add_text_watermark(input_file = input_file, output_file = output_path, watermark_text = watermark)
+        if not success:
+            return False, output_file
         return True, output_file
     except Exception as Error:
         logger.exception("2️⃣ 🐞 %s: %s" %(file_name, Error), exc_info = True)
