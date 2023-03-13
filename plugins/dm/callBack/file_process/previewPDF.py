@@ -36,7 +36,6 @@ async def previewPDF(input_file: str, cDIR: str, editMessage, callbackQuery) -> 
             "finished"    : Return finished when the request is successful
             "finished"    : Return finished when the request is successful
         """
-        output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
             
             if iNPUT.page_count <= 10:
