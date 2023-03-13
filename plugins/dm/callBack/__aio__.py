@@ -76,6 +76,12 @@ async def __index__(bot, callbackQuery):
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
             return await work.work(callbackQuery, "delete", False)
         
+        if inPassword != None:
+            isSuccess, output_file = await decryptPDF.decryptPDF(cDIR = cDIR, input_file = input_file, password = password.text)
+            if isSuccess:
+                os.remove(input_file)
+                os.rename(output_file, input_file)
+        
         for job, work_info in WORKS.items():
             await dlMSG.edit(text = f"```{job.upper()} work in progress..🔰\nwait it might take some time.. 💔```", reply_markup = _)
             work_in_this_loop = False
