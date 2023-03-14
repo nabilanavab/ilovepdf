@@ -7,7 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-import os, fitz
+import os, subprocess, #fitz
 from PIL    import Image
 # from PyPDF2 import PdfReader, PdfWriter
 
@@ -26,7 +26,7 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         output_path : This is the path where the output file can be found.
     """
     try:
-        
+        """
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT:
             with fitz.open() as oUTPUT:
@@ -38,7 +38,7 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
                         oUTPUT[pg].insert_image(rect = rect, filename = f"{cDIR}/temp.png")
                 oUTPUT.save(output_path, garbage = 3, deflate = True)
         
-        """
+        
         reader = PdfReader(input_file)
         writer = PdfWriter()
         
@@ -49,6 +49,14 @@ async def compressPDF(input_file: str, cDIR: str) -> ( bool, str ):
         with open(output_path, "wb") as f:
             writer.write(f)
         """
+        output_path = f"{cDIR}/outPut.pdf"
+        
+        # Set the Ghostscript command and options to compress the PDF
+        gs_command = 'gs'
+        gs_options = ['-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4', '-dPDFSETTINGS=/screen', '-dNOPAUSE', '-dQUIET', '-dBATCH', '-sOutputFile={}'.format(output_path), input_file]
+        
+        # Call Ghostscript to compress the PDF
+        subprocess.call([gs_command] + gs_options)
         
         # FILE SIZE COMPARISON (RATIO)
         initialSize = os.path.getsize(input_file)
