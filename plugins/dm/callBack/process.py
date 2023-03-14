@@ -10,7 +10,7 @@ from plugins.work import work
 from plugins.render import gSF
 from pyrogram.errors import FloodWait
 from PyPDF2 import PdfFileWriter, PdfFileReader
-from PDFNetPython3.PDFNetPython import PDFDoc, Optimizer, SDFDoc, PDFNet
+# from PDFNetPython3.PDFNetPython import PDFDoc, Optimizer, SDFDoc, PDFNet
 
 try:
     nabilanavab = False # Change to False else never work
