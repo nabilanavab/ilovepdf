@@ -7,7 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-import os, subprocess, #fitz
+import os, subprocess #, fitz
 from PIL    import Image
 # from PyPDF2 import PdfReader, PdfWriter
 
