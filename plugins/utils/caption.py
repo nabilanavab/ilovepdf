@@ -20,6 +20,9 @@ async def caption(data: str, args = None, lang_code :str = settings.DEFAULT_LANG
         elif data == "rename":
             _, __ = await util.translate(text = "INDEX['rename_caption']", lang_code = lang_code)
             caption = _.format(*args)
+        elif data== "compress":
+            _, __ = await util.translate(text = "INDEX['compress_caption']", lang_code = lang_code)
+            caption = _.format(*args)
         else:
             caption = ""
         
