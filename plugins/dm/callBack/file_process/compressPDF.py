@@ -12,7 +12,7 @@ from plugins.utils  import *
 from PIL            import Image
 # from PyPDF2 import PdfReader, PdfWriter
 
-async def compressPDF(input_file: str, cDIR: str, ratio: bool = False) -> ( bool, str ):
+async def compressPDF(input_file: str, cDIR: str, returnRatio: bool = False) -> ( bool, str ):
     """
     Compressing a PDF file can significantly reduce its file size, making it
     easier to share and store. This can be especially useful when sending files over
@@ -64,7 +64,7 @@ async def compressPDF(input_file: str, cDIR: str, ratio: bool = False) -> ( bool
         compressedSize = os.path.getsize(output_path)
         ratio = (1 - (compressedSize / initialSize)) * 100
         
-        if ratio:
+        if returnRatio:
             if (initialSize - compressedSize) > 1000000 or ratio >= 5:
                 return ([await render.gSF(initialSize), await render.gSF(compressedSize), ratio], output_path)
             else:
