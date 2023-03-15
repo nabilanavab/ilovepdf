@@ -50,11 +50,12 @@ async def compressPDF(input_file: str, cDIR: str, returnRatio: bool = False) -> 
         with open(output_path, "wb") as f:
             writer.write(f)
         """
+        # /screen, /ebook, /printer, /prepress, and /default. 
         output_path = f"{cDIR}/outPut.pdf"
         
         # Set the Ghostscript command and options to compress the PDF
         gs_command = 'gs'
-        gs_options = ['-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4', '-dPDFSETTINGS=/screen', '-dNOPAUSE', '-dQUIET', '-dBATCH', '-sOutputFile={}'.format(output_path), input_file]
+        gs_options = ['-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4', '-dPDFSETTINGS=/ebook', '-dNOPAUSE', '-dQUIET', '-dBATCH', '-sOutputFile={}'.format(output_path), input_file]
         
         # Call Ghostscript to compress the PDF
         subprocess.call([gs_command] + gs_options)
