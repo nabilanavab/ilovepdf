@@ -226,6 +226,8 @@ async def __index__(bot, callbackQuery):
             await work.work(callbackQuery, "delete", False)
             if data == "decrypt":
                 return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
+            elif data == "compress":
+                return await dlMSG.edit(text = CHUNK["cantCompress"], reply_markup = _)
             return await dlMSG.edit(text = CHUNK["error"].format(output_file), reply_markup = _)
         
         # getting thumbnail
