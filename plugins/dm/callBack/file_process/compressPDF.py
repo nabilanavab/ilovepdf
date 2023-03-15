@@ -66,7 +66,7 @@ async def compressPDF(input_file: str, cDIR: str, returnRatio: bool = False) -> 
         
         if returnRatio:
             if (initialSize - compressedSize) > 1000000 or ratio >= 5:
-                return ([await render.gSF(initialSize), await render.gSF(compressedSize), ratio], output_path)
+                return ([await render.gSF(initialSize), await render.gSF(compressedSize), f"{ratio:.2f}"], output_path)
             else:
                 return False, "cantCompressMore"
         
