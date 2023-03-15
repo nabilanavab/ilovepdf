@@ -6,7 +6,7 @@
 </head>
 
 > **Note** 
-> : Something big awaits you. Don't forget to star the project
+> : Something big awaits you. Don't forget to star the project 🌟
 
 <h3><pre><center>Please take a look at this bot before hosting it yourself <a href="https://telegram.dog/ilovepdf_bot">: Test Bot</a></center></pre></h3>
 
