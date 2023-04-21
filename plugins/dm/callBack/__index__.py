@@ -197,7 +197,7 @@ async def __index__(bot, callbackQuery):
                                                                    callbackQuery = callbackQuery, dlMSG = dlMSG)
         
         elif data == "inv":
-            isSuccess, output_file = await renamePDF.renamePDF(cDIR = cDIR, input_file = input_file)
+            isSuccess, output_file = await invertPDF.invertPDF(cDIR = cDIR, input_file = input_file)
         
         elif data.startswith("rot"):
             isSuccess, output_file = await rotatePDF.rotatePDF(cDIR = cDIR, input_file = input_file, angle = data)
