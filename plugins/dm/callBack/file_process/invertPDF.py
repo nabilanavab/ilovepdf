@@ -39,8 +39,8 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
                 # Create a new PDF page with the same dimensions as the original
                 output_page = output_pdf.new_page(width=dimensions.width, height=dimensions.height)
                
-               # Draw the inverted image onto the new PDF page
-               output_page.show_pdf_page(output_page.rect, inverted_img.tobytes(), page_number)
+                # Draw the inverted image onto the new PDF page
+                output_page.show_pdf_page(output_page.rect, inverted_img.tobytes(), page_number)
             
             # Add the new page to the output PDF
             oUTPUT.insert_pdf(output_page)
