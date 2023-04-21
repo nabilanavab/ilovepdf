@@ -28,7 +28,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
             writer = PyPDF2.PdfWriter()
             
             for page in range(len(reader.pages)):
-                original_page = reader.getPage(page)
+                original_page = reader.pages[page_number] 
                 writer.addPage(original_page)
         
                 # Invert the colors of the page
