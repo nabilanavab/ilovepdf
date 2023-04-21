@@ -27,7 +27,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
         with fitz.open(input_file) as iNPUT, fitz.open() as oUTPUT:
             for page_number, page in enumerate(iNPUT):
                 # Get the page dimensions
-                dimensions = page.MediaBox
+                dimensions = page.mediabox
                 
                 # Render the page to a PIL image
                 pix = page.getPixmap(matrix=fitz.Matrix(1, 1)).get_data("rgb")
