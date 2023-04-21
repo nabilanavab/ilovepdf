@@ -30,7 +30,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
                 dimensions = page.mediabox
                 
                 # Render the page to a PIL image
-                pix = page.getPixmap(matrix=fitz.Matrix(1, 1)).get_data("rgb")
+                pix = page.get_pixmap(matrix=fitz.Matrix(1, 1)).get_data("rgb")
                 img = Image.frombytes(mode="RGB", size=(pix.width, pix.height), data=pix)
                 
                 # Invert the colors of the PIL image
