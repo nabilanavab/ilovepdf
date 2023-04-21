@@ -29,7 +29,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
             
             for page in range(len(reader.pages)):
                 original_page = reader.pages[page]
-                writer.addPage(original_page)
+                writer.add_page(original_page)
         
                 # Invert the colors of the page
                 invert_color_page = original_page
