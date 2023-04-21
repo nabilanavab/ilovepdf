@@ -25,7 +25,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         with fitz.open(input_file) as iNPUT, fitz.open() as oUTPUT:
-            for page_number, page in enumerate(pdf):
+            for page_number, page in enumerate(iNPUT):
                 # Get the page dimensions
                 dimensions = page.MediaBox
                 
