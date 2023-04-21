@@ -37,7 +37,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
                     if isinstance(content, PyPDF2.generic.ByteStringObject):
                         invert_color_page['/Contents'].getObject().setData(content.replace(b'/DeviceRGB', b'/DeviceCMYK'))
             
-            writer.addPage(invert_color_page)
+            writer.add_page(invert_color_page)
         
         with open(output_path, "wb") as oUTPUT:
             writer.write(oUTPUT)
