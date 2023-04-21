@@ -8,6 +8,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger import logger
 
 import fitz
+from PIL import Image
 
 async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
@@ -23,18 +24,27 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
     try:
         output_path = f"{cDIR}/outPut.pdf"
-        with fitz.open(input_file) as iNPUT:
-            with fitz.open() as oUTPUT:
-                for page in iNPUT:
-                    pix = page.get_pixmap()
-                    pixmap_invert = fitz.Pixmap(pix)
-                    pixmap_invert.invert()
-                    page_pixmap_invert = fitz.Pixmap(pixmap_invert, 0)
-                    inv_page = new_doc.newPage(width = page_pixmap_invert.width, height = page_pixmap_invert.height)
-                    inv_page.showPDFpage(page.rect, page)
-                    inv_page.insertImage(page_pixmap_invert)
-                    new_doc.insertPDF(inv_page)
-                oUTPUT.save(output_path)
+        with fitz.open(input_file) as iNPUT, fitz.open() as oUTPUT:
+            for page_number, page in enumerate(pdf):
+                # Get the page dimensions
+                dimensions = page.MediaBox
+                
+                # Render the page to a PIL image
+                pix = page.getPixmap(matrix=fitz.Matrix(1, 1)).get_data("rgb")
+                img = Image.frombytes(mode="RGB", size=(pix.width, pix.height), data=pix)
+                
+                # Invert the colors of the PIL image
+                inverted_img = ImageOps.invert(img)
+                
+                # Create a new PDF page with the same dimensions as the original
+                output_page = output_pdf.new_page(width=dimensions.width, height=dimensions.height)
+               
+               # Draw the inverted image onto the new PDF page
+               output_page.show_pdf_page(output_page.rect, inverted_img.tobytes(), page_number)
+            
+            # Add the new page to the output PDF
+            oUTPUT.insert_pdf(output_page)
+            
         return True, output_path
     
     except Exception as Error:
