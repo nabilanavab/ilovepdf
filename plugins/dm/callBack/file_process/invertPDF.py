@@ -23,7 +23,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
     try:
         output_path = f"{cDIR}/outPut.pdf"
-        with fitz.open(input_file) as iNPUT:
+        with open(input_file) as iNPUT:
             reader = PyPDF2.PdfFileReader(iNPUT)
             writer = PyPDF2.PdfFileWriter()
             
