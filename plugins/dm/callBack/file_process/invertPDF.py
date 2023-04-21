@@ -27,7 +27,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
             reader = PyPDF2.PdfReader(iNPUT)
             writer = PyPDF2.PdfWriter()
             
-            for page in range(reader.getNumPages()):
+            for page in range(len(reader.pages)):
                 original_page = reader.getPage(page)
                 writer.addPage(original_page)
         
