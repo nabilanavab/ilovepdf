@@ -24,8 +24,8 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     try:
         output_path = f"{cDIR}/outPut.pdf"
         with open(input_file) as iNPUT:
-            reader = PyPDF2.PdfFileReader(iNPUT)
-            writer = PyPDF2.PdfFileWriter()
+            reader = PyPDF2.PdfReader(iNPUT)
+            writer = PyPDF2.PdfWriter()
             
             for page in range(reader.getNumPages()):
                 original_page = reader.getPage(page)
