@@ -26,7 +26,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
         with fitz.open(input_file) as iNPUT:
             with fitz.open() as oUTPUT:
                 for page in iNPUT:
-                    pix = page.getPixmap()
+                    pix = page.get_pixmap()
                     pixmap_invert = fitz.Pixmap(pix)
                     pixmap_invert.invert()
                     page_pixmap_invert = fitz.Pixmap(pixmap_invert, 0)
