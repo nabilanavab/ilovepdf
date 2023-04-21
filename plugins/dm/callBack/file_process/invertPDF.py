@@ -7,7 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger import logger
 
-import PyPDF2
+import fitz
 
 async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
@@ -23,25 +23,18 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
     try:
         output_path = f"{cDIR}/outPut.pdf"
-        with open(input_file, "rb") as iNPUT:
-            reader = PyPDF2.PdfReader(iNPUT)
-            writer = PyPDF2.PdfWriter()
-            
-            for page in range(len(reader.pages)):
-                original_page = reader.pages[page]
-                writer.add_page(original_page)
-        
-                # Invert the colors of the page
-                invert_color_page = original_page
-                for content in invert_color_page['/Contents'].get_object():
-                    if isinstance(content, PyPDF2.generic.ByteStringObject):
-                        invert_color_page['/Contents'].getObject().setData(content.replace(b'/DeviceRGB', b'/DeviceCMYK'))
-            
-            writer.add_page(invert_color_page)
-        
-        with open(output_path, "wb") as oUTPUT:
-            writer.write(oUTPUT)
-            
+        with fitz.open(input_file) as iNPUT:
+            with fitz.open(output_path) as oUTPUT:
+                for page in iNPUT:
+                    pix = page.getPixmap()
+                    pixmap_invert = fitz.Pixmap(pix)
+                    pixmap_invert.invert()
+                    page_pixmap_invert = fitz.Pixmap(pixmap_invert, 0)
+                    inv_page = new_doc.newPage(width = page_pixmap_invert.width, height = page_pixmap_invert.height)
+                    inv_page.showPDFpage(page.rect, page)
+                    inv_page.insertImage(page_pixmap_invert)
+                    new_doc.insertPDF(inv_page)
+                oUTPUT.save(output_path)
         return True, output_path
     
     except Exception as Error:
