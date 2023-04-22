@@ -141,9 +141,9 @@ PDF_MESSAGE = {
     "pg" : "`Number of Pages: •{}•` 🌟", "pdf" : "`What should I do with this file.?`\n\nFile Name : `{}`\nFile Size : `{}`",
     "pdf_button" : {
         "⭐ META£ATA ⭐" : "pdf|meta", "🖼️ IMAGES 🖼️" : "pdf|img", "📑 TEXT 📑" : "pdf|txt", "🤸 ROTATE 🤸" : "pdf|rotate",
-        "✂️ SPLIT/MERGE 🧬" : "pdf|trim", "🔐 ENCRY\DECRY 🔓" : "pdf|lock", "😗 FORMAT 😗" : "pdf|format",
-        "💦 WATERMARK 💦" : "pdf|trade", "🗜 COMPRESS\OCR 🔎" : "pdf|comocr", "✏️ RENAME ✏️" : "#rename", "🔎 ZOOM 🔎" : "#zoom",
-        "🔗 URL 🔗" : "link", "👻 FILTER 👻" : "pdf|filter", "🟢 ADD/DLT 🔴" : "pdf|addlt", "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all"
+        "✂️ SPLIT/MERGE 🧬" : "pdf|trim", "🔐 ENCRY/DECRY 🔓" : "pdf|lock", "😗 FORMAT 😗" : "pdf|format",
+        "💦 WATERMARK 💦" : "pdf|trade", "🗜 COMPRESS/OCR 🔎" : "pdf|comocr", "✏️ RENAME ✏️" : "#rename", "🔎 ZOOM 🔎" : "#zoom",
+        "🔗 URL 🔗" : "link", "👻 FILTERS 👻" : "pdf|filter", "🟢 ADD/DLT 🔴" : "pdf|addlt", "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all"
     },
     "error" : "__I can't do anything with this file.__ 😏\n\n🐉  `CODEC ERROR`  🐉",
     "errorCB" : { "❌ ERROR IN CODEC ❌" : "error", "🔸 CLOSE 🔸" : "close|all" },
@@ -157,7 +157,7 @@ BUTTONS = {
     "trim" : { "❓ SPLIT/MERGE PDF:HELP ❓" : "nabilanavab|trim", "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", "« BACK «" : "pdf" },
     "format" : { "❓ FORMAT:HELP ❓" : "nabilanavab|format", "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE [HORIZ] ✌" : "#2-format-H",
                  "✌ DOUBLE [VERTI] ✌" : "#2-format-V", "🤟 TRIBLE [HORIZ] 🤟" : "#3-format-H", "🤟 TRIBLE [VERTI] 🤟" : "#3-format-V",
-                "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
+                 "😂 FOURBLE 😂" : "#4-format", "« BACK «" : "pdf" },
     "comocr" : { "❓ COMPRESS/OCR PDF:HELP ❓" : "nabilanavab|comocr", "🗜 COMPRESS 🗜" : "#compress", "📝 OCR 📝" : "#ocr", "« BACK «" : "pdf" },
     "trade" : { "❓ WATERMARK:HELP ❓" : "nabilanavab|trade", "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stp", "« BACK «" : "pdf" },
     "filter" : { "❓ FILTER:HELP ❓" : "nabilanavab|format", "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#baw", "🪐 SATURARE 🪐" : "#sat",
@@ -320,6 +320,6 @@ INDEX = {
 }
 
 HELP = {
-    "meta" : "⭐ META£ATA ⭐\n\n✔ ONLY METADATA ✔ : will help you fetch metadata from a PDF file.\n\n✅ Fetch 10 Random Images ✅ : will allow you to extract 10 random images from the PDF file if they exist.",
+    "meta" : "⭐ META£ATA ⭐\n\n✔ ONLY METADATA ✔ : \nwill help you fetch metadata from a PDF file.\n\n✅ WITH PREVIEW ✅ : \nwill allow you to extract 10 random images from the PDF file if they exist.",
     
 }
