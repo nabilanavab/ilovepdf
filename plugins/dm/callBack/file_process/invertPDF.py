@@ -24,26 +24,23 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
     try:
         output_path = f"{cDIR}/outPut.pdf"
-        with fitz.open(input_file) as iNPUT, fitz.open() as oUTPUT:
-            for page_number, page in enumerate(iNPUT):
-                # Get the page dimensions
-                dimensions = page.mediabox
+        
+        with fitz.open(input_file) as iNPUT:
+            for i in range(iNPUT.page_count):
+                page = iNPUT[i]
                 
-                # Render the page to a PIL image
-                pix = page.get_pixmap(matrix=fitz.Matrix(1, 1)).get_data("rgb")
-                img = Image.frombytes(mode="RGB", size=(pix.width, pix.height), data=pix)
+                # Convert the page to PNG and invert colors
+                pix = page.get_pixmap(alpha=False)
+                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                img = ImageOps.invert(img)
                 
-                # Invert the colors of the PIL image
-                inverted_img = ImageOps.invert(img)
+                # Convert the inverted image back to Pixmap
+                pix = fitz.Pixmap(img.tobytes(), alpha=False)
                 
-                # Create a new PDF page with the same dimensions as the original
-                output_page = output_pdf.new_page(width=dimensions.width, height=dimensions.height)
-               
-                # Draw the inverted image onto the new PDF page
-                output_page.show_pdf_page(output_page.rect, inverted_img.tobytes(), page_number)
+                # Replace the original page with the inverted Pixmap
+                page.set_pixmap(pix)
             
-            # Add the new page to the output PDF
-            oUTPUT.insert_pdf(output_page)
+            iNPUT.save(output_path)
             
         return True, output_path
     
