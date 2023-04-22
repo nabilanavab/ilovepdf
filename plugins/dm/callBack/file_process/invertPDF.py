@@ -24,23 +24,15 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
     """
     try:
         output_path = f"{cDIR}/outPut.pdf"
-        
-        with fitz.open(input_file) as iNPUT:
-            for i in range(iNPUT.page_count):
-                page = iNPUT[i]
-                
-                # Convert the page to PNG and invert colors
-                pix = page.get_pixmap(alpha=False)
-                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                img = ImageOps.invert(img)
-                
-                # Convert the inverted image back to Pixmap
-                pix = fitz.Pixmap(img.tobytes(), pix.size, pix.colorspace)
-                
-                # Replace the original page with the inverted Pixmap
-                page.set_pixmap(pix)
-            
-            iNPUT.save(output_path)
+        with fitz.open(input_file) as iNPUT, fitz.open() as oUTPUT:        # empty output PDF
+            for pg in range(iNPUT.page_count):
+                iNPUT[pg].get_pixmap().save(f"{cDIR}/temp.png")
+                with Image.open(f"{cDIR}/temp.png") as image:
+                    ImageOps.invert(f"{cDIR}/temp.png").save(f"{cDIR}/temp.png")
+                    rect = iNPUT[pg].rect
+                    oUTPUT.new_page(pno = -1, width = rect.width, height = rect.height)
+                    oUTPUT[pg].insert_image(rect = rect, filename = f"{cDIR}/temp.png")
+            oUTPUT.save(output_path, garbage = 3, deflate = True)
             
         return True, output_path
     
