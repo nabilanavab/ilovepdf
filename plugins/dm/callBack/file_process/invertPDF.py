@@ -32,7 +32,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
                 # Convert the page to PNG and invert colors
                 pix = page.get_pixmap(alpha=False)
                 img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                img = ImageOps.invert(img)
+                img = img.invert(img)
                 
                 # Convert the inverted image back to Pixmap
                 pix = fitz.Pixmap(img.tobytes(), alpha=False)
