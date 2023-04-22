@@ -35,7 +35,7 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
                 img = ImageOps.invert(img)
                 
                 # Convert the inverted image back to Pixmap
-                pix = fitz.Pixmap(img.tobytes(), 0)
+                pix = fitz.Pixmap(img.tobytes())
                 
                 # Replace the original page with the inverted Pixmap
                 page.set_pixmap(pix)
