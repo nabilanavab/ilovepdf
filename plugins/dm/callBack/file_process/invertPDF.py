@@ -28,10 +28,8 @@ async def invertPDF(input_file: str, cDIR: str) -> ( bool, str ):
             for pg in range(iNPUT.page_count):
                 iNPUT[pg].get_pixmap().save(f"{cDIR}/temp.png")
                 with Image.open(f"{cDIR}/temp.png") as image:
-                    ImageOps.invert(f"{cDIR}/temp.png").save(f"{cDIR}/temp.png")
-                    rect = iNPUT[pg].rect
-                    oUTPUT.new_page(pno = -1, width = rect.width, height = rect.height)
-                    oUTPUT[pg].insert_image(rect = rect, filename = f"{cDIR}/temp.png")
+                    ImageOps.invert(image).save(f"{cDIR}/temp.png")
+                    oUTPUT.insert_file(infile=f"{cDIR}/temp.png")
             oUTPUT.save(output_path, garbage = 3, deflate = True)
             
         return True, output_path
