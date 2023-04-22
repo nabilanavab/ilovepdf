@@ -320,6 +320,7 @@ INDEX = {
 }
 
 HELP = {
-    "meta" : "⭐ META£ATA ⭐\n\n✔ ONLY METADATA ✔ : \nwill help you fetch metadata from a PDF file.\n\n✅ WITH PREVIEW ✅ : \nwill allow you to extract 10 random images from the PDF file if they exist.",
-    
+    "meta" : "⭐ META£ATA ⭐\n\n✔ ONLY METADATA ✔ :\nFetch Metadata from a PDF file.\n\n✅ WITH PREVIEW ✅ :\nFetch 10 random images from PDF",
+    "lock" : "🔐 ENCRY/DECRY 🔓/n/n🔐 ENCRYPT 🔐"
+    "trim" : "-------------"
 }
