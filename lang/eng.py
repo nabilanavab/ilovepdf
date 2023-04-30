@@ -30,7 +30,7 @@ HOME = {
     "HomeB" : "SETTINGS PAGE ⚙️\n\nUSER NAME   : {}\nUSER ID           : {}\nUSERNAME    : {}\nJOIN DATE      : {}\n\nLANGUAGE    : {}\n"
         "API                    : {}\nTHUMB            : {}\nCAPTION         : {}\nFILE NAME      : {}""",
     "HomeBCB" : {
-        "📍 THUMB 📍" : "set|thumb", "📈 NAME 📈" : "set|fname", "💩 API 💩" : "set|api", "📅 CAPTION 📅" : "set|capt", "« BACK TO HOME «" : "Home|B2A"
+        "THUMB" : "set|thumb", "NAME" : "set|fname", "API" : "set|api", "CAPTION" : "set|capt", "« BACK TO HOME «" : "Home|B2A"
     },
     "HomeC" : """**Some of the main features are:**
  
