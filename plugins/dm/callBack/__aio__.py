@@ -94,11 +94,6 @@ async def __index__(bot, callbackQuery):
             elif job == "preview" and work_info:
                 isSuccess, output_file = await previewPDF.previewPDF(input_file = input_file, cDIR = cDIR, editMessage = dlMSG,
                                                                      cancel = _, callbackQuery = callbackQuery)
-            
-            elif job == "compress" and work_info:
-                isSuccess, output_file = await compressPDF.compressPDF(input_file = input_file, cDIR = cDIR)
-                work_in_this_loop = True
-            
             elif job == "text" and work_info:
                 isSuccess, output_file = await textPDF.textPDF(input_file = input_file, cDIR = cDIR, data = f"text{WORKS['text'][0].upper()}")
                 await callbackQuery.message.reply_document(
@@ -147,6 +142,9 @@ async def __index__(bot, callbackQuery):
             if work_in_this_loop:
                 os.remove(input_file)
                 os.rename(output_file, input_file)
+        
+        if WORKS["compress"] == '{T}':
+            isSuccess, output_file = await compressPDF.compressPDF(input_file = input_file, cDIR = cDIR)
         
         if inPassword == "None":
             for _upload in all_data[2:]:
