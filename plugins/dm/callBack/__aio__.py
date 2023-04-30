@@ -144,7 +144,7 @@ async def __index__(bot, callbackQuery):
                 os.rename(output_file, input_file)
         
         logger.debug(WORKS["compress"])
-        if WORKS["compress"] == '{T}':
+        if WORKS["compress"]:
             isSuccess, output_file = await compressPDF.compressPDF(input_file = input_file, cDIR = cDIR)
         
         if inPassword == "None":
