@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 fileName = "plugins/dm/action_inline/search_query.py"
 
-
+from logger          import logger
 from libgenesis      import Libgen
 from pyrogram        import Client as ILovePDF
 
