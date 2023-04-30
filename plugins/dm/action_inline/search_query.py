@@ -14,7 +14,7 @@ async def inline_query_handler(bot, inline_query):
         results = []
         
         lang_code = await getLang(inline_query.from_user.id)
-        trCHUNK, _ = await translate(text="document", lang_code=lang_code)
+        trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         if len(query) < 2:
             return await inline_query.answer(
