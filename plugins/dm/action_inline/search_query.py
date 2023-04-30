@@ -5,7 +5,7 @@ fileName = "plugins/dm/action_inline/search_query.py"
 from logger          import logger
 from libgenesis      import Libgen
 from pyrogram        import Client as ILovePDF
-from pyrogram.types  import InlineQueryResultPhoto, InputTextMessageContent, InlineQueryResultCachedDocument
+from pyrogram.types  import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
 
 @ILovePDF.on_inline_query()
 async def inline_query_handler(bot, inline_query):
@@ -64,7 +64,7 @@ async def inline_query_handler(bot, inline_query):
                                     [[InlineKeyboardButton(text="⚙️ Processing.. ", callback_data=f"nabilanavab")]]
                                 )
                             )
-
+        
         if results:
             return await inline_query.answer(results=results, cache_time=60, is_personal=False)
         else:
