@@ -2,9 +2,8 @@
 # copyright ©️ 2021 nabilanavab
 fileName = "plugins/dm/action_inline/search_query.py"
 
+from plugins.util   import *
 from logger          import logger
-from libgenesis      import Libgen
-from lang            import langList
 from pyrogram        import Client as ILovePDF
 from pyrogram.types  import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
 
