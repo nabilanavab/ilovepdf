@@ -39,7 +39,7 @@ async def inline_query_handler(bot, inline_query):
         else:
             if query:
                 result = await Libgen(result_limit=50
-                                      ).search(query=q,
+                                      ).search(query=query,
                                            return_fields=[
                                                'title', 'pages', 'language',
                                                'publisher', 'year', 'author',
@@ -75,4 +75,4 @@ async def inline_query_handler(bot, inline_query):
             )
         
     except Exception as Error:
-        logger.debug(Error)
+        logger.exception("🐞 %s: %s" %(fileName, Error), exc_info = True)
