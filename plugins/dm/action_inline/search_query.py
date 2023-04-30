@@ -4,6 +4,7 @@ fileName = "plugins/dm/action_inline/search_query.py"
 
 from logger          import logger
 from libgenesis      import Libgen
+from lang            import langList
 from pyrogram        import Client as ILovePDF
 from pyrogram.types  import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
 
@@ -13,15 +14,18 @@ async def inline_query_handler(bot, inline_query):
         query = inline_query.query.strip()
         results = []
         
+        lang_code = await getLang(inline_query.from_user.id)
+        trCHUNK, _ = await translate(text="document", lang_code=lang_code)
+        
         if len(query) < 2:
             return await inline_query.answer(
                 results=[],
                 cache_time=0,
-                switch_pm_text='You must enter at least 2 characters to search',
+                switch_pm_text=trCHUNK['min'],
                 switch_pm_parameter="okay",
            )
         
-        elif query.startswith("dl:"):
+        elif query.startswith("dl:"): pass
             """query = query.split(':')[1].strip()
             q_res_data = await BookdlFiles().get_file_by_name(query, 50)
             if q_res_data:
@@ -51,6 +55,7 @@ async def inline_query_handler(bot, inline_query):
                     for item in result:
                         results.append(
                             InlineQueryResultPhoto(
+                                photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
                                 title=result[item]['title'],
                                 description=f"Author: {result[item]['author']}\n"
                                 f"Volume: {result[item]['volumeinfo']}   Year: {result[item]['year']}  Pages: {result[item]['pages']}\n"
@@ -59,9 +64,8 @@ async def inline_query_handler(bot, inline_query):
                                 caption=f"MD5: {result[item]['md5']}\n"
                                         f"Title: **{result[item]['title']}.**\n"
                                         f"Author: **{result[item]['author']}.**"),
-                                photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
                                 reply_markup=InlineKeyboardMarkup(
-                                    [[InlineKeyboardButton(text="⚙️ Processing.. ", callback_data=f"nabilanavab")]]
+                                    [[InlineKeyboardButton(text=trCHUNK['process'], callback_data=f"nabilanavab")]]
                                 )
                             )
         
@@ -71,7 +75,7 @@ async def inline_query_handler(bot, inline_query):
             return await inline_query.answer(
                 results=[],
                 cache_time=0,
-                switch_pm_text=f'🤐 No results for "{query}"',
+                switch_pm_text=trCHUNK['nothing'].format(query),
                 switch_pm_parameter="okay",
             )
         
