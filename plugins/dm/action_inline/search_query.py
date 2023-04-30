@@ -13,8 +13,8 @@ async def inline_query_handler(bot, inline_query):
         query = inline_query.query.strip()
         results = []
         
-        if len(q) < 2:
-            return await iq.answer(
+        if len(query) < 2:
+            return await inline_query.answer(
                 results=[],
                 cache_time=0,
                 switch_pm_text='You must enter at least 2 characters to search',
@@ -23,7 +23,7 @@ async def inline_query_handler(bot, inline_query):
         
         elif query.startswith("dl:"):
             query = query.split(':')[1].strip()
-            q_res_data = await BookdlFiles().get_file_by_name(q, 50)
+            q_res_data = await BookdlFiles().get_file_by_name(query, 50)
             if q_res_data:
                 for file in q_res_data:
                     results.append(
@@ -65,12 +65,12 @@ async def inline_query_handler(bot, inline_query):
                             )
 
         if results:
-            return await iq.answer(results=results, cache_time=60, is_personal=False)
+            return await inline_query.answer(results=results, cache_time=60, is_personal=False)
         else:
-            return await iq.answer(
+            return await inline_query.answer(
                 results=[],
                 cache_time=0,
-                switch_pm_text=f'{emoji.CROSS_MARK} No results for "{q}"',
+                switch_pm_text=f'{emoji.CROSS_MARK} No results for "{query}"',
                 switch_pm_parameter="okay",
             )
         
