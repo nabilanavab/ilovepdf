@@ -314,6 +314,10 @@ INDEX = {
     "aio" : "```{} work in progress..🔰\nwait it might take some time.. 💔```",
 }
 
+INLINE = {
+    'min' : 'You must enter at least 2 characters to search', 'process' : '⚙️ Processing.. ', 'nothing' : '🤐 No results for "{}"' 
+}
+
 HELP = {
     "meta" : "⭐ META£ATA ⭐\n\n✔ ONLY METADATA ✔ :\nFetch Metadata from a PDF file.\n\n✅ WITH PREVIEW ✅ :\nFetch 10 random images from PDF",
     "lock" : "🔐 ENCRY/DECRY 🔓/n/n🔐 ENCRYPT 🔐",
