@@ -127,13 +127,8 @@ BAN = {
     "banCB" : {
         "Create your Own Bot": f"{settings.SOURCE_CODE}", "Tutorial": f"{settings.SOURCE_CODE}", "Update Channel": "https://telegram.dog/ilovepdf_bot"
     },
-    "Force" : """Wait [{}](tg://user?id={})..!!
-
-Due To The Huge Traffic Only **Channel Members** Can Use this Bot 🚶
-
-This Means That You Need To **Join** The Below Mentioned Channel for Using Me!
-
-Hit on `"♻️retry♻️"` after joining.. 😅""",
+    "Force" : """Wait [{}](tg://user?id={})..!!\n\nDue To The Huge Traffic Only **Channel Members** Can Use this Bot 🚶
+\nThis Means That You Need To **Join** The Below Mentioned Channel for Using Me!\n\nHit on `"♻️retry♻️"` after joining.. 😅""",
     "ForceCB" : { "🌟 JOIN CHANNEL 🌟" : "{0}", "♻️ Refresh ♻️" : "refresh{1}" },
 }
 
