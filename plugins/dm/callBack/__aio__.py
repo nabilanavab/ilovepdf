@@ -143,6 +143,7 @@ async def __index__(bot, callbackQuery):
                 os.remove(input_file)
                 os.rename(output_file, input_file)
         
+        logger.debug(WORKS["compress"])
         if WORKS["compress"] == '{T}':
             isSuccess, output_file = await compressPDF.compressPDF(input_file = input_file, cDIR = cDIR)
         
