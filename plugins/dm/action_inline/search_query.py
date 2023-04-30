@@ -56,11 +56,11 @@ async def inline_query_handler(bot, inline_query):
                                 f"Volume: {result[item]['volumeinfo']}   Year: {result[item]['year']}  Pages: {result[item]['pages']}\n"
                                 f"Language: {result[item]['language']}  Extension: {result[item]['extension']}\n"
                                 f"Publisher: {result[item]['publisher']}\n",
-                                caption=message_text=f"MD5: {result[item]['md5']}\n"
+                                caption=f"MD5: {result[item]['md5']}\n"
                                         f"Title: **{result[item]['title']}.**\n"
                                         f"Author: **{result[item]['author']}.**"),
                                 photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
-                                reply_markup = InlineKeyboardMarkup(
+                                reply_markup=InlineKeyboardMarkup(
                                     [[InlineKeyboardButton(text="⚙️ Processing.. ", callback_data=f"nabilanavab")]]
                                 )
                             )
