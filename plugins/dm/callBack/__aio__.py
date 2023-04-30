@@ -143,10 +143,9 @@ async def __index__(bot, callbackQuery):
                 os.remove(input_file)
                 os.rename(output_file, input_file)
         
-        logger.debug(WORKS["compress"])
         if WORKS["compress"]:
+            output_file = output_file if work_in_this_loop else input_file
             isSuccess, output_file = await compressPDF.compressPDF(input_file = output_file, cDIR = cDIR)
-            logger.debug(f"{isSuccess} / {work_in_this_loop}")
             work_in_this_loop = True
         
         if inPassword == "None":
