@@ -41,9 +41,9 @@ async def __index__(bot, callbackQuery):
             "rotate" : all_data[4] if all_data[4]!="{F}" else False,
             "format" : all_data[5] if all_data[5]!="{F}" else False,
             "watermark" : watermark if all_data[7]!="{F}" and watermark!="None" else False,
-            "compress" : True if all_data[2]=="{T}" else False,
             "encrypt" : outPassword if all_data[6]!="{F}" and outPassword!="None" else False,
             "rename" : outName if all_data[8]!="{F}" and outName!="None" else False,
+            "compress" : True if all_data[2]=="{T}" else False,
         }
         DEFAULT_WORK = {
             'metadata': False, 'preview': False, 'compress': False, 'text': False, 'rotate': False,
