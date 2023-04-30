@@ -4,6 +4,7 @@ fileName = "plugins/dm/action_inline/search_query.py"
 
 from plugins.utils.util   import *
 from logger               import logger
+from libgenesis           import Libgen
 from pyrogram             import Client as ILovePDF
 from pyrogram.types       import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
 
