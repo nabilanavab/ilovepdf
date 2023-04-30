@@ -21,7 +21,7 @@ async def inline_query_handler(bot, inline_query):
                 switch_pm_parameter="okay",
            )
         
-        elif query.startswith("dl:")
+        elif query.startswith("dl:"):
             query = query.split(':')[1].strip()
             q_res_data = await BookdlFiles().get_file_by_name(q, 50)
             if q_res_data:
