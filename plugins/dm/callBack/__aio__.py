@@ -147,7 +147,7 @@ async def __index__(bot, callbackQuery):
         if WORKS["compress"]:
             isSuccess, output_file = await compressPDF.compressPDF(input_file = output_file, cDIR = cDIR)
             logger.debug(f"{isSuccess} / {work_in_this_loop}")
-            work_in_this_loop = False
+            work_in_this_loop = True
         
         if inPassword == "None":
             for _upload in all_data[2:]:
