@@ -2,10 +2,10 @@
 # copyright ©️ 2021 nabilanavab
 fileName = "plugins/dm/action_inline/search_query.py"
 
-from plugins.util   import *
-from logger          import logger
-from pyrogram        import Client as ILovePDF
-from pyrogram.types  import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
+from plugins.utils.util   import *
+from logger               import logger
+from pyrogram             import Client as ILovePDF
+from pyrogram.types       import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
 
 @ILovePDF.on_inline_query()
 async def inline_query_handler(bot, inline_query):
