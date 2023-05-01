@@ -3,6 +3,7 @@
 fileName = "plugins/dm/action_inline/search_query.py"
 
 from plugins.utils.util   import *
+from configs.log          import log
 from .                    import DATA
 from logger               import logger
 from libgenesis           import Libgen
@@ -45,7 +46,7 @@ async def inline_query_handler(bot, inline_query):
                 )
                 if result is not None:
                     DATA[inline_query.from_user.id] = {}
-                    for id, item in enumerate(result):
+                    for id, item in enumerate(result, start=1):
                         results.append(
                             InlineQueryResultPhoto(
                                 photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
