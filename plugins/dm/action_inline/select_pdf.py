@@ -20,18 +20,12 @@ async def chosen_inline_result(bot, chosen_inline_result):
                 [[ InlineKeyboardButton("✅ B@N ✅", callback_data = f"banC|{chosen_inline_result.from_user.id}") ]]
             )
         )
-        await bot.edit_inline_caption(
+        await bot.edit_inline_reply_markup(
             inline_message_id = chosen_inline_result.inline_message_id,
-            caption = f"**ID**: __{data['id']}__\n"
-                      f"**TITLE** : __{data['title']}__\n\n"
-                      f"**info:** __{data['span']}__\n",
             reply_markup = InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton(text = "⚔ GET PDF ⚔", callback_data = f"pD|{log_msg.id}|{chosen_inline_result.from_user.id}"),
-                    InlineKeyboardButton(text = "🔎 SEARCH 🔎", switch_inline_query_current_chat = f"{chosen_inline_result.query}")
-                ],[
-                    InlineKeyboardButton(text = "🔔 CHANNEL 🔔", url = "https://telegram.dog/ilovepdf_bot")
-                ]]
+                [[ InlineKeyboardButton(text = "⚔ GET PDF ⚔", callback_data = f"pD|{log_msg.id}|{chosen_inline_result.from_user.id}"),
+                   InlineKeyboardButton(text = "🔎 SEARCH 🔎", switch_inline_query_current_chat = f"{chosen_inline_result.query}") ],
+                 [ InlineKeyboardButton(text = "🔔 CHANNEL 🔔", url = "https://telegram.dog/ilovepdf_bot") ]]
             )
         )
         del DATA[chosen_inline_result.from_user.id]
