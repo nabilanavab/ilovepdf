@@ -64,7 +64,7 @@ async def inline_query_handler(bot, inline_query):
                                             f"Publisher: {result[item]['publisher']}\n",
                                 caption=f"MD5: {result[item]['md5']}\n"
                                         f"Title: **{result[item]['title']}.**\n"
-                                        f"Author: **{result[item]['author']}.**"),
+                                        f"Author: **{result[item]['author']}.**",
                                 reply_markup=InlineKeyboardMarkup(
                                     [[InlineKeyboardButton(text=trCHUNK['process'], callback_data=f"nabilanavab")]]
                                 )
