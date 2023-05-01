@@ -5,6 +5,7 @@ file_name = "plugins/dm/action_inline/select_pdf.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 from configs.log     import log
+from .               import DATA
 from logger          import logger
 from pyrogram        import Client as ILovePDF
 from pyrogram.types  import InlineKeyboardButton, InlineKeyboardMarkup
@@ -13,6 +14,7 @@ from pyrogram.types  import InlineKeyboardButton, InlineKeyboardMarkup
 async def chosen_inline_result(bot, chosen_inline_result):
     try:
         logger.debug(chosen_inline_result)
+        data = DATA[chosen_inline_result.from_user.id][int(chosen_inline_result.result_id)]
     except Exception as e:
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
 
