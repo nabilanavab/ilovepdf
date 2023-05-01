@@ -35,6 +35,7 @@ async def inline_query_handler(bot, inline_query):
                     ]
                 )
                 if result is not None:
+                    DATA[inline_query.from_user.id] = {}
                     for id, item in enumerate(result):
                         results.append(
                             InlineQueryResultPhoto(
