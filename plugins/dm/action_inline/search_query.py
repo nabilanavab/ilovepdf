@@ -24,34 +24,15 @@ async def inline_query_handler(bot, inline_query):
                 switch_pm_text=trCHUNK['min'],
                 switch_pm_parameter="okay",
            )
-        
-        elif query.startswith("dl:"):
-            pass
-            """query = query.split(':')[1].strip()
-            q_res_data = await BookdlFiles().get_file_by_name(query, 50)
-            if q_res_data:
-                for file in q_res_data:
-                    results.append(
-                        InlineQueryResultCachedDocument(
-                            id=str(file['_id']),
-                            document_file_id=file['file_id'],
-                            caption=file['title'],
-                            title=file['title'],
-                            description=f"File Name: {file['file_name']}\n"
-                            f"File Type: {file['file_type']}",
-                        )
-                    )
-            """
         else:
             if query:
-                result = await Libgen(result_limit=50
-                                      ).search(query=query,
-                                           return_fields=[
-                                               'title', 'pages', 'language',
-                                               'publisher', 'year', 'author',
-                                               'extension', 'coverurl',
-                                               'volumeinfo', 'mirrors', 'md5'
-                                           ])
+                result = await Libgen(
+                    result_limit=50).search(query=query,
+                    return_fields=[
+                        'title', 'pages', 'language', 'publisher', 'year', 'author',
+                        'extension', 'coverurl', 'volumeinfo', 'mirrors', 'md5'
+                    ]
+                )
                 if result is not None:
                     for item in result:
                         results.append(
