@@ -47,7 +47,7 @@ async def inline_query_handler(bot, inline_query):
                                         f"Title: **{result[item]['title']}.**\n"
                                         f"Author: **{result[item]['author']}.**",
                                 reply_markup=InlineKeyboardMarkup(
-                                    [[InlineKeyboardButton(text=trCHUNK['process'], callback_data=f"nabilanavab")]]
+                                    [[InlineKeyboardButton(text=trCHUNK['process'], url="https://telegram.dog/ilovepdf_bot")]]
                                 )
                             )
                         )
