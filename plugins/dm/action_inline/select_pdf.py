@@ -16,9 +16,9 @@ async def chosen_inline_result(bot, chosen_inline_result):
         data = DATA[chosen_inline_result.from_user.id][int(chosen_inline_result.result_id)]
         logger.debug(f"{data} \n\n {DATA[chosen_inline_result.from_user.id]}")
         log_msg = await bot.send_photo(
-            chat_id=int(log.LOG_CHANNEL), photo = data["thumb"], caption = data['caption'],
-            reply_markup = InlineKeyboardMarkup(
-                [[ InlineKeyboardButton("✅ B@N ✅", callback_data = f"banC|{chosen_inline_result.from_user.id}") ]]
+            chat_id=int(log.LOG_CHANNEL), photo=data['thumb'], caption=data['caption'],
+            reply_markup=InlineKeyboardMarkup(
+                [[ InlineKeyboardButton("✅ B@N ✅", callback_data=f"banC|{chosen_inline_result.from_user.id}") ]]
             )
         )
         await bot.edit_inline_reply_markup(
