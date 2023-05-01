@@ -3,6 +3,7 @@
 fileName = "plugins/dm/action_inline/search_query.py"
 
 from plugins.utils.util   import *
+from ..                   import DATA
 from logger               import logger
 from libgenesis           import Libgen
 from pyrogram             import Client as ILovePDF
@@ -53,6 +54,7 @@ async def inline_query_handler(bot, inline_query):
                             )
                         )
         if results:
+            DATA[inline_query.from_user.id] = results
             return await inline_query.answer(results=results, cache_time=60, is_personal=False)
         else:
             return await inline_query.answer(
