@@ -40,7 +40,7 @@ async def inline_query_handler(bot, inline_query):
                             InlineQueryResultPhoto(
                                 photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
                                 title=result[item]['title'],
-                                id=f"{i}",
+                                id=f"{id}",
                                 description=f"Author: {result[item]['author']}\n"
                                             f"Volume: {result[item]['volumeinfo']}   Year: {result[item]['year']}  Pages: {result[item]['pages']}\n"
                                             f"Language: {result[item]['language']}  Extension: {result[item]['extension']}\n"
