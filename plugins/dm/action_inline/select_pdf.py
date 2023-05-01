@@ -1,7 +1,7 @@
 # fileName : plugins/dm/action_inline/select_pdf.py
 # copyright ©️ 2021 nabilanavab
 
-file_name = "plugins/dm/action_inline/select_pdf.py"
+fileName = "plugins/dm/action_inline/select_pdf.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 from configs.log     import log
@@ -14,20 +14,10 @@ from pyrogram.types  import InlineKeyboardButton, InlineKeyboardMarkup
 async def chosen_inline_result(bot, chosen_inline_result):
     try:
         data = DATA[chosen_inline_result.from_user.id][int(chosen_inline_result.result_id)]
-        logger.debug(data)
         log_msg = await bot.send_photo(
-            chat_id = int(log.LOG_CHANNEL),
-            photo = DATA[chosen_inline_result.from_user.id][int(chosen_inline_result.result_id)]["thumb"],
-            caption = f"🔗 **from:** `{chosen_inline_result.from_user.id}`\n"
-                      f"**name:** {chosen_inline_result.from_user.mention}\n"
-                      f"**usrname:** @{chosen_inline_result.from_user.username}\n\n"
-                      f"**title:** °__{data['title']}__°\n"
-                      f"**info:** ¶__{data['span']}__¶\n"
-                      f"**href:** •{data['href']}•\n",
+            chat_id = int(log.LOG_CHANNEL), photo = data["thumb"], caption = data['caption'],
             reply_markup = InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton("✅ B@N ✅", callback_data = f"banC|{chosen_inline_result.from_user.id}")
-                ]]
+                [[ InlineKeyboardButton("✅ B@N ✅", callback_data = f"banC|{chosen_inline_result.from_user.id}") ]]
             )
         )
         await bot.edit_inline_caption(
