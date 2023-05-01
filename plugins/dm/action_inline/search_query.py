@@ -59,9 +59,9 @@ async def inline_query_handler(bot, inline_query):
                                 photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
                                 title=result[item]['title'],
                                 description=f"Author: {result[item]['author']}\n"
-                                f"Volume: {result[item]['volumeinfo']}   Year: {result[item]['year']}  Pages: {result[item]['pages']}\n"
-                                f"Language: {result[item]['language']}  Extension: {result[item]['extension']}\n"
-                                f"Publisher: {result[item]['publisher']}\n",
+                                            f"Volume: {result[item]['volumeinfo']}   Year: {result[item]['year']}  Pages: {result[item]['pages']}\n"
+                                            f"Language: {result[item]['language']}  Extension: {result[item]['extension']}\n"
+                                            f"Publisher: {result[item]['publisher']}\n",
                                 caption=f"MD5: {result[item]['md5']}\n"
                                         f"Title: **{result[item]['title']}.**\n"
                                         f"Author: **{result[item]['author']}.**"),
@@ -69,7 +69,7 @@ async def inline_query_handler(bot, inline_query):
                                     [[InlineKeyboardButton(text=trCHUNK['process'], callback_data=f"nabilanavab")]]
                                 )
                             )
-        
+                        )
         if results:
             return await inline_query.answer(results=results, cache_time=60, is_personal=False)
         else:
