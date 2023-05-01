@@ -36,8 +36,8 @@ async def inline_query_handler(bot, inline_query):
                 )
                 if result is not None:
                     DATA[inline_query.from_user.id] = {
-                        photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
-                        caption=f"MD5: {result[item]['md5']}\n"
+                        'thumb':"https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
+                        'caption':f"MD5: {result[item]['md5']}\n"
                                 f"Title: **{result[item]['title']}.**\n"
                                 f"Author: **{result[item]['author']}.**"
                     }
