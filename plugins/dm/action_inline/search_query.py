@@ -55,6 +55,7 @@ async def inline_query_handler(bot, inline_query):
                                 )
                             )
                         )
+                        logger.debug(f"{id}\n\n\n{result[item]['coverurl']}")
                         DATA[inline_query.from_user.id][id] = {
                             'thumb':"https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
                             'caption':f"MD5: {result[item]['md5']}\n"
