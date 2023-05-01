@@ -35,6 +35,12 @@ async def inline_query_handler(bot, inline_query):
                     ]
                 )
                 if result is not None:
+                    DATA[inline_query.from_user.id] = {
+                        photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
+                        caption=f"MD5: {result[item]['md5']}\n"
+                                f"Title: **{result[item]['title']}.**\n"
+                                f"Author: **{result[item]['author']}.**"
+                    }
                     for id, item in enumerate(result):
                         results.append(
                             InlineQueryResultPhoto(
@@ -46,15 +52,15 @@ async def inline_query_handler(bot, inline_query):
                                             f"Language: {result[item]['language']}  Extension: {result[item]['extension']}\n"
                                             f"Publisher: {result[item]['publisher']}\n",
                                 caption=f"MD5: {result[item]['md5']}\n"
-                                        f"Title: **{result[item]['title']}.**\n"
-                                        f"Author: **{result[item]['author']}.**",
+                                        f"Title: **{result[item]['title']}.**\nAuthor: **{result[item]['author']}.**\n\n"
+                                        f"Volume: {result[item]['volumeinfo']}\nYear: {result[item]['year']}\nPages: {result[item]['pages']}\n"
+                                        f"Language: {result[item]['language']}\nPublisher: {result[item]['publisher']}",
                                 reply_markup=InlineKeyboardMarkup(
                                     [[InlineKeyboardButton(text=trCHUNK['process'], url="https://telegram.dog/ilovepdf_bot")]]
                                 )
                             )
                         )
         if results:
-            DATA[inline_query.from_user.id] = results
             return await inline_query.answer(results=results, cache_time=60, is_personal=False)
         else:
             return await inline_query.answer(
