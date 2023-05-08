@@ -7,7 +7,7 @@ convertapi==1.6.0
 pyromod==2.0.0
 fpdf==1.7.2
 ocrmypdf==14.1.0
-motor==4.1.9
+motor==3.1.2
 psutil==5.9.5
 pymongo[srv]==4.2.0
 hachoir==3.2.0
