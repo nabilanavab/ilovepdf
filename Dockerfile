@@ -5,11 +5,11 @@ WORKDIR /pdf
 
 COPY requirements.txt requirements.txt
 
-RUN apt-get install pycairo libcairo2-dev libjpeg-dev libgif-dev libgirepository1.0-dev
+RUN apt update && apt install pycairo libcairo2-dev libjpeg-dev libgif-dev libgirepository1.0-dev
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-RUN apt update && apt install ocrmypdf
+RUN apt install ocrmypdf
 RUN apt install -y wkhtmltopdf
 
 COPY . .
