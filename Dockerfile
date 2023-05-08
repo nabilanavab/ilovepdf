@@ -4,6 +4,9 @@ RUN mkdir /pdf && chmod 777 /pdf
 WORKDIR /pdf
 
 COPY requirements.txt requirements.txt
+
+RUN apt-get install pycairo libcairo2-dev libjpeg-dev libgif-dev libgirepository1.0-dev
+
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 RUN apt update && apt install ocrmypdf
