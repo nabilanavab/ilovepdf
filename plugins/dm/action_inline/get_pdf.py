@@ -20,12 +20,7 @@ async def download(name, download_link, bot, callbackQuery):
             return await bot.edit_inline_reply_markup(
                 inline_message_id = callbackQuery.inline_message_id,
                 reply_markup = InlineKeyboardMarkup(
-                    [[
-                        InlineKeyboardButton(
-                            "♻️ TRY AGAIN ♻️",
-                            callback_data = f"{callbackQuery.data}"
-                        )
-                    ]]
+                    [[ InlineKeyboardButton( "♻️ TRY AGAIN ♻️", callback_data = f"{callbackQuery.data}" ) ]]
                 ))
         path = f"{cDIR}/{name}"
         with open(path, "wb") as f:
@@ -39,19 +34,8 @@ async def download(name, download_link, bot, callbackQuery):
                     await bot.edit_inline_reply_markup(
                         inline_message_id = callbackQuery.inline_message_id,
                         reply_markup = InlineKeyboardMarkup(
-                            [[
-                                InlineKeyboardButton(
-                                    "📥 DOWNLOADED {:.2f}% 📥".format(
-                                        current/total_size * 100
-                                    ),
-                                    callback_data = f"{callbackQuery.data}"
-                                )
-                            ],[
-                                InlineKeyboardButton(
-                                    "🗑️ CANCEL 🗑️",
-                                    callback_data = f"c{callbackQuery.data[1:]}"
-                                )
-                            ]]
+                            [[ InlineKeyboardButton( "📥 DOWNLOADED {:.2f}% 📥".format(current/total_size * 100 ), callback_data = f"{callbackQuery.data}" ) ],[
+                                InlineKeyboardButton( "🗑️ CANCEL 🗑️", callback_data = f"c{callbackQuery.data[1:]}" ) ]]
                         ))
         return path
     
@@ -83,53 +67,13 @@ async def pdfDriver(bot, callbackQuery):
         md5 = getMSG.caption.splitlines()[0].split(':')[1].strip()
         await book_process(m, md5)
         
-        if not id or not hash:
-            return await callbackQuery.answer("something went wrong..")
-        await callbackQuery.answer("wait..")
-        
         await bot.edit_inline_reply_markup(
             inline_message_id = callbackQuery.inline_message_id,
             reply_markup = InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton(
-                        "🍪 COOKING DATA 🍪",
-                        callback_data = f"{callbackQuery.data}"
-                    )
-                ],[
-                    InlineKeyboardButton(
-                        "🗑️ CANCEL 🗑️",
-                        callback_data = f"c{callbackQuery.data[1:]}"
-                    )
-                ]]
+                [[ InlineKeyboardButton( "🍪 COOKING DATA 🍪", callback_data = f"{callbackQuery.data}" ) ],[
+                   InlineKeyboardButton( "🗑️ CANCEL 🗑️", callback_data = f"c{callbackQuery.data[1:]}" ) ]]
             )
         )
-        
-        download_link = f"https://www.pdfdrive.com/download?id={id}&h={hash}&ext=pdf"
-        
-        telegram_can = True if float(getMSG.caption.split("¶")[1].split("·")[2].replace("MB", "")) < 20 else False
-
-        if not telegram_can:
-            name = link[1:60] + ".pdf"
-            path = await download(name, download_link, bot, callbackQuery)
-            if not path:
-                return
-            
-            await bot.edit_inline_reply_markup(
-                inline_message_id = callbackQuery.inline_message_id,
-                reply_markup = InlineKeyboardMarkup(
-                    [[
-                        InlineKeyboardButton(
-                            "💁 UPLOADING 💁",
-                            callback_data = f"{callbackQuery.data}"
-                        )
-                    ],[
-                        InlineKeyboardButton(
-                            "🗑️ CANCEL 🗑️",
-                            callback_data = f"c{callbackQuery.data[1:]}"
-                        )
-                    ]]
-                )
-            )
         
         await bot.edit_inline_media(
             inline_message_id = callbackQuery.inline_message_id,
