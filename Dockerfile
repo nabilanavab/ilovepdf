@@ -6,7 +6,7 @@ WORKDIR /pdf
 COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt 
 
-RUN apt update
+RUN apt update && apt install ocrmypdf
 RUN apt install -y wkhtmltopdf
 
 COPY . .
