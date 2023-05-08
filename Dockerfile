@@ -6,7 +6,7 @@ WORKDIR /pdf
 COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt 
 
-RUN apt update && apt install -y ocrmypdf
+RUN apt update && apt install tesseract-ocr-ita
 RUN apt install -y wkhtmltopdf
 
 COPY . .
