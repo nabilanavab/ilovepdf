@@ -45,7 +45,7 @@ async def download(name, download_link, bot, callbackQuery):
         return False
 
 
-@ILovePDF.on_callback_query(filters.regex('lib'))
+@ILovePDF.on_callback_query(filters.regex('^lib'))
 
 async def pdfDriver(bot, callbackQuery):
     try:
