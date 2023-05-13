@@ -1,4 +1,4 @@
-FROM python:3.12.0a7-bullseye
+FROM python:3.9
 RUN mkdir /pdf && chmod 777 /pdf
 
 WORKDIR /pdf
