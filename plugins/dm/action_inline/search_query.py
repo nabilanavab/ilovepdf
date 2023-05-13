@@ -56,7 +56,7 @@ async def inline_query_handler(bot, inline_query):
                                 description=trCHUNK['description'].format(
                                     result[item]['author'], result[item]['volumeinfo'], result[item]['year'], result[item]['pages'],
                                     result[item]['language'], result[item]['extension'], result[item]['publisher']
-                                )
+                                ),
                                 caption=trCHUNK['caption'].format(
                                     result[item]['md5'], result[item]['title'], result[item]['author'], result[item]['volumeinfo'], result[item]['year'],
                                     result[item]['pages'], result[item]['language'], result[item]['publisher']
