@@ -44,7 +44,7 @@ async def images(bot, message):
         if message.via_bot and message.via_bot.is_self:
             return
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        lang_code = await getLang(message.chat.id)
+        lang_code = await util.getLang(message.chat.id)
         if message.chat.id in HD:
             if len(HD[message.chat.id]) >= 16:
                 return
