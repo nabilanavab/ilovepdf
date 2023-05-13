@@ -23,8 +23,7 @@ from configs.beta          import BETA
 from logger                import logger
 from pyromod               import listen
 from lang                  import __users__
-from pyrogram              import errors
-from pyrogram              import Client as ILovePDF
+from pyrogram              import Client as ILovePDF, errors
 from telebot.async_telebot import AsyncTeleBot
 from configs.config        import bot, settings, images
 from pyrogram.types        import (
@@ -33,6 +32,9 @@ from pyrogram.types        import (
 
 if dataBASE.MONGODB_URI:
     from database import db
+
+if (not bot.API_TOKEN or not bot.API_HASH or not bot.API_ID):
+    logger.debug(f"bot.API_TOKEN, bot.API_HASH, bot.API_ID : MANDATORY"
 
 # GLOBAL VARIABLES
 PDF = {}  # save images for generating pdf
