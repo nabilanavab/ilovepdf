@@ -183,7 +183,7 @@ class Bot(ILovePDF):
                     chat_id = int(log.LOG_CHANNEL), document = doc,
                     caption = caption, reply_markup = markUp
                 )
-            except errors.exceptions.bad_request_400:
+            except errors.ChannelInvalid:
                 log.LOG_CHANNEL = False
                 logger.debug(f"BoT NoT AdMiN iN LoG ChAnNeL")
             except Exception as error:
