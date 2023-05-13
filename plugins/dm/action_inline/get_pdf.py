@@ -43,9 +43,8 @@ async def download(name, download_link, bot, callbackQuery):
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
         return False
 
-getPDF = filters.create(lambda _, __, query: query.data.startswith("legranchi"))
 
-@ILovePDF.on_callback_query(getPDF)
+@ILovePDF.on_callback_query(filters.regex('libgenesis'))
 
 async def pdfDriver(bot, callbackQuery):
     try:
