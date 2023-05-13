@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.12.0a7-bullseye
 RUN mkdir /pdf && chmod 777 /pdf
 
 WORKDIR /pdf
