@@ -60,7 +60,7 @@ async def inline_query_handler(bot, inline_query):
                                 caption=trCHUNK['caption'].format(
                                     result[item]['md5'], result[item]['title'], result[item]['author'], result[item]['volumeinfo'], result[item]['year'],
                                     result[item]['pages'], result[item]['language'], result[item]['publisher']
-                                )
+                                ),
                                 reply_markup=InlineKeyboardMarkup(
                                     [[InlineKeyboardButton(text=trCHUNK['process'], url="https://telegram.dog/ilovepdf_bot")]]
                                 )
