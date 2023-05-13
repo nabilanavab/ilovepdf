@@ -23,7 +23,7 @@ from configs.beta          import BETA
 from logger                import logger
 from pyromod               import listen
 from lang                  import __users__
-from pyrogram.errors       import FloodWait
+from pyrogram.errors       import FloodWait, CHANNEL_INVALID
 from pyrogram              import Client as ILovePDF
 from telebot.async_telebot import AsyncTeleBot
 from configs.config        import bot, settings, images
@@ -183,6 +183,9 @@ class Bot(ILovePDF):
                     chat_id = int(log.LOG_CHANNEL), document = doc,
                     caption = caption, reply_markup = markUp
                 )
+            except CHANNEL_INVALID:
+                log.LOG_CHANNEL = False
+                logger.debug(f"BoT NoT AdMiN iN LoG ChAnNeL")
             except Exception as error:
                 logger.debug(f"⚠️ ERROR IN LOG CHANNEL - {error}", exc_info=True)
         
