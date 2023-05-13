@@ -7,6 +7,7 @@ from configs.log          import log
 from .                    import DATA
 from logger               import logger
 from libgenesis           import Libgen
+from plugins.utils.util   import getlang, translate
 from pyrogram             import Client as ILovePDF
 from pyrogram.types       import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
 
@@ -24,7 +25,7 @@ async def inline_query_handler(bot, inline_query):
             return await inline_query.answer(
                 results=[],
                 cache_time=0,
-                switch_pm_text="no tg db.. ❌❌",
+                switch_pm_text=trCHUNK['noDB'],
                 switch_pm_parameter="okay",
            )
         
@@ -52,14 +53,14 @@ async def inline_query_handler(bot, inline_query):
                                 photo_url="https://te.legra.ph/file/8dfa3760df91a218a629c.jpg" if result[item]['coverurl'] is None else result[item]['coverurl'],
                                 title=result[item]['title'],
                                 id=f"{id}",
-                                description=f"Author: {result[item]['author']}\n"
-                                            f"Volume: {result[item]['volumeinfo']}   Year: {result[item]['year']}  Pages: {result[item]['pages']}\n"
-                                            f"Language: {result[item]['language']}  Extension: {result[item]['extension']}\n"
-                                            f"Publisher: {result[item]['publisher']}\n",
-                                caption=f"MD5: {result[item]['md5']}\n"
-                                        f"Title: **{result[item]['title']}.**\nAuthor: **{result[item]['author']}.**\n\n"
-                                        f"Volume: {result[item]['volumeinfo']}\nYear: {result[item]['year']}\nPages: {result[item]['pages']}\n"
-                                        f"Language: {result[item]['language']}\nPublisher: {result[item]['publisher']}",
+                                description=trCHUNK['description'].format(
+                                    result[item]['author'], result[item]['volumeinfo'], result[item]['year'], result[item]['pages'],
+                                    result[item]['language'], result[item]['extension'], result[item]['publisher']
+                                )
+                                caption=trCHUNK['caption'].format(
+                                    result[item]['md5'], result[item]['title'], result[item]['author'], result[item]['volumeinfo'], result[item]['year'],
+                                    result[item]['pages'], result[item]['language'], result[item]['publisher']
+                                )
                                 reply_markup=InlineKeyboardMarkup(
                                     [[InlineKeyboardButton(text=trCHUNK['process'], url="https://telegram.dog/ilovepdf_bot")]]
                                 )
