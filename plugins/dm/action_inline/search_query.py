@@ -7,7 +7,7 @@ from configs.log          import log
 from .                    import DATA
 from logger               import logger
 from libgenesis           import Libgen
-from plugins.utils.util   import getlang, translate
+from plugins.utils.util   import getLang, translate
 from pyrogram             import Client as ILovePDF
 from pyrogram.types       import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
 
