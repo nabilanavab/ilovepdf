@@ -316,7 +316,7 @@ INDEX = {
 
 INLINE = {
     'min' : 'You must enter at least 2 characters to search', 'process' : '⚙️ Processing.. ', 'nothing' : '🤐 No results for "{}"',
-    'cbNotU' : BAN['cbNotU'], 'old' : "old queue..", 'inWork' : INDEX['inWork'], 
+    'cbNotU' : BAN['cbNotU'], 'old' : "old queue..", 'inWork' : INDEX['inWork'], 'edit' : {"⚔ GET PDF ⚔", "🔎 SEARCH 🔎", "🔔 CHANNEL 🔔" },
 }
 
 HELP = {
