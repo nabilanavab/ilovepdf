@@ -77,4 +77,4 @@ async def images(bot, message):
     except Exception as e:
         logger.exception("2️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
- # Author: @nabilanavab
+# Author: @nabilanavab
