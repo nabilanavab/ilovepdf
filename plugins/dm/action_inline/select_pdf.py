@@ -13,7 +13,7 @@ from pyrogram.types  import InlineKeyboardButton, InlineKeyboardMarkup
 @ILovePDF.on_chosen_inline_result()
 async def chosen_inline_result(bot, chosen_inline_result):
     try:
-        lang_code = await getLang(inline_query.from_user.id)
+        lang_code = await getLang(chosen_inline_result.from_user.id)
         trCHUNK, _ = await translate(text="INLINE['edit']", lang_code=lang_code)
         
         data = DATA[chosen_inline_result.from_user.id][int(chosen_inline_result.result_id)]
