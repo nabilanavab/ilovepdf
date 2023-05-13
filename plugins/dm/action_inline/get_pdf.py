@@ -5,7 +5,7 @@ fileName = "plugins/dm/action_inline/get_pdf.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 from configs.log          import log
-from plugins.utis.work    import work
+from plugins.utils.work   import work
 from logger               import logger
 from pyrogram             import Client as ILovePDF, filters
 from pyrogram.types       import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaDocument
