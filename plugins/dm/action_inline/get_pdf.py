@@ -49,7 +49,7 @@ async def download(name, download_link, bot, callbackQuery):
 
 async def pdfDriver(bot, callbackQuery):
     try:
-        lang_code = await getLang(inline_query.from_user.id)
+        lang_code = await getLang(callbackQuery.from_user.id)
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         if not ( callbackQuery.from_user.id == int(callbackQuery.data.split("|")[2]) ):
