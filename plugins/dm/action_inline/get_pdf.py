@@ -7,7 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from configs.log          import log
 from plugins.utils.work   import work
 from logger               import logger
-from plugins.utils.util   import getlang, translate
+from plugins.utils.util   import getLang, translate
 from pyrogram             import Client as ILovePDF, filters
 from pyrogram.types       import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaDocument
 
