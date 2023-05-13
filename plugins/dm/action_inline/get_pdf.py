@@ -43,7 +43,10 @@ async def download(name, download_link, bot, callbackQuery):
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
         return False
 
-@ILovePDF.on_callback_query(filters.callback_query("Libgen"))
+getPDF = filters.create(lambda _, __, query: query.data.startswith("legranchi"))
+
+@ILovePDF.on_callback_query(getPDF)
+
 async def pdfDriver(bot, callbackQuery):
     try:
         lang_code = await getLang(inline_query.from_user.id)
