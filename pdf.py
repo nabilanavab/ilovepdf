@@ -212,5 +212,5 @@ if __name__ == "__main__":
     app = Bot()
     app.run()
 
-#                                                                                                                                       OPEN SOURCE TELEGRAM PDF BOT 🐍
-#                                                                                                                                            by: nabilanavab [iLovePDF]
+#                                                                                                                                      OPEN SOURCE TELEGRAM PDF BOT 🐍
+#                                                                                                                                           by: nabilanavab [iLovePDF]
