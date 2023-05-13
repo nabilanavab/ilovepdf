@@ -316,7 +316,7 @@ INDEX = {
 
 INLINE = {
     'min' : 'You must enter at least 2 characters to search', 'process' : '⚙️ Processing.. ', 'nothing' : '🤐 No results for "{}"',
-    'cbNotU' : BAN['cbNotU'], 'old' : "old queue..", 'inWork' : INDEX['inWork'], 'edit' : {"⚔ GET PDF ⚔", "🔎 SEARCH 🔎", "🔔 CHANNEL 🔔" },
+    'cbNotU' : BAN['cbNotU'], 'old' : "old queue..", 'inWork' : INDEX['inWork'], 'edit' : ["⚔ GET PDF ⚔", "🔎 SEARCH 🔎", "🔔 CHANNEL 🔔"],
     'noDB' : 'Admin Restricted 🏃', 'description' : "Author: {}\nVolume: {}   Year: {}  Pages: {}\nLanguage: {}  Extension: {}\nPublisher: {}",
     'caption' : "MD5: {}\nTitle: **{}.**\nAuthor: **{}.**\n\nVolume: {}\nYear: {}\nPages: {}\nLanguage: {}\nPublisher: {}"
 }
