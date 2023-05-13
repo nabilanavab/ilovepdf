@@ -4,11 +4,12 @@
 fileName = "plugins/dm/action_inline/select_pdf.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
-from configs.log     import log
-from .               import DATA
-from logger          import logger
-from pyrogram        import Client as ILovePDF
-from pyrogram.types  import InlineKeyboardButton, InlineKeyboardMarkup
+from configs.log          import log
+from .                    import DATA
+from logger               import logger
+from plugins.utils.util   import getLang, translate
+from pyrogram             import Client as ILovePDF
+from pyrogram.types       import InlineKeyboardButton, InlineKeyboardMarkup
 
 @ILovePDF.on_chosen_inline_result()
 async def chosen_inline_result(bot, chosen_inline_result):
