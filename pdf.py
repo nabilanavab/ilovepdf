@@ -15,7 +15,7 @@ iLovePDF = '''
                          ❤ Telegram: @nabilanavab
 '''
 
-import asyncio, os, shutil
+import asyncio, os, shutil, sys
 from plugins.utils         import *
 from configs.db            import *
 from configs.log           import log
@@ -35,7 +35,7 @@ if dataBASE.MONGODB_URI:
 
 if (not bot.API_TOKEN or not bot.API_HASH or not bot.API_ID):
     logger.debug(f"bot.API_TOKEN, bot.API_HASH, bot.API_ID : MANDATORY")
-    return
+    sys.exit()
 
 # GLOBAL VARIABLES
 PDF = {}  # save images for generating pdf
