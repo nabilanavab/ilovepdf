@@ -73,7 +73,7 @@ async def inline_query_handler(bot, inline_query):
                                       f"Author: **{result[item]['author']}.**"
                         }
         if results:
-            return await inline_query.answer(results=results, cache_time=60, is_personal=False)
+            return await inline_query.answer(results=results, cache_time=0, is_personal=False)
         else:
             return await inline_query.answer(
                 results=[],
