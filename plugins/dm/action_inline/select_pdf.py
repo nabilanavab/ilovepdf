@@ -32,7 +32,8 @@ async def chosen_inline_result(bot, chosen_inline_result):
                  [ InlineKeyboardButton(text=trCHUNK[2], url="https://telegram.dog/ilovepdf_bot") ]]
             )
         )
-        del DATA[chosen_inline_result.from_user.id]
+        # if inline cache is 0 set below line
+        # del DATA[chosen_inline_result.from_user.id]
         return
     
     except Exception as e:
