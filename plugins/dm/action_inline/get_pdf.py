@@ -5,6 +5,7 @@ fileName = "plugins/dm/action_inline/get_pdf.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 import requests
+from urllib.parse         import urlparse
 from configs.log          import log
 from plugins.utils.work   import work
 from logger               import logger
@@ -106,8 +107,7 @@ async def pdfDriver(bot, callbackQuery):
         telegram_can = True if file_size < 20 else False
         
         if not telegram_can:
-            # get name
-            name = link[1:60] + ".pdf"
+            name = urlparse(link).path.split("/")[-1]
             path = await download(name, download_link, bot, callbackQuery)
             if not path:
                 return
@@ -149,7 +149,7 @@ async def pdfDriver(bot, callbackQuery):
         await bot.edit_inline_media(
             inline_message_id = callbackQuery.inline_message_id,
             media = InputMediaDocument(
-                media = download_link if telegram_can else path,
+                media = link if telegram_can else path,
                 caption = getMSG.caption.split("°")[1]
             ),
             reply_markup = InlineKeyboardMarkup(
