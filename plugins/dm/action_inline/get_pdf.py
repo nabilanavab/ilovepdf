@@ -4,6 +4,7 @@
 fileName = "plugins/dm/action_inline/get_pdf.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
+import requests
 from configs.log          import log
 from plugins.utils.work   import work
 from logger               import logger
@@ -66,16 +67,84 @@ async def pdfDriver(bot, callbackQuery):
             return await callbackQuery.answer(trCHUNK['inWork'])
         await work(callbackQuery, "create", False)
         
-        md5 = getMSG.caption.splitlines()[0].split(':')[1].strip()
-        await book_process(m, md5)
-        
         await bot.edit_inline_reply_markup(
+
             inline_message_id = callbackQuery.inline_message_id,
+
             reply_markup = InlineKeyboardMarkup(
-                [[ InlineKeyboardButton( "🍪 COOKING DATA 🍪", callback_data = f"{callbackQuery.data}" ) ],[
-                   InlineKeyboardButton( "🗑️ CANCEL 🗑️", callback_data = f"c{callbackQuery.data[1:]}" ) ]]
+
+                [[
+
+                    InlineKeyboardButton(
+
+                        "🍪 COOKING DATA 🍪",
+
+                        callback_data = f"{callbackQuery.data}"
+
+                    )
+
+                ],[
+
+                    InlineKeyboardButton(
+
+                        "🗑️ CANCEL 🗑️",
+
+                        callback_data = f"c{callbackQuery.data[1:]}"
+
+                    )
+
+                ]]
+
             )
+
         )
+        
+        md5 = getMSG.caption.splitlines()[0].split(':')[1].strip()
+        link = f'http://library.lol/main/{md5}'
+        
+        file_size = int(requests.head(link).headers.get("Content-Length", 0)) / 1024 / 1024
+        telegram_can = True if file_size < 20 else False
+        
+        if not telegram_can:
+            # get name
+            name = link[1:60] + ".pdf"
+            path = await download(name, download_link, bot, callbackQuery)
+            if not path:
+                return
+            
+            await bot.edit_inline_reply_markup(
+
+                inline_message_id = callbackQuery.inline_message_id,
+
+                reply_markup = InlineKeyboardMarkup(
+
+                    [[
+
+                        InlineKeyboardButton(
+
+                            "💁 UPLOADING 💁",
+
+                            callback_data = f"{callbackQuery.data}"
+
+                        )
+
+                    ],[
+
+                        InlineKeyboardButton(
+
+                            "🗑️ CANCEL 🗑️",
+
+                            callback_data = f"c{callbackQuery.data[1:]}"
+
+                        )
+
+                    ]]
+
+                )
+
+            )
+        
+        
         
         await bot.edit_inline_media(
             inline_message_id = callbackQuery.inline_message_id,
