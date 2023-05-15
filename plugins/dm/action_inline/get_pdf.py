@@ -150,7 +150,7 @@ async def pdfDriver(bot, callbackQuery):
             inline_message_id = callbackQuery.inline_message_id,
             media = InputMediaDocument(
                 media = link if telegram_can else path,
-                caption = getMSG.caption.split("°")[1]
+                caption = getMSG.caption
             ),
             reply_markup = InlineKeyboardMarkup(
                 [[
