@@ -1,50 +1,35 @@
+
+
+
 # fileName : plugins/dm/action_inline/get_pdf.py
 # copyright ©️ 2021 nabilanavab
 
 fileName = "plugins/dm/action_inline/get_pdf.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
-import requests
-from urllib.parse         import urlparse
 from configs.log          import log
 from plugins.utils.work   import work
 from logger               import logger
+from libgenesis           import Libgen
 from plugins.utils.util   import getLang, translate
 from pyrogram             import Client as ILovePDF, filters
 from pyrogram.types       import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaDocument
 
-async def download(name, download_link, bot, callbackQuery):
+async def download(current, total, bot, callbackQuery):
     try:
-        response = requests.get(download_link, stream=True)
-        total_size = int(response.headers.get("Content-Length", 0))
-        block_size, current, percent = 1024, 0, 0
-        cDIR = await work(callbackQuery, "check", False)
-        if not cDIR:
-            return await bot.edit_inline_reply_markup(
-                inline_message_id = callbackQuery.inline_message_id,
-                reply_markup = InlineKeyboardMarkup(
-                    [[ InlineKeyboardButton( "♻️ TRY AGAIN ♻️", callback_data = f"{callbackQuery.data}" ) ]]
-                ))
-        path = f"{cDIR}/{name}"
-        with open(path, "wb") as f:
-            for data in response.iter_content(block_size):
-                if not await work(callbackQuery, "check", False):
-                    return False
-                current = current + len(data)
-                f.write(data)
-                if int(current/total_size*10) > int(percent):
-                    percent = int(current/total_size*10)
-                    await bot.edit_inline_reply_markup(
-                        inline_message_id = callbackQuery.inline_message_id,
-                        reply_markup = InlineKeyboardMarkup(
-                            [[ InlineKeyboardButton( "📥 DOWNLOADED {:.2f}% 📥".format(current/total_size * 100 ), callback_data = f"{callbackQuery.data}" ) ],[
-                                InlineKeyboardButton( "🗑️ CANCEL 🗑️", callback_data = f"c{callbackQuery.data[1:]}" ) ]]
-                        ))
-        return path
-    
+        await bot.edit_inline_reply_markup(
+            inline_message_id = callbackQuery.inline_message_id,
+            reply_markup = InlineKeyboardMarkup(
+                [[ InlineKeyboardButton("📥 DOWNLOADED {:.2f}% 📥".format(current/total_size*100), callback_data=f"{callbackQuery.data}")],[
+                   InlineKeyboardButton("🗑️ CANCEL 🗑️", callback_data=f"c{callbackQuery.data[1:]}")]]
+            ))
+    except MessageNotModified as e:
+        logger.debug("🐞 %s: %s" %(fileName, e))
+    except FloodWait as e:
+        logger.debug("🐞 %s: %s" %(fileName, e))
+        await asyncio.sleep(e.x)
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
-        return False
+        logger.debug("🐞 %s: %s" %(fileName, e))
 
 
 @ILovePDF.on_callback_query(filters.regex('^lib'))
@@ -66,111 +51,48 @@ async def pdfDriver(bot, callbackQuery):
         
         if await work(callbackQuery, "check", False):
             return await callbackQuery.answer(trCHUNK['inWork'])
-        await work(callbackQuery, "create", False)
+        cDIR = await work(callbackQuery, "create", False)
         
         await bot.edit_inline_reply_markup(
-
             inline_message_id = callbackQuery.inline_message_id,
-
             reply_markup = InlineKeyboardMarkup(
-
-                [[
-
-                    InlineKeyboardButton(
-
-                        "🍪 COOKING DATA 🍪",
-
-                        callback_data = f"{callbackQuery.data}"
-
-                    )
-
-                ],[
-
-                    InlineKeyboardButton(
-
-                        "🗑️ CANCEL 🗑️",
-
-                        callback_data = f"c{callbackQuery.data[1:]}"
-
-                    )
-
-                ]]
-
+                [[ InlineKeyboardButton("🍪 COOKING DATA 🍪", callback_data = f"{callbackQuery.data}")],[
+                    InlineKeyboardButton("🗑️ CANCEL 🗑️", callback_data = f"c{callbackQuery.data[1:]}") ]]
             )
-
         )
         
-        md5 = getMSG.caption.splitlines()[0].split(':')[1].strip()
+        caption = getMSG.caption
+        md5 = caption.splitlines()[0].split(':')[1].strip()
         link = f'http://library.lol/main/{md5}'
         
-        file_size = int(requests.head(link).headers.get("Content-Length", 0)) / 1024 / 1024
-        telegram_can = True if file_size < 20 else False
-        logger.debug(f"😎 {link} {file_size} {telegram_can}")
+        file = await Libgen().download(
+            link, dest_folder=cDIR, progress=download,
+            progress_args=[bot, callbackQuery]
+        )
         
-        if not telegram_can:
-            name = urlparse(link).path.split("/")[-1]
-            path = await download(name, download_link, bot, callbackQuery)
-            if not path:
-                return
-            
-            await bot.edit_inline_reply_markup(
-
-                inline_message_id = callbackQuery.inline_message_id,
-
-                reply_markup = InlineKeyboardMarkup(
-
-                    [[
-
-                        InlineKeyboardButton(
-
-                            "💁 UPLOADING 💁",
-
-                            callback_data = f"{callbackQuery.data}"
-
-                        )
-
-                    ],[
-
-                        InlineKeyboardButton(
-
-                            "🗑️ CANCEL 🗑️",
-
-                            callback_data = f"c{callbackQuery.data[1:]}"
-
-                        )
-
-                    ]]
-
-                )
-
+        await bot.edit_inline_reply_markup(
+            inline_message_id = callbackQuery.inline_message_id,
+            reply_markup = InlineKeyboardMarkup(
+                [[ InlineKeyboardButton("🐍 STARTED UPLOADING 🐍", callback_data=f"{callbackQuery.data}")],[
+                    InlineKeyboardButton("🗑️ CANCEL 🗑️", callback_data=f"c{callbackQuery.data[1:]}")]]
             )
-        
-        
+        )
         
         await bot.edit_inline_media(
-            inline_message_id = callbackQuery.inline_message_id,
-            media = InputMediaDocument(
-                media = link if telegram_can else path,
-                caption = getMSG.caption
-            ),
+            inline_message_id=callbackQuery.inline_message_id,
+            media=InputMediaDocument(media=cDIR, caption=getMSG.caption),
             reply_markup = InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton(
-                        text = "♻️ SEARCH AGAIN ♻️",
-                        switch_inline_query_current_chat = ""
-                    )
-                ]]
+                [[ InlineKeyboardButton(text="♻️ SEARCH AGAIN ♻️", switch_inline_query_current_chat="")]]
             )
         )
         return await work(callbackQuery, "delete", False)
     
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info = True)
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
         await work(callbackQuery, "delete", False)
 
 
-closeDRIVE = filters.create(lambda _, __, query: query.data.startswith("cD|"))
-@ILovePDF.on_callback_query(closeDRIVE)
+@ILovePDF.on_callback_query(filters.regex('^cD|'))
 async def close(bot, callbackQuery):
     try:
         if not (callbackQuery.from_user.id == int(callbackQuery.data.split("|")[2])):
@@ -178,5 +100,8 @@ async def close(bot, callbackQuery):
         
         await callbackQuery.answer("🗑️")
         await work(callbackQuery, "delete", False)
-    except Exception: pass
+    except Exception:
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=False)
+
 # Author: @nabilanavab
+
