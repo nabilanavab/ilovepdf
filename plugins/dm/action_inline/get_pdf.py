@@ -105,7 +105,7 @@ async def pdfDriver(bot, callbackQuery):
         
         file_size = int(requests.head(link).headers.get("Content-Length", 0)) / 1024 / 1024
         telegram_can = True if file_size < 20 else False
-        logger.debug(f"😎 {file_size} {telegram_can}")
+        logger.debug(f"😎 {link} {file_size} {telegram_can}")
         
         if not telegram_can:
             name = urlparse(link).path.split("/")[-1]
