@@ -37,7 +37,7 @@ async def _hd(bot, message):
         logger.exception("1️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
 # ============================| REPLY TO PHOTOS |======================
-@ILovePDF.on_album(filters.private & filters.incoming & filters.media_group)
+@ILovePDF.on_message(filters.private & filters.incoming & filters.media_group)
 async def imgAlbum(bot, message):
     try:
         logger.debug(message)
