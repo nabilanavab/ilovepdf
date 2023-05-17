@@ -37,6 +37,14 @@ async def _hd(bot, message):
         logger.exception("1️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
 # ============================| REPLY TO PHOTOS |======================
+@ILovePDF.on_message(filters.photo & filters.private & filters.incoming & filters.album)
+async def imgAlbum(bot, message):
+    try:
+        logger.debug(message)
+    except Exception as Error:
+        logger.exception("2️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
+        
+
 @ILovePDF.on_message(filters.photo & filters.private & filters.incoming)
 async def images(bot, message):
     try:
@@ -75,6 +83,6 @@ async def images(bot, message):
             tTXT.format(len(PDF[message.chat.id]), message.chat.id), reply_markup = tBTN
         )
     except Exception as e:
-        logger.exception("2️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
+        logger.exception("3️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
 # Author: @nabilanavab
