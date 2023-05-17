@@ -66,7 +66,7 @@ async def images(bot, message):
                 reply_markup = tBTN, quote = True
             )
         
-        tTXT, tBTN = await util.translate(text = "PROGRESS['dlImage']", lang_code = lang_code)
+        tTXT, tBTN = await util.translate(text = "document['dlImage']", lang_code = lang_code)
         imageReply = await message.reply_text(tTXT, quote = True)
         if not isinstance(PDF.get(message.chat.id), list):
             PDF[message.chat.id] = []
