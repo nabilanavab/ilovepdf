@@ -28,7 +28,7 @@ async def _hd(bot, message):
         await message.reply_chat_action(enums.ChatAction.TYPING)
         lang_code = await util.getLang(message.chat.id)
         tTXT, tBTN = await util.translate(
-            text = "document['setHdImg']", button = "document['setDefault']", lang_code = lang_code
+            text = "DOCUMENT['setHdImg']", button = "DOCUMENT['setDefault']", lang_code = lang_code
         )
         imageReply = await message.reply_text(text = tTXT, reply_markup = tBTN, quote = True)
         HD[message.chat.id] = [imageReply.id]
@@ -40,7 +40,8 @@ async def _hd(bot, message):
 @ILovePDF.on_message(filters.private & filters.incoming & filters.media_group)
 async def imgAlbum(bot, message):
     try:
-        logger.debug(message)
+        for i in message:
+            logger.debug(f"😎{i}\n\n")
     except Exception as Error:
         logger.exception("2️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
         
@@ -57,16 +58,16 @@ async def images(bot, message):
             if len(HD[message.chat.id]) >= 16:
                 return
             HD[message.chat.id].append(message.photo.file_id)
-            generateCB = "document['generate']" if settings.DEFAULT_NAME else  "document['generateRN']"
+            generateCB = "DOCUMENT['generate']" if settings.DEFAULT_NAME else  "DOCUMENT['generateRN']"
             tTXT, tBTN = await util.translate(
-                text = "document['imageAdded']", button = generateCB, lang_code = lang_code
+                text = "DOCUMENT['imageAdded']", button = generateCB, lang_code = lang_code
             )
             return await message.reply_text(
                 tTXT.format(len(HD[message.chat.id])-1, message.chat.id)+" [HD] 🔰",
                 reply_markup = tBTN, quote = True
             )
         
-        tTXT, tBTN = await util.translate(text = "document['dlImage']", lang_code = lang_code)
+        tTXT, tBTN = await util.translate(text = "DOCUMENT['dlImage']", lang_code = lang_code)
         imageReply = await message.reply_text(tTXT, quote = True)
         if not isinstance(PDF.get(message.chat.id), list):
             PDF[message.chat.id] = []
@@ -75,9 +76,9 @@ async def images(bot, message):
             f"work/{message.chat.id}/{message.chat.id}.jpg"
         ).convert("RGB")
         PDF[message.chat.id].append(img)
-        generateCB = "document['generate']" if settings.DEFAULT_NAME else  "document['generateRN']"
+        generateCB = "DOCUMENT['generate']" if settings.DEFAULT_NAME else  "DOCUMENT['generateRN']"
         tTXT, tBTN = await util.translate(
-            text = "document['imageAdded']", button = generateCB, lang_code = lang_code
+            text = "DOCUMENT['imageAdded']", button = generateCB, lang_code = lang_code
         )
         await imageReply.edit(
             tTXT.format(len(PDF[message.chat.id]), message.chat.id), reply_markup = tBTN
