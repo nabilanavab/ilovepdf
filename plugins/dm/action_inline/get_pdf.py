@@ -1,6 +1,3 @@
-
-
-
 # fileName : plugins/dm/action_inline/get_pdf.py
 # copyright ©️ 2021 nabilanavab
 
@@ -100,7 +97,7 @@ async def close(bot, callbackQuery):
         
         await callbackQuery.answer("🗑️")
         await work(callbackQuery, "delete", False)
-    except Exception:
+    except Exception as e:
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info=False)
 
 # Author: @nabilanavab
