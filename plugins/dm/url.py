@@ -38,6 +38,19 @@ async def urlsFromText(text: str) -> list:
     except Exception:
         return None
 
+# just a function that return gDriveID
+async def gDriveID(gDriveLink: str) -> str:
+    try:
+        id_pattern = re.compile(r'/d/(\w+)/')
+        file_id = id_pattern.search(url)
+        if file_id:
+            file_id = file_id.group(1)
+            return file_id
+        else:
+            return False
+    except Exception:
+        return None
+
 @ILovePDF.on_message(filters.private & filters.incoming & filters.text)
 async def _url(bot, message):
     try:
@@ -85,8 +98,8 @@ async def _url(bot, message):
                     reply_markup = tBTN if file.document.file_name[-4:] == ".pdf" else None,
                     disable_web_page_preview = True
                 )
-            
-            elif url.endswith(".pdf") or bool(urlSupport):
+                        
+            elif gDriveID(url) or url.endswith(".pdf") or bool(urlSupport):
                 try:
                     cDIR = await work.work(message, "create", True)
                     if not cDIR:
@@ -94,6 +107,10 @@ async def _url(bot, message):
                         tBTN = await createBUTTON(await editDICT(inDir = tTXT, value = "refresh"))
                         tTXT, _ = await util.translate(text = 'DOCUMENT["inWork"]', lang_code = lang_code)
                         return await data.edit(tTXT, reply_markup = tBTN)   # work exists
+                    
+                    if gDriveID(url):
+                        ID = gDriveID(url)
+                        url = f"https://drive.google.com/uc?export=download&id={ID}"
                     
                     response = requests.get(url)
                     directDlLink = True if "Content-Type" in response.headers and response.headers["Content-Type"]=="application/pdf" else False
@@ -209,3 +226,4 @@ async def _getFile(bot, callbackQuery):
         await work.work(callbackQuery, "create", False)
 
 # Author: @nabilanavab
+
