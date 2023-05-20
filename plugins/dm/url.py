@@ -111,7 +111,7 @@ async def _url(bot, message):
                         return await data.edit(tTXT, reply_markup = tBTN)   # work exists
                     
                     if await gDriveID(url):
-                        url = gDriveID(url)
+                        url = await gDriveID(url)
                     
                     response = requests.get(url)
                     directDlLink = True if "Content-Type" in response.headers and response.headers["Content-Type"]=="application/pdf" else False
