@@ -112,6 +112,7 @@ async def _url(bot, message):
                     
                     if await gDriveID(url):
                         url = await gDriveID(url)
+                        logger.debug(f"🤤: {url}")
                     
                     response = requests.get(url)
                     directDlLink = True if "Content-Type" in response.headers and response.headers["Content-Type"]=="application/pdf" else False
