@@ -46,7 +46,7 @@ async def gDriveID(gDriveLink: str) -> str:
         if "export=download" in gDriveLink:
             return gDriveLink
         elif gDriveLink.startswith("https://drive.google.com/file/d/"):
-            FILE_ID = gDriveLink.split("d/")[1].split("/")
+            FILE_ID = gDriveLink.split("d/")[1].split("/")[0]
             return f"https://drive.google.com/uc?export=download&id={FILE_ID}"
         else:
             return None
@@ -106,7 +106,7 @@ async def _url(bot, message):
                     cDIR = await work.work(message, "create", True)
                     if not cDIR:
                         tTXT, tBTN = await util.translate(text = 'DOCUMENT["refresh"]', lang_code = lang_code)
-                        tBTN = await createBUTTON(await editDICT(inDir = tTXT, value = "refresh"))
+                        tBTN = await util.createBUTTON(await editDICT(inDir = tTXT, value = "refresh"))
                         tTXT, _ = await util.translate(text = 'DOCUMENT["inWork"]', lang_code = lang_code)
                         return await data.edit(tTXT, reply_markup = tBTN)   # work exists
                     
@@ -150,7 +150,7 @@ async def _url(bot, message):
                     logFile = await message.reply_document(
                         document = url if directDlLink and telegramCan else f"{cDIR}/{message.id}.pdf",
                         file_name = FILE_NAME.replace("+", " "), caption = f"Url: `{url}`\n\n{FILE_CAPT}",
-                        reply_markup = await createBUTTON(await editDICT(inDir = tTXT, value = url)),
+                        reply_markup = await util.createBUTTON(await editDICT(inDir = tTXT, value = url)),
                         thumb = THUMBNAIL, progress = cbPRO, progress_args = (data, 0, "UPLOADED", True), quote = True
                     )
                     await data.delete()
