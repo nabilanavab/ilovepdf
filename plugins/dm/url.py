@@ -41,13 +41,15 @@ async def urlsFromText(text: str) -> list:
 # just a function that return gDriveID
 async def gDriveID(gDriveLink: str) -> str:
     try:
-        file_id = re.search("(?<=/)[\w-]{25,}(?=[?&]|$)", url)
-        logger.debug(file_id)
-        if file_id:
-            file_id = file_id.group(1)
-            return file_id
+        if not gDriveLink.startswith("https://drive.google.com"):
+            return None
+        if "export=download" in gDriveLink:
+            return gDriveLink
+        elif gDriveLink.startswith("https://drive.google.com/file/d/"):
+            FILE_ID = gDriveLink.split("d/")[1].split("/")
+            return f"https://drive.google.com/uc?export=download&id={FILE_ID}"
         else:
-            return False
+            return None
     except Exception:
         return None
 
@@ -109,8 +111,7 @@ async def _url(bot, message):
                         return await data.edit(tTXT, reply_markup = tBTN)   # work exists
                     
                     if await gDriveID(url):
-                        ID = gDriveID(url)
-                        url = f"https://drive.google.com/uc?export=download&id={ID}"
+                        url = gDriveID(url)
                     
                     response = requests.get(url)
                     directDlLink = True if "Content-Type" in response.headers and response.headers["Content-Type"]=="application/pdf" else False
@@ -226,4 +227,3 @@ async def _getFile(bot, callbackQuery):
         await work.work(callbackQuery, "create", False)
 
 # Author: @nabilanavab
-
