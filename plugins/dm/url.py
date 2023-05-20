@@ -99,7 +99,7 @@ async def _url(bot, message):
                     disable_web_page_preview = True
                 )
                         
-            elif gDriveID(url) or url.endswith(".pdf") or bool(urlSupport):
+            elif await gDriveID(url) or url.endswith(".pdf") or bool(urlSupport):
                 try:
                     cDIR = await work.work(message, "create", True)
                     if not cDIR:
@@ -108,7 +108,7 @@ async def _url(bot, message):
                         tTXT, _ = await util.translate(text = 'DOCUMENT["inWork"]', lang_code = lang_code)
                         return await data.edit(tTXT, reply_markup = tBTN)   # work exists
                     
-                    if gDriveID(url):
+                    if await gDriveID(url):
                         ID = gDriveID(url)
                         url = f"https://drive.google.com/uc?export=download&id={ID}"
                     
