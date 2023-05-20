@@ -106,7 +106,7 @@ async def _url(bot, message):
                     cDIR = await work.work(message, "create", True)
                     if not cDIR:
                         tTXT, tBTN = await util.translate(text = 'DOCUMENT["refresh"]', lang_code = lang_code)
-                        tBTN = await util.createBUTTON(await editDICT(inDir = tTXT, value = "refresh"))
+                        tBTN = await util.createBUTTON(await util.editDICT(inDir = tTXT, value = "refresh"))
                         tTXT, _ = await util.translate(text = 'DOCUMENT["inWork"]', lang_code = lang_code)
                         return await data.edit(tTXT, reply_markup = tBTN)   # work exists
                     
@@ -150,7 +150,7 @@ async def _url(bot, message):
                     logFile = await message.reply_document(
                         document = url if directDlLink and telegramCan else f"{cDIR}/{message.id}.pdf",
                         file_name = FILE_NAME.replace("+", " "), caption = f"Url: `{url}`\n\n{FILE_CAPT}",
-                        reply_markup = await util.createBUTTON(await editDICT(inDir = tTXT, value = url)),
+                        reply_markup = await util.createBUTTON(await util.editDICT(inDir = tTXT, value = url)),
                         thumb = THUMBNAIL, progress = cbPRO, progress_args = (data, 0, "UPLOADED", True), quote = True
                     )
                     await data.delete()
@@ -167,8 +167,7 @@ async def _url(bot, message):
         tTXT, tBTN = await util.translate(text = "URL['error']", button = "URL['close']", lang_code = lang_code)
         return await data.edit(text = tTXT.format(e), reply_markup = tBTN)
 
-getFile = filters.create(lambda _, __, query: query.data == "getFile")
-@ILovePDF.on_callback_query(getFile)
+@ILovePDF.on_callback_query(filters.regex("getFile"))
 async def _getFile(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
