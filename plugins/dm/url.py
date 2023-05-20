@@ -41,8 +41,8 @@ async def urlsFromText(text: str) -> list:
 # just a function that return gDriveID
 async def gDriveID(gDriveLink: str) -> str:
     try:
-        id_pattern = re.compile(r'/d/(\w+)/')
-        file_id = id_pattern.search(url)
+        file_id = re.search("(?<=/)[\w-]{25,}(?=[?&]|$)", url)
+        logger.debug(file_id)
         if file_id:
             file_id = file_id.group(1)
             return file_id
