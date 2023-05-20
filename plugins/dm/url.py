@@ -139,7 +139,7 @@ async def _url(bot, message):
                     tTXT, tBTN = await util.translate(text = "URL['done']", button = "URL['close']", lang_code = lang_code)
                     await data.edit(tTXT, reply_markup = tBTN)
                     
-                    FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(message, f"{outputName}.pdf")
+                    FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(message, f"{outputName}.pdf")
                     if images.PDF_THUMBNAIL != THUMBNAIL:
                         location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/thumb.jpeg")
                         THUMBNAIL = await formatThumb(location)
