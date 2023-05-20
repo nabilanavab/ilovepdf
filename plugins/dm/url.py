@@ -151,7 +151,7 @@ async def _url(bot, message):
                         document = url if directDlLink and telegramCan else f"{cDIR}/{message.id}.pdf",
                         file_name = FILE_NAME.replace("+", " "), caption = f"Url: `{url}`\n\n{FILE_CAPT}",
                         reply_markup = await util.createBUTTON(await util.editDICT(inDir = tTXT, value = url)),
-                        thumb = THUMBNAIL, progress = cbPRO, progress_args = (data, 0, "UPLOADED", True), quote = True
+                        thumb = THUMBNAIL, progress = render.cbPRO, progress_args = (data, 0, "UPLOADED", True), quote = True
                     )
                     await data.delete()
                     await log.footer(message, output = logFile, lang_code = lang_code)
