@@ -13,8 +13,8 @@ from .file_process    import *
 from configs.config   import images
 from pyrogram         import enums, filters, Client as ILovePDF
 
-index = filters.create(lambda _, __, query: query.data.startswith("^"))
-@ILovePDF.on_callback_query(index)
+
+@ILovePDF.on_callback_query(filters.regex("processAIO"))
 async def __index__(bot, callbackQuery):
     try:
         data = callbackQuery.data[1:]
