@@ -40,8 +40,7 @@ async def _hd(bot, message):
 @ILovePDF.on_message(filters.private & filters.incoming & filters.media_group)
 async def imgAlbum(bot, message):
     try:
-        for i in message:
-            logger.debug(f"😎{i}\n\n")
+        logger.debug(f"😎{message}\n\n")
     except Exception as Error:
         logger.exception("2️⃣: 🐞 %s: %s" %(file_name, Error), exc_info = True)
         
