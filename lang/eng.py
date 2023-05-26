@@ -229,7 +229,7 @@ AIO = {
     "out_button" : { "⭐ META£ATA ⭐" : "nabilanavab|aio|met", "📸 PREVIEW 📸" : "nabilanavab|aio|pre","🗜 COMPRESS 🗜": "nabilanavab|aio|com",
         "📑 TEXT 📑" : "nabilanavab|aio|txt", "🤸 ROTATE 🤸" : "nabilanavab|aio|rot", "😗 FORMAT 😗" : "nabilanavab|aio|for",
         "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm",
-        "🚶‍♂️ BACK 🚶‍♂️" : "aio", "🆗 PROCESS 🆗" : "^"
+        "🚶‍♂️ BACK 🚶‍♂️" : "aio", "🆗 PROCESS 🆗" : "processAIO"
     },
     "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|com|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|for|{F}", "aio|enc|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]
 }
