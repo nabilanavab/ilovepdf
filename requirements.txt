@@ -1,5 +1,4 @@
 pyrogram==2.0.106
-het 
 TgCrypto==1.2.3
 pillow==9.5.0
 PyMuPdf==1.22.2
