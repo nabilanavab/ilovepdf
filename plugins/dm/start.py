@@ -48,12 +48,7 @@ async def start(bot, message):
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
 
 # ====================== START CALLBACK =====================================
-Status = filters.create(lambda _, __, query: query.data.startswith("status"))
-close = filters.create(lambda _, __, query: query.data.startswith("close"))
-Home = filters.create(lambda _, __, query: query.data.startswith("Home"))
-refresh = filters.create(lambda _, __, query: query.data == "refresh")
-
-@ILovePDF.on_callback_query(Home)
+@ILovePDF.on_callback_query(filters.regex("^Home"))
 async def home(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
@@ -97,7 +92,7 @@ async def home(bot, callbackQuery):
         logger.exception("🐞 %s /home: %s" %(file_name, e), exc_info = True)
 
 # ======== SERVER UPDATES =========
-@ILovePDF.on_callback_query(Status)
+@ILovePDF.on_callback_query(filters.regex("^status"))
 async def _status(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
@@ -184,7 +179,7 @@ async def _status(bot, callbackQuery):
         logger.exception("🐞 %s /status: %s" %(file_name, e), exc_info = True)
 
 # ======= CLOSE CALLBACK =========
-@ILovePDF.on_callback_query(close)
+@ILovePDF.on_callback_query(filters.regex("^close"))
 async def _close(bot, callbackQuery):
     try:
         _, data = callbackQuery.data.split("|")
