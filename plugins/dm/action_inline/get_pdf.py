@@ -29,7 +29,7 @@ async def download(current, total, bot, callbackQuery):
         logger.debug("🐞 %s: %s" %(fileName, e))
 
 
-@ILovePDF.on_callback_query(filters.regex("^lib"))
+@ILovePDF.on_callback_query(callbackQuery.data.startswith("lib"))
 async def pdfDriver(bot, callbackQuery):
     try:
         lang_code = await getLang(callbackQuery.from_user.id)
