@@ -109,7 +109,7 @@ async def _GEN(bot, callbackQuery):
         tTXT, tBTN = await util.translate(text = "GENERATE['geting']", lang_code = lang_code)
         logFile = await callbackQuery.message.reply_document(
             document = filePath, caption = f"{tTXT.format(fileName, pgnmbr)}\n\n{FILE_CAPT}",
-            file_name = FILE_NAME, thumb = THUMBNAIL, progress = cbPRO,
+            file_name = FILE_NAME, thumb = THUMBNAIL, progress = render.cbPRO,
             progress_args = (gen, 0, "UPLOADED", True)
         )
         await gen.delete(); shutil.rmtree(f"work/{chat_id}")
@@ -118,7 +118,7 @@ async def _GEN(bot, callbackQuery):
         await log.footer(callbackQuery.message, output = logFile, lang_code = lang_code)
     except Exception as e:
         tTXT, tBTN = await util.translate(
-            text = "document['error']", button = "PDF_MESSAGE['errorCB']", lang_code = lang_code
+            text = "DOCUMENT['error']", button = "PDF_MESSAGE['errorCB']", lang_code = lang_code
         )
         await gen.edit(tTXT.format(e), reply_markup = tBTN)
         try: shutil.rmtree(f"work/{chat_id}"); del HD[chat_id]
