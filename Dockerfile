@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.10
 RUN mkdir /pdf && chmod 777 /pdf
 
 WORKDIR /pdf
