@@ -8,9 +8,7 @@ from .utils import Util
 from pathlib import Path
 from tldextract import extract
 from bs4 import BeautifulSoup as bsoup
-from typing import Awaitable, Callable, Optional
 
-logg = logging.getLogger(__name__)
 
 class LibgenDownload:
     def __init__(self) -> None:
@@ -26,9 +24,7 @@ class LibgenDownload:
 
     async def download(self,
                        url: str,
-                       dest_folder: Path = None,
-                       progress: Optional[Callable[..., Awaitable[None]]] = None,
-                       progress_args: list = []) -> Path:
+                       dest_folder: Path = None) -> Path:
 
         if not re.match(self.regex, url) or \
                 (str(extract(url).domain) + '.' + str(extract(url).suffix)) not in self.mirrors:
@@ -36,53 +32,46 @@ class LibgenDownload:
 
         if not dest_folder:
             dest_folder = self.dest_folder
-        if not Path(dest_folder).is_dir():
-            Path(dest_folder).mkdir(parents=True, exist_ok=True)
-        
+        if not Path.is_dir(dest_folder):
+            Path.mkdir(dest_folder)
+
         direct_links = await self.get_directlink(url)
-        for link in direct_links:
+        for link in reversed(direct_links):
             file = await self.__download(link,
-                                         dest_folder,
-                                         progress,
-                                         progress_args)
+                                         dest_folder)
             if not file:
                 continue
             return file
-        logg.error('Could not download the book from the given url.')
-        return None
+        logging.error('Could not download the book from the given url.')
+        return
 
     @staticmethod
     async def __download(url: str,
-                         dest_folder: Path,
-                         progress: Optional[Callable[..., Awaitable[None]]],
-                         progress_args: list) -> Path:
+                         dest_folder: Path) -> Path:
 
         try:
             async with aiohttp.ClientSession() as dl_ses:
                 async with dl_ses.get(url) as resp:
-                    total_size = int(resp.headers.get('Content-Length')) if resp.headers.get('Content-Length') \
-                    else 'Unknown size'
+                    total_size = resp.headers.get('Content-Length')
                     file_name = await Util().get_filename(resp.headers.get('Content-Disposition'))
                     temp_file = Path.joinpath(dest_folder, file_name)
 
                     async with aiofiles.open(temp_file, mode="wb") as dl_file:
-                        current = 0
-                        logg.info(
+                        dl_len = 0
+                        logging.info(
                             f'Starting download: {file_name}')
                         st_time = time.time()
                         async for chunk, _ in resp.content.iter_chunks():
                             await dl_file.write(chunk)
-                            current += len(chunk)
+                            dl_len += len(chunk)
                             cr_time = time.time()
                             if cr_time - st_time > 1:
-                                if progress:
-                                    await progress(current, total_size, *progress_args)
-                                logg.debug(
-                                    f'Downloading: {current} of {total_size} Done.')
+                                logging.info(
+                                    f'Downloading: {dl_len} of {total_size if total_size else "unknown size"} Done.')
                                 st_time = cr_time
         except Exception as e:
-            logg.exception(e)
-            return None
+            logging.error(e)
+            return
 
         return temp_file
 
@@ -92,7 +81,7 @@ class LibgenDownload:
         tld = extract(url)
         r = requests.get(url,
                          allow_redirects=True)
-        logg.debug(
+        logging.info(
             f'Requesting download page resulted in code: {r.status_code}')
         if r.status_code != 200:
             await Util().raise_error(r.status_code, r.reason)
@@ -118,8 +107,8 @@ class LibgenDownload:
                     str(table.tr.findAll('td')[1].table.tr.td.h3.a['href'])
                 zl_r = requests.get(zl_page,
                                     allow_redirects=True)
-                logg.debug(
-                    f'Requesting b-ok page resulted in code: {zl_r.status_code}')
+                logging.info(
+                    f'Requesting download page resulted in code: {zl_r.status_code}')
                 if zl_r.status_code != 200:
                     await Util().raise_error(zl_r.status_code, r.reason)
 
@@ -132,7 +121,7 @@ class LibgenDownload:
             else:
                 await Util().raise_error(0, 'Book not found on Z-library')
         else:
-            logg.error(
+            logging.error(
                 f'Unsuportted link. Only support download from {",".join(self.mirrors)}')
             return direct_links
 
