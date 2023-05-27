@@ -89,7 +89,7 @@ async def pdfDriver(bot, callbackQuery):
         await work(callbackQuery, "delete", False)
 
 
-@ILovePDF.on_callback_query(filters.regex('^cD|'))
+@ILovePDF.on_callback_query(filters.regex('^cD\|'))
 async def close(bot, callbackQuery):
     try:
         if not (callbackQuery.from_user.id == int(callbackQuery.data.split("|")[2])):
