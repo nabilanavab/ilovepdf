@@ -17,4 +17,4 @@ aspose-words==23.4.0
 pdfkit==1.0.0
 beautifulsoup4==4.12.2
 requests==2.30.0
-libgenesis==0.1.9
+
