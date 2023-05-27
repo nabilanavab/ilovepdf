@@ -40,7 +40,7 @@ class LibgenDownload:
             Path(dest_folder).mkdir(parents=True, exist_ok=True)
         
         direct_links = await self.get_directlink(url)
-        for link in reversed(direct_links):
+        for link in direct_links:
             file = await self.__download(link,
                                          dest_folder,
                                          progress,
