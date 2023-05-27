@@ -149,17 +149,16 @@ async def documents(bot, message):
                 imageDocReply = await message.reply_text(CHUNK["download"], quote=True)
                 if not isinstance(PDF.get(message.from_user.id), list):
                     PDF[message.from_user.id] = []
-                await message.download(f"{message.from_user.id}/{message.from_user.id}.jpg")
-                img = Image.open(
-                          f"{message.from_user.id}/{message.from_user.id}.jpg"
-                      ).convert("RGB")
+                path = await message.download(f"{message.from_user.id}/{message.id}.jpg")
+                img = Image.open(path).convert("RGB")
                 PDF[message.from_user.id].append(img)
                 generateCB = "generate" if config.settings.DEFAULT_NAME else "generateRN"
                 tBTN = await util.createBUTTON(CHUNK[generateCB])
-                return await imageDocReply.edit(
+                await imageDocReply.edit(
                     text = CHUNK["imageAdded"].format(
                         len(PDF[message.from_user.id]), message.from_user.id), reply_markup = tBTN
                 )
+                os.remove(path)
             except Exception as e:
                 return await imageDocReply.edit(CHUNK["error"].format(e))
         
