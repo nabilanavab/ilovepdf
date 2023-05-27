@@ -62,10 +62,8 @@ async def images(bot, message):
         imageReply = await message.reply_text(tTXT, quote = True)
         if not isinstance(PDF.get(message.chat.id), list):
             PDF[message.chat.id] = []
-        await message.download(f"work/{message.chat.id}/{message.chat.id}.jpg")
-        img = Image.open(
-            f"work/{message.chat.id}/{message.chat.id}.jpg"
-        ).convert("RGB")
+        path = await message.download(f"work/{message.chat.id}/{message.chat.id}.jpg")
+        img = Image.open(path).convert("RGB")
         PDF[message.chat.id].append(img)
         generateCB = "DOCUMENT['generate']" if settings.DEFAULT_NAME else  "DOCUMENT['generateRN']"
         tTXT, tBTN = await util.translate(
