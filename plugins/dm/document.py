@@ -190,16 +190,16 @@ async def documents(bot, message):
             
             # WHERE REAL CODEC CONVERSATION OCCURS
             if fileExt.lower() in pymu2PDF:
-                FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(message, f"{fileNm}.pdf")
+                FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(message, f"{fileNm}.pdf")
                 isError = await pymuConvert2PDF(cDIR, pdfMsgId, input_file, lang_code)
             
             elif fileExt.lower() in cnvrt_api_2PDF:
-                FILE_NAME, FILE_CAPT, THUMBNAIL, API = await thumbName(message, f"{fileNm}.pdf", getAPI=True)
+                FILE_NAME, FILE_CAPT, THUMBNAIL, API = await fncta.thumbName(message, f"{fileNm}.pdf", getAPI=True)
                 API = API if not(API == False) else config.settings.CONVERT_API
                 isError = await cvApi2PDF(cDIR, pdfMsgId, input_file, lang_code, API)
             
             elif fileExt.lower() in wordFiles:
-                FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(message, f"{fileNm}.pdf")
+                FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(message, f"{fileNm}.pdf")
                 isError = await word2PDF(cDIR, pdfMsgId, input_file, lang_code)
             
             if not isError:
