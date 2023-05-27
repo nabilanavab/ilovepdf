@@ -8,7 +8,7 @@ pyromod==1.5
 fpdf==1.7.2
 ocrmypdf==14.1.0
 motor==3.1.2
-psutil==5.9.5
+psutil==5.9.0
 pymongo[srv]==4.2.0
 hachoir==3.2.0
 pytelegrambotapi==4.11.0
