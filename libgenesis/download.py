@@ -36,9 +36,9 @@ class LibgenDownload:
 
         if not dest_folder:
             dest_folder = self.dest_folder
-        if not Path.is_dir(dest_folder):
-            Path.mkdir(dest_folder)
-
+        if not Path(dest_folder).is_dir():
+            Path(dest_folder).mkdir(parents=True, exist_ok=True)
+        
         direct_links = await self.get_directlink(url)
         for link in reversed(direct_links):
             file = await self.__download(link,
