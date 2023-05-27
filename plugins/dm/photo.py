@@ -46,7 +46,7 @@ async def images(bot, message):
         await message.reply_chat_action(enums.ChatAction.TYPING)
         lang_code = await util.getLang(message.chat.id)
         if message.chat.id in HD:
-            if len(HD[message.chat.id]) >= 16:
+            if len(HD[message.chat.id]) >= 26:
                 return
             HD[message.chat.id].append(message.photo.file_id)
             generateCB = "DOCUMENT['generate']" if settings.DEFAULT_NAME else  "DOCUMENT['generateRN']"
@@ -62,7 +62,7 @@ async def images(bot, message):
         imageReply = await message.reply_text(tTXT, quote = True)
         if not isinstance(PDF.get(message.chat.id), list):
             PDF[message.chat.id] = []
-        path = await message.download(f"work/{message.chat.id}/{message.chat.id}.jpg")
+        path = await message.download(f"work/{message.chat.id}/{message.id}.jpg")
         img = Image.open(path).convert("RGB")
         PDF[message.chat.id].append(img)
         generateCB = "DOCUMENT['generate']" if settings.DEFAULT_NAME else  "DOCUMENT['generateRN']"
@@ -72,7 +72,8 @@ async def images(bot, message):
         await imageReply.edit(
             tTXT.format(len(PDF[message.chat.id]), message.chat.id), reply_markup = tBTN
         )
+        os.remove(path)
     except Exception as e:
-        logger.exception("3️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
+        logger.exception("2️⃣: 🐞 %s: %s" %(file_name, e), exc_info = True)
 
 # Author: @nabilanavab
