@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:latest
 RUN mkdir /pdf && chmod 777 /pdf
 
 WORKDIR /pdf
