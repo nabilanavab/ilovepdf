@@ -94,7 +94,7 @@ async def _GEN(bot, callbackQuery):
                 del HD[chat_id]
         
         # Getting thumbnail
-        FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, fileName)
+        FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(callbackQuery.message, fileName)
         if im.PDF_THUMBNAIL != THUMBNAIL:
             location = await bot.download_media(
                 message = THUMBNAIL,
