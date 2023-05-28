@@ -63,7 +63,7 @@ class LibgenDownload:
                     total_size = int(resp.headers.get('Content-Length')) if resp.headers.get('Content-Length') \
                     else 'Unknown size'
                     file_name = await Util().get_filename(resp.headers.get('Content-Disposition'))
-                    temp_file = Path.joinpath(dest_folder, file_name)
+                    temp_file = dest_folder.joinpath(file_name)
 
                     async with aiofiles.open(temp_file, mode="wb") as dl_file:
                         current = 0
