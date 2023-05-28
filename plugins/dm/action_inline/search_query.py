@@ -25,7 +25,7 @@ async def inline_query_handler(bot, inline_query):
         if not log.LOG_CHANNEL:
             result = await default_ans(inline_query)
             return await inline_query.answer(
-                results=[],
+                results=result,
                 cache_time=0,
                 switch_pm_text=trCHUNK['noDB'],
                 switch_pm_parameter="okay",
