@@ -66,7 +66,7 @@ async def pdfDriver(bot, callbackQuery):
             link, dest_folder=cDIR, progress=download,
             progress_args=[bot, callbackQuery]
         )
-        
+        logger.debug(file)
         await bot.edit_inline_reply_markup(
             inline_message_id = callbackQuery.inline_message_id,
             reply_markup = InlineKeyboardMarkup(
