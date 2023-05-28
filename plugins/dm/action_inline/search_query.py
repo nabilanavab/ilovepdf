@@ -7,6 +7,7 @@ from configs.log          import log
 from .                    import DATA
 from logger               import logger
 from libgenesis           import Libgen
+from defailt              import default_ans
 from plugins.utils.util   import getLang, translate
 from pyrogram             import Client as ILovePDF, errors
 from pyrogram.types       import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
@@ -30,8 +31,9 @@ async def inline_query_handler(bot, inline_query):
            )
         
         if len(query) < 2:
+            result = await default_ans(inline_query)
             return await inline_query.answer(
-                results=[],
+                results=result,
                 cache_time=0,
                 switch_pm_text=trCHUNK['min'],
                 switch_pm_parameter="okay",
