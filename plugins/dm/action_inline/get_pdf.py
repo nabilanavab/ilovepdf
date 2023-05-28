@@ -17,7 +17,7 @@ async def download(current, total, bot, callbackQuery):
         await bot.edit_inline_reply_markup(
             inline_message_id = callbackQuery.inline_message_id,
             reply_markup = InlineKeyboardMarkup(
-                [[ InlineKeyboardButton("📥 DOWNLOADED {:.2f}% 📥".format(current/total_size*100), callback_data=f"{callbackQuery.data}")],[
+                [[ InlineKeyboardButton("📥 DOWNLOADED {:.2f}% 📥".format(current/total*100), callback_data=f"{callbackQuery.data}")],[
                    InlineKeyboardButton("🗑️ CANCEL 🗑️", callback_data=f"c{callbackQuery.data[1:]}")]]
             ))
     except MessageNotModified as e:
