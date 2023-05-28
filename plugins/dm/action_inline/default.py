@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 fileName = "plugins/dm/action_inline/default_ans.py"
 
-from plugins.util    import *
+from plugins.utils   import *
 from configs.db      import myID
 from configs.config  import images
 from lang            import langList
@@ -11,15 +11,15 @@ from pyrogram.types  import (InputTextMessageContent, InlineKeyboardMarkup,
 
 async def default_ans(inline_query) -> list:
     try:
-        lang_code = await getLang(inline_query.from_user.id)
-        CHUNK, _ = await translate(text="inline_query", lang_code=lang_code)
+        lang_code = await util.getLang(inline_query.from_user.id)
+        CHUNK, _ = await util.translate(text="inline_query", lang_code=lang_code)
         
         # Getting Lang Data..
         BUTTON = CHUNK['TOP']
         _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=-l{lang}" for lang in langList }
         BUTTON.update(_lang)
         BUTTON.update({"♻" : "-|refresh"})
-        BUTTON = await createBUTTON(
+        BUTTON = await util.createBUTTON(
             btn = BUTTON,
             order = int(f"1{((len(BUTTON)-2)//3)*'3'}{(len(BUTTON)-2)%3}1")
         )
