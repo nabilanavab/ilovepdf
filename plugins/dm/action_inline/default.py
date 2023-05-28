@@ -27,10 +27,12 @@ async def default_ans(inline_query) -> list:
         answer = [
             InlineQueryResultPhoto(
                 photo_url = "https://graph.org/file/4506c172bf757ce187fe1.jpg", reply_markup = BUTTON,
+                title = CHUNK['capt'],
                 caption = CHUNK['capt'], description = CHUNK['des']
             ),
             InlineQueryResultPhoto(
                 photo_url = "https://graph.org/file/91ef937e900888c572086.jpg",
+                title="search pdf file",
                 reply_markup = InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
@@ -43,7 +45,7 @@ async def default_ans(inline_query) -> list:
                         )
                     ]]
                 ),
-                caption = "__The ‘**♻️ SEARCH ♻️**’ option allows you to search for PDF files within the same chat__,\n\n"
+                input_message_content = "__The ‘**♻️ SEARCH ♻️**’ option allows you to search for PDF files within the same chat__,\n\n"
                           "__while the ‘**💖 SHARE SEARCH 💖**’ feature enables you to search for PDFs in a different chat__",
             )
         ]
