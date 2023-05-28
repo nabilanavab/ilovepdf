@@ -9,7 +9,7 @@ from plugins.utils.work   import work
 from logger               import logger
 from libgenesis           import Libgen
 from plugins.utils.util   import getLang, translate
-from pyrogram             import Client as ILovePDF, filters
+from pyrogram             import Client as ILovePDF, filters, errors
 from pyrogram.types       import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaDocument
 
 async def download(current, total, bot, callbackQuery):
@@ -20,9 +20,9 @@ async def download(current, total, bot, callbackQuery):
                 [[ InlineKeyboardButton("📥 DOWNLOADED {:.2f}% 📥".format(current/total*100), callback_data=f"{callbackQuery.data}")],[
                    InlineKeyboardButton("🗑️ CANCEL 🗑️", callback_data=f"c{callbackQuery.data[1:]}")]]
             ))
-    except MessageNotModified as e:
+    except errors.MessageNotModified as e:
         logger.debug("🐞 %s: %s" %(fileName, e))
-    except FloodWait as e:
+    except errors.FloodWait as e:
         logger.debug("🐞 %s: %s" %(fileName, e))
         await asyncio.sleep(e.x)
     except Exception as e:
