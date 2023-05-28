@@ -23,6 +23,7 @@ async def inline_query_handler(bot, inline_query):
         
         # Inline feature will not work if there is no log channel set up.
         if not log.LOG_CHANNEL:
+            result = await default_ans(inline_query)
             return await inline_query.answer(
                 results=[],
                 cache_time=0,
@@ -77,8 +78,9 @@ async def inline_query_handler(bot, inline_query):
         if results:
             return await inline_query.answer(results=results, cache_time=60, is_personal=False)
         else:
+            result = await default_ans(inline_query)
             return await inline_query.answer(
-                results=[],
+                results=result,
                 cache_time=0,
                 switch_pm_text=trCHUNK['nothing'].format(query),
                 switch_pm_parameter="okay",
