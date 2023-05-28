@@ -8,7 +8,7 @@ from .                    import DATA
 from logger               import logger
 from libgenesis           import Libgen
 from plugins.utils.util   import getLang, translate
-from pyrogram             import Client as ILovePDF
+from pyrogram             import Client as ILovePDF, errors
 from pyrogram.types       import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
 
 @ILovePDF.on_inline_query()
@@ -81,6 +81,8 @@ async def inline_query_handler(bot, inline_query):
                 switch_pm_text=trCHUNK['nothing'].format(query),
                 switch_pm_parameter="okay",
             )
-        
+    
+    except errors.QueryIdInvalid:
+        pass
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(fileName, Error), exc_info = True)
