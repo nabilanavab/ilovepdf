@@ -45,8 +45,8 @@ async def default_ans(inline_query) -> list:
                         )
                     ]]
                 ),
-                input_message_content = "__The ‘**♻️ SEARCH ♻️**’ option allows you to search for PDF files within the same chat__,\n\n"
-                          "__while the ‘**💖 SHARE SEARCH 💖**’ feature enables you to search for PDFs in a different chat__",
+                input_message_content = InputTextMessageContent("__The ‘**♻️ SEARCH ♻️**’ option allows you to search for PDF files within the same chat__,\n\n"
+                          "__while the ‘**💖 SHARE SEARCH 💖**’ feature enables you to search for PDFs in a different chat__"),
             )
         ]
         
