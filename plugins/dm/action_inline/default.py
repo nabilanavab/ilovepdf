@@ -12,42 +12,48 @@ from pyrogram.types  import (InputTextMessageContent, InlineKeyboardMarkup,
 async def default_ans(inline_query) -> list:
     try:
         lang_code = await util.getLang(inline_query.from_user.id)
-        CHUNK, _ = await util.translate(text="inline_query", lang_code=lang_code)
+        CHUNK, _ = await util.translate(text="INLINE", lang_code=lang_code)
         
         # Getting Lang Data..
-        BUTTON = CHUNK['TOP']
-        _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=-l{lang}" for lang in langList }
+        BUTTON=CHUNK['lang_b']
+        _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=#l{lang}#r{inline_query.from_user.id}" for lang in langList }
         BUTTON.update(_lang)
         BUTTON.update({"♻" : "-|refresh"})
         BUTTON = await util.createBUTTON(
-            btn = BUTTON,
-            order = int(f"1{((len(BUTTON)-2)//3)*'3'}{(len(BUTTON)-2)%3}1")
+            btn=BUTTON, order=int(f"1{((len(BUTTON)-2)//3)*'3'}{(len(BUTTON)-2)%3}1")
+        )
+        
+        openChat = InlineKeyboardMarkup(
+            [[ InlineKeyboardButton(text=CHUNK['openBot'], url=f"https://t.me/{myID[0].username}?start=#r{inline_query.from_user.id}") ]]
         )
         
         answer = [
             InlineQueryResultPhoto(
-                photo_url = "https://github.com/telegram-account/scratchPDF/assets/53673312/3a89d06b-65f9-4efc-8c32-3dcd67771d97", reply_markup = BUTTON,
-                title = CHUNK['capt'],
-                caption = CHUNK['capt'], description = CHUNK['des']
+                photo_url="https://graph.org/file/e0543a5ace611768e71d1.jpg",
+                title=CHUNK['sear_t'], input_message_content=InputTextMessageContent(CHUNK['sear_d']),
+                reply_markup=InlineKeyboardMarkup(
+                    [[ InlineKeyboardButton(text=CHUNK['search'], switch_inline_query_current_chat="" )]] ),
             ),
             InlineQueryResultPhoto(
-                photo_url = "https://graph.org/file/91ef937e900888c572086.jpg",
-                title="search pdf file",
-                reply_markup = InlineKeyboardMarkup(
-                    [[
-                        InlineKeyboardButton(
-                            text = "♻️ SEARCH ♻️",
-                            switch_inline_query_current_chat = ""
-                        ),
-                        InlineKeyboardButton(
-                            text = "💖 SHARE SEARCH 💖",
-                            switch_inline_query = ""
-                        )
-                    ]]
-                ),
-                input_message_content = InputTextMessageContent("__The ‘**♻️ SEARCH ♻️**’ option allows you to search for PDF files within the same chat__,\n\n"
-                          "__while the ‘**💖 SHARE SEARCH 💖**’ feature enables you to search for PDFs in a different chat__"),
-            )
+                photo_url="https://graph.org/file/4506c172bf757ce187fe1.jpg",
+                title=CHUNK['lang_t'], reply_markup=BUTTON, input_message_content=InputTextMessageContent(CHUNK['lang_d'])
+            ),
+            InlineQueryResultPhoto(
+                photo_url="https://graph.org/file/521e4aa2469427281bfac.jpg",
+                title=CHUNK['P2J_t'], reply_markup=openChat, input_message_content=InputTextMessageContent(CHUNK['P2J_d']),
+            ),
+            InlineQueryResultPhoto(
+                photo_url="https://graph.org/file/178e9f143814f695578fc.jpg",
+                title=CHUNK['lock_t'], reply_markup=openChat, input_message_content=InputTextMessageContent(CHUNK['lock_t']),
+            ),
+            InlineQueryResultPhoto(
+                photo_url="https://graph.org/file/e4baa95ecfd27b8dc1407.jpg",
+                title=CHUNK['save_t'], reply_markup=openChat, input_message_content=InputTextMessageContent(CHUNK['save_d']),
+            ),
+            InlineQueryResultPhoto(
+                photo_url="https://graph.org/file/521e4aa2469427281bfac.jpg",
+                title=CHUNK['P2J_t'], reply_markup=openChat, input_message_content=InputTextMessageContent(CHUNK['P2J_d']),
+            ),
         ]
         
         return answer
