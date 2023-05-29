@@ -26,7 +26,7 @@ async def default_ans(inline_query) -> list:
         
         answer = [
             InlineQueryResultPhoto(
-                photo_url = "https://www.flaticon.com/free-icon/language_3269821", reply_markup = BUTTON,
+                photo_url = "https://github.com/telegram-account/scratchPDF/assets/53673312/3a89d06b-65f9-4efc-8c32-3dcd67771d97", reply_markup = BUTTON,
                 title = CHUNK['capt'],
                 caption = CHUNK['capt'], description = CHUNK['des']
             ),
