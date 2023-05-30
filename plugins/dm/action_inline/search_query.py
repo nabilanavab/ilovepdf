@@ -7,7 +7,7 @@ from configs.log          import log
 from .                    import DATA
 from logger               import logger
 from libgenesis           import Libgen
-from .default             import default_ans
+from .default             import default_ans, search
 from plugins.utils.util   import getLang, translate
 from pyrogram             import Client as ILovePDF, errors
 from pyrogram.types       import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultCachedDocument
@@ -29,16 +29,25 @@ async def inline_query_handler(bot, inline_query):
                 cache_time=0,
                 switch_pm_text=trCHUNK['noDB'],
                 switch_pm_parameter="okay",
-           )
+            )
         
-        if len(query) < 2:
+        elif len(query) < 2:
             result = await default_ans(inline_query)
             return await inline_query.answer(
                 results=result,
                 cache_time=0,
                 switch_pm_text=trCHUNK['min'],
                 switch_pm_parameter="okay",
-           )
+            )
+        
+        elif "|" in query:
+            result = await search(inline_query)
+            return await inline_query.answer(
+                results=result,
+                cache_time=0,
+                switch_pm_text='',
+            )
+        
         else:
             if query:
                 result = await Libgen(
@@ -76,7 +85,10 @@ async def inline_query_handler(bot, inline_query):
                                       f"Author: **{result[item]['author']}.**"
                         }
         if results:
-            return await inline_query.answer(results=results, cache_time=60, is_personal=False)
+            return await inline_query.answer(
+                results=results, cache_time=60, is_personal=False,
+                switch_pm_text=trCHUNK['query'].format(len(results)), switch_pm_parameter="okey",
+            )
         else:
             result = await default_ans(inline_query)
             return await inline_query.answer(
