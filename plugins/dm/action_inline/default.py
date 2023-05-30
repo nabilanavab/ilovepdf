@@ -15,7 +15,7 @@ async def default_ans(inline_query) -> list:
         CHUNK, _ = await util.translate(text="INLINE", lang_code=lang_code)
         
         # Getting Lang Data..
-        BUTTON=CHUNK['TOP']
+        BUTTON=CHUNK['lang_b']
         _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=#l{lang}#r{inline_query.from_user.id}" for lang in langList }
         BUTTON.update(_lang)
         BUTTON.update({"♻" : "-|refresh"})
