@@ -59,7 +59,7 @@ async def search(inline_query) -> list:
                 reply_markup=InlineKeyboardMarkup(
                     [[ InlineKeyboardButton(
                         text=CHUNK['search'],
-                        switch_inline_query_current_chat=f"{inline_query.qyery.split('|')[1]}")
+                        switch_inline_query_current_chat=f"{inline_query.query.split('|')[1]}")
                     ]]
                 ),
             )]
