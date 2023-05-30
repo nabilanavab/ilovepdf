@@ -313,13 +313,10 @@ INDEX = {
 }
 
 INLINE = {
-    "search" : "️♻️ SEARCH ♻️", "openBot" : "😎 Open Bot 😎",
+    "search" : "️♻️ SEARCH ♻️", "openBot" : "😎 Open Bot 😎", 'query' : "{}  Results..",
     'lang_t' : "SET LANGUAGE ⚙️", "lang_d" : "help's to set your comfortable language 😇", "lang_b" : { "Now, Select Language 👇" : "nabilanavab" },
     'sear_t' : "SEARCH PDF 🔍", 'sear_d' : "You can now search through a vast library of PDF documents with ease and convenience. Using the inline search mode, you can simply type in the name of the document that you are looking for",
-    'lock_t' : "Encrypt🔒 / Decrypt🔓", 'lock_d' : "Our bot have the ability to encrypt and decrypt PDF for added security and privacy. To use this feature, simply send the PDF to the bot. Then the bot will prompt you to select the process you want to do, either encryption or decryption.",
-    'save_t' : "GENERATE URL 🔗", 'save_d' : "Protect your PDF files from unauthorized access and sharing with our bot's PDF security feature. With our bot, it is easy to save the PDF files that you want to protect and generate private and public URLs that will only grant access to those who have the URL.",
-    'P2J_t' : "PDF 🔄 JPEG", 'P2J_d' : "Easily convert PDF files to the image format of your choice and vice versa with our bot's PDF conversion feature. With this feature, you can select particular parts and pages of your PDF file to be converted. The process is quick and straightforward",
-    'min' : 'You must enter at least 2 characters to search', 'process' : '⚙️ Processing.. ', 'nothing' : '🤐 No results for "{}"',
+    'min' : '🔎 Type to searchPDF Files..', 'process' : '⚙️ Processing.. ', 'nothing' : '🤐 No results for "{}"',
     'cbNotU' : BAN['cbNotU'], 'old' : "old queue..", 'inWork' : INDEX['inWork'], 'edit' : ["⚔ GET PDF ⚔", "🔎 SEARCH 🔎", "🔔 CHANNEL 🔔"],
     'noDB' : 'Admin Restricted 🏃', 'description' : "Author: {}\nVolume: {}   Year: {}  Pages: {}\nLanguage: {}  Extension: {}\nPublisher: {}",
     'caption' : "MD5: {}\nTitle: **{}.**\nAuthor: **{}.**\n\nVolume: {}\nYear: {}\nPages: {}\nLanguage: {}\nPublisher: {}"
