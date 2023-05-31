@@ -38,10 +38,10 @@ async def extract_data(data):
     get_pdf=re.search(r'\-g(\w+)\-', data)
     md5_str=re.search(r'\-m(\w+)\-', data)
     return (
-        lang_code.group(1) if refer_id else None,
+        lang_code.group(1) if lang_code else None,
         refer_id.group(1) if refer_id else None,
-        get_pdf.group(1) if refer_id else None,
-        md5_str.group(1) if refer_id else None
+        get_pdf.group(1) if get_pdf else None,
+        md5_str.group(1) if md5_str else None
     )
 
 @ILovePDF.on_message(filters.private & filters.incoming & filters.command("start"))
