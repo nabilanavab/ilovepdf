@@ -3,8 +3,7 @@
 fileName = "plugins/dm/callBack/link.py"
 
 import              base64
-from plugins.util   import *
-from plugins.render import *
+from plugins.utils  import *
 from configs.config import dm
 from configs.log    import log
 from configs.db     import myID
@@ -27,7 +26,7 @@ async def decode(bot, code, message, lang_code):
             await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
             protect=True if "🔒 PROTECTED 🔒" in getMSG.caption else False
             notify=True if "🔔 NOTIFY 🔔" in getMSG.caption else False
-            await getMSG.copy( chat_id = message.chat.id, caption = "", protect_content = protect)
+            await getMSG.copy( chat_id=message.chat.id, caption="", protect_content=protect)
             
             if notify and message.from_user.id not in dm.ADMINS:
                 chat_id = int(getMSG.caption.split("•")[1])
@@ -43,43 +42,43 @@ async def decode(bot, code, message, lang_code):
             return
         # if etMSG.empty is True; replies not founded error
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        _, __ = await translate(text = "LINK['error']", lang_code = lang_code)
+        _, __ = await util.translate(text = "LINK['error']", lang_code = lang_code)
         return await message.reply(text = f"`{code}`\n" + _.format("`cantFINDorDELETED`"), quote = True)
     except Exception as e:
         logger.exception("🐞 %s: %s" %(fileName, e))
-        _, __ = await translate(text = "LINK['error']", lang_code = lang_code)
+        _, __ = await util.translate(text = "LINK['error']", lang_code = lang_code)
         return await message.reply(text = f"`{code}`\n" + _.format(e), quote = True)
 
 @ILovePDF.on_callback_query(filters.regex("link"))
 async def _link(bot, callbackQuery):
     try:
-        lang_code = await getLang(callbackQuery.message.chat.id)
+        lang_code = await util.getLang(callbackQuery.message.chat.id)
         if await header(bot, callbackQuery, lang_code=lang_code):
             return
         
         if not log.LOG_CHANNEL:
-            _, __ = await translate(text = "LINK['no']", lang_code = lang_code)
+            _, __ = await util.translate(text = "LINK['no']", lang_code = lang_code)
             return await callbackQuery.answer(_)
         await callbackQuery.answer()
         
         if callbackQuery.data=="link":
-            _, __ = await translate(text="LINK['gen']", lang_code=lang_code)
+            _, __ = await util.translate(text="LINK['gen']", lang_code=lang_code)
             dlMSG = await callbackQuery.message.reply_to_message.reply_text(text=_, quote=True)
             await sleep(1)
-            _, __ = await translate(text="LINK['_gen']", lang_code=lang_code)
+            _, __ = await util.translate(text="LINK['_gen']", lang_code=lang_code)
             await dlMSG.edit(text=_)
             await sleep(1)
-            _, __ = await translate(text="LINK['type']", button="LINK['typeBTN']", lang_code=lang_code)
+            _, __ = await util.translate(text="LINK['type']", button="LINK['typeBTN']", lang_code=lang_code)
             return await dlMSG.edit(text=_, reply_markup=__)
         
         if callbackQuery.data=="link-pvt":
-            _, __ = await translate(text="LINK['notify']", button="LINK['notify_pvt']", lang_code=lang_code)
+            _, __ = await util.translate(text="LINK['notify']", button="LINK['notify_pvt']", lang_code=lang_code)
             return await callbackQuery.message.edit(text=_, reply_markup=__)
         elif callbackQuery.data=="link-pub":
-            _, __ = await translate(text="LINK['notify']", button="LINK['notify_pub']", lang_code=lang_code)
+            _, __ = await util.translate(text="LINK['notify']", button="LINK['notify_pub']", lang_code=lang_code)
             return await callbackQuery.message.edit(text=_, reply_markup=__)
         
-        _, __ = await translate(text="LINK['_gen']", lang_code=lang_code)
+        _, __ = await util.translate(text="LINK['_gen']", lang_code=lang_code)
         await callbackQuery.message.edit(text=_)
         
         _, _typ, _ntf = callbackQuery.data.split("-")
@@ -96,19 +95,19 @@ async def _link(bot, callbackQuery):
                       f"\n\n**{content}**\n**{notify}**"""
         )
         
-        string_bytes = f"{file.id}".encode("ascii")
-        base64_bytes = base64.urlsafe_b64encode(string_bytes)
-        base64_string = (base64_bytes.decode("ascii")).strip("=")
+        string_bytes=f"{file.id}".encode("ascii")
+        base64_bytes=base64.urlsafe_b64encode(string_bytes)
+        base64_string=(base64_bytes.decode("ascii")).strip("=")
         
         link = f"https://telegram.dog/{myID[0].username}?start=+g{base64_string}"
-        _, __ = await translate(text="LINK['link']",lang_code=lang_code)
+        _, __ = await util.translate(text="LINK['link']",lang_code=lang_code)
         
-        btn = await createBUTTON(
+        btn = await util.createBUTTON(
             { "📢 Share URL 📢" : f"https://telegram.me/share/url?url={link}", "🔗 Open URL 🔗" : link }, order=11
         )
         return await callbackQuery.message.edit(text=_ + f"\n\n{content}", reply_markup=btn)
     
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(fileName, Error), exc_info=True)
-        _, __ = await translate(text="LINK['error']", lang_code=lang_code)
+        _, __ = await util.translate(text="LINK['error']", lang_code=lang_code)
         await dlMSG.edit(_.format(Error))
