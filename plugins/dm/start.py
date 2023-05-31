@@ -9,7 +9,7 @@ from logger           import logger
 
 import                 os
 import                 psutil
-import                  shutil
+import                 shutil
 import                 asyncio
 from plugins.utils     import *
 from .photo            import HD
@@ -92,6 +92,7 @@ async def start(bot, message):
                                  photo = images.WELCOME_PIC, reply_markup = tBTN,
                                  caption = tTXT.format(message.from_user.mention, myID[0].mention),
                                  )
+        await message.reply_sticker("CAACAgIAAxkBAAEVZ65kduZn7WTQXlyDFErYqb0BvyoIEQACVQADr8ZRGmTn_PAl6RC_LwQ")
         return await message.delete()
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
