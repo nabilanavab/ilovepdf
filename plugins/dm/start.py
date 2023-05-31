@@ -52,7 +52,7 @@ async def start(bot, message):
             lang_code, refer_id, get_pdf, md5_str = await extract_data(message.text+"-")
             logger.debug(f"{lang_code}, {refer_id}, {get_pdf}, {md5_str}")
             if lang_code and settings.MULTI_LANG_SUP and lang_code in langList:
-                userLang[chat_id] = lang_code
+                userLang[chat_id]=lang_code
                 chat_type=message.chat.type
                 if dataBASE.MONGODB_URI:
                     if chat_type == ChatType.PRIVATE and lang != settings.DEFAULT_LANG:
