@@ -47,6 +47,7 @@ async def start(bot, message):
     try:
         lang_code=await util.getLang(message.chat.id)
         
+        logger.debug(message.text)
         if "+" in message.text:
             logger.debug("--------------------------")
             lang_code, refer_id, get_pdf, md5_str = await extract_data(message.text+"+")
@@ -69,15 +70,13 @@ async def start(bot, message):
                 # add referal to from_user
                 pass
             if get_pdf:
-                await decode(bot, code, message, lang_code)
+                await decode(bot, get_pdf, message, lang_code)
             if md5_str:
                 # md5 link
                 pass
             return
         
-        logger.debug(message.from_user.language_code)
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        
         if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en":
             change, _ = await util.translate(text="SETTINGS['chgLang']", lang_code=lang_code)
             _lang = { langList[lang][1]:f"set|lang|{lang}" for lang in langList if lang != lang_code }
