@@ -21,7 +21,7 @@ from configs.db             import CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C, DATA
 if dataBASE.MONGODB_URI:
     from database import db
 
-@ILovePDF.on_callback_query(filters.regex("set"))
+@ILovePDF.on_callback_query(filters.regex("^set"))
 async def _settings(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
