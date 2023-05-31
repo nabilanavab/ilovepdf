@@ -90,9 +90,9 @@ async def _settings(bot, callbackQuery):
                         await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang)
                     elif chat_type != ChatType.PRIVATE and lang != set.DEFAULT_LANG:
                         await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang, typ="group")
-                    elif chat_type != ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                    elif chat_type == ChatType.PRIVATE and lang == set.DEFAULT_LANG:
                         await db.dlt_key(id=callbackQuery.message.chat.id, key="lang")
-                    elif chat_type != ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                    elif chat_type != ChatType.PRIVATE and lang == set.DEFAULT_LANG:
                         await db.dlt_key(id=callbackQuery.message.chat.id, key="lang", typ="group")
             _, __ = await util.translate(text="SETTINGS['feedback']", button="SETTINGS['feedbtn']", lang_code=lang)
             await callbackQuery.message.reply_text(text=_.format(await disLang(lang)), reply_markup=__)
