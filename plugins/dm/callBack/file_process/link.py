@@ -13,14 +13,24 @@ from pyrogram       import filters, Client as ILovePDF, enums
 
 async def decode(bot, code, message, lang_code):
     try:
-        for i in range(0, 3):
-            try:
-                base64_=f"{code[2:]}{'=' * i}".encode("ascii")   # code includes -g (remove bfor procs)
-                string_bytes=base64.urlsafe_b64decode(base64_)
-                string=string_bytes.decode("ascii")
-                if string.isdigit(): break
-            except Exception: pass
-        logger.debug(string)
+        padding = '=' * (4 - len(code) % 4)
+        base64_ = (code + padding).encode('ascii')
+        string_bytes = base64.urlsafe_b64decode(base64_)
+        string = string_bytes.decode('ascii')
+        
+        # Remove any non-numeric characters from the string
+        string = ''.join([char for char in string if char.isdigit()])
+        
+        if string.isdigit():
+            # Do something with the integer value of the string
+            string = int(string)
+        else:
+            # Handle the case where the string is not a valid integer
+            string = False
+        
+        if not string:
+            return
+        
         getMSG=await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(string))
         if not(getMSG.empty):
             await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
