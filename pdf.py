@@ -126,6 +126,9 @@ class Bot(ILovePDF):
                 inviteLink = await app.create_chat_invite_link(int(settings.UPDATE_CHANNEL))
                 chanlCount = await app.get_chat_members_count(int(settings.UPDATE_CHANNEL))
                 invite_link.append(inviteLink.invite_link)
+            except errors.ChannelInvalid:
+                settings.UPDATE_CHANNEL = False
+                logger.debug(f"BoT NoT AdMiN iN UPDATE_CHANNEL")
             except Exception as error:
                 logger.debug(f"⚠️ FORCE SUBSCRIPTION ERROR : {error}", exc_info=True)
         
