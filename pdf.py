@@ -118,9 +118,10 @@ class Bot(ILovePDF):
                 chanlCount=inviteLink.members_count
                 if not inviteLink and inviteLink.username:
                     inviteLink = await app.create_chat_invite_link(int(settings.UPDATE_CHANNEL))
+                    invite_link.append(inviteLink.invite_link)
                 else:
                     inviteLink=f"https://telegram.dog/{inviteLink.username}"
-                invite_link.append(inviteLink.invite_link if inviteLink.invite_link else inviteLink)
+                    invite_link.append(inviteLink)
             except errors.ChannelInvalid:
                 settings.UPDATE_CHANNEL=False
                 logger.debug(f"BoT NoT AdMiN iN UPDATE_CHANNEL")
