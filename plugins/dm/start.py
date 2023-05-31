@@ -54,13 +54,13 @@ async def start(bot, message):
                 userLang[chat_id] = lang_code
                 chat_type=message.chat.type
                 if dataBASE.MONGODB_URI:
-                    if chat_type == ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                    if chat_type == ChatType.PRIVATE and lang != settings.DEFAULT_LANG:
                         await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang)
-                    elif chat_type != ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                    elif chat_type != ChatType.PRIVATE and lang != settings.DEFAULT_LANG:
                         await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang, typ="group")
-                    elif chat_type == ChatType.PRIVATE and lang == set.DEFAULT_LANG:
+                    elif chat_type == ChatType.PRIVATE and lang == settings.DEFAULT_LANG:
                         await db.dlt_key(id=callbackQuery.message.chat.id, key="lang")
-                    elif chat_type != ChatType.PRIVATE and lang == set.DEFAULT_LANG:
+                    elif chat_type != ChatType.PRIVATE and lang == settings.DEFAULT_LANG:
                         await db.dlt_key(id=callbackQuery.message.chat.id, key="lang", typ="group")
                 lang_code=await util.getLang(message.chat.id)
             
