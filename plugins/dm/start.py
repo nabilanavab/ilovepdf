@@ -32,10 +32,10 @@ if dataBASE.MONGODB_URI:
 async def extract_data(data):
     # extract lang_code, refer_id, get_pdf, md5_str from /start message if exist
     # eg: "/start +leng+r123456+gID+mMD5link"
-    lang_code = re.search(r'-l(\w+)-', string)
-    refer_id = re.search(r'-r(\w+)-', string)
-    get_pdf = re.search(r'-g(\w+)-', string)
-    md5_str = re.search(r'-m(\w+)-', string)
+    lang_code = re.search(r'-l(\w+)-', data)
+    refer_id = re.search(r'-r(\w+)-', data)
+    get_pdf = re.search(r'-g(\w+)-', data)
+    md5_str = re.search(r'-m(\w+)-', data)
     return (
         lang_code.group(1) if refer_id else None,
         refer_id.group(1) if refer_id else None,
