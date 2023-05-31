@@ -2,14 +2,14 @@
 # copyright ©️ 2021 nabilanavab
 
 import os
-from plugins.utils import *
-from asyncio import sleep
-from logger import logger
-from configs.db import dataBASE
-from pyrogram.enums import ChatType
-from configs.config import settings
-from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from plugins.utils     import *
+from asyncio           import sleep
+from logger            import logger
+from configs.db        import dataBASE
+from pyrogram.enums    import ChatType
+from configs.config    import settings
+from pyrogram.errors   import FloodWait
+from pyrogram.types    import InlineKeyboardButton, InlineKeyboardMarkup
 
 if dataBASE.MONGODB_URI:
     from database import db
@@ -33,17 +33,11 @@ class log:
                     await bot.send_message(
                         chat_id = int(log.LOG_CHANNEL),
                         text = log.LOG_TEXT_C.format(
-                            message.chat.id,
-                            message.chat.title,
-                            total,
+                            message.chat.id, message.chat.title, total,
                             message.chat.username if message.chat.username else "❌"
                         ),
                         reply_markup = InlineKeyboardMarkup(
-                            [[
-                                InlineKeyboardButton(
-                                    "✅ B@N ✅", callback_data = f"banC|{message.chat.id}"
-                                )
-                            ]]
+                            [[ InlineKeyboardButton( "✅ B@N ✅", callback_data=f"banC|{message.chat.id}" ) ]]
                         )
                     )
         
@@ -61,15 +55,10 @@ class log:
                             return await bot.send_message(
                                 chat_id = int(log.LOG_CHANNEL),
                                 text = log.LOG_TEXT.format(
-                                    message.from_user.id,
-                                    message.from_user.mention) \
+                                    message.from_user.id, message.from_user.mention) \
                                     + f"\nRefered By : [{referID}](tg://user?id={referID})",
                                 reply_markup = InlineKeyboardMarkup(
-                                    [[
-                                        InlineKeyboardButton(
-                                            "✅ B@N USER ✅", callback_data = f"banU|{message.from_user.id}"
-                                        )
-                                    ]]
+                                    [[ InlineKeyboardButton("✅ B@N USER ✅", callback_data=f"banU|{message.from_user.id}") ]]
                                 )
                             )
                         except FloodWait as e:
@@ -91,10 +80,7 @@ class log:
         if log.LOG_CHANNEL and file:
             if message.chat.type == ChatType.PRIVATE:
                 banUserCB = InlineKeyboardMarkup(
-                    [[
-                        InlineKeyboardButton(
-                            "✅ B@N USER ✅", callback_data = f"banU|{file.chat.id}")
-                    ]]
+                    [[ InlineKeyboardButton("✅ B@N USER ✅", callback_data = f"banU|{file.chat.id}") ]]
                 )
                 captionLOG = f"""#newFile @nabilanavab/ILovePDF
 
@@ -105,15 +91,8 @@ __user ID:__ `{file.chat.id}`"""
             
             else:
                 banUserCB = InlineKeyboardMarkup(
-                    [[
-                        InlineKeyboardButton(
-                            "✅ B@N USER ✅", callback_data = f"banU|{file.from_user.id}"
-                        )
-                    ],[
-                        InlineKeyboardButton(
-                            "✅ B@N CHAT ✅", callback_data = f"banC|{file.chat.id}"
-                        )
-                    ]]
+                    [[ InlineKeyboardButton( "✅ B@N USER ✅", callback_data=f"banU|{file.from_user.id}" ) ],
+                     [ InlineKeyboardButton( "✅ B@N CHAT ✅", callback_data = f"banC|{file.chat.id}" ) ]]
                 )
                 captionLOG = f"""#newFile @nabilanavab/ILovePDF
 
@@ -127,14 +106,10 @@ __user ID:__ `{file.from_user.id}`"""
             for i in range (200):
                 try:
                     return await file.copy(
-                        chat_id = int(log.LOG_CHANNEL),
-                        caption = captionLOG,
-                        reply_markup = banUserCB if dataBASE.MONGODB_URI else None
+                        chat_id=int(log.LOG_CHANNEL), caption=captionLOG, reply_markup=banUserCB if dataBASE.MONGODB_URI else None
                     )
                 except FloodWait as e:
                     await asyncio.sleep(e.wait)
                 except Exception as e:
                     logger.debug(f"Error in new User Log: {e}")
                     return
-
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
