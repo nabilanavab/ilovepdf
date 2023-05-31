@@ -22,6 +22,7 @@ from pyrogram.types    import InputMediaPhoto
 from lang              import langList, disLang
 from configs.config    import settings, images, dm
 from pyrogram          import enums, filters, Client as ILovePDF
+from pyrogram.types    import InlineKeyboardMarkup, InlineKeyboardButton
 
 if dataBASE.MONGODB_URI:
     from database import db
@@ -89,15 +90,19 @@ async def start(bot, message):
             )
         
         await message.reply_photo(
-                                 photo = images.WELCOME_PIC, reply_markup = tBTN,
-                                 caption = tTXT.format(message.from_user.mention, myID[0].mention),
+                                 photo=images.WELCOME_PIC, reply_markup = tBTN,
+                                 caption=tTXT.format(message.from_user.mention, myID[0].mention),
                                  )
-        await message.reply_sticker("CAACAgIAAxkBAAEVZ65kduZn7WTQXlyDFErYqb0BvyoIEQACVQADr8ZRGmTn_PAl6RC_LwQ")
+        await message.reply_sticker(
+                                   sticker="CAACAgIAAxkBAAEVZ65kduZn7WTQXlyDFErYqb0BvyoIEQACVQADr8ZRGmTn_PAl6RC_LwQ",
+                                   reply_markup=InlineKeyboardMarkup(
+                                       [[ InlineKeyboardButton(text="🔎 SEARCH PDF 🔎", switch_inline_query_current_chat="" )]]
+                                   ))
         return await message.delete()
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
 
-# ====================== START CALLBACK =====================================
+# =========================| START CALLBACK |================================
 @ILovePDF.on_callback_query(filters.regex("^Home"))
 async def home(bot, callbackQuery):
     try:
