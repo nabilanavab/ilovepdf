@@ -38,7 +38,7 @@ def extract_data(data):
 async def start(bot, message):
     try:
         lang_code = await util.getLang(message.chat.id)
-        logger.debug(f"{message.text}\n\n{len(message.text)}\n\n{'#' in message.text}")
+        logger.debug(f"{message}\n\n{message.text}\n\n{len(message.text)}\n\n{'#' in message.text}")
         if message.text and message.text.startswith("/start") and "-g" in message.text:
             msg = message.text.split(" ")[1]
             code = msg.replace("#l", "#r").split("#r")[0]
