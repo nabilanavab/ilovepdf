@@ -15,6 +15,7 @@ from lang.__users__    import userLang
 from .settings         import _settings
 from configs.db        import dataBASE, myID
 from pyrogram.types    import InputMediaPhoto
+from lang              import langList, disLang
 from configs.config    import settings, images, dm
 from pyrogram          import enums, filters, Client as ILovePDF
 
@@ -22,11 +23,11 @@ if dataBASE.MONGODB_URI:
     from database import db
 
 # //////////////////// START MESSAGE ///////////////////////
-def extract_data(data):
-    lang_code = re.search(r'#l(\w+)#', string)
-    refer_id = re.search(r'#r(\w+)#', string)
-    get_pdf = re.search(r'#g(\w+)#', string)
-    md5_str = re.search(r'#m(\w+)#', string)
+async def extract_data(data):
+    lang_code = re.search(r'+l(\w+)+', string)
+    refer_id = re.search(r'+r(\w+)+', string)
+    get_pdf = re.search(r'+g(\w+)+', string)
+    md5_str = re.search(r'+m(\w+)+', string)
     return (
         lang_code.group(1) if refer_id else None,
         refer_id.group(1) if refer_id else None,
@@ -37,28 +38,44 @@ def extract_data(data):
 @ILovePDF.on_message(filters.private & filters.incoming & filters.command("start"))
 async def start(bot, message):
     try:
-        lang_code = await util.getLang(message.chat.id)
-        logger.debug(f"{message}\n\n{message.text}\n\n{len(message.text)}\n\n{'#' in message.text}")
-        if message.text and message.text.startswith("/start") and "-g" in message.text:
-            msg = message.text.split(" ")[1]
-            code = msg.replace("#l", "#r").split("#r")[0]
-            return await decode(bot, code, message, lang_code)
+        lang_code=await util.getLang(message.chat.id)
+        
+        if "+" in message.text:
+            lang_code, refer_id, get_pdf, md5_str = await extract_data(message.text)
+            if lang_code:
+                # change language
+                pass
+            if refer_id:
+                # add referal to from_user
+                pass
+            if get_pdf:
+                await decode(bot, code, message, lang_code)
+            if md5_str:
+                # md5 link
+                pass
+            return
         
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        tTXT, tBTN = await util.translate(
-            text = "HOME['HomeA']", lang_code = lang_code, order=2121 if message.chat.id not in dm.ADMINS else 21221,
-            button = "HOME['HomeACB']" if message.chat.id not in dm.ADMINS else "HOME['HomeAdminCB']"
-        )
+        
+        if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en":
+            change, _ = await util.translate(text="SETTINGS['chgLang']", lang_code=lang_code)
+            _lang = { langList[lang][1]:f"set|lang|{lang}" for lang in langList if lang != lang_code }
+            change.update(_lang); back, _ = await util.translate(text="SETTINGS['back'][1]", lang_code=lang_code)
+            change.update(back); tBTN = await util.createBUTTON(btn=change, order=int(f"1{((len(change)-2)//3)*'3'}{(len(change)-2)%3}1"))
+            tTXT, _ = await util.translate(text="SETTINGS['lang']", lang_code=lang_code)
+        else:
+            tTXT, tBTN = await util.translate(
+                text="HOME['HomeA']", lang_code=lang_code, order=2121 if message.chat.id not in dm.ADMINS else 21221,
+                button="HOME['HomeACB']" if message.chat.id not in dm.ADMINS else "HOME['HomeAdminCB']"
+            )
+        
         await message.reply_photo(
-            photo = images.WELCOME_PIC,
-            caption = tTXT.format(
-                message.from_user.mention, myID[0].mention
-            ),
-            reply_markup = tBTN
-        )
+                                 photo = images.WELCOME_PIC, reply_markup = tBTN,
+                                 caption = tTXT.format(message.from_user.mention, myID[0].mention),
+                                 )
         return await message.delete()
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
 
 # ====================== START CALLBACK =====================================
 @ILovePDF.on_callback_query(filters.regex("^Home"))
