@@ -108,15 +108,8 @@ class Bot(ILovePDF):
             await super().start()
         
         myID.append(await app.get_me())
-        
-        command, _ = await util.translate(
-            text = "BOT_COMMAND",
-            lang_code = settings.DEFAULT_LANG
-        )
-        await app.set_bot_commands(
-          [ BotCommand(i, command[i]) for i in command ],
-          language_code = "en"
-        )
+        command, _ = await util.translate( text="BOT_COMMAND", lang_code=settings.DEFAULT_LANG )
+        await app.set_bot_commands([ BotCommand(i, command[i]) for i in command ], language_code="en" )
         
         # -----> SETTING FORCE SUBSCRIPTION <-----
         if settings.UPDATE_CHANNEL:
@@ -127,9 +120,9 @@ class Bot(ILovePDF):
                     inviteLink = await app.create_chat_invite_link(int(settings.UPDATE_CHANNEL))
                 else:
                     inviteLink=f"https://telegram.dog/{inviteLink.username}"
-                invite_link.append(inviteLink.invite_link)
+                invite_link.append(inviteLink.invite_link if inviteLink.invite_link else inviteLink)
             except errors.ChannelInvalid:
-                settings.UPDATE_CHANNEL = False
+                settings.UPDATE_CHANNEL=False
                 logger.debug(f"BoT NoT AdMiN iN UPDATE_CHANNEL")
             except Exception as error:
                 logger.debug(f"⚠️ FORCE SUBSCRIPTION ERROR : {error}", exc_info=True)
@@ -146,48 +139,34 @@ class Bot(ILovePDF):
         if settings.SEND_RESTART and len(works['u']):
             for u in works['u']:
                 lang_code = await getLang(int(u))
-                msg, btn = await translate(
-                    text = "RESTART['msg']",
-                    button = "RESTART['btn']",
-                    lang_code = lang_code
-                )
-                await app.send_message(
-                    chat_id = int(u),
-                    text = msg,
-                    reply_markup = btn
-                )
+                msg, btn = await translate( text="RESTART['msg']", button="RESTART['btn']", lang_code=lang_code )
+                await app.send_message( chat_id=int(u), text=msg, reply_markup=btn )
         if settings.SEND_RESTART and len(works['g']):
             for g in works['g']:
-                await app.send_message(
-                    chat_id = int(g[0]),
-                    text = f"restarted.. {g[1]}"
-                )
+                await app.send_message( chat_id=int(g[0]), text=f"restarted.. {g[1]}" )
         
         # -----> SETTING LOG CHANNEL <-----
         if log.LOG_CHANNEL:
             try:
                 if settings.UPDATE_CHANNEL:
-                    caption = f"{myID[0].first_name} get started successfully...✅\n\n" \
-                              f"FORCED CHANNEL:\n" \
-                              f"invite_link: {str(invite_link[0]) if invite_link[0] is not None else '❌'}\n" \
-                              f"get_member : {str(chanlCount) if invite_link[0] is not None else '❌'}\n"
+                    caption=f"{myID[0].first_name} get started successfully...✅\n\n" \
+                            f"FORCED CHANNEL:\n" \
+                            f"invite_link: {str(invite_link[0]) if invite_link[0] is not None else '❌'}\n" \
+                            f"get_member : {str(chanlCount) if invite_link[0] is not None else '❌'}\n"
                 else:
-                    caption = f"{myID[0].first_name} get started successfully...✅"
-                if log.LOG_FILE and log.LOG_FILE[-4:] == ".log":
-                    doc = f"./{log.LOG_FILE}"
+                    caption=f"{myID[0].first_name} get started successfully...✅"
+                if log.LOG_FILE and log.LOG_FILE[-4:]==".log":
+                    doc=f"./{log.LOG_FILE}"
                     markUp = InlineKeyboardMarkup(
                         [[ InlineKeyboardButton("♻️ refresh log ♻️", callback_data = "log")],
                          [ InlineKeyboardButton("◍ Close ◍", callback_data = "close|admin") ]]
                      )
                 else:
-                    doc = images.THUMBNAIL_URL
-                    markUp = InlineKeyboardMarkup(
+                    doc=images.THUMBNAIL_URL
+                    markUp=InlineKeyboardMarkup(
                         [[ InlineKeyboardButton("◍ close ◍", callback_data = "close|admin") ]]
                      )
-                await app.send_document(
-                    chat_id = int(log.LOG_CHANNEL), document = doc,
-                    caption = caption, reply_markup = markUp
-                )
+                await app.send_document( chat_id=int(log.LOG_CHANNEL), document=doc, caption=caption, reply_markup=markUp )
             except errors.ChannelInvalid:
                 log.LOG_CHANNEL = False
                 logger.debug(f"BoT NoT AdMiN iN LoG ChAnNeL")
@@ -198,24 +177,17 @@ class Bot(ILovePDF):
         await super().stop()
 
 if __name__ == "__main__":
-    if os.path.exists(
-      f"{os.path.abspath(os.getcwd())}/work/nabilanavab"
-    ):
+    if os.path.exists( f"{os.path.abspath(os.getcwd())}/work/nabilanavab" ):
         for chat in os.listdir("work/nabilanavab"):
             if f"{chat}".startswith("-100"):
-                works['g'].append(
-                    [chat, [user for user in os.listdir(f"work/nabilanavab/{chat}")]]
-                )
+                works['g'].append( [chat, [user for user in os.listdir(f"work/nabilanavab/{chat}")]] )
             else:
                 works['u'].append(chat)
-        shutil.rmtree(
-            f"{os.path.abspath(os.getcwd())}/work"
-        )
-    os.makedirs("work/nabilanavab")
+        shutil.rmtree( f"{os.path.abspath(os.getcwd())}/work" )
+    os.makedirs( "work/nabilanavab" )
     
     pyTgLovePDF.polling()
-    app = Bot()
-    app.run()
+    Bot().run()
 
 #                                                                                                                                      OPEN SOURCE TELEGRAM PDF BOT 🐍
 #                                                                                                                                           by: nabilanavab [iLovePDF]
