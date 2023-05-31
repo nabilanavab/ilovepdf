@@ -13,7 +13,7 @@ import                 shutil
 import                 asyncio
 from plugins.utils     import *
 from .photo            import HD
-from .callBack.link    import decode
+#from .callBack.link    import decode
 from pyrogram.enums    import ChatType
 from lang.__users__    import userLang
 from .settings         import _settings
