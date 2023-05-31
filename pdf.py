@@ -121,6 +121,8 @@ class Bot(ILovePDF):
         # -----> SETTING FORCE SUBSCRIPTION <-----
         if settings.UPDATE_CHANNEL:
             try:
+                inviteLink = await app.get_chat(int(settings.UPDATE_CHANNEL))
+                logger.debug(inviteLink)
                 inviteLink = await app.create_chat_invite_link(int(settings.UPDATE_CHANNEL))
                 chanlCount = await app.get_chat_members_count(int(settings.UPDATE_CHANNEL))
                 invite_link.append(inviteLink.invite_link)
@@ -169,18 +171,13 @@ class Bot(ILovePDF):
                 if log.LOG_FILE and log.LOG_FILE[-4:] == ".log":
                     doc = f"./{log.LOG_FILE}"
                     markUp = InlineKeyboardMarkup(
-                        [[
-                            InlineKeyboardButton("♻️ refresh log ♻️", callback_data = "log")
-                        ],[
-                            InlineKeyboardButton("◍ Close ◍", callback_data = "close|admin")
-                        ]]
+                        [[ InlineKeyboardButton("♻️ refresh log ♻️", callback_data = "log")],
+                         [ InlineKeyboardButton("◍ Close ◍", callback_data = "close|admin") ]]
                      )
                 else:
                     doc = images.THUMBNAIL_URL
                     markUp = InlineKeyboardMarkup(
-                        [[
-                            InlineKeyboardButton("◍ close ◍", callback_data = "close|admin")
-                        ]]
+                        [[ InlineKeyboardButton("◍ close ◍", callback_data = "close|admin") ]]
                      )
                 await app.send_document(
                     chat_id = int(log.LOG_CHANNEL), document = doc,
