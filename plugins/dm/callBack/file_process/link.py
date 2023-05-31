@@ -2,7 +2,7 @@
 # copyright ©️ 2021 nabilanavab
 fileName = "plugins/dm/callBack/link.py"
 
-import base64
+import              base64
 from plugins.util   import *
 from plugins.render import *
 from configs.config import dm
@@ -50,10 +50,7 @@ async def decode(bot, code, message, lang_code):
         _, __ = await translate(text = "LINK['error']", lang_code = lang_code)
         return await message.reply(text = f"`{code}`\n" + _.format(e), quote = True)
 
-#........................................................................
-link = filters.create(lambda _, __, query: query.data.startswith("link"))
-
-@ILovePDF.on_callback_query(link)
+@ILovePDF.on_callback_query(filters.regex("link"))
 async def _link(bot, callbackQuery):
     try:
         lang_code = await getLang(callbackQuery.message.chat.id)
