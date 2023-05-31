@@ -187,7 +187,8 @@ if __name__ == "__main__":
     os.makedirs( "work/nabilanavab" )
     
     pyTgLovePDF.polling()
-    Bot().run()
+    app=Bot()
+    app.run()
 
 #                                                                                                                                      OPEN SOURCE TELEGRAM PDF BOT 🐍
 #                                                                                                                                           by: nabilanavab [iLovePDF]
