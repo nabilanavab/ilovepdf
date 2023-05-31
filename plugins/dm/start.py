@@ -48,9 +48,9 @@ async def start(bot, message):
     try:
         lang_code=await util.getLang(message.chat.id)
         
-        logger.debug(message.text)
         if "-" in message.text:
             lang_code, refer_id, get_pdf, md5_str = await extract_data(message.text+"-")
+            logger.debug(get_pdf)
             if lang_code and settings.MULTI_LANG_SUP and lang_code in langList:
                 userLang[chat_id] = lang_code
                 chat_type=message.chat.type
