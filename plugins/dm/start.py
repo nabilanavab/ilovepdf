@@ -7,10 +7,14 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger           import logger
 
-import asyncio, psutil, os, shutil
-from .photo            import HD
+import                 os
+import                 psutil
+iport                  shutil
+import                 asyncio
 from plugins.utils     import *
-#from .callBack.link    import decode
+from .photo            import HD
+from .callBack.link    import decode
+from pyrogram.enums    import ChatType
 from lang.__users__    import userLang
 from .settings         import _settings
 from configs.db        import dataBASE, myID
@@ -22,8 +26,10 @@ from pyrogram          import enums, filters, Client as ILovePDF
 if dataBASE.MONGODB_URI:
     from database import db
 
-# //////////////////// START MESSAGE ///////////////////////
+# =============================| START MESSAGE |================================
 async def extract_data(data):
+    # extract lang_code, refer_id, get_pdf, md5_str from /start message if exist
+    # eg: "/start +leng+r123456+gID+mMD5link"
     lang_code = re.search(r'+l(\w+)+', string)
     refer_id = re.search(r'+r(\w+)+', string)
     get_pdf = re.search(r'+g(\w+)+', string)
@@ -42,9 +48,20 @@ async def start(bot, message):
         
         if "+" in message.text:
             lang_code, refer_id, get_pdf, md5_str = await extract_data(message.text)
-            if lang_code:
-                # change language
-                pass
+            
+            if lang_code and settings.MULTI_LANG_SUP and lang_code in langList:
+                userLang[chat_id] = lang_code
+                if dataBASE.MONGODB_URI:
+                    if chat_type == ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                        await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang)
+                    elif chat_type != ChatType.PRIVATE and lang != set.DEFAULT_LANG:
+                        await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang, typ="group")
+                    elif chat_type == ChatType.PRIVATE and lang == set.DEFAULT_LANG:
+                        await db.dlt_key(id=callbackQuery.message.chat.id, key="lang")
+                    elif chat_type != ChatType.PRIVATE and lang == set.DEFAULT_LANG:
+                        await db.dlt_key(id=callbackQuery.message.chat.id, key="lang", typ="group")
+                lang_code=await util.getLang(message.chat.id)
+            
             if refer_id:
                 # add referal to from_user
                 pass
