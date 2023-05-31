@@ -21,15 +21,28 @@ from pyrogram          import enums, filters, Client as ILovePDF
 if dataBASE.MONGODB_URI:
     from database import db
 
-# ================================== START MESSAGE ================================
+# //////////////////// START MESSAGE ///////////////////////
+def extract_data(data):
+    lang_code = re.search(r'#l(\w+)#', string)
+    refer_id = re.search(r'#r(\w+)#', string)
+    get_pdf = re.search(r'#g(\w+)#', string)
+    md5_str = re.search(r'#m(\w+)#', string)
+    return (
+        lang_code.group(1) if refer_id else None,
+        refer_id.group(1) if refer_id else None,
+        get_pdf.group(1) if refer_id else None,
+        md5_str.group(1) if refer_id else None,
+    )
+
 @ILovePDF.on_message(filters.private & filters.incoming & filters.command("start"))
 async def start(bot, message):
     try:
         lang_code = await util.getLang(message.chat.id)
+        logger.debug(f"{message.text}\n\n{len(message.text)}\n\n{'#' in message.text}")
         if message.text and message.text.startswith("/start") and "-g" in message.text:
             msg = message.text.split(" ")[1]
-            code = msg.replace("-l", "-r").split("-r")[0]
-            #return await decode(bot, code, message, lang_code)
+            code = msg.replace("#l", "#r").split("#r")[0]
+            return await decode(bot, code, message, lang_code)
         
         await message.reply_chat_action(enums.ChatAction.TYPING)
         tTXT, tBTN = await util.translate(
