@@ -30,6 +30,7 @@ if dataBASE.MONGODB_URI:
 
 # =============================| START MESSAGE |================================
 async def extract_data(data):
+    logger.debug(data)
     # extract lang_code, refer_id, get_pdf, md5_str from /start message if exist
     # eg: "/start +leng+r123456+gID+mMD5link"
     lang_code=re.search(r'\-l(\w+)\-', data)
