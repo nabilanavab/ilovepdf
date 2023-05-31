@@ -16,15 +16,11 @@ async def default_ans(inline_query) -> list:
         
         # Getting Lang Data..
         BUTTON=CHUNK['lang_b']
-        _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=#l{lang}#r{inline_query.from_user.id}" for lang in langList }
+        _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=+l{lang}+r{inline_query.from_user.id}" for lang in langList }
         BUTTON.update(_lang)
         BUTTON.update({"♻" : "-|refresh"})
         BUTTON = await util.createBUTTON(
             btn=BUTTON, order=int(f"1{((len(BUTTON)-2)//3)*'3'}{(len(BUTTON)-2)%3}1")
-        )
-        
-        openChat = InlineKeyboardMarkup(
-            [[ InlineKeyboardButton(text=CHUNK['openBot'], url=f"https://t.me/{myID[0].username}?start=#r{inline_query.from_user.id}") ]]
         )
         
         answer = [
