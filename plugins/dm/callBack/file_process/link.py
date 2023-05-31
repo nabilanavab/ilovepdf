@@ -21,16 +21,6 @@ async def decode(bot, code, message, lang_code):
         # Remove any non-numeric characters from the string
         string = ''.join([char for char in string if char.isdigit()])
         
-        if string.isdigit():
-            # Do something with the integer value of the string
-            string = int(string)
-        else:
-            # Handle the case where the string is not a valid integer
-            string = False
-        
-        if not string:
-            return
-        
         getMSG=await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(string))
         if not(getMSG.empty):
             await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
