@@ -21,9 +21,7 @@ from configs.db             import CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C, DATA
 if dataBASE.MONGODB_URI:
     from database import db
 
-settings = filters.create(lambda _, __, query: query.data.startswith("set"))
-
-@ILovePDF.on_callback_query(settings)
+@ILovePDF.on_callback_query(filters.regex("set"))
 async def _settings(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
@@ -227,6 +225,6 @@ async def _settings(bot, callbackQuery):
         )
     
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
 
 # Author: @nabilanavab
