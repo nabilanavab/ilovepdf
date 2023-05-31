@@ -23,12 +23,10 @@ from configs.beta          import BETA
 from logger                import logger
 from pyromod               import listen
 from lang                  import __users__
-from pyrogram              import Client as ILovePDF, errors
 from telebot.async_telebot import AsyncTeleBot
 from configs.config        import bot, settings, images
-from pyrogram.types        import (
-                               InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
-                           )
+from pyrogram              import Client as ILovePDF, errors
+from pyrogram.types        import InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
 
 if dataBASE.MONGODB_URI:
     from database import db
@@ -39,12 +37,10 @@ if (not bot.API_TOKEN or not bot.API_HASH or not bot.API_ID):
 
 # GLOBAL VARIABLES
 PDF = {}  # save images for generating pdf
-works = {"u": [], "g": []}  # broken works
+works = { "u": [], "g": [] }  # broken works
 
-pyTgLovePDF = AsyncTeleBot(
-    bot.API_TOKEN,
-    parse_mode = "Markdown"
-)    # TELEBOT (pyTelegramBotAPI) Asyncio [for uploading group doc, imgs]
+pyTgLovePDF = AsyncTeleBot(bot.API_TOKEN, parse_mode="Markdown")
+# TELEBOT (pyTelegramBotAPI) Asyncio [for uploading group doc, imgs]
 
 # PYROGRAM
 class Bot(ILovePDF):
@@ -60,14 +56,14 @@ class Bot(ILovePDF):
     
     async def start(self):
         if dataBASE.MONGODB_URI:
-            # ------------------------------------------------------------------------------------------------------- Loads Banned UsersId to List --------------------
+            # --- Loads Banned UsersId to List -----
             b_users, b_chats = await db.get_banned()
             BANNED_USR_DB.extend(b_users)
             BANNED_GRP_DB.extend(b_chats)
             
             beta_users = await db.get_beta()
             BETA.extend(beta_users)
-            # ---------------- Loads UsersId with custom THUMBNAIL ----------------------------------------------------------------------------------------------------
+            # ------- Loads UsersId with custom THUMBNAIL ---------
             users = await db.get_all_users()   # Get all users' Data
             async for user in users:
                 if settings.MULTI_LANG_SUP:
@@ -87,7 +83,7 @@ class Bot(ILovePDF):
                 if group.get("thumb", False):
                     CUSTOM_THUMBNAIL_C.append(group["id"])
             
-            # -------------------------------------------------------------------------------------- Loads Other Necessary Data ---------------------------------------
+            # -- Loads Other Necessary Data --
             users = await db.get_all_users()
             async for user in users:
                 if user.get("api", False) or user.get("fname", False) or user.get("capt", False):
