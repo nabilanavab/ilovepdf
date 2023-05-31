@@ -53,7 +53,7 @@ async def decode(bot, code, message, lang_code):
 async def _link(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
-        if await header(bot, callbackQuery, lang_code=lang_code):
+        if await render.header(bot, callbackQuery, lang_code=lang_code):
             return
         
         if not log.LOG_CHANNEL:
