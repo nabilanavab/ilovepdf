@@ -55,6 +55,7 @@ async def start(bot, message):
                 pass
             return
         
+        logger.debug(message.from_user.language_code)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         
         if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en":
