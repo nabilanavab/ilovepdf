@@ -99,7 +99,7 @@ async def _link(bot, callbackQuery):
         base64_bytes=base64.urlsafe_b64encode(string_bytes)
         base64_string=(base64_bytes.decode("ascii")).strip("=")
         
-        link = f"https://telegram.dog/{myID[0].username}?start=+g{base64_string}"
+        link = f"https://telegram.dog/{myID[0].username}?start=-g{base64_string}"
         _, __ = await util.translate(text="LINK['link']",lang_code=lang_code)
         
         btn = await util.createBUTTON(
