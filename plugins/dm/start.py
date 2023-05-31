@@ -7,6 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger           import logger
 
+import                             re
 import                             os
 import                             psutil
 import                             shutil
