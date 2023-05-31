@@ -121,10 +121,12 @@ class Bot(ILovePDF):
         # -----> SETTING FORCE SUBSCRIPTION <-----
         if settings.UPDATE_CHANNEL:
             try:
-                inviteLink = await app.get_chat(int(settings.UPDATE_CHANNEL))
-                logger.debug(inviteLink)
-                inviteLink = await app.create_chat_invite_link(int(settings.UPDATE_CHANNEL))
-                chanlCount = await app.get_chat_members_count(int(settings.UPDATE_CHANNEL))
+                inviteLink=await app.get_chat(int(settings.UPDATE_CHANNEL))
+                chanlCount=inviteLink.members_count
+                if not inviteLink and inviteLink.username:
+                    inviteLink = await app.create_chat_invite_link(int(settings.UPDATE_CHANNEL))
+                else:
+                    inviteLink=f"https://telegram.dog/{inviteLink.username}"
                 invite_link.append(inviteLink.invite_link)
             except errors.ChannelInvalid:
                 settings.UPDATE_CHANNEL = False
