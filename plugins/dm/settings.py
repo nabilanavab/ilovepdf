@@ -82,7 +82,7 @@ async def _settings(bot, callbackQuery):
                 change.update(_lang); back, _ = await util.translate(text="SETTINGS['back'][1]", lang_code=lang_code)
                 change.update(back); change = await util.createBUTTON(btn=change, order=int(f"1{((len(change)-2)//3)*'3'}{(len(change)-2)%3}1"))
                 tTXT, _ = await util.translate(text="SETTINGS['lang']", lang_code=lang_code); await callbackQuery.answer(tTXT)
-                return await callbackQuery.message.edit_reply_markup(change)
+                return await callbackQuery.message.edit(text=tTXT, reply_markup=change)
             else:
                 lang = data.split("|", 1)[1]; userLang[chat_id] = lang
                 if dataBASE.MONGODB_URI:
