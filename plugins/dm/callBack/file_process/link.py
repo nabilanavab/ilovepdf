@@ -18,7 +18,7 @@ async def decode(bot, code, message, lang_code):
                 base64_=f"{code[2:]}{'=' * i}".encode("ascii")   # code includes -g (remove bfor procs)
                 string_bytes=base64.urlsafe_b64decode(base64_)
                 string=string_bytes.decode("ascii")
-                break
+                if string.isdigit(): break
             except Exception: pass
         logger.debug(string)
         getMSG=await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(string))
