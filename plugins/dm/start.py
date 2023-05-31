@@ -9,7 +9,7 @@ from logger           import logger
 
 import                 os
 import                 psutil
-iport                  shutil
+import                  shutil
 import                 asyncio
 from plugins.utils     import *
 from .photo            import HD
@@ -51,6 +51,7 @@ async def start(bot, message):
             
             if lang_code and settings.MULTI_LANG_SUP and lang_code in langList:
                 userLang[chat_id] = lang_code
+                chat_type=message.chat.type
                 if dataBASE.MONGODB_URI:
                     if chat_type == ChatType.PRIVATE and lang != set.DEFAULT_LANG:
                         await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang)
