@@ -31,10 +31,10 @@ if dataBASE.MONGODB_URI:
 async def extract_data(data):
     # extract lang_code, refer_id, get_pdf, md5_str from /start message if exist
     # eg: "/start +leng+r123456+gID+mMD5link"
-    lang_code = re.search(r'+l(\w+)+', string)
-    refer_id = re.search(r'+r(\w+)+', string)
-    get_pdf = re.search(r'+g(\w+)+', string)
-    md5_str = re.search(r'+m(\w+)+', string)
+    lang_code = re.search(r'-l(\w+)-', string)
+    refer_id = re.search(r'-r(\w+)-', string)
+    get_pdf = re.search(r'-g(\w+)-', string)
+    md5_str = re.search(r'-m(\w+)-', string)
     return (
         lang_code.group(1) if refer_id else None,
         refer_id.group(1) if refer_id else None,
@@ -48,10 +48,8 @@ async def start(bot, message):
         lang_code=await util.getLang(message.chat.id)
         
         logger.debug(message.text)
-        if "+" in message.text:
-            logger.debug("--------------------------")
-            lang_code, refer_id, get_pdf, md5_str = await extract_data(message.text+"+")
-            logger.debug(f"{get_pdf}")
+        if "-" in message.text:
+            lang_code, refer_id, get_pdf, md5_str = await extract_data(message.text+"-")
             if lang_code and settings.MULTI_LANG_SUP and lang_code in langList:
                 userLang[chat_id] = lang_code
                 chat_type=message.chat.type
