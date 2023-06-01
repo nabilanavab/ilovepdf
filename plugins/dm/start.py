@@ -59,6 +59,8 @@ async def start(bot, message):
             change.update(_lang); back, _ = await util.translate(text="SETTINGS['back'][1]", lang_code=lang_code)
             change.update(back); tBTN = await util.createBUTTON(btn=change, order=int(f"1{((len(change)-2)//3)*'3'}{(len(change)-2)%3}1"))
             tTXT, _ = await util.translate(text="SETTINGS['lang']", lang_code=lang_code)
+        elif md5_str:
+            return await openInBot(bot, message, md5_str)
         else:
             tTXT, tBTN = await util.translate(
                 text="HOME['HomeA']", lang_code=lang_code, order=2121 if message.chat.id not in dm.ADMINS else 21221,
@@ -76,8 +78,6 @@ async def start(bot, message):
                                    ))
         if get_pdf:
             await decode(bot, get_pdf, message, lang_code)
-        if md5_str:
-            await openInBot(bot, message, md5_str)
         return await message.delete()
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
