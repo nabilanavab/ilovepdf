@@ -42,7 +42,7 @@ async def openInBot( bot, message, message_id: int ) -> bool:
             return await message.answer(trCHUNK['inWork'])
         cDIR = await work(message, "create", True)
         
-        photo=await bot.copy_message(
+        reply=await bot.copy_message(
             chat_id=message.chat.id, from_chat_id=int(log.LOG_CHANNEL),
             message_id=int(message_id), reply_to_message_id=message.id,
             reply_markup = InlineKeyboardMarkup(
@@ -55,7 +55,7 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         link=f'http://library.lol/main/{md5}'
         
         file = await Libgen().download(
-            link, dest_folder=cDIR, progress=download, progress_args=[bot, photo.id]
+            link, dest_folder=cDIR, progress=download, progress_args=[bot, reply]
         )
         
         await message.edit_reply_markup(
