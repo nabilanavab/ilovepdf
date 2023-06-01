@@ -7,19 +7,20 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from plugins.utils        import *
 from configs.log          import log
 from plugins.utils.work   import work
+from pyrogram             import errors
 from logger               import logger
 from libgenesis           import Libgen
 from plugins.utils.util   import getLang, translate
-from pyrogram.types      import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types       import InlineKeyboardMarkup, InlineKeyboardButton
 
-async def download(current, total, message, _type):
+async def download(current, total, bot, message):
     try:
         await bot.edit_inline_reply_markup(
             inline_message_id = message,
             reply_markup = InlineKeyboardMarkup(
                 [[ 
                     InlineKeyboardButton(
-                        "📥 {} {:.2f}% 📥".format(_type, current/total*100), callback_data="https://t.me/ilovepdf_bot"
+                        "📥 DOWNLOADED {:.2f}% 📥".format(current/total*100), callback_data="https://t.me/ilovepdf_bot"
                     )
                 ]] 
             ))
@@ -57,7 +58,7 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         link=f'http://library.lol/main/{md5}'
         
         file = await Libgen().download(
-            link, dest_folder=cDIR, progress=download, progress_args=[photo.id, "DOWNLOADED"]
+            link, dest_folder=cDIR, progress=download, progress_args=[bot, photo.id]
         )
         
         await bot.edit_inline_reply_markup(
