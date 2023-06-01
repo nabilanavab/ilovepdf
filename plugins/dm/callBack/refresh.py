@@ -27,8 +27,9 @@ async def _refresh(bot, callbackQuery):
             if userStatus.status == "kicked":
                 await callbackQuery.answer("🤧")
         
+        logger.debug(callbackQuery.data[7:])
         if callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
-            await decode(bot, callbackQuery.data[7:], [callbackQuery.message, "message"], lang_code)
+            await decode(bot, callbackQuery.data[9:], [callbackQuery.message, "message"], lang_code)
             return await callbackQuery.message.delete()
         
         elif callbackQuery.data.startswith("refresh-m"):    # this means "refresh-g{code}
