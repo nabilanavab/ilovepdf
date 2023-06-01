@@ -47,35 +47,10 @@ async def extract_data(data):
 @ILovePDF.on_message(filters.private & filters.incoming & filters.command("start"))
 async def start(bot, message):
     try:
-        lang_code=await util.getLang(message.chat.id)
-        
         if "-" in message.text:
             lang_code, refer_id, get_pdf, md5_str = await extract_data(f"{message.text}-")
-            logger.debug(f"{lang_code}, {refer_id}, {get_pdf}, {md5_str}")
-            if lang_code and settings.MULTI_LANG_SUP and lang_code in langList:
-                userLang[chat_id]=lang_code
-                chat_type=message.chat.type
-                if dataBASE.MONGODB_URI:
-                    if chat_type == ChatType.PRIVATE and lang != settings.DEFAULT_LANG:
-                        await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang)
-                    elif chat_type != ChatType.PRIVATE and lang != settings.DEFAULT_LANG:
-                        await db.set_key(id=callbackQuery.message.chat.id, key="lang", value=lang, typ="group")
-                    elif chat_type == ChatType.PRIVATE and lang == settings.DEFAULT_LANG:
-                        await db.dlt_key(id=callbackQuery.message.chat.id, key="lang")
-                    elif chat_type != ChatType.PRIVATE and lang == settings.DEFAULT_LANG:
-                        await db.dlt_key(id=callbackQuery.message.chat.id, key="lang", typ="group")
-                lang_code=await util.getLang(message.chat.id)
-            
-            if refer_id:
-                # add referal to from_user
-                pass
-            if get_pdf:
-                await decode(bot, get_pdf, message, lang_code)
-            if md5_str:
-                # md5 link
-                pass
-            return
         
+        lang_code=await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en":
             change, _ = await util.translate(text="SETTINGS['chgLang']", lang_code=lang_code)
@@ -98,6 +73,10 @@ async def start(bot, message):
                                    reply_markup=InlineKeyboardMarkup(
                                        [[ InlineKeyboardButton(text="🔎 SEARCH PDF 🔎", switch_inline_query_current_chat="" )]]
                                    ))
+        if get_pdf:
+            await decode(bot, get_pdf, message, lang_code)
+        if md5_str:
+            pass
         return await message.delete()
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
