@@ -37,8 +37,8 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
-        logger.debug(getMSG.media!=MessageMediaType.photo)
-        if getMSG.empty or getMSG.media!=MessageMediaType.photo:
+        logger.debug(getMSG.media!=MessageMediaType.PHOTO)
+        if getMSG.empty or getMSG.media!=MessageMediaType.PHOTO:
             return await callbackQuery.answer(trCHUNK['old'])
         
         if await work(message, "check", True):
