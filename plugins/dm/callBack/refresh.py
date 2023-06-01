@@ -9,7 +9,7 @@ from configs.db                import myID
 from plugins.group.document    import gDOC
 from ..photo                   import images
 from .file_process.link        import decode
-from .action_inline.in_bot     import openInBot
+from ..action_inline.in_bot    import openInBot
 from configs.config            import settings
 from ..document                import documents
 from configs.db                import invite_link
