@@ -18,6 +18,7 @@ from pyrogram                  import filters, Client as ILovePDF
 @ILovePDF.on_callback_query(filters.regex("^refresh"))
 async def _refresh(bot, callbackQuery):
     try:
+        logger.debug(callbackQuery.data[7:])
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         if await render.header(bot, callbackQuery, lang_code=lang_code):
             return
