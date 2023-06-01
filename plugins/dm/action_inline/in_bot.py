@@ -49,7 +49,7 @@ async def openInBot( bot, message, message_id: int ) -> bool:
             chat_id=message.chat.id, from_chat_id=int(log.LOG_CHANNEL),
             message_id=int(message_id), reply_to_message_id=message.id,
             reply_markup = InlineKeyboardMarkup(
-                [[ InlineKeyboardButton("⬇ STARTED DOWNLOADING ⬇", url="https://t.me/ilovepdf_bot")]]
+                [[ InlineKeyboardButton("⚠️ DOWNLOADING ⚠️", url="https://t.me/ilovepdf_bot")]]
             )
         )
         
