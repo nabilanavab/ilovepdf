@@ -317,7 +317,7 @@ INLINE = {
     'lang_t' : "SET LANGUAGE ⚙️", "lang_d" : "help's to set your comfortable language 😇", "lang_b" : { "Now, Select Language 👇" : "nabilanavab" },
     'sear_t' : "SEARCH PDF 🔍", 'sear_d' : "You can now search through a vast library of PDF documents with ease and convenience. Using the inline search mode, you can simply type in the name of the document that you are looking for",
     'min' : '🔎 Type to searchPDF Files..', 'process' : '⚙️ Processing.. ', 'nothing' : '🤐 No results for "{}"',
-    'cbNotU' : BAN['cbNotU'], 'old' : "old queue..", 'inWork' : INDEX['inWork'], 'edit' : ["⚔ GET PDF ⚔", "🔎 SEARCH 🔎", "🔔 CHANNEL 🔔"],
+    'cbNotU' : BAN['cbNotU'], 'old' : "old queue..", 'inWork' : INDEX['inWork'], 'edit' : ["⚔ GET PDF ⚔", "🔎 SEARCH 🔎", "😇 open in bot 😇"],
     'noDB' : 'Admin Restricted 🏃', 'description' : "Author: {}\nVolume: {}   Year: {}  Pages: {}\nLanguage: {}  Extension: {}\nPublisher: {}",
     'caption' : "MD5: {}\nTitle: **{}.**\nAuthor: **{}.**\n\nVolume: {}\nYear: {}\nPages: {}\nLanguage: {}\nPublisher: {}"
 }
