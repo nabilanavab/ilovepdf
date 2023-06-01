@@ -17,7 +17,9 @@ async def download(current, total, message, _type):
             inline_message_id = message,
             reply_markup = InlineKeyboardMarkup(
                 [[ 
-                    InlineKeyboardButton("📥 {} {:.2f}% 📥".format(_type, current/total*100), callback_data="https://t.me/ilovepdf_bot")
+                    InlineKeyboardButton(
+                        "📥 {} {:.2f}% 📥".format(_type, current/total*100), callback_data="https://t.me/ilovepdf_bot"
+                    )
                 ]] 
             ))
     except errors.MessageNotModified as e:
@@ -34,8 +36,9 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
-        if getMSG.empty or not getMSG.photo:
-            return await message.reply("❌")
+        if getMSG.empty:
+            return await message.reply("❌", quote=True)
+        logger.debug(getMSG.photo)
         
         if await work(message, "check", True):
             return await message.answer(trCHUNK['inWork'])
