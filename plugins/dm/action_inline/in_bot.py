@@ -15,14 +15,11 @@ from pyrogram.types       import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def download(current, total, bot, message):
     try:
-        await bot.edit_inline_reply_markup(
-            inline_message_id = message,
-            reply_markup = InlineKeyboardMarkup(
-                [[ 
-                    InlineKeyboardButton(
-                        "📥 DOWNLOADED {:.2f}% 📥".format(current/total*100), callback_data="https://t.me/ilovepdf_bot"
-                    )
-                ]] 
+        await message.edit_reply_markup(
+            reply_markup=InlineKeyboardMarkup(
+                [[ InlineKeyboardButton(
+                    "📥 DOWNLOADED {:.2f}% 📥".format(current/total*100), callback_data="https://t.me/ilovepdf_bot"
+                ) ]] 
             ))
     except errors.MessageNotModified as e:
         logger.debug("🐞 %s: %s" %(fileName, e))
@@ -61,9 +58,8 @@ async def openInBot( bot, message, message_id: int ) -> bool:
             link, dest_folder=cDIR, progress=download, progress_args=[bot, photo.id]
         )
         
-        await bot.edit_inline_reply_markup(
-            inline_message_id = photo.id,
-            reply_markup = InlineKeyboardMarkup(
+        await message.edit_reply_markup(
+            reply_markup=InlineKeyboardMarkup(
                 [[ InlineKeyboardButton("🐍 STARTED UPLOADING 🐍", callback_data="https://t.me/ilovepdf_bot")]]
             )
         )
@@ -71,6 +67,8 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         await message.reply_document(
             document=file, caption=caption, progress=render.cbPRO, progress_args = (message, 0, "UPLOADED", True)
         )
+        
+        await message.edit_reply_markup(reply_markup=None)
         
         return await work(message, "delete", True)
     
