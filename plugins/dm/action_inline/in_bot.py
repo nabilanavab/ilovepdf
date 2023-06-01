@@ -65,7 +65,7 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         )
         
         await reply.reply_document(
-            document=file, caption=caption, progress=render.cbPRO, progress_args=(message, 0, "UPLOADED", True)
+            document=file, caption=caption, progress=render.cbPRO, progress_args=(reply, 0, "UPLOADED", True)
         )
         
         await message.edit_reply_markup(reply_markup=None)
