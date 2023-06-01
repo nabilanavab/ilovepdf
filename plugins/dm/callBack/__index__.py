@@ -259,7 +259,8 @@ async def __index__(bot, callbackQuery):
         
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await callbackQuery.message.reply_document(
-            file_name = FILE_NAME, quote = True, document = output_file, thumb = THUMBNAIL,
+            file_name = FILE_NAME if os.path.splitext(FILE_NAME)[1] else f"{FILE_NAME}.pdf",
+            quote = True, document = output_file, thumb = THUMBNAIL,
             caption = f"{_caption}\n\n{FILE_CAPT}", progress = render._progress, progress_args = (dlMSG, time.time()) 
         )
         await dlMSG.delete()
