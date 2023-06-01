@@ -39,7 +39,7 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
         logger.debug(getMSG.media!=MessageMediaType.PHOTO)
         if getMSG.empty or getMSG.media!=MessageMediaType.PHOTO:
-            return await callbackQuery.answer(trCHUNK['old'])
+            return await messaage.reply(trCHUNK['old'])
         
         if await work(message, "check", True):
             return await message.reply(
@@ -75,10 +75,6 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         )
         
         await reply.edit_reply_markup(reply_markup=None)
-        
-    except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
-        
-    finally:
         return await work(message, "delete", True)
-      
+    except Exception as e:
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)      
