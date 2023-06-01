@@ -77,7 +77,7 @@ async def start(bot, message):
         if get_pdf:
             await decode(bot, get_pdf, message, lang_code)
         if md5_str:
-            await openInBot(bot, message, message.id)
+            await openInBot(bot, message, md5_str)
         return await message.delete()
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
