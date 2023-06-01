@@ -75,8 +75,9 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         
         await reply.edit_reply_markup(reply_markup=None)
         
-        return await work(message, "delete", True)
-    
     except Exception as e:
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
+        
+    finally:
+        return await work(message, "delete", True)
       
