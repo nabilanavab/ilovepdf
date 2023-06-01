@@ -30,7 +30,7 @@ async def download(current, total, bot, message):
         logger.debug("🐞 %s: %s" %(fileName, e))
         await asyncio.sleep(e.x)
     except Exception as e:
-        logger.debug("🐞 %s: %s" %(fileName, e))
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
 
 async def openInBot( bot, message, message_id: int ) -> bool:
     try:
@@ -75,5 +75,5 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         return await work(message, "delete", True)
     
     except Exception as e:
-        logger.debug("🐞 %s: %s" %(fileName, e))
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
       
