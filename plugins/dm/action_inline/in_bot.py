@@ -62,16 +62,14 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         )
         
         await bot.edit_inline_reply_markup(
-            inline_message_id = callbackQuery.inline_message_id,
+            inline_message_id = photo.id,
             reply_markup = InlineKeyboardMarkup(
-                [[ InlineKeyboardButton("🐍 STARTED UPLOADING 🐍", callback_data=f"{callbackQuery.data}")],[
-                    InlineKeyboardButton("🗑️ CANCEL 🗑️", callback_data=f"c{callbackQuery.data[1:]}")]]
+                [[ InlineKeyboardButton("🐍 STARTED UPLOADING 🐍", callback_data="https://t.me/ilovepdf_bot")]]
             )
         )
         
-        await callbackQuery.message.reply_document(
-            document=file, caption=caption, progress=render.cbPRO,
-            progress_args = (callbackQuery.message, 0, "UPLOADED", True)
+        await message.reply_document(
+            document=file, caption=caption, progress=render.cbPRO, progress_args = (message, 0, "UPLOADED", True)
         )
         
         return await work(message, "delete", True)
