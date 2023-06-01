@@ -4,9 +4,6 @@
 file_name = "plugins/dm/callBack/start.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
-# LOGGING INFO: DEBUG
-from logger           import logger
-
 import                             re
 import                             os
 import                             psutil
@@ -15,6 +12,7 @@ import                             asyncio
 from plugins.utils                 import *
 from .photo                        import HD
 from .callBack.file_process.link   import decode
+from logger                        import logger
 from .action_inline.in_bot         import openInBot
 from pyrogram.enums      import ChatType
 from lang.__users__      import userLang
@@ -59,7 +57,7 @@ async def start(bot, message):
             change.update(_lang); back, _ = await util.translate(text="SETTINGS['back'][1]", lang_code=lang_code)
             change.update(back); tBTN = await util.createBUTTON(btn=change, order=int(f"1{((len(change)-2)//3)*'3'}{(len(change)-2)%3}1"))
             tTXT, _ = await util.translate(text="SETTINGS['lang']", lang_code=lang_code)
-        elif md5_str:
+        elif "-" in message.text and md5_str:
             return await openInBot(bot, message, md5_str)
         else:
             tTXT, tBTN = await util.translate(
