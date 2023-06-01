@@ -139,7 +139,8 @@ async def _url(bot, message):
                         pdfkit.from_url(url, f"{cDIR}/{message.id}.pdf")
                     
                     tTXT, tBTN = await util.translate(text = "URL['done']", button = "URL['close']", lang_code = lang_code)
-                    # await data.edit(text=tTXT, reply_markup=tBTN)
+                    try: await data.edit(text=tTXT, reply_markup=tBTN)
+                    except Exception: pass
                     
                     FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(message, f"{outputName}.pdf")
                     if images.PDF_THUMBNAIL != THUMBNAIL:
