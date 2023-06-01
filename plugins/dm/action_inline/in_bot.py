@@ -10,6 +10,7 @@ from plugins.utils.work   import work
 from logger               import logger
 from libgenesis           import Libgen
 from plugins.utils.util   import getLang, translate
+from pyrogram.types      import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def download(current, total, message, _type):
     try:
@@ -36,9 +37,8 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
-        if getMSG.empty:
+        if getMSG.empty and not getMSG.photo:
             return await message.reply("❌", quote=True)
-        logger.debug(getMSG.photo)
         
         if await work(message, "check", True):
             return await message.answer(trCHUNK['inWork'])
