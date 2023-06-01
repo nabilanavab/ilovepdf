@@ -5,6 +5,7 @@ fileName = "plugins/dm/action_inline/select_pdf.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
 from configs.log          import log
+from configs.db           import myID
 from .                    import DATA
 from logger               import logger
 from plugins.utils.util   import getLang, translate
