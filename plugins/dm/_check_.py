@@ -132,7 +132,7 @@ async def non_subscriber(bot, message):
             if get_pdf:
                 code=f'-g{get_pdf}'
             elif md5_str:
-                code=f'-g{md5_str}'
+                code=f'-m{md5_str}'
             else:
                 code=""
         else:
