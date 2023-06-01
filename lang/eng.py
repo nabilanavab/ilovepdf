@@ -297,7 +297,7 @@ INDEX = {
     "decrypt_error" : "Sorry, this password is invalid for decrypting the PDF file", "cantCompress" : "cant compress more 🙂",
     "completed" : "`Downloading Completed..` ✅\n\n```Started Processing\nIt might take some time..``` 🙇📝",
     "upload" : "`Started Uploading..` 📤", "encrypt_caption" : "__Page Number__: {}\n__key__ 🔐: ||{}||",
-    "rename_caption" : "old name: `{}`\new name: `{}`", "exit" : "Your request is about to be canceled 😏", "compress_caption" : "Old File Size: `{}`\nNew File size: `{}`\nRatio: `{}`%",
+    "rename_caption" : "old name: `{}`\nnew name: `{}`", "exit" : "Your request is about to be canceled 😏", "compress_caption" : "Old File Size: `{}`\nNew File size: `{}`\nRatio: `{}`%",
     "askImage" : "Please enter the PDF page syntax that you would like to use,\n\nSyntax:\n\t"
                  "Range of page: `[start, end]`,\n\tSpecific page: `separated by commas`.\n\nExample: `1,3,5,12:19`",
     "pdfToImgError" : "`Invalid syntax for page number`\n`NB: Pdf only have {} pages` ⭐."
