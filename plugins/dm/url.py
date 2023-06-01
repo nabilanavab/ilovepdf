@@ -210,13 +210,13 @@ async def _getFile(bot, callbackQuery):
         _, __ = await util.translate(button = "getFILE['dl']", lang_code = lang_code)
         await callbackQuery.edit_message_reply_markup(__)
         location = await bot.download_media(
-            message = file.document.file_id, file_name = f"{cDIR}/{file.document.file_name}", progress = cbPRO,
+            message = file.document.file_id, file_name = f"{cDIR}/{file.document.file_name}", progress = render.cbPRO,
             progress_args = (callbackQuery.message, file.document.file_size, "DOWNLOADED", True)
         )
         _, __ = await util.translate(button = "getFILE['up']", lang_code = lang_code)
         await callbackQuery.edit_message_reply_markup(__)
         logFile = await callbackQuery.message.reply_document(
-            document = location, caption = file.caption, progress = cbPRO,
+            document = location, caption = file.caption, progress = render.cbPRO,
             progress_args = (callbackQuery.message, 0, "UPLOADED", True)
         )
         _, __ = await util.translate(button = "getFILE['complete']", lang_code = lang_code)
