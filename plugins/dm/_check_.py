@@ -127,19 +127,24 @@ async def non_subscriber(bot, message):
     try:
         lang_code = await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        if message.text and message.text.startswith("/start") and "-g" in message.text:
-            msg = message.text.split(" ")[1]
-            code = msg.replace("-l", "-r").split("-r")[0]
+        if message.text and message.text.startswith("/start") and ("-g" or "-m" in message.text):
+            lang_code, referID, get_pdf, md5_str = await extract_data(f"{message.text}-")
+            if get_pdf:
+                code=f'-g{get_pdf}'
+            elif md5_str:
+                code=f'-g{md5_str}'
+            else:
+                code=""
         else:
-            code = ""
+            code=""
         tTXT, tBTN = await util.translate(
-            text = "BAN['Force']", button = "BAN['ForceCB']", asString = True, lang_code = lang_code
+            text="BAN['Force']", button="BAN['ForceCB']", asString=True, lang_code=lang_code
         )
-        tBTN = await util.editDICT(inDir = tBTN, value = [invite_link[0], code])
-        button = await util.createBUTTON(btn = tBTN, order = "11")
+        tBTN = await util.editDICT(inDir=tBTN, value=[invite_link[0], code])
+        button = await util.createBUTTON(btn=tBTN, order="11")
         return await message.reply_photo(
-            photo = images.WELCOME_PIC, quote = True,
-            caption = tTXT.format(message.from_user.first_name, message.from_user.id), reply_markup = button
+            photo=images.WELCOME_PIC, quote=True,
+            caption=tTXT.format(message.from_user.first_name, message.from_user.id), reply_markup=button
         )
     except Exception as e:
         logger.exception("🐞 %s /close: %s" %(file_name, e))
