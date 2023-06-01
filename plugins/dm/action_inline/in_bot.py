@@ -58,14 +58,14 @@ async def openInBot( bot, message, message_id: int ) -> bool:
             link, dest_folder=cDIR, progress=download, progress_args=[bot, reply]
         )
         
-        await message.edit_reply_markup(
+        await reply.edit_reply_markup(
             reply_markup=InlineKeyboardMarkup(
                 [[ InlineKeyboardButton("🐍 STARTED UPLOADING 🐍", callback_data="https://t.me/ilovepdf_bot")]]
             )
         )
         
-        await message.reply_document(
-            document=file, caption=caption, progress=render.cbPRO, progress_args = (message, 0, "UPLOADED", True)
+        await reply.reply_document(
+            document=file, caption=caption, progress=render.cbPRO, progress_args=(message, 0, "UPLOADED", True)
         )
         
         await message.edit_reply_markup(reply_markup=None)
