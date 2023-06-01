@@ -95,7 +95,7 @@ async def _url(bot, message):
                     text = tTXT.format(
                         url, file.chat.type, file.chat.title, file.chat.username,
                         file.sender_chat.id if file.chat.type == enums.ChatType.CHANNEL else file.chat.id,
-                        file.date, file.media, file.document.file_name, await gSF(file.document.file_size), isProtect
+                        file.date, file.media, file.document.file_name, await render.gSF(file.document.file_size), isProtect
                     ),
                     reply_markup = tBTN if file.document.file_name[-4:] == ".pdf" else None,
                     disable_web_page_preview = True
