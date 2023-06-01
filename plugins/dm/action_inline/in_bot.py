@@ -7,9 +7,11 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from plugins.utils        import *
 from configs.log          import log
 from plugins.utils.work   import work
+from configs.db           import myID
 from pyrogram             import errors
 from logger               import logger
 from libgenesis           import Libgen
+from pyrogram.enums       import MessageMediaType
 from plugins.utils.util   import getLang, translate
 from pyrogram.types       import InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -35,13 +37,15 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
-        if getMSG.empty and not getMSG.photo:
+        if getMSG.empty and getMSG.photo!=MessageMediaType.photo :
             return await callbackQuery.answer(trCHUNK['old'])
-        logger.debug(getMSG.media)
-        logger.debug(getMSG.media.photo)
+        
         if await work(message, "check", True):
-            return await message.reply(trCHUNK['inWork'])
-        cDIR = await work(message, "create", True)
+            return await message.reply(
+                text=trCHUNK['inWork'], quote=True, reply_markup=InlineKeyboardMarkup(
+                [[ InlineKeyboardButton("♻", url=f"https://t.me/{myID[0].username}?start=-m{message_id}")]])
+            )
+        cDIR=await work(message, "create", True)
         
         reply=await bot.copy_message(
             chat_id=message.chat.id, from_chat_id=int(log.LOG_CHANNEL),
