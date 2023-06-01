@@ -7,6 +7,7 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from plugins.utils        import *
 from configs.log          import log
 from plugins.utils.work   import work
+from logger               import logger
 from libgenesis           import Libgen
 from plugins.utils.util   import getLang, translate
 
@@ -29,7 +30,7 @@ async def download(current, total, message, _type):
 
 async def openInBot( bot, message, message_id: int ) -> bool:
     try:
-        lang_code=await getLang(user_id)
+        lang_code=await getLang(message.chat.id)
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
