@@ -37,7 +37,8 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
         if getMSG.empty and not getMSG.photo:
             return await callbackQuery.answer(trCHUNK['old'])
-        logger.debug(getMSG)
+        logger.debug(getMSG.media)
+        logger.debug(getMSG.media.photo)
         if await work(message, "check", True):
             return await message.reply(trCHUNK['inWork'])
         cDIR = await work(message, "create", True)
