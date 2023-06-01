@@ -53,7 +53,7 @@ async def openInBot( bot, message, message_id: int ) -> bool:
         link=f'http://library.lol/main/{md5}'
         
         file = await Libgen().download(
-            link, dest_folder=cDIR, progress=cbPRO, progress_args=[photo.id, "DOWNLOADED"]
+            link, dest_folder=cDIR, progress=download, progress_args=[photo.id, "DOWNLOADED"]
         )
         
         await bot.edit_inline_reply_markup(
