@@ -187,7 +187,7 @@ async def _getFile(bot, callbackQuery):
             tTXT, _ = await util.translate(text="getFILE['big']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT.format(MAX_FILE_SIZE))
         
-        if await header(bot, callbackQuery, lang_code=lang_code):
+        if await render.header(bot, callbackQuery, lang_code=lang_code):
             return
         
         cDIR = await work.work(callbackQuery, "create", False)
