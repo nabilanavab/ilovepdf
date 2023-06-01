@@ -29,7 +29,7 @@ async def chosen_inline_result(bot, chosen_inline_result):
             reply_markup = InlineKeyboardMarkup(
                 [[ InlineKeyboardButton(text=trCHUNK[0], callback_data=f"lib|{log_msg.id}|{chosen_inline_result.from_user.id}"),
                    InlineKeyboardButton(text=trCHUNK[1], switch_inline_query_current_chat=f"{chosen_inline_result.query}") ],
-                 [ InlineKeyboardButton(text=trCHUNK[2], url="https://telegram.dog/ilovepdf_bot") ]]
+                 [ InlineKeyboardButton(text=trCHUNK[2], url=f"https://t.me/{myID[0].username}?start=+m{log_msg.id}+r{chosen_inline_result.from_user.id}") ]]
             )
         )
         # if inline cache is 0 set below line
