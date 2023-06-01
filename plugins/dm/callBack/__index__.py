@@ -249,7 +249,8 @@ async def __index__(bot, callbackQuery):
         else: arg = None
         _caption = await caption.caption(data = data, lang_code = lang_code, args = arg)
         
-        await dlMSG.edit(CHUNK['upload'], reply_markup = _)
+        try: await dlMSG.edit(CHUNK['upload'], reply_markup = _)
+        except Exception: pass
         
         if data.startswith(tuple(["text", "p2img"])):
             if data.startswith("p2img"): data=data[:-1]
