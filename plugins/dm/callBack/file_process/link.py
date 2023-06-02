@@ -13,8 +13,6 @@ from pyrogram       import filters, Client as ILovePDF, enums
 
 async def decode(bot, code, message, lang_code, cb=False):
     try:
-        if cb:
-            message=message.message
         padding = '=' * (4 - len(code) % 4)
         base64_ = (code + padding).encode('ascii')
         string_bytes = base64.urlsafe_b64decode(base64_)
@@ -25,9 +23,7 @@ async def decode(bot, code, message, lang_code, cb=False):
         
         getMSG=await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(string))
         if not(getMSG.empty):
-            
             await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
-            
             protect=True if "🔒 PROTECTED 🔒" in getMSG.caption else False
             notify=True if "🔔 NOTIFY 🔔" in getMSG.caption else False
             await getMSG.copy( chat_id=message.chat.id, caption="", protect_content=protect )
