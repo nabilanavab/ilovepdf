@@ -41,7 +41,7 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
             getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=md5)
             if getMSG.empty or getMSG.media!=MessageMediaType.PHOTO:
                 return await messaage.reply(trCHUNK['old'])
-            
+        
         if await work(message, "check", True):
             return await message.reply(
                 text=trCHUNK['inWork'], quote=True, reply_markup=InlineKeyboardMarkup(
@@ -51,29 +51,24 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
         
         markup=InlineKeyboardMarkup([[ InlineKeyboardButton("⚠️ DOWNLOADING ⚠️", url="https://t.me/ilovepdf_bot")]])
         if isinstance(md5, int):
-            reply=await bot.copy_message(
-                chat_id=message.chat.id, from_chat_id=int(log.LOG_CHANNEL),
-                message_id=md5, reply_to_message_id=message.id, reply_markup=markup
-            )
-            caption=getMSG.caption
             md5=caption.splitlines()[0].split(':')[1].strip()
-        else:
-            data=await Libgen().search(
-                query=md5, search_field='md5',
-                return_fields=[
+        
+        data=await Libgen().search(
+            query=md5, search_field='md5',
+            return_fields=[
                     'title', 'author', 'publisher', 'year', 'language',
                     'volumeinfo', 'filesize', 'extension', 'timeadded',
                     'timelastmodified', 'coverurl'
-                ]
-            )
-            caption=''
-            for key, value in data[list(data.keys())[0]].items():
-                if key in ["coverurl", "timeadded", "timelastmodified"] or value is '':
-                    continue
-                caption += f"{key}: **{value}**\n"
-            reply=await message.reply_photo(data[list(data.keys())[0]]['coverurl'], caption=caption, reply_markup=markup)
-        link=f'http://library.lol/main/{md5}'
+            ]
+        )
+        caption=''
+        for key, value in data[list(data.keys())[0]].items():
+            if key in ["coverurl", "timeadded", "timelastmodified"] or value is '':
+                continue
+            caption += f"{key}: **{value}**\n"
+        reply=await message.reply_photo(data[list(data.keys())[0]]['coverurl'], caption=caption, reply_markup=markup)
         
+        link=f'http://library.lol/main/{md5}'
         file = await Libgen().download(
             link, dest_folder=cDIR, progress=download, progress_args=[bot, reply]
         )
