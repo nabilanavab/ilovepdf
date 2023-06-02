@@ -38,7 +38,7 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         if md5.isdigit():
-            getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=md5)
+            getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(md5))
             if getMSG.empty or getMSG.media!=MessageMediaType.PHOTO:
                 return await messaage.reply(trCHUNK['old'])
             md5=getMSG.caption.splitlines()[0].split(':')[1].strip()
