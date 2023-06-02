@@ -68,7 +68,9 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
             )
             caption=''
             for key, value in data[list(data.keys())[0]].items():
-                caption += f"**{key}**: __{value}__\n"
+                if key in ["coverurl", "timeadded", "timelastmodified"] or value is None:
+                    continue
+                caption += f"{key}: **{value}**\n"
             reply=await message.reply_photo(data[list(data.keys())[0]]['coverurl'], caption=caption, reply_markup=markup)
         link=f'http://library.lol/main/{md5}'
         
