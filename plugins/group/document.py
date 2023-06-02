@@ -191,16 +191,9 @@ async def gDOC(bot, message):
             await pdfMsgId.edit(CHUNK['upFile'], reply_markup=tBTN)
             await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
             logFile = await message.reply_to_message.reply_document(
-                file_name = FILE_NAME,
-                document = open(f"{cDIR}/outPut.pdf", "rb"),
-                thumb = THUMBNAIL,
-                caption = CHUNK["fromFile"].format(fileExt, "pdf") + f"\n\n{FILE_CAPT}",
-                quote = True,
-                progress = uploadProgress,
-                progress_args = (pdfMsgId, time.time()),
-                reply_markup = await createBUTTON(
-                    btn = {"👍" : "try+", "👎" : "try-"}
-                ) if fileExt.lower() in pymu2PDF else None
+                file_name = FILE_NAME, document = open(f"{cDIR}/outPut.pdf", "rb"), caption = CHUNK["fromFile"].format(fileExt, "pdf") + f"\n\n{FILE_CAPT}",
+                quote = True, progress = render._progress, progress_args = (pdfMsgId, time.time()), thumb = THUMBNAIL,
+                reply_markup = await createBUTTON(btn = {"👍" : "try+", "👎" : "try-"}) if fileExt.lower() in pymu2PDF else None
             )
             await pdfMsgId.delete()
             await work(message, "delete", True)
