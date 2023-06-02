@@ -47,7 +47,6 @@ async def _betaMode(bot, message):
         if message.chat.id in dm.ADMINS:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
         if not dataBASE.MONGODB_URI:
-            BETA.append(message.chat.id)
             return
         if message.chat.id not in BETA:
             await db.set_key(id=message.chat.id, key="beta", value="True")
