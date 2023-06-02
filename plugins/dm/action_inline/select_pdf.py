@@ -25,6 +25,8 @@ async def chosen_inline_result(bot, chosen_inline_result):
                 [[ InlineKeyboardButton("✅ B@N ✅", callback_data=f"banC|{chosen_inline_result.from_user.id}") ]]
             )
         )
+        logger.debug(chosen_inline_result)
+        logger.debug(chosen_inline_result.inline_message_id)
         await bot.edit_inline_reply_markup(
             inline_message_id = chosen_inline_result.inline_message_id,
             reply_markup = InlineKeyboardMarkup(
