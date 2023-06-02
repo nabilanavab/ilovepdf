@@ -9,7 +9,7 @@ from configs.db           import myID
 from .                    import DATA
 from logger               import logger
 from plugins.utils.util   import getLang, translate
-from pyrogram             import Client as ILovePDF
+from pyrogram             import Client as ILovePDF,filters
 from pyrogram.types       import InlineKeyboardButton, InlineKeyboardMarkup
 
 @ILovePDF.on_chosen_inline_result()
@@ -41,5 +41,9 @@ async def chosen_inline_result(bot, chosen_inline_result):
     
     except Exception as e:
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
+
+@ILovePDF.on_callback_query(filters.regex("chosen_inline"))
+async def _pdf(bot, callbackQuery):
+    logger.debug(callbackQuery)
 
 # Author: @nabilanavab
