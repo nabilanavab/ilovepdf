@@ -4,17 +4,20 @@
 file_name = "plugins/dm/document.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
-# LOGGING INFO: DEBUG
-from logger           import logger
-
+import              os
+import              time
+import              fitz
+import              shutil
+import              asyncio
 from ..utils        import *
-from .photo         import HD
 from configs        import *
-from configs        import beta
+from .photo         import HD
+import              convertapi
 from pdf            import PDF
+from configs        import beta
 from PIL            import Image
+from logger         import logger
 from pyrogram       import Client as ILovePDF, filters, enums
-import convertapi, os, time, fitz, shutil, asyncio
 
 try:
     import aspose.words as word
@@ -218,7 +221,7 @@ async def documents(bot, message):
                 thumb = THUMBNAIL,
                 caption = CHUNK["fromFile"].format(fileExt, "pdf") + f"\n\n{FILE_CAPT}",
                 quote = True,
-                progress = uploadProgress,
+                progress = render.uploadProgress,
                 progress_args = (pdfMsgId, time.time()),
                 reply_markup = await util.createBUTTON(
                     btn = {"👍" : "try+", "👎" : "try-"}
