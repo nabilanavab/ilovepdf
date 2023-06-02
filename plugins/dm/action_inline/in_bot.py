@@ -45,7 +45,7 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
         if await work(message, "check", True):
             return await message.reply(
                 text=trCHUNK['inWork'], quote=True, reply_markup=InlineKeyboardMarkup(
-                [[ InlineKeyboardButton("♻", callback_data=f"refresh{f"-m{md5}" if isinstance(md5, int) else ''}")]])
+                [[ InlineKeyboardButton("♻", callback_data=f"refresh{f'-m{md5}' if isinstance(md5, int) else ''}")]])
             )
         cDIR=await work(message, "create", True)
         
@@ -87,4 +87,5 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
         await reply.edit_reply_markup(reply_markup=None)
         return await work(message, "delete", True)
     except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)      
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
+        return await work(message, "delete", True)
