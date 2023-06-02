@@ -74,7 +74,7 @@ async def start(bot, message):
                                    reply_markup=InlineKeyboardMarkup(
                                        [[ InlineKeyboardButton(text="🔎 SEARCH PDF 🔎", switch_inline_query_current_chat="" )]]
                                    ))
-        if get_pdf:
+        if "-" in message.text and get_pdf:
             await decode(bot, get_pdf, message, lang_code)
         return await message.delete()
     except Exception as e:
@@ -124,7 +124,7 @@ async def home(bot, callbackQuery):
     except Exception as e:
         logger.exception("🐞 %s /home: %s" %(file_name, e), exc_info = True)
 
-# ======== SERVER UPDATES =========
+# ====================== SERVER UPDATES ==============
 @ILovePDF.on_callback_query(filters.regex("^status"))
 async def _status(bot, callbackQuery):
     try:
