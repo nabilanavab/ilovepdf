@@ -22,7 +22,7 @@ async def chosen_inline_result(bot, chosen_inline_result):
         log_msg = await bot.send_photo(
             chat_id=int(log.LOG_CHANNEL), photo=data['thumb'],
             caption=data['caption'] + f"\n\nUSER ID: {chosen_inline_result.from_user.id}" \
-                f"\nView Profile: {chosen_inline_result.from_user.id.mention}",
+                f"\nView Profile: {chosen_inline_result.from_user.mention}",
             reply_markup=InlineKeyboardMarkup(
                 [[ InlineKeyboardButton("✅ B@N ✅", callback_data=f"banC|{chosen_inline_result.from_user.id}") ]]
             )
