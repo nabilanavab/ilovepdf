@@ -8,6 +8,7 @@ from plugins.utils        import *
 from configs.log          import log
 from plugins.utils.work   import work
 from configs.db           import myID
+from typing               import Union
 from pyrogram             import errors
 from logger               import logger
 from libgenesis           import Libgen
@@ -31,16 +32,16 @@ async def download(current, total, bot, message):
     except Exception as e:
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
 
-async def openInBot( bot, message, message_id: int ) -> bool:
+async def openInBot( bot, message, message_id: Union[str, int] ) -> bool:
     try:
         lang_code=await getLang(message.chat.id)
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
-        getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
-        logger.debug(getMSG.media!=MessageMediaType.PHOTO)
-        if getMSG.empty or getMSG.media!=MessageMediaType.PHOTO:
-            return await messaage.reply(trCHUNK['old'])
-        
+        if isinstance(value, int):
+            getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=int(message_id))
+            if getMSG.empty or getMSG.media!=MessageMediaType.PHOTO:
+                return await messaage.reply(trCHUNK['old'])
+            
         if await work(message, "check", True):
             return await message.reply(
                 text=trCHUNK['inWork'], quote=True, reply_markup=InlineKeyboardMarkup(
@@ -48,16 +49,25 @@ async def openInBot( bot, message, message_id: int ) -> bool:
             )
         cDIR=await work(message, "create", True)
         
-        reply=await bot.copy_message(
-            chat_id=message.chat.id, from_chat_id=int(log.LOG_CHANNEL),
-            message_id=int(message_id), reply_to_message_id=message.id,
-            reply_markup = InlineKeyboardMarkup(
-                [[ InlineKeyboardButton("⚠️ DOWNLOADING ⚠️", url="https://t.me/ilovepdf_bot")]]
+        markup=InlineKeyboardMarkup([[ InlineKeyboardButton("⚠️ DOWNLOADING ⚠️", url="https://t.me/ilovepdf_bot")]])
+        if isinstance(value, str):
+            reply=await bot.copy_message(
+                chat_id=message.chat.id, from_chat_id=int(log.LOG_CHANNEL),
+                message_id=int(message_id), reply_to_message_id=message.id, reply_markup=markup
             )
-        )
-        
-        caption=getMSG.caption
-        md5=caption.splitlines()[0].split(':')[1].strip()
+            caption=getMSG.caption
+            md5=caption.splitlines()[0].split(':')[1].strip()
+        else:
+            reply=await Libgen().search(
+                query=message_id, search_field='md5',
+                return_fields=[
+                    'title', 'author', 'publisher', 'year', 'language',
+                    'volumeinfo', 'filesize', 'extension', 'timeadded',
+                    'timelastmodified', 'coverurl'
+                ]
+            )
+            reply=await message.reply_photo(reply['coverurl'], reply_markup=markup)
+            md5=message_id
         link=f'http://library.lol/main/{md5}'
         
         file = await Libgen().download(
