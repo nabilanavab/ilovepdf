@@ -217,7 +217,7 @@ async def documents(bot, message):
             await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
             logFile = await message.reply_document(
                 file_name=FILE_NAME, document=open(f"{cDIR}/outPut.pdf", "rb"), caption=CHUNK["fromFile"].format(fileExt, "pdf") + f"\n\n{FILE_CAPT}",
-                quote=True,progress=render.uploadProgress, progress_args=(pdfMsgId, time.time()), thumb=THUMBNAIL,
+                quote=True, progress=render._progress, progress_args=(pdfMsgId, time.time()), thumb=THUMBNAIL,
                 reply_markup = await util.createBUTTON(btn={"👍" : "try+", "👎" : "try-"}) if fileExt.lower() in pymu2PDF else None
             )
             await pdfMsgId.delete()
