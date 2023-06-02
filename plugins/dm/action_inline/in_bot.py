@@ -51,6 +51,7 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
         cDIR=await work(message, "create", True)
         
         markup=InlineKeyboardMarkup([[ InlineKeyboardButton("⚠️ DOWNLOADING ⚠️", url="https://t.me/ilovepdf_bot")]])
+        logger.debug(md5)
         data=await Libgen().search(
             query=md5, search_field='md5',
             return_fields=[
