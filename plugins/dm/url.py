@@ -114,7 +114,6 @@ async def _url(bot, message):
                         url = await gDriveID(url)
                     
                     response = requests.get(url)
-                    logger.debug(response.headers)
                     directDlLink = True if "Content-Type" in response.headers and \
                                         (response.headers["Content-Type"]=="application/pdf" or \
                                          "drive.google" in url) else False
@@ -125,8 +124,19 @@ async def _url(bot, message):
                     
                     if directDlLink:
                         match = re.match(r".*/([^/]+)/?$", url)
-                        outputName = match.group(1) if match.group(1).endswith(".pdf") else f"{match.group(1)}.pdf"
-                        
+                        if "drive.google" in url:
+                            content_disposition = response.headers.get('Content-Disposition')
+                            if content_disposition:
+                                match = re.search(r'filename="(.+)"', content_disposition)
+                                if match:
+                                    outputName = match.group(1)
+                               else:
+                                    outputName = headers.get('Content-Disposition').split(';')[-1].strip().split('=')[-1].replace('"', '')
+                           else:
+                               outputName = headers.get('Content-Type').split('/')[-1]
+                        else:
+                            outputName = match.group(1) if match.group(1).endswith(".pdf") else f"{match.group(1)}.pdf"
+                         
                         response = requests.get(url)
                         total_size = int(response.headers.get("Content-Length", 0))
                         
