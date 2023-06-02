@@ -46,7 +46,7 @@ async def _betaMode(bot, message):
     try:
         if message.chat.id in dm.ADMINS:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
-        if dataBASE.MONGODB_URI:
+        if not dataBASE.MONGODB_URI:
             BETA.append(message.chat.id)
             return
         if message.chat.id not in BETA:
