@@ -31,7 +31,7 @@ async def _refresh(bot, callbackQuery):
         
         logger.debug(callbackQuery.data[7:])
         if callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
-            await decode(bot, callbackQuery.data[9:], [callbackQuery.message, "message"], lang_code)
+            await decode(bot, callbackQuery.data[9:], callbackQuery.message, lang_code, cb=True)
             return await callbackQuery.message.delete()
         
         elif callbackQuery.data.startswith("refresh-m"):    # this means "refresh-g{code}
