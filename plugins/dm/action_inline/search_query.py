@@ -5,6 +5,7 @@ fileName = "plugins/dm/action_inline/search_query.py"
 from plugins.utils.util   import *
 from configs.log          import log
 from .                    import DATA
+from configs.db           import myID
 from logger               import logger
 from libgenesis           import Libgen
 from .default             import default_ans, search
@@ -60,7 +61,7 @@ async def inline_query_handler(bot, inline_query):
                                     result[item]['pages'], result[item]['language'], result[item]['publisher']
                                 ),
                                 reply_markup=InlineKeyboardMarkup(
-                                    [[InlineKeyboardButton(text=trCHUNK['select'], callback_data="chosen_inline")]]
+                                    [[InlineKeyboardButton(text=trCHUNK['select'], url=f"https://t.me/{myID[0].username}?start=-m{result[item]['md5']}")]]
                                 )
                             )
                         )
