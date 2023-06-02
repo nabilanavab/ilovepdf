@@ -41,6 +41,7 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
             getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=md5)
             if getMSG.empty or getMSG.media!=MessageMediaType.PHOTO:
                 return await messaage.reply(trCHUNK['old'])
+            md5=getMSG.caption.splitlines()[0].split(':')[1].strip()
         
         if await work(message, "check", True):
             return await message.reply(
@@ -50,9 +51,6 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
         cDIR=await work(message, "create", True)
         
         markup=InlineKeyboardMarkup([[ InlineKeyboardButton("⚠️ DOWNLOADING ⚠️", url="https://t.me/ilovepdf_bot")]])
-        if isinstance(md5, int):
-            md5=caption.splitlines()[0].split(':')[1].strip()
-        
         data=await Libgen().search(
             query=md5, search_field='md5',
             return_fields=[
