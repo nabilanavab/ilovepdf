@@ -37,7 +37,7 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
         lang_code=await getLang(message.chat.id)
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
-        if isinstance(md5, int):
+        if md5.isdigit():
             getMSG = await bot.get_messages(chat_id=int(log.LOG_CHANNEL), message_ids=md5)
             if getMSG.empty or getMSG.media!=MessageMediaType.PHOTO:
                 return await messaage.reply(trCHUNK['old'])
