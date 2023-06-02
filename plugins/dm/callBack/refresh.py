@@ -19,7 +19,6 @@ from pyrogram                  import filters, Client as ILovePDF
 @ILovePDF.on_callback_query(filters.regex("^refresh"))
 async def _refresh(bot, callbackQuery):
     try:
-        logger.debug(callbackQuery.data)
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         if await render.header(bot, callbackQuery, lang_code=lang_code):
             return
@@ -29,7 +28,6 @@ async def _refresh(bot, callbackQuery):
             if userStatus.status == "kicked":
                 await callbackQuery.answer("🤧")
         
-        logger.debug(callbackQuery.data[7:])
         if callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
             await decode(bot, callbackQuery.data[9:], callbackQuery.message, lang_code, cb=True)
             return await callbackQuery.message.delete()
