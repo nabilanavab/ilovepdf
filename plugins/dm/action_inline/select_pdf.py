@@ -15,6 +15,9 @@ from pyrogram.types       import InlineKeyboardButton, InlineKeyboardMarkup
 @ILovePDF.on_chosen_inline_result()
 async def chosen_inline_result(bot, chosen_inline_result):
     try:
+        if chosen_inline_result.inline_message_id is None:
+            return
+        
         lang_code = await getLang(chosen_inline_result.from_user.id)
         trCHUNK, _ = await translate(text="INLINE['edit']", lang_code=lang_code)
         
@@ -25,8 +28,6 @@ async def chosen_inline_result(bot, chosen_inline_result):
                 [[ InlineKeyboardButton("✅ B@N ✅", callback_data=f"banC|{chosen_inline_result.from_user.id}") ]]
             )
         )
-        logger.debug(chosen_inline_result)
-        logger.debug(chosen_inline_result.inline_message_id)
         await bot.edit_inline_reply_markup(
             inline_message_id = chosen_inline_result.inline_message_id,
             reply_markup = InlineKeyboardMarkup(
@@ -44,6 +45,9 @@ async def chosen_inline_result(bot, chosen_inline_result):
 
 @ILovePDF.on_callback_query(filters.regex("chosen_inline"))
 async def _pdf(bot, callbackQuery):
-    logger.debug(callbackQuery)
+    try:
+        logger.debug(callbackQuery)
+    except Exception as e:
+        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
 
 # Author: @nabilanavab
