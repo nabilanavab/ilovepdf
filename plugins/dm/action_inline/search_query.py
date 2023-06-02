@@ -15,38 +15,24 @@ from pyrogram.types       import InlineQueryResultPhoto, InlineKeyboardMarkup, I
 @ILovePDF.on_inline_query()
 async def inline_query_handler(bot, inline_query):
     try:
-        query = inline_query.query.strip()
-        results = []
+        query=inline_query.query.strip()
+        results=[]
         
-        lang_code = await getLang(inline_query.from_user.id)
+        lang_code=await getLang(inline_query.from_user.id)
         trCHUNK, _ = await translate(text="INLINE", lang_code=lang_code)
         
         # Inline feature will not work if there is no log channel set up.
         if not log.LOG_CHANNEL:
             result = await default_ans(inline_query)
-            return await inline_query.answer(
-                results=result,
-                cache_time=0,
-                switch_pm_text=trCHUNK['noDB'],
-                switch_pm_parameter="okay",
-            )
+            return await inline_query.answer( results=result, cache_time=0, switch_pm_text=trCHUNK['noDB'], switch_pm_parameter="okay" )
         
         elif len(query) < 2:
             result = await default_ans(inline_query)
-            return await inline_query.answer(
-                results=result,
-                cache_time=0,
-                switch_pm_text=trCHUNK['min'],
-                switch_pm_parameter="okay",
-            )
+            return await inline_query.answer( results=result, cache_time=0, switch_pm_text=trCHUNK['min'], switch_pm_parameter="okay" )
         
         elif "|" in query:
             result = await search(inline_query)
-            return await inline_query.answer(
-                results=result,
-                cache_time=0,
-                switch_pm_text='',
-            )
+            return await inline_query.answer( results=result, cache_time=0, switch_pm_text='' )
         
         else:
             if query:
@@ -91,14 +77,9 @@ async def inline_query_handler(bot, inline_query):
             )
         else:
             result = await default_ans(inline_query)
-            return await inline_query.answer(
-                results=result,
-                cache_time=0,
-                switch_pm_text=trCHUNK['nothing'].format(query),
-                switch_pm_parameter="okay",
-            )
+            return await inline_query.answer( results=result, cache_time=0, switch_pm_text=trCHUNK['nothing'].format(query), switch_pm_parameter="okay" )
     
     except errors.QueryIdInvalid:
         pass
     except Exception as Error:
-        logger.exception("🐞 %s: %s" %(fileName, Error), exc_info = True)
+        logger.exception("🐞 %s: %s" %(fileName, Error), exc_info=True)
