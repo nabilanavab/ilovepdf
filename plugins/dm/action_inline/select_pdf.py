@@ -45,12 +45,4 @@ async def chosen_inline_result(bot, chosen_inline_result):
     
     except Exception as e:
         logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
-
-@ILovePDF.on_callback_query(filters.regex("chosen_inline"))
-async def _pdf(bot, callbackQuery):
-    try:
-        logger.debug(callbackQuery)
-    except Exception as e:
-        logger.exception("🐞 %s: %s" %(fileName, e), exc_info=True)
-
 # Author: @nabilanavab
