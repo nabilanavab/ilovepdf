@@ -66,7 +66,8 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
                     'timelastmodified', 'coverurl'
                 ]
             )
-            reply=await message.reply_photo(reply['coverurl'], reply_markup=markup)
+            logger.debug(reply)
+            reply=await message.reply_photo(reply[0]['coverurl'], reply_markup=markup)
         link=f'http://library.lol/main/{md5}'
         
         file = await Libgen().download(
