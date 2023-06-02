@@ -45,7 +45,7 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
         if await work(message, "check", True):
             return await message.reply(
                 text=trCHUNK['inWork'], quote=True, reply_markup=InlineKeyboardMarkup(
-                [[ InlineKeyboardButton("♻", callback_data=f"refresh-m{md5 if isinstance(md5, int) else ''}")]])
+                [[ InlineKeyboardButton("♻", callback_data=f"refresh{f"-m{md5}" if isinstance(md5, int) else ''}")]])
             )
         cDIR=await work(message, "create", True)
         
@@ -58,7 +58,7 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
             caption=getMSG.caption
             md5=caption.splitlines()[0].split(':')[1].strip()
         else:
-            reply=await Libgen().search(
+            data=await Libgen().search(
                 query=md5, search_field='md5',
                 return_fields=[
                     'title', 'author', 'publisher', 'year', 'language',
@@ -66,7 +66,8 @@ async def openInBot( bot, message, md5: Union[str, int] ) -> bool:
                     'timelastmodified', 'coverurl'
                 ]
             )
-            reply=await message.reply_photo(reply[list(reply.keys())[0]]['coverurl'], reply_markup=markup)
+            reply=await message.reply_photo(data[list(data.keys())[0]]['coverurl'], reply_markup=markup)
+            caption=data[list(data.keys())[0]]
         link=f'http://library.lol/main/{md5}'
         
         file = await Libgen().download(
