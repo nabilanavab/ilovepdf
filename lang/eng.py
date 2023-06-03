@@ -1,7 +1,6 @@
 # copyright ©️ 2021 nabilanavab
 file_name = "lang/eng.py"
 
-
 from configs.config   import settings
 
 # REPLY MESSAGE FOR BROKEN WORKS
