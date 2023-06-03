@@ -11,8 +11,7 @@ RESTART = {
 
 # PM WELCOME MESSAGE (HOME A, B, C, D...)
 HOME = {
-    "HomeA" : "Hey {}..!!\n"
-"Welcome to {}.!\n\n"
+    "HomeA" : "Hey {}..!!\nWelcome to {}.!\n\n"
 "With this tool, you can easily convert images to PDF, compress PDF files, split , merge, encrypt or decrypt PDFs, rotate PDF pages, and much more.\n\n"
 "Simply send me a PDF/IMAGE and it will perform the requested action. for help select '⚠️ HELP ⚠️' at any time.the PDF bot is here to make your life easier..\n\n"
 "Try it out now and see how it can help you with all of your PDF needs!",
