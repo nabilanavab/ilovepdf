@@ -140,7 +140,7 @@ BAN = {
 }
 
 PDF_MESSAGE = {
-    "pg" _PG_NUM: , "pdf" : _PDF_REPLY, "encryptCB" : { _DECRYPT_CB : "#decrypt", _CLOSE : "close|all" }
+    "pg" : _PG_NUM , "pdf" : _PDF_REPLY, "encryptCB" : { _DECRYPT_CB : "#decrypt", _CLOSE : "close|all" }
     "pdf_button" : { _META : "pdf|meta", _IMAGE : "pdf|img", _TEXT : "pdf|txt", _ROTATE : "pdf|rotate", _SPLIT_MERGE : "pdf|trim",
         _ENC_DECRYPT : "pdf|lock", _FORMAT : "pdf|format", _WATERMARK : "pdf|trade", _COMP_OCR : "pdf|comocr",
         _RENAME : "#rename", _ZOOM : "#zoom", _URL : "link", _FILTER : "pdf|filter", _ADD_DELETE : "pdf|addlt", _CLOSE : "close|all"},
