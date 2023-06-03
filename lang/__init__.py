@@ -5,6 +5,7 @@ from configs.config import settings
 
 langList = {
         "eng" : ["🅴🅽🅶🅻🅸🆂🅷", "English"]
+        "arb" : ["🅰🆁🅰🅱🅸🅲", "عربي"]
     }
 
 # Display Lang in a Beutiful Way
@@ -14,4 +15,3 @@ async def disLang(lang):
     else:
         return langList[settings.DEFAULT_LANG][0]
 
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
