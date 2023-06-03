@@ -104,6 +104,8 @@ async def notSubscribed(_, bot, message: Message):
             lang_code, referID, get_pdf, md5_str = await extract_data(f"{message.text}-")
             if lang_code and settings.MULTI_LANG_SUP and lang_code in langList:
                 userLang[message.chat.id]=lang
+        else:
+            referID=None
         lang_code=await util.getLang(message.chat.id)
         if dataBASE.MONGODB_URI:               # CHECK IF USER IN DATABASE
             await log.newUser(bot, message, lang_code, int(referID))
