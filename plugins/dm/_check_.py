@@ -108,7 +108,7 @@ async def notSubscribed(_, bot, message: Message):
             referID=None
         lang_code=await util.getLang(message.chat.id)
         if dataBASE.MONGODB_URI:               # CHECK IF USER IN DATABASE
-            await log.newUser(bot, message, lang_code, int(referID))
+            await log.newUser(bot, message, lang_code, referID)
         
     if len(invite_link)==0:
         return False                             # IF FORCE SUB. TREAT AS SUBSCRIBED
