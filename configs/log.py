@@ -52,9 +52,8 @@ class log:
                         try:
                             return await bot.send_message(
                                 chat_id = int(log.LOG_CHANNEL),
-                                text = log.LOG_TEXT.format(
-                                    message.from_user.id, message.from_user.mention) + \
-                                    f"\nRefered By : [{referID}](tg://user?id={referID})" if referID else '',
+                                text = log.LOG_TEXT.format(message.from_user.id, message.from_user.mention) + \
+                                    f"{f'\nRefered By : [{referID}](tg://user?id={referID})' if referID else ''}",
                                 reply_markup = InlineKeyboardMarkup(
                                     [[ InlineKeyboardButton("✅ B@N USER ✅", callback_data=f"banU|{message.from_user.id}") ]]
                                 )
