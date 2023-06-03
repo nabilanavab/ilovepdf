@@ -44,8 +44,8 @@ class log:
         elif message.chat.type == ChatType.PRIVATE:
             if not await db.is_user_exist(message.from_user.id):
                 if referID:
-                    totalUSRref = await db.get_key(referID, "refer")
-                    await db.set_key(referID, "refer", f'{referID}' if totalUSRref is None else f'{totalUSRref}|{referID}')
+                    totalUSRref = await db.get_key(int(referID), "refer")
+                    await db.set_key(int(referID), "refer", f'{referID}' if totalUSRref is None else f'{totalUSRref}|{referID}')
                 await db.add_user(message.from_user.id, message.from_user.first_name, lang_code)
                 if log.LOG_CHANNEL:
                     for i in range(200):
