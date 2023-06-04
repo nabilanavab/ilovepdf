@@ -110,7 +110,7 @@ _ALL = "🙄 HAMMA 🙄"
 _CUSTOM = "🤧 MAXSUS 🤧"
 _B_ROTATE = "⚙️ PDF » AYLANTIRISH ↓"
 _B_TEXT = "⚙️ PDF » TXT ↓"
-_B_TEXT = "📜 XABAR 📜"
+_B_TEXT_M = "📜 XABAR 📜"
 _B_WATERMARK = "⚙️ PDF » WATERMARK ↓"
 _B_TEXT_T = "💬 MATN 💬"
 _B_PDF = "📎 PDF 📎"
@@ -298,7 +298,7 @@ BUTTONS = {
     "toImage" : { _P2IMG : "nabilanavab", _P2I : "pdf|img|img", _P2D : "pdf|img|doc", _P2Z : "pdf|img|zip", _P2T : "pdf|img|tar", _BACK : "pdf" },
     "imgRange" : { _P2IMG_ : "nabilanavab", _ALL : "#p2img|{}A", _CUSTOM : "#p2img|{}C", _BACK : "pdf|img" },
     "rotate" : { _B_ROTATE : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
-    "txt" : { _B_TEXT : "nabilanavab", _B_TEXT : "#textM", "🧾 TXT 🧾" : "#textT", "🌐 HTML 🌐" : "#textH", "🎀 JSON 🎀" : "#textJ", _BACK : "pdf" },
+    "txt" : { _B_TEXT : "nabilanavab", _B_TEXT_M : "#textM", "🧾 TXT 🧾" : "#textT", "🌐 HTML 🌐" : "#textH", "🎀 JSON 🎀" : "#textJ", _BACK : "pdf" },
     "type" : { _B_WATERMARK : "nabilanavab", _B_TEXT_T : "pdf|wa|txt", _IMAGE : "pdf|wa|img", _B_PDF : "pdf|wa|pdf", _BACK : "pdf|trade" },
     "op" : { _WATER_OP : "nabilanavab", "𝟙𝟘" : "pdf|wa|{}|o01", "𝟚𝟘" : "pdf|wa|{}|o02", "𝟛𝟘" : "pdf|wa|{}|o03", "𝟜𝟘" : "pdf|wa|{}|o04",
         "𝟝𝟘" : "pdf|wa|{}|o05", "𝟞𝟘" : "pdf|wa|{}|o06", "𝟟𝟘" : "pdf|wa|{}|o07", "𝟠𝟘" : "pdf|wa|{}|o08", "𝟡𝟘" : "pdf|wa|{}|o09",
