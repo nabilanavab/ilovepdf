@@ -68,10 +68,11 @@ async def start(bot, message):
                                  photo=images.WELCOME_PIC, reply_markup = tBTN,
                                  caption=tTXT.format(message.from_user.mention, myID[0].mention),
                                  )
+        tTXT, tBTN = await util.translate(text="HOME['search']", lang_code=lang_code)
         await message.reply_sticker(
                                    sticker="CAACAgIAAxkBAAEVZ65kduZn7WTQXlyDFErYqb0BvyoIEQACVQADr8ZRGmTn_PAl6RC_LwQ",
                                    reply_markup=InlineKeyboardMarkup(
-                                       [[ InlineKeyboardButton(text="🔎 SEARCH PDF 🔎", switch_inline_query_current_chat="" )]]
+                                       [[ InlineKeyboardButton(text=tTXT, switch_inline_query_current_chat="" )]]
                                    ))
         if "-" in message.text and get_pdf:
             await decode(bot, get_pdf, message, lang_code)
