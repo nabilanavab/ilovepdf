@@ -189,7 +189,7 @@ _SEARCH = "️♻️ SEARCH ♻️"
 _OPEN_BOT = "😇 open in bot 😇"
 _TOTAL = "Total {}  Results.."
 _H_LANG = "help's to set your comfortable language 😇"
-_SEARCH_PDF = "SEARCH PDF 🔍"
+_SEARCH_PDF = "🔎 SEARCH PDF 🔎"
 _SEARCH_DES = "You can now search through a vast library of PDF documents with ease and convenience. Using the inline search mode, you can simply type in the name of the document that you are looking for"
 _MIN_SEARCH = "🔎 Type to search PDF Files.."
 _NO_RESULT = "🤐 No results for '{}'"
@@ -241,7 +241,7 @@ _ERROR_ = "Oops, it looks like something went wrong. Please try again later.\n\n
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
-    "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D,
+    "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : _SEARCH_PDF,
     "HomeACB" : { _SETTINGS : "Home|B", _LANGUAGE : "set|lang", _HELP : "Home|C", _CHANNEL : f"{str(settings.OWNED_CHANNEL)}",
                  _SOURCE : f"{str(settings.SOURCE_CODE)}", _ADD_GROUP : "https://t.me/{}?startgroup=True" },
     "HomeAdminCB" : { _SETTINGS : "Home|B", _LANGUAGE : "set|lang", _HELP : "Home|C",
