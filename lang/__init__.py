@@ -6,6 +6,8 @@ from configs.config import settings
 langList = {
         "eng" : ["🅴🅽🅶🅻🅸🆂🅷", "English"] ,
         "arb" : ["🅰🆁🅰🅱🅸🅲", "عربي"] ,
+        "hnd" : ["🅷🅸🅽🅳🅸", "हिन्दी" ] ,
+        "uzb" : ["🆄🆉🅱🅴🅺", "Uzbek"] ,
     }
 
 # Display Lang in a Beutiful Way
