@@ -82,11 +82,64 @@ _H_META = "❓ META£ATA:HELP ❓"
 _H_ENC = "❓ ENCRYPT/DECRYPT:HELP ❓"
 _ONLY_META = "✔ ONLY METADATA ✔"
 _ALL_META = "✅ WITH PREVIEW ✅"
+_H_SPLIT_MERGE = "❓ SPLIT/MERGE PDF:HELP ❓"
+_H_SPLIT = "✂️ SPLIT ✂️"
+_H_MERGE = "🧬 MERGE 🧬"
+_H_FORMAT = "❓ FORMAT:HELP ❓"
+_H_COMP_OCR = "❓ COMPRESS/OCR PDF:HELP ❓"
+_H_COMPRESS = "🗜 COMPRESS 🗜"
+_H_OCR = "📝 OCR 📝"
+_H_WATERMARK = "❓ WATERMARK:HELP ❓"
+_H_WATER = "💦 WATERMARK 💦"
+_H_STAMP = "™️ STAMP ™️"
+_H_FILTER = "❓ FILTER:HELP ❓"
+_H_DRAW = "🎨 DRAW 🎨"
+_H_BAW = "⚫ BLACK/WHITE ⚪"
+_H_SAT = "🪐 SATURARE 🪐"
+_H_INV = "🖌 INVERT 🖌"
+_H_ADD_DEL "❓ ADD/DELETE PAGES:HELP ❓"
+_ADD = "🟢 ADD PAGES 🟢"
+_DEL = "🔴 DELETE PAGES 🔴"
+_P2I = "⚙️ PDF » IMAGES ↓"
+_IMG = "⚙️ PDF » IMAGES » {} ↓"
+_P2I = "🖼 IMG 🖼"
+_P2D = "📂 DOC 📂"
+_P2Z = "🤐 ZIP 🤐"
+_P2T = "🎯 TAR 🎯"
+_ALL = "🙄 ALL 🙄"
+_CUSTOM = "🤧 CUSTOM 🤧"
+_B_ROTATE = "⚙️ PDF » ROTATE ↓"
+_B_TEXT = "⚙️ PDF » TXT ↓"
+_B_TEXT = "📜 MESSAGE 📜"
+_B_WATERMARK = "⚙️ PDF » WATERMARK ↓"
+_B_TEXT = "💬 TEXT 💬"
+_B_PDF = "📎 PDF 📎"
+_WATER_OP = "⚙️ PDF » WATERMARK » {} » OPCACiTY ↓"
+_WATER_PO = "⚙️ PDF » WATERMARK » POSiTiON ↓"
+_TOP = "⬆️ ToP ⬆️"
+_MIDDLE = "↔️ MiDDLE ↔️"
+_BOTTOM = "⬇️ BoTToM ⬇️"
+_WATER_COLOR = "⚙️ PDF » WATERMARK » CoLoR ↓"
+_B_STAMP = "⚙️ PDF » STAMP ↓"
+_STAMP_COLOR = "⚙️ PDF » STAMP » COLOR ↓"
+_PROGRESS = "\n**Done ✅ : **{0}/{1}\n**Speed 🚀:** {2}/s\n**Estimated Time ⏳:** {3}"
+_UPLOADING = "UPLOADING"
+_CANCEL = "🎯 CANCEL 🎯"
+_NO_QUEUE = "`No Queue found..`😲"
+_NO_IMG = "No image found.!! 😒"
+_DL_IMG = "Downloaded {} Images 🥱"
+_GEN_PDF = "File Name: `{}`\nPages: `{}`"
+_REN_PDF = "Now Send Me a File Name 😒: "
+_DLT_QUEUE = "`Queue deleted Successfully..`🤧"
+_GEN_CB = "📚 GENERATING PDF.."
 
-
+_ADMIN_ONLY = "Due to Some Telegram Limits..\n\nI can only work as an admin\n__Please promote me as admin__ ☺️"
+_NOT_DOC = "Broh Please Reply to a Document or an Image..🤧"
+_G_ADMIN = "Only Group Admins Can Use This Bot\nElse Come to my Pm 😋"
+_NOT_YOUR = "`Only admins can do it..`\n\nOr try on your pdfs(__reply to your message__)"
+_WASTE = "`No one gonna help you` 😏"
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
-
 HOME = {
     "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D,
     "HomeACB" : { _SETTINGS : "Home|B", _LANGUAGE : "set|lang", _HELP : "Home|C", _CHANNEL : f"{str(settings.OWNED_CHANNEL)}",
@@ -94,14 +147,9 @@ HOME = {
     "HomeAdminCB" : { _SETTINGS : "Home|B", _LANGUAGE : "set|lang", _HELP : "Home|C",
         "🗽 STATUS 🗽" : f"status|home", _ADD_GROUP : "https://t.me/{}?startgroup=True", _CLOSE : "close|mee" },
     "HomeBCB" : { _THUMB : "set|thumb", _NAME : "set|fname", _API : "set|api", _CAPTION : "set|capt", _BACK_HOME : "Home|B2A" },
-    "HomeCCB" : { _BACK_HOME : "Home|A", _INSTRUCTIONS : "Home|D" }, "HomeDCB" : { _HELP : "Home|C", _BACK_HOME : "Home|A" }
-}
-
-HomeG = {
-    "HomeACB" : { _LANGUAGE : "set|lang", _HELP : "Home|C", _CHANNEL : f"{str(settings.OWNED_CHANNEL)}",
-        _SOURCE : f"{settings.SOURCE_CODE}", _CLOSE : "close|mee" }, "HomeA" : _HOME_A
-}
-
+    "HomeCCB" : { _BACK_HOME : "Home|A", _INSTRUCTIONS : "Home|D" }, "HomeDCB" : { _HELP : "Home|C", _BACK_HOME : "Home|A" } }
+HomeG = { "HomeACB" : { _LANGUAGE : "set|lang", _HELP : "Home|C", _CHANNEL : f"{str(settings.OWNED_CHANNEL)}",
+    _SOURCE : f"{settings.SOURCE_CODE}", _CLOSE : "close|mee" }, "HomeA" : _HOME_A}
 SETTINGS = {
     "lang" : _SELECT_LANG, "default" : [_DEFAULT, _CUSTOM], "cant" : _CANT_USE, "wait" : { _WAIT : "nabilanavab" },
     "feedbtn" : { _REPORT : settings.REPORT }, "chgLang" : { _SET_LANG : "nabilanavab"}, "askApi" : _ASK_API,
@@ -114,11 +162,8 @@ SETTINGS = {
     "api" : [{ _SET_API : "nabilanavab", _ADD : "set|api+", _BACK_HOME : "Home|B2S"},
              { _SET_API : "nabilanavab", _CHANGE : "set|api+", _DELETE : "set|api-", _BACK_HOME : "Home|B2S"}],
     "capt" : [{ _SET_CAPT : "nabilanavab", _ADD : "set|capt+", _BACK_HOME : "Home|B2S"},
-              { _SET_CAPT : "nabilanavab", _CHANGE : "set|capt+", _DELETE : "set|capt-", _BACK_HOME : "Home|B2S"}]
-}
-
+              { _SET_CAPT : "nabilanavab", _CHANGE : "set|capt+", _DELETE : "set|capt-", _BACK_HOME : "Home|B2S"}] }
 BOT_COMMAND = { "start" : _START, "txt2pdf" : _TXT2PDF }
-
 STATUS_MSG = {
     "_HOME" : {
         "📊 ↓ SERVER ↓ 📊" : "nabilanavab", "📶 STORAGE 📶" : "status|server", "🥥 DATABASE 🥥" : "status|db",
@@ -128,91 +173,68 @@ STATUS_MSG = {
     "SERVER" : "**◍ Total Space     :** `{}`\n**◍ Used Space     :** `{}({}%)`\n**◍ Free Space      :** `{}`\n**◍ CPU Usage      :** `{}`%"
                "**◍ RAM Usage     :** `{}`%\n**◍ Current Work  :** `{}`\n**◍ Message Id     :** `{}`",
     "USERS" : "Users in Database are.", "NO_DB" : "No dataBASE set Yet 💩", "ADMIN" : "**Total ADMIN:** __{}__\n",
-    "BACK" : { _BACK_HOME : "status|home" }, "HOME" : "`Now, select any option below to get current STATUS 💱.. `",
-}
-
+    "BACK" : { _BACK_HOME : "status|home" }, "HOME" : "`Now, select any option below to get current STATUS 💱.. `",}
 feedbackMsg = f"[{_FEEDBACK}]({settings.FEEDBACK})"
-
 BAN = {
     "UCantUse" : _BAN, "UCantUseDB" : _BAN + _REASON, "GroupCantUse" : _BAN_G, "GroupCantUseDB" : _BAN_G + _REASON,
     "cbNotU" : _BAN_CB, "Fool" : _FOOL, "Force" : _FORCE, "ForceCB" : { _JOIN_CHANNEL : "{0}", _REFRESH : "refresh{1}" },
-    "banCB" : {_CREATE_BOT : f"{settings.SOURCE_CODE}", _SOURCE : f"{settings.SOURCE_CODE}", _CHANNEL : "https://t.me/ilovepdf_bot"}
-}
-
+    "banCB" : {_CREATE_BOT : f"{settings.SOURCE_CODE}", _SOURCE : f"{settings.SOURCE_CODE}", _CHANNEL : "https://t.me/ilovepdf_bot"}}
 PDF_MESSAGE = {
     "pg" : _PG_NUM , "pdf" : _PDF_REPLY, "encryptCB" : { _DECRYPT_CB : "#decrypt", _CLOSE : "close|all" },
     "pdf_button" : { _META : "pdf|meta", _IMAGE : "pdf|img", _TEXT : "pdf|txt", _ROTATE : "pdf|rotate", _SPLIT_MERGE : "pdf|trim",
         _ENC_DECRYPT : "pdf|lock", _FORMAT : "pdf|format", _WATERMARK : "pdf|trade", _COMP_OCR : "pdf|comocr",
         _RENAME : "#rename", _ZOOM : "#zoom", _URL : "link", _FILTER : "pdf|filter", _ADD_DELETE : "pdf|addlt", _CLOSE : "close|all"},
-    "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,
-}
-
+    "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,}
 BUTTONS = {
     "meta" : { _H_META : "nabilanavab|meta", _ONLY_META : "#metadata", _ALL_META : "#preview", _BACK : "pdf" },
     "lock" : { _H_ENC : "nabilanavab|lock", _ENCRYPT_CB : "#encrypt", _DECRYPT_CB : "#decrypt", _BACK : "pdf" },
-    "trim" : { "❓ SPLIT/MERGE PDF:HELP ❓" : "nabilanavab|trim", "✂️ SPLIT ✂️" : "#split", "🧬 MERGE 🧬" : "#merge", _BACK : "pdf" },
-    "format" : { "❓ FORMAT:HELP ❓" : "nabilanavab|format", "☝️ SINGLE ☝️" : "#1-format", "✌ DOUBLE [HORIZ] ✌" : "#2-format-H",
-                 "✌ DOUBLE [VERTI] ✌" : "#2-format-V", "🤟 TRIBLE [HORIZ] 🤟" : "#3-format-H", "🤟 TRIBLE [VERTI] 🤟" : "#3-format-V",
-                 "😂 FOURBLE 😂" : "#4-format", _BACK : "pdf" },
-    "comocr" : { "❓ COMPRESS/OCR PDF:HELP ❓" : "nabilanavab|comocr", "🗜 COMPRESS 🗜" : "#compress", "📝 OCR 📝" : "#ocr", _BACK : "pdf" },
-    "trade" : { "❓ WATERMARK:HELP ❓" : "nabilanavab|trade", "💦 WATERMARK 💦" : "pdf|wa", "™️ STAMP ™️" : "pdf|stp", _BACK : "pdf" },
-    "filter" : { "❓ FILTER:HELP ❓" : "nabilanavab|format", "🎨 DRAW 🎨" : "#draw", "⚫ BLACK/WHITE ⚪" : "#baw", "🪐 SATURARE 🪐" : "#sat",
-                "🖌 INVERT 🖌" : "#inv", _BACK : "pdf" },
-    "addlt" : { "❓ ADD/DELETE PAGES:HELP ❓" : "nabilanavab|format", "🟢 ADD PAGES 🟢" : "close|dev", "🔴 DELETE PAGES 🔴" : "#deletePg", _BACK : "pdf" },
-    "toImage" : { "⚙️ PDF » IMAGES ↓" : "nabilanavab", "🖼 IMG 🖼" : "pdf|img|img", "📂 DOC 📂" : "pdf|img|doc",
-        "🤐 ZIP 🤐" : "pdf|img|zip", "🎯 TAR 🎯" : "pdf|img|tar", _BACK : "pdf" },
-    "imgRange" : { "⚙️ PDF » IMAGES » {} ↓" : "nabilanavab", "🙄 ALL 🙄" : "#p2img|{}A", "🤧 CUSTOM 🤧" : "#p2img|{}C", _BACK : "pdf|img" },
-    "rotate" : { "⚙️ PDF » ROTATE ↓" : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
-    "txt" : { "⚙️ PDF » TXT ↓" : "nabilanavab", "📜 MESSAGE 📜" : "#textM", "🧾 TXT FILE 🧾" : "#textT",
-        "🌐 HTML 🌐" : "#textH", "🎀 JSON 🎀" : "#textJ", _BACK : "pdf" },
-    "type" : { "⚙️ PDF » WATERMARK ↓" : "nabilanavab", "💬 TEXT 💬" : "pdf|wa|txt", "🖼 IMAGE 🖼" : "pdf|wa|img",
-              "📎 PDF 📎" : "pdf|wa|pdf", _BACK : "pdf|trade" },
-    "op" : {
-        "⚙️ PDF » WATERMARK » {} » OPCACiTY ↓" : "nabilanavab",
-        "𝟙𝟘" : "pdf|wa|{}|o01", "𝟚𝟘" : "pdf|wa|{}|o02", "𝟛𝟘" : "pdf|wa|{}|o03", "𝟜𝟘" : "pdf|wa|{}|o04", "𝟝𝟘" : "pdf|wa|{}|o05",
-        "𝟞𝟘" : "pdf|wa|{}|o06", "𝟟𝟘" : "pdf|wa|{}|o07", "𝟠𝟘" : "pdf|wa|{}|o08", "𝟡𝟘" : "pdf|wa|{}|o09", "𝟙𝟘𝟘" : "pdf|wa|{}|o10", _BACK : "pdf|wa"
-    },
-    "po" : {
-        "⚙️ PDF » WATERMARK » POSiTiON ↓" : "nabilanavab",
-        "⬆️ ToP ⬆️" : "wa|{0}|{1}|pT", "↔️ MiDDLE ↔️" : "wa|{0}|{1}|pM", "⬇️ BoTToM ⬇️" : "wa|{0}|{1}|pB", _BACK : "pdf|wa|{0}"
-    },
-    "poTXT" : {
-        "⚙️ PDF » WATERMARK » POSiTiON ↓" : "nabilanavab",
-        "⬆️ ToP ⬆️" : "pdf|wa|{0}|{1}|pT", "↔️ MiDDLE ↔️" : "pdf|wa|{0}|{1}|pM", "⬇️ BoTToM ⬇️" : "pdf|wa|{0}|{1}|pB", _BACK : "pdf|wa|{0}"
-    },
-    "color" : {
-        "⚙️ PDF » WATERMARK » CoLoR ↓" : "nabilanavab",
-        "᠎᠎᠎⚪️" : "#wa|{0}|{1}|{2}|W", "᠎⚫️" : "#wa|{0}|{1}|{2}|B", "᠎᠎🟤" : "#wa|{0}|{1}|{2}|C",  "᠎🔴" : "#wa|{0}|{1}|{2}|R", "᠎᠎🟢" : "#wa|{0}|{1}|{2}|G",
-        "🔵" : "#wa|{0}|{1}|{2}|N", "᠎᠎🟡" : "#wa|{0}|{1}|{2}|Y", "᠎᠎🟠" : "#wa|{0}|{1}|{2}|O", "🟣" : "#wa|{0}|{1}|{2}|V", _BACK : "pdf|wa|{0}|{1}"
-    },
-    "stamp" : {
-        "⚙️ PDF » STAMP ↓" : "nabilanavab", "Not For Public Release 🤧" : "pdf|stp|10", "For Public Release 🥱" : "pdf|stp|8",
+    "trim" : { _H_SPLIT_MERGE : "nabilanavab|trim", _H_SPLIT : "#split",  : "#merge", _BACK : "pdf" },
+    "format" : { _H_FORMAT : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
+                 "🤟 1 × 3 🤟" : "#3-format-H", "🤟 3 × 1 🤟" : "#3-format-V", "2 × 2" : "#4-format", _BACK : "pdf" },
+    "comocr" : { _H_COMP_OCR : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
+    "trade" : { _H_WATERMARK : "nabilanavab|trade", _H_WATER : "pdf|wa", _H_STAMP : "pdf|stp", _BACK : "pdf" },
+    "filter" : { _H_FILTER : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
+    "addlt" : { _H_ADD_DEL : "nabilanavab|add", _ADD : "close|dev", _DEL : "#deletePg", _BACK : "pdf" },
+    "toImage" : { _P2I : "nabilanavab",  : "pdf|img|img", _P2D : "pdf|img|doc", _P2Z : "pdf|img|zip", _P2T : "pdf|img|tar", _BACK : "pdf" },
+    "imgRange" : { _IMG : "nabilanavab", _ALL : "#p2img|{}A", _CUSTOM : "#p2img|{}C", _BACK : "pdf|img" },
+    "rotate" : { _B_ROTATE : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
+    "txt" : { _B_TEXT : "nabilanavab", _B_TEXT : "#textM", "🧾 TXT 🧾" : "#textT", "🌐 HTML 🌐" : "#textH", "🎀 JSON 🎀" : "#textJ", _BACK : "pdf" },
+    "type" : { _B_WATERMARK : "nabilanavab", _B_TEXT : "pdf|wa|txt", _IMG : "pdf|wa|img", _B_PDF : "pdf|wa|pdf", _BACK : "pdf|trade" },
+    "op" : { _WATER_OP : "nabilanavab", "𝟙𝟘" : "pdf|wa|{}|o01", "𝟚𝟘" : "pdf|wa|{}|o02", "𝟛𝟘" : "pdf|wa|{}|o03", "𝟜𝟘" : "pdf|wa|{}|o04",
+        "𝟝𝟘" : "pdf|wa|{}|o05", "𝟞𝟘" : "pdf|wa|{}|o06", "𝟟𝟘" : "pdf|wa|{}|o07", "𝟠𝟘" : "pdf|wa|{}|o08", "𝟡𝟘" : "pdf|wa|{}|o09",
+        "𝟙𝟘𝟘" : "pdf|wa|{}|o10", _BACK : "pdf|wa" },
+    "po" : { _WATER_PO : "nabilanavab", _TOP : "wa|{0}|{1}|pT", _MIDDLE : "wa|{0}|{1}|pM", _BOTTOM : "wa|{0}|{1}|pB", _BACK : "pdf|wa|{0}" },
+    "poTXT" : { _WATER_PO : "nabilanavab", _TOP : "pdf|wa|{0}|{1}|pT", _MIDDLE : "pdf|wa|{0}|{1}|pM",  : "pdf|wa|{0}|{1}|pB", _BACK : "pdf|wa|{0}" },
+    "color" : { _WATER_COLOR : "nabilanavab", "᠎᠎᠎⚪️" : "#wa|{0}|{1}|{2}|W", "᠎⚫️" : "#wa|{0}|{1}|{2}|B", "᠎᠎🟤" : "#wa|{0}|{1}|{2}|C",
+        "᠎🔴" : "#wa|{0}|{1}|{2}|R", "᠎᠎🟢" : "#wa|{0}|{1}|{2}|G", "🔵" : "#wa|{0}|{1}|{2}|N", "᠎᠎🟡" : "#wa|{0}|{1}|{2}|Y",
+        "᠎᠎🟠" : "#wa|{0}|{1}|{2}|O", "🟣" : "#wa|{0}|{1}|{2}|V", _BACK : "pdf|wa|{0}|{1}" },
+    "stamp" : { _B_STAMP : "nabilanavab", "Not For Public Release 🤧" : "pdf|stp|10", "For Public Release 🥱" : "pdf|stp|8",
         "Confidential 🤫" : "pdf|stp|2", "Departmental 🤝" : "pdf|stp|3", "Experimental 🔬" : "pdf|stp|4", "Expired 🐀" : "pdf|stp|5",
         "Final 🔧" : "pdf|stp|6", "For Comment 🗯️" : "pdf|stp|7", "Not Approved 😒" : "pdf|stp|9", "Approved 🥳" : "pdf|stp|0",
-        "Sold ✊" : "pdf|stp|11", "Top Secret 😷" : "pdf|stp|12", "Draft 👀" : "pdf|stp|13", "AsIs 🤏" : "pdf|stp|1", _BACK : "pdf|trade"
-    },
-    "stampA" : {
-        "⚙️ PDF » STAMP » COLOR ↓" : "nabilanavab", "Red ❤️" : "#spP|{}|r", "Blue 💙" : "#spP|{}|b", "Green 💚" : "#spP|{}|g", "Yellow 💛" : "#spP|{}|c1",
-        "Pink 💜" : "#spP|{}|c2", "Hue 💚" : "#spP|{}|c3", "White 🤍" : "#spP|{}|c4", "Black 🖤" : "#spP|{}|c5", "« Back «" : "pdf|stp"
-    }
-}
+        "Sold ✊" : "pdf|stp|11", "Top Secret 😷" : "pdf|stp|12", "Draft 👀" : "pdf|stp|13", "AsIs 🤏" : "pdf|stp|1", _BACK : "pdf|trade"},
+    "stampA" : { _STAMP_COLOR : "nabilanavab", "Red ❤️" : "#spP|{}|r", "Blue 💙" : "#spP|{}|b", "Green 💚" : "#spP|{}|g", "Yellow 💛" : "#spP|{}|c1",
+        "Pink 💜" : "#spP|{}|c2", "Hue 💚" : "#spP|{}|c3", "White 🤍" : "#spP|{}|c4", "Black 🖤" : "#spP|{}|c5", _BACK : "pdf|stp" }}
+PROGRESS = {"progress" : _PROGRESS , "upFileCB" : {f"📤 .. {_UPLOADING} .. 📤" : "nabilanavab"}, "cbPRO_D" : ["📤 {:.2f}% 📤", _CANCEL], "cbPRO_U" : ["📤 {:.2f}% 📤", _CANCEL]}
+GENERATE = {"noQueue" : _NO_QUEUE, "noImages" : _NO_IMG, "currDL" : _DL_IMG, "geting" : _GEN_PDF, "getFileNm" : _REN_PDF, "deleteQueue" : _DLT_QUEUE, "getingCB" : {_GEN_CB : "nabilanavab"},}
 
-PROGRESS = {
-    "progress" : """\n**Done ✅ : **{0}/{1}\n**Speed 🚀:** {2}/s\n**Estimated Time ⏳:** {3}""", "upFileCB" : {"📤 .. UPLOADING.. 📤" : "nabilanavab"},
-    "cbPRO_D" : ["📤 DOWNLOAD: {:.2f}% 📤", "🎯 CANCEL 🎯"], "cbPRO_U" : ["📤 UPLOADED: {:.2f}% 📤", "🎯 CANCEL 🎯"]
-}
 
-GENERATE = {
-    "noQueue" : "`No Queue found..`😲", "noImages" : "No image found.!! 😒", "currDL" : "Downloaded {} Images 🥱", "geting" : "File Name: `{}`\nPages: `{}`",
-    "getFileNm" : "Now Send Me a File Name 😒: ", "deleteQueue" : "`Queue deleted Successfully..`🤧", "getingCB" : {"📚 GENERATING PDF.." : "nabilanavab"},
-}
+_AIO = "😏 ALL IN ONE 😏"
+_SINGLE_USE = "😎 SINGLE USE 😎"
+_START_UPLOAD = "`Started Uploading..`📤"
+_START_DOWNL = "`Downloading your file..` 📥"
+_PROCESSING = "⚙️ Processing.."
+_W_I_P = "WORK IN PROGRESS.. 🙇"
+_DL_IMG = "`Downloading your Image..⏳`"
+_TAKE_TIME = "```⚙️ Work in Progress..\nIt might take some time..```💛"
+_CONVERT = "`Converted: {} to {}`"
+_UNSUPPORT = "Unsupported file..🙄`"
 
 DOCUMENT = {
-    "replyCB" : { "😏 ALL IN ONE 😏" : "aio" , "😎 SINGLE USE 😎" : "pdf", "🚶‍♂️ CLOSE 🚶‍♂️" : "close|all" }, "_replyCB" : PDF_MESSAGE['pdf_button'],
-    "reply" : PDF_MESSAGE['pdf'], "upFile" : "`Started Uploading..`📤", "process" : "⚙️ Processing..", "inWork" : "WORK IN PROGRESS.. 🙇",
-    "download" : "`Downloading your file..` 📥", "refresh" : { "♻️ Refresh ♻️" : "{}" }, "dlImage" : "`Downloading your Image..⏳`",
-    "takeTime" : """```⚙️ Work in Progress..\nIt might take some time..```💛""", "fromFile" : "`Converted: {} to {}`",
-    "unsupport" : "Unsupported file..🙄`", "cancelCB" : { "⟨ Cancel ⟩" : "close|me" }, "generate" : { "GENERATE 📚" : "generate" },
+    "replyCB" : { _AIO : "aio" , _SINGLE_USE : "pdf", _CLOSE : "close|all" }, "_replyCB" : PDF_MESSAGE['pdf_button'],
+    "reply" : PDF_MESSAGE['pdf'], "upFile" : _START_UPLOAD, "process" : _PROCESSING, "inWork" : _W_I_P,
+    "download" : _START_DOWNL, "refresh" : { "♻️ Refresh ♻️" : "{}" }, "dlImage" : _DL_IMG,
+    "takeTime" : _TAKE_TIME, "fromFile" : _CONVERT,
+    "unsupport" : _UNSUPPORT, "cancelCB" : { _CANCEL : "close|me" }, "generate" : { "GENERATE 📚" : "generate" },
     "generateRN" : { "GENERATE 📚" : "generate", "RENAME ✍️" : "generateREN" }, "setHdImg" : """Now Image To PDF is in HD mode 😈""",
     "noAPI" : """`Please add convert API.. 💩\n\nstart » settings » api » add/change`""", "error" : """SOMETHING went WRONG.. 🐉\n\nERROR: `{}`""",
     "setDefault" : { "« Back to Default Quality «" : "close|hd" }, "useDOCKER" : "`File Not Supported, deploy bot using docker`",
@@ -232,25 +254,17 @@ AIO = {
         "🔐 ENCRYPT 🔐" : "nabilanavab|aio|enc", "💦 WATERMARK 💦" : "nabilanavab|aio|wat", "✏️ RENAME ✏️" : "nabilanavab|aio|rnm",
         "🚶‍♂️ BACK 🚶‍♂️" : "aio", "🆗 PROCESS 🆗" : "processAIO"
     },
-    "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|com|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|for|{F}", "aio|enc|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]
-}
-
-gDOCUMENT = {
-    "admin" : """Due to Some Telegram Limits..\n\nI can only work as an admin\n__Please promote me as admin__ ☺️""",
-    "notDOC" : "Broh Please Reply to a Document or an Image..🤧",
-    "Gadmin" : """Only Group Admins Can Use This Bot\nElse Come to my Pm 😋""",
-    "adminO" : """`Only admins can do it..`\n\nOr try on your pdfs(__reply to your message__)"""
-}
+    "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|com|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|for|{F}", "aio|enc|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]}
+gDOCUMENT = { "admin" : _ADMIN_ONLY, "notDOC" : _NOT_DOC, "Gadmin" : _G_ADMIN, "adminO" : _NOT_YOUR }
 gDOCUMENT.update(DOCUMENT)
-
-noHelp = f"`No one gonna help you` 😏"
+noHelp = _WASTE
 
 pdf2TXT = {
     "upload" : DOCUMENT['upFile'], "exit" : "`Process Cancelled..` 😏", "nothing" : "Nothing to create.. 😏", "TEXT" : "`Create PDF From Text Messages »`",
     "start" : "Started Converting txt to Pdf..🎉",
     "font_btn" : {
         "TXT@PDF » SET FONT" : "nabilanavab", "Times" : "pdf|font|t", "Courier" : "pdf|font|c", "Helvetica (Default)" : "pdf|font|h",
-        "Symbol" : "pdf|font|s", "Zapfdingbats" : "pdf|font|z", "🚫 CLOSE 🚫" : "close|me"
+        "Symbol" : "pdf|font|s", "Zapfdingbats" : "pdf|font|z", _CLOSE : "close|me"
     },
     "size_btn" : {
         "TXT@PDF » {} » SET SCALE" : "nabilanavab", "Portarate" : "t2p|{}|p", "Landscape" : "t2p|{}|l", "« Back «": "pdf|T2P"
