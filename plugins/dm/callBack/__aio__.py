@@ -85,7 +85,8 @@ async def __index__(bot, callbackQuery):
                 return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
             
         for job, work_info in WORKS.items():
-            await dlMSG.edit(text = CHUNK['aio'].format(job.upper()), reply_markup = _)
+            try: await dlMSG.edit(text = CHUNK['aio'].format(job.upper()), reply_markup = _)
+            except Exception: pass
             work_in_this_loop = False
             
             if job == "metadata" and work_info:
