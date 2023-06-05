@@ -138,6 +138,11 @@ async def _url(bot, message):
                             outputName = match.group(1) if match.group(1).endswith(".pdf") else f"{match.group(1)}.pdf"
                          
                         response = requests.get(url)
+                        
+                        if "drive.google" in url:
+                            headers = {'Range': 'bytes=0-1'}
+                            res = requests.get(url, headers=headers)
+                            total_size = int(res.headers['Content-Range'].split('/')[-1])
                         total_size = int(response.headers.get("Content-Length", 0))
                         logger.debug(total_size)
                         telegramCan = True if total_size < 20000000 else False
