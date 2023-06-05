@@ -131,9 +131,9 @@ async def _url(bot, message):
                                 if match:
                                     outputName = match.group(1)
                                 else:
-                                    outputName = headers.get('Content-Disposition').split(';')[-1].strip().split('=')[-1].replace('"', '')
+                                    outputName = response.headers.get('Content-Disposition').split(';')[-1].strip().split('=')[-1].replace('"', '')
                             else:
-                                outputName = headers.get('Content-Type').split('/')[-1]
+                                outputName = response.headers.get('Content-Type').split('/')[-1]
                         else:
                             outputName = match.group(1) if match.group(1).endswith(".pdf") else f"{match.group(1)}.pdf"
                          
