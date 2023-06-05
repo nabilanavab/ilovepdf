@@ -69,7 +69,8 @@ async def __index__(bot, callbackQuery):
             )
         )
         
-        await dlMSG.edit(text = CHUNK["completed"], reply_markup = _)
+        try: await dlMSG.edit(text = CHUNK["completed"], reply_markup = _)
+        except Exception: pass
         
         # The program checks the size of the file and the file on the server to avoid errors when canceling the download
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
