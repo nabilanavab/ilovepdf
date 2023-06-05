@@ -140,7 +140,7 @@ async def _url(bot, message):
                         response = requests.get(url)
                         total_size = int(response.headers.get("Content-Length", 0))
                         
-                        telegramCan = True if total_size < 20000000 else False
+                        telegramCan = True if total_size < 20000000 or "drive.google" in url else False
                         if not telegramCan:
                             with open(f"{cDIR}/{message.id}.pdf", "wb") as f:
                                 f.write(response.content)
