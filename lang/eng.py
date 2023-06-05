@@ -236,7 +236,7 @@ _PUBLIC = "📢 PUBLIC 📢"
 _PRIVATE = "🔐 PRIVATE 🔐"
 _GEN_LINK = "**Here it is! This is what you were searching for..**"
 _ERROR_ = "Oops, it looks like something went wrong. Please try again later.\n\n`ERROR:` {}"
-
+_AIO_PROCESS = "```{} work in progress..🔰\nwait it might take some time.. 💔```"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
@@ -358,7 +358,7 @@ INDEX = {
     "_total" : _TOTAL_PG, "_canceledAT" : _CANCEL_AT, "_upload" : _UPLOADING_AL, "finished" : _COMPLETED_SUCC, "cancelCB" : _EXIT,
     "_cancelCB" : {_CANCEL : "close|P2I"}, "_canceledCB" : {_CANCELED_CB : "close|P2IDONE"}, "_completed" : {_COMPLETED : "close|P2ICOMP"},
     "sizeLoad" : _SIZE_LOAD, "mergeDl" : _MERGE_DL, "merge" : _START_MERGE, "watermark_txt" : _WATERMARK_TXT, "watermark_pdf" : _WATERMARK_PDF,
-    "watermark_img" : _WATERMARK_IMG, "adding_wa" : _ADD_WATERMARK, "readAgain" : _READ_AGAIN, "zipTAR" : _ZIP_CONVERT, "aio" : _DL_COMPLETED,}
+    "watermark_img" : _WATERMARK_IMG, "adding_wa" : _ADD_WATERMARK, "readAgain" : _READ_AGAIN, "zipTAR" : _ZIP_CONVERT, "aio" : _AIO_PROCESS,}
 INLINE = {
     "search" : _SEARCH, "openBot" : _OPEN_BOT, 'query' : _TOTAL, 'lang_t' : _SET_LANG, "lang_d" : _H_LANG, 'caption' : _INLINE_CAP,
     "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️',
