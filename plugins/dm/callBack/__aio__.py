@@ -69,8 +69,8 @@ async def __index__(bot, callbackQuery):
             )
         )
         
-        try: await dlMSG.edit(text = CHUNK["completed"], reply_markup = _)
-        except Exception: pass
+        await dlMSG.edit(text = CHUNK["completed"], reply_markup = _)
+        
         
         # The program checks the size of the file and the file on the server to avoid errors when canceling the download
         if os.path.getsize(input_file) != callbackQuery.message.reply_to_message.document.file_size:    
@@ -85,8 +85,8 @@ async def __index__(bot, callbackQuery):
                 return await dlMSG.edit(text = CHUNK["decrypt_error"].format(output_file), reply_markup = _)
             
         for job, work_info in WORKS.items():
-            try: await dlMSG.edit(text = CHUNK['aio'].format(job.upper()), reply_markup = _)
-            except Exception: pass
+            await dlMSG.edit(text = CHUNK['aio'].format(job.upper()), reply_markup = _)
+            
             work_in_this_loop = False
             
             if job == "metadata" and work_info:
