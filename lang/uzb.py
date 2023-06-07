@@ -237,6 +237,7 @@ _PRIVATE = "🔐 XUSUSIY"
 _GEN_LINK = "**Mana! Bu siz qidirayotgan narsa..**"
 _ERROR_ = "Nimadir xato ketdi shekilli. Keyinroq qayta urinib ko‘ring.\n\n`XATO:` {}"
 _AIO_PROCESS = "```{} ish davom etmoqda..🔰\nkuting, biroz vaqt talab qilishi mumkin.. 💔```"
+_VIEW_ONLY = "Havolada faqat koʻrish uchun ruxsat cheklangan.. 👀"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
@@ -340,7 +341,7 @@ pdf2TXT = {
         "TXT@PDF » {} » SET SCALE" : "nabilanavab", "Portarate" : "t2p|{}|p", "Landscape" : "t2p|{}|l", _BACK: "pdf|T2P"
     }, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P}
 URL = {
-    "notPDF" : _CODEC, "close" : { _CLOSE : "close|all" }, "get" : { _GET_TG_PDF : "getFile"}, "error" : _ERROR,
+    "notPDF" : _CODEC, "close" : { _CLOSE : "close|all" }, "get" : { _GET_TG_PDF : "getFile"}, "error" : _ERROR, "view" : _VIEW_ONLY,
     "done" : _DONE, "_error_" : _TEXT_REPLY, "openCB" : {_OPEN_BROW : "{}"}, "_error" : _ERROR,"_get" : _TG_PDF }
 getFILE = {
     "wait" : _CHECK, "inWork" : DOCUMENT['inWork'], "big" : _BIG, "dl" : {f"📥 ..{_DOWNLOADING}.. 📥" : "nabilanavab"},
