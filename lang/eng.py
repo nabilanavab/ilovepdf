@@ -241,7 +241,7 @@ _VIEW_ONLY = "The link has restricted view access only.. 👀"
 _REFER_T = "🎁 REFERAL LINK 🎁"
 _REFER_D = "Refer Your Friend.. "
 _CLICK_RIGHT = "Clic Right Side Button to Select. 👉"
-_REFER = "Refer atleast 5 new users to use this bot.. 😑"
+_REFER = "Please refer a minimum of 5 new users to utilize this bot 😑\n\nYOUR REFERAL LINK : {}"
 _NOW_BETA = "`Now you are a beta user..` ☺"
 _NOW_NOT_BETA = "`Now you are not part in beta test..` 😐"
 
