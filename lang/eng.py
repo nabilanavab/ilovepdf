@@ -241,6 +241,9 @@ _VIEW_ONLY = "The link has restricted view access only.. 👀"
 _REFER_T = "🎁 REFERAL LINK 🎁"
 _REFER_D = "Refer Your Friend.. "
 _CLICK_RIGHT = "Clic Right Side Button to Select. 👉"
+_REFER = "Refer atleast 5 new users to use this bot.. 😑"
+_NOW_BETA = "`Now you are a beta user..` ☺"
+_NOW_NOT_BETA = "`Now you are not part in beta test..` 😐"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
@@ -368,5 +371,5 @@ INLINE = {
     "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
     'min' : _MIN_SEARCH, 'process' : _PROCESSING, 'nothing' : _NO_RESULT, "select" : _GET_PDF, 'description' : _INLINE_DES,
     'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}
-
+BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
 HELP = {}
