@@ -94,7 +94,7 @@ async def gDOC(bot, message):
                 PDF[message.chat.id].append(img)
                 tBTN = await util.createBUTTON(CHUNK['generate'])
                 await imageDocReply.edit(CHUNK['imageAdded'].format(
-                    len(PDF[message.chat.id]), f'{message.chat.id}') \ + f"\n\n👤:   {message.from_user.mention}"), reply_markup=tBTN
+                    len(PDF[message.chat.id]), f'{message.chat.id}') + f"\n\n👤:   {message.from_user.mention}", reply_markup=tBTN
                 )
             except Exception as e:
                 return await imageDocReply.edit(CHUNK["error"].format(e))
