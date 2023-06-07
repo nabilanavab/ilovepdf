@@ -21,7 +21,8 @@ async def ocrPDF(input_file: str, cDIR: str) -> ( bool, str ):
             output_file = open(output_path, "wb"),
             deskew = True
         )
-        
+        return True, output_path
+    
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info = True)
         return False, Error
