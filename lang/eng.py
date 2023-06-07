@@ -238,6 +238,8 @@ _GEN_LINK = "**Here it is! This is what you were searching for..**"
 _ERROR_ = "Oops, it looks like something went wrong. Please try again later.\n\n`ERROR:` {}"
 _AIO_PROCESS = "```{} work in progress..🔰\nwait it might take some time.. 💔```"
 _VIEW_ONLY = "The link has restricted view access only.. 👀"
+_REFER_T = "🎁 REFERAL LINK 🎁"
+_REFER_D = "Refer Your Friend.. "
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
@@ -362,8 +364,8 @@ INDEX = {
     "watermark_img" : _WATERMARK_IMG, "adding_wa" : _ADD_WATERMARK, "readAgain" : _READ_AGAIN, "zipTAR" : _ZIP_CONVERT, "aio" : _AIO_PROCESS,}
 INLINE = {
     "search" : _SEARCH, "openBot" : _OPEN_BOT, 'query' : _TOTAL, 'lang_t' : _SET_LANG, "lang_d" : _H_LANG, 'caption' : _INLINE_CAP,
-    "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️',
+    "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
     'min' : _MIN_SEARCH, 'process' : _PROCESSING, 'nothing' : _NO_RESULT, "select" : _GET_PDF, 'description' : _INLINE_DES,
-    'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT],}
+    'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}
 
 HELP = {}
