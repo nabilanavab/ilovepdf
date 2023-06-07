@@ -59,8 +59,8 @@ async def _betaMode(bot, message):
                 return await message.reply_text(CHUNK['refer'].format(f"https://t.me/{myID[0].username}?start=-r{message.from_user.id}"), quote=True)
         
         if message.chat.id in dm.ADMINS and len(message.text.split(' '))==2:
-            await db.set_key(id=message.chat.id, key="beta", value="True")
-            BETA.append(message.chat.id)
+            await db.set_key(id=int(message.text.split(' ')[1]), key="beta", value="True")
+            BETA.append(int(message.text.split(' ')[1]))
             return await message.reply_text("Now He is a beta user", quote=True)
         
         if message.chat.id not in BETA:
