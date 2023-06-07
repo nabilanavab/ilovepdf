@@ -35,6 +35,11 @@ async def default_ans(inline_query) -> list:
                 photo_url="https://graph.org/file/4506c172bf757ce187fe1.jpg",
                 title=CHUNK['lang_t'], reply_markup=BUTTON, description=CHUNK['lang_d'],
                 input_message_content=InputTextMessageContent(CHUNK['lang_d'])
+            ),
+            InlineQueryResultPhoto(
+                photo_url="https://graph.org/file/4506c172bf757ce187fe1.jpg",
+                title=CHUNK['refer_t'], description=CHUNK['refer_d'],
+                input_message_content=InputTextMessageContent(f"[@{myID[0].username}](https://t.me/{myID[0].username}?start=-r{inline_query.from_user.id})")
             )
         ]
         
