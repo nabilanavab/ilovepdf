@@ -7,12 +7,14 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger           import logger
 
-import os, shutil
+import               os
+import               shutil
 from plugins.utils   import *
-from configs.config  import dm 
 from pdf             import PDF
+from configs.db      import myID
 from configs.beta    import BETA
 from configs.db      import dataBASE
+from configs.config  import dm, settings
 from pyrogram        import Client as ILovePDF, enums, filters
 
 if dataBASE.MONGODB_URI:
@@ -30,32 +32,41 @@ async def cancelP2I(bot, message):
 @ILovePDF.on_message((filters.private | filters.group) & filters.command(["delete"]) & filters.incoming)
 async def _cancelI2P(bot, message):
     try:
-        lang_code = await util.getLang(message.chat.id)
+        lang_code=await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         del PDF[message.chat.id]
-        trans_txt, trans_btn = await util.translate( text = "GENERATE['deleteQueue']", lang_code = lang_code)
-        await message.reply_text(trans_txt, quote = True)
+        trans_txt, trans_btn=await util.translate( text="GENERATE['deleteQueue']", lang_code=lang_code)
+        await message.reply_text(trans_txt, quote=True)
         shutil.rmtree(f"work/{message.chat.id}")
     except Exception:
-        trans_txt, trans_btn = await util.translate(text = "GENERATE['noQueue']", lang_code = lang_code)
-        await message.reply_text(trans_txt, quote = True)
+        trans_txt, trans_btn=await util.translate(text="GENERATE['noQueue']", lang_code=lang_code)
+        await message.reply_text(trans_txt, quote=True)
 
 # ❌ BETA USER (/beta) ❌
 @ILovePDF.on_message(filters.private & filters.command(["beta"]) & filters.incoming)
 async def _betaMode(bot, message):
     try:
+        lang_code=await util.getLang(inline_query.from_user.id)
+        CHUNK, _ = await util.translate(text="BETA", lang_code=lang_code)
+        
         if message.chat.id in dm.ADMINS:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
         if not dataBASE.MONGODB_URI:
-            return await message.reply_text("Cant Ise This Features.. 😑", quote=True)
+            return await message.reply_text(CHUNK['cant'], quote=True)
+        
+        if (not message.chat.id in dm.ADMINS) and settings.REFER_BETA:
+            refer_ids=await db.get_key(id=message.chat.id, key="refer")
+            if not(len(refer_ids.split("|")) >= 5):
+                return await message.reply_text(CHUNK['refer'].format(f"https://t.me/{myID[0].username}?start=-r{inline_query.from_user.id}"), quote=True)
+        
         if message.chat.id not in BETA:
             await db.set_key(id=message.chat.id, key="beta", value="True")
             BETA.append(message.chat.id)
-            return await message.reply_text("`Now you are a beta user..` ☺", quote = True)
+            return await message.reply_text(CHUNK['nowbeta'], quote=True)
         else:
             await db.dlt_key(id=message.chat.id, key="banned")
             BETA.remove(message.chat.id)
-            return await message.reply_text("`Now you are not part in beta test..` 😐", quote = True)
+            return await message.reply_text(CHUNK['nownotbeta'], quote=True)
     except Exception as Error:
         logger.exception("🐞 %s : %s" %(file_name, Error))
 
