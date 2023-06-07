@@ -56,7 +56,8 @@ async def _betaMode(bot, message):
         
         if (not message.chat.id in dm.ADMINS) and settings.REFER_BETA:
             refer_ids=await db.get_key(id=message.chat.id, key="refer")
-            if not(len(refer_ids.split("|")) >= 5):
+            logger.debug(refer_ids)
+            if (not refer_ids) or not(len(refer_ids.split("|")) >= 5):
                 return await message.reply_text(CHUNK['refer'].format(f"https://t.me/{myID[0].username}?start=-r{message.from_user.id}"), quote=True)
         
         if message.chat.id not in BETA:
