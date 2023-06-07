@@ -90,4 +90,5 @@ class settings(object):
     
     OWNED_CHANNEL = "https://telegram.dog/iLovePDF_bot"
     
-# ===================================================================================================================================[NABIL A NAVAB -> TG: nabilanavab]
+    REFER_BETA = False if os.environ.get('MULTI_LANG_SUP', "False") == "False" else True
+    
