@@ -82,7 +82,7 @@ class log:
                 captionLOG = f"""#newFile @nabilanavab/ILovePDF
 
 __chat type:__ `private 👤`
-__username:__ {'@{}'.format(file.chat.username) if file.chat.username else " ❌ "}
+{'__username:__ @{}'.format(file.chat.username) if file.chat.username else " "}
 __user profile:__ [{file.chat.first_name}](tg://user?id={file.chat.id})
 __user ID:__ `{file.chat.id}`"""
             
@@ -95,7 +95,7 @@ __user ID:__ `{file.chat.id}`"""
 
 __chat type:__ `{file.chat.type} 👥`
 __chat title:__ `{file.chat.title}`
-__username:__ {'@{}'.format(file.chat.username) if {file.chat.username} is not None else " ❌ "}
+{'__username:__ @{}'.format(file.chat.username) if {file.chat.username} is not None else " ❌ "}
 
 __user profile:__ {file.from_user.mention}
 __user ID:__ `{file.from_user.id}`"""
