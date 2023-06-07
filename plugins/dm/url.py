@@ -7,8 +7,11 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 # LOGGING INFO: DEBUG
 from logger           import logger
 
-import os, re, requests, asyncio
+import                  os
+import                  re
+import                  asyncio
 from plugins.utils      import *
+import                  requests
 from configs.log        import log
 from configs.config     import settings, images
 from pyrogram           import filters, Client as ILovePDF, enums
@@ -112,7 +115,6 @@ async def _url(bot, message):
                     
                     if await gDriveID(url):
                         url = await gDriveID(url)
-                    logger.debug(url)
                     response = requests.get(url)
                     directDlLink = True if "Content-Type" in response.headers and \
                                         (response.headers["Content-Type"]=="application/pdf" or \
@@ -140,12 +142,15 @@ async def _url(bot, message):
                         response = requests.get(url)
                         
                         if "drive.google" in url:
-                            headers = {'Range': 'bytes=0-1'}
-                            res = requests.get(url, headers=headers)
-                            total_size = int(res.headers['Content-Range'].split('/')[-1])
+                            try:
+                                headers = {'Range': 'bytes=0-1'}
+                                res = requests.get(url, headers=headers)
+                                total_size = int(res.headers['Content-Range'].split('/')[-1])
+                            except Exception:
+                                tTXT, tBTN = await util.translate(text="URL['view']", button="URL['close']", lang_code=lang_code)
+                                return await data.edit(text=tTXT, reply_markup=tBTN)
                         else:
                             total_size = int(response.headers.get("Content-Length", 0))
-                        logger.debug(total_size)
                         telegramCan = True if total_size < 20000000 else False
                         if not telegramCan:
                             with open(f"{cDIR}/{message.id}.pdf", "wb") as f:
