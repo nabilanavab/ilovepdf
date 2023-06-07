@@ -240,6 +240,7 @@ _AIO_PROCESS = "```{} work in progress..🔰\nwait it might take some time.. �
 _VIEW_ONLY = "The link has restricted view access only.. 👀"
 _REFER_T = "🎁 REFERAL LINK 🎁"
 _REFER_D = "Refer Your Friend.. "
+_CLICK_RIGHT = "Click Button located on the Right side to Select. 👉"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
