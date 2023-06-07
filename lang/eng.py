@@ -20,7 +20,7 @@ _BACK_HOME = "« BACK TO HOME «"
 _INSTRUCTIONS = "🛈 INSTRUCTIONS 🛈"
 _HOME_A = "Hey {}..!!\nWelcome to {}.!\n\nWith this tool, you can easily convert images to PDF, compress PDF files, split , merge, encrypt or decrypt PDFs, rotate PDF pages, and much more.\n\nSimply send me a PDF/IMAGE and it will perform the requested action. for help select '⚠️ HELP ⚠️' at any time.the PDF bot is here to make your life easier..\n\nTry it out now and see how it can help you with all of your PDF needs!"
 _HOME_B = "SETTINGS PAGE ⚙️\n\nUSER NAME   : {}\nUSER ID           : {}\nUSERNAME    : {}\nJOIN DATE      : {}\n\nLANGUAGE    : {}\nAPI                    : {}\nTHUMB            : {}\nCAPTION         : {}\nFILE NAME      : {}"
-_HOME_C = "**Some of the main features are:**\n\n ◍ ```Create a PDF from your images: simply send it in bot pms [png, jpg, jpeg]```\n ◍ ```Extract the text from the PDF: Helps to extract the text from the PDF file and send as separate message.```\n ◍ ```Convert the PDF to another file format: [images, txt, html, json, tar, rar]```\n ◍ ```Merge multiple PDFs into one: Multiple PDF files to combine into a single file```\n ◍ ```Split a PDF into separate pages: Large PDF file to split it into separate ones```\n ◍ ```Extract images from the PDF: [all,range,pages] as image, doc, zip, rar```\n ◍ ```Helps to reduce size by optimizing the images. Useful in sending file via email when it's too large```\n ◍ ```Fetches Metadata: title of the document, the author, the subject, the keywords associated with the document, and the creation and modification dates```\n ◍ ```Encrypt/Decrypt Pdfs Using passwords, Websites to Pdf, Rotate, Rename, stamb..```\n ◍ ```WaterMark, Combine, Zoom, Draw, Add/Delete pages, Ocr pdf..```\n ◍ ```text messages to pdf files, and Much More.. 😎```"""
+_HOME_C = "**Some of the main features are:**\n\n ◍ ```Create a PDF from your images: simply send it in bot pms [png, jpg, jpeg]```\n ◍ ```Extract the text from the PDF: Helps to extract the text from the PDF file and send as separate message.```\n ◍ ```Convert the PDF to another file format: [images, txt, html, json, tar, rar]```\n ◍ ```Merge multiple PDFs into one: Multiple PDF files to combine into a single file```\n ◍ ```Split a PDF into separate pages: Large PDF file to split it into separate ones```\n ◍ ```Extract images from the PDF: [all,range,pages] as image, doc, zip, rar```\n ◍ ```Helps to reduce size by optimizing the images. Useful in sending file via email when it's too large```\n ◍ ```Fetches Metadata: title of the document, the author, the subject, the keywords associated with the document, and the creation and modification dates```\n ◍ ```Encrypt/Decrypt Pdfs Using passwords, Websites to Pdf, Rotate, Rename, stamb..```\n ◍ ```WaterMark, Combine, Zoom, Draw, Add/Delete pages, Ocr pdf..```\n ◍ ```text messages to pdf files, and Much More.. 😎```"
 _HOME_D = "`As you know, this is a free service, I cannot guarantee how long I can maintain this service..`😝\n\n ⚠️ INSTRUCTIONS ⚠️:\n ◍ ```Please note that spamming is generally not tolerated and can result in the user or bot being banned from the service```\n ◍ ```Wait for the bot to process the file: The bot will process the PDF file and perform the requested action. This may take a few minutes, depending on the size of the file and the complexity of the action being performed.```\n ◍ ```Once the bot has completed the action, it will send you the results. If the action was successful, you will receive the output. If the action was not successful, the bot will let you know and provide any relevant error messages.```\n ◍ ```Any user found to be distributing or sharing pornographic content on the bot will be permanently banned```\n**Send any image to start:** 😁"
 _SELECT_LANG = "Now, Select any language.."
 _DEFAULT = "DEFAULT ❌"
@@ -237,6 +237,7 @@ _PRIVATE = "🔐 PRIVATE 🔐"
 _GEN_LINK = "**Here it is! This is what you were searching for..**"
 _ERROR_ = "Oops, it looks like something went wrong. Please try again later.\n\n`ERROR:` {}"
 _AIO_PROCESS = "```{} work in progress..🔰\nwait it might take some time.. 💔```"
+_VIEW_ONLY = "The link has restricted view access only.. 👀"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
@@ -340,7 +341,7 @@ pdf2TXT = {
         "TXT@PDF » {} » SET SCALE" : "nabilanavab", "Portarate" : "t2p|{}|p", "Landscape" : "t2p|{}|l", _BACK: "pdf|T2P"
     }, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P}
 URL = {
-    "notPDF" : _CODEC, "close" : { _CLOSE : "close|all" }, "get" : { _GET_TG_PDF : "getFile"}, "error" : _ERROR,
+    "notPDF" : _CODEC, "close" : { _CLOSE : "close|all" }, "get" : { _GET_TG_PDF : "getFile"}, "error" : _ERROR, "view" : _VIEW_ONLY,
     "done" : _DONE, "_error_" : _TEXT_REPLY, "openCB" : {_OPEN_BROW : "{}"}, "_error" : _ERROR,"_get" : _TG_PDF }
 getFILE = {
     "wait" : _CHECK, "inWork" : DOCUMENT['inWork'], "big" : _BIG, "dl" : {f"📥 ..{_DOWNLOADING}.. 📥" : "nabilanavab"},
