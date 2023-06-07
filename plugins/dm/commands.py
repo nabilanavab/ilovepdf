@@ -49,14 +49,19 @@ async def _betaMode(bot, message):
         
         if message.chat.id in dm.ADMINS:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
+        
         if not dataBASE.MONGODB_URI:
             return await message.reply_text(CHUNK['cant'], quote=True)
         
         if (not message.chat.id in dm.ADMINS) and settings.REFER_BETA:
             refer_ids=await db.get_key(id=message.chat.id, key="refer")
-            logger.debug(refer_ids)
             if (not refer_ids) or not(len(refer_ids.split("|")) >= 5):
                 return await message.reply_text(CHUNK['refer'].format(f"https://t.me/{myID[0].username}?start=-r{message.from_user.id}"), quote=True)
+        
+        if message.chat.id in dm.ADMINS and len(message.text.split(' '))==2:
+            await db.set_key(id=message.chat.id, key="beta", value="True")
+            BETA.append(message.chat.id)
+            return await message.reply_text("Now He is a beta user", quote=True)
         
         if message.chat.id not in BETA:
             await db.set_key(id=message.chat.id, key="beta", value="True")
