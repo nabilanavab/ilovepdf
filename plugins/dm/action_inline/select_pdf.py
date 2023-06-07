@@ -16,7 +16,7 @@ from pyrogram.types       import InlineKeyboardButton, InlineKeyboardMarkup
 async def chosen_inline_result(bot, chosen_inline_result):
     try:
         # default search no log
-        if not DATA[chosen_inline_result.from_user.id]:
+        if not DATA.get(chosen_inline_result.from_user.id, False):
             return
         
         lang_code = await getLang(chosen_inline_result.from_user.id)
