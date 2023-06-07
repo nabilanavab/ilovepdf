@@ -4,15 +4,13 @@
 file_name = "plugins/dm/commands.py"
 __author_name__ = "Nabil A Navab: @nabilanavab"
 
-# LOGGING INFO: DEBUG
-from logger           import logger
-
 import               os
 import               shutil
 from plugins.utils   import *
 from pdf             import PDF
 from configs.db      import myID
 from configs.beta    import BETA
+from logger          import logger
 from configs.db      import dataBASE
 from configs.config  import dm, settings
 from pyrogram        import Client as ILovePDF, enums, filters
