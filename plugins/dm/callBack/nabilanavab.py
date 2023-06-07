@@ -8,16 +8,18 @@ __author_name__ = "Nabil A Navab: @nabilanavab"
 from logger           import logger
 
 from plugins.utils    import *
-from pyrogram         import enums, filters, Client as ILovePDF
+from pyrogram         import filters, Client as ILovePDF
 
-help = filters.create(lambda _, __, query: query.data.startswith("nabilanavab"))
-@ILovePDF.on_callback_query(help)
+@ILovePDF.on_callback_query(filters.regex("^nabilanavab"))
 async def __index__(bot, callbackQuery):
     try:
-        data = callbackQuery.data[12:]  # "nabilanavab|"
+        data = callbackQuery.data.split("|", 1)[1]  # "nabilanavab|"
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         
-        text, _ = await util.translate(text = f"HELP['{data}']", lang_code = lang_code)
+        if data.startswith("aio"):
+            text, _ = await util.translate(text = f"_CLICK_RIGHT", lang_code = lang_code)
+        else:
+            text, _ = await util.translate(text = f"HELP['{data}']", lang_code = lang_code)
         
         await callbackQuery.answer(text, show_alert=True)
         
