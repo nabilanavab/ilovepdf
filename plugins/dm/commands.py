@@ -46,7 +46,7 @@ async def _cancelI2P(bot, message):
 @ILovePDF.on_message(filters.private & filters.command(["beta"]) & filters.incoming)
 async def _betaMode(bot, message):
     try:
-        lang_code=await util.getLang(inline_query.from_user.id)
+        lang_code=await util.getLang(message.from_user.id)
         CHUNK, _ = await util.translate(text="BETA", lang_code=lang_code)
         
         if message.chat.id in dm.ADMINS:
@@ -57,7 +57,7 @@ async def _betaMode(bot, message):
         if (not message.chat.id in dm.ADMINS) and settings.REFER_BETA:
             refer_ids=await db.get_key(id=message.chat.id, key="refer")
             if not(len(refer_ids.split("|")) >= 5):
-                return await message.reply_text(CHUNK['refer'].format(f"https://t.me/{myID[0].username}?start=-r{inline_query.from_user.id}"), quote=True)
+                return await message.reply_text(CHUNK['refer'].format(f"https://t.me/{myID[0].username}?start=-r{message.from_user.id}"), quote=True)
         
         if message.chat.id not in BETA:
             await db.set_key(id=message.chat.id, key="beta", value="True")
