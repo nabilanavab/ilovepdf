@@ -132,7 +132,7 @@ async def _beta(bot, callbackQuery):
         await callbackQuery.answer()
         
         lang_code = await util.getLang(callbackQuery.message.chat.id)
-        tTXT, tBTN = await util.translate(text="_BETA_MESSAGE", button="RESTART['_CLOSE']", order=1, lang_code=lang_code)
+        tTXT, tBTN = await util.translate(text="_BETA_MESSAGE", button="RESTART['btn']", order=1, lang_code=lang_code)
         
         return await callbackQuery.message.reply(
             text=tTXT.format(f"https://t.me/{myID[0].username}?start=-r{message.from_user.id}"), reply_markup=tBTN
