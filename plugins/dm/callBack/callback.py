@@ -135,7 +135,8 @@ async def _beta(bot, callbackQuery):
         
         referal_link=f"https://t.me/{myID[0].username}?start=-r{callbackQuery.message.chat.id}"
         return await callbackQuery.message.reply(
-            text=tTXT.format(referal_link, f"http://t.me/share/url?url={referal_link}"), reply_markup=tBTN
+            text=tTXT.format(referal_link, f"http://t.me/share/url?url={referal_link}"),
+            reply_markup=tBTN, disable_web_page_preview=True
         )
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info=True)
