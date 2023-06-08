@@ -245,7 +245,7 @@ _REFER = "Invited : {} Users.!/nPlease refer a minimum of 5 new users to utilize
 _NOW_BETA = "`Now you are a beta user..` ☺"
 _NOW_NOT_BETA = "`Now you are not part in beta test..` 😐"
 _BETA_MSG = "🍄 BETA [FREE] 🍄"
-_BETA_MESSAGE = "**Join our Beta Program:**\n__Refer your friends and become a part of the beta version, unlocking exclusive access to effortlessly handle multiple tasks with ease.__\n\nYOUR REFERAL LINK: {}"
+_BETA_MESSAGE = "**🔰 Join our Beta Program 🔰**\n__Refer your friends and become a part of the beta version, unlocking exclusive access to effortlessly handle multiple tasks with ease.__\n\nYOUR REFERAL LINK: {}"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
