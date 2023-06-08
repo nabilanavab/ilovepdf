@@ -245,7 +245,7 @@ _REFER = "Invited : {} Users.!\nPlease refer a minimum of 5 new users to utilize
 _NOW_BETA = "`Now you are a beta user..` ☺"
 _NOW_NOT_BETA = "`Now you are not part in beta test..` 😐"
 _BETA_MSG = "🍄 JOIN BETA [FREE] 🍄"
-_BETA_MESSAGE = "**🔰 Join our Beta Program 🔰**\n__Refer your friends and become a part of the beta version, unlocking exclusive access to effortlessly handle multiple tasks with ease.__\n\n🎀 __Once you Generate your referral link.__\n🎀 __Invite 5 friends to join using this referral link.__\n🎀 __Once you've successfully referred 5 friends, send /beta command.__\n🎀 The 'All-in-One' option will now be available when sending or forwarding a PDF.\n🎀 Enjoy the enhanced capabilities of performing multiple tasks seamlessly in a single process.\n\n**__YOUR REFERAL LINK :__** {}\n**__SHARE LINK__ :** {}"
+_BETA_MESSAGE = "**🔰 Join our Beta Program 🔰**\n__Refer your friends and become a part of the beta version, unlocking exclusive access to effortlessly handle multiple tasks with ease.__\n\n🎀 __Once you Generate your referral link.__\n🎀 __Invite 5 friends to join using this referral link.__\n🎀 __Once you've successfully referred 5 friends, send /beta command.__\n🎀 The 'All-in-One' option will now be available when sending or forwarding a PDF.\n🎀 Enjoy the enhanced capabilities of performing multiple tasks seamlessly in a single process.\n\n**__YOUR REFERAL LINK :__** {}\n**__SHARE LINK__ : [Click Here]({})**"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
