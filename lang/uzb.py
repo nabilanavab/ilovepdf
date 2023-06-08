@@ -236,8 +236,14 @@ _PUBLIC = "📢 JAMOAT"
 _PRIVATE = "🔐 XUSUSIY"
 _GEN_LINK = "**Mana! Bu siz qidirayotgan narsa..**"
 _ERROR_ = "Nimadir xato ketdi shekilli. Keyinroq qayta urinib ko‘ring.\n\n`XATO:` {}"
-_AIO_PROCESS = "```{} ish davom etmoqda..🔰\nkuting, biroz vaqt talab qilishi mumkin.. 💔```"
-_VIEW_ONLY = "Havolada faqat koʻrish uchun ruxsat cheklangan.. 👀"
+_AIO_PROCESS = "```{} ish davom etmoqda..🔰\nkuting, biroz vaqt ketishi mumkin.. 💔```"
+_VIEW_ONLY = "Havolada faqat koʻrish imkoniyati cheklangan.. 👀"
+_REFER_T = "🎁 MA'LUMOT HAVOLASI 🎁"
+_REFER_D = "Do'stingizga murojaat qiling.."
+_CLICK_RIGHT = "Tanlash uchun o'ng tomondagi tugmani bosing. 👉"
+_REFER = "Iltimos, ushbu botdan foydalanish uchun kamida 5 ta yangi foydalanuvchiga murojaat qiling 😑\n\nYO'LLANISH HAVALE: {}"
+_NOW_BETA = "`Endi siz beta-versiya foydalanuvchisisiz..` ☺"
+_NOW_NOT_BETA = "`Endi siz beta-testda ishtirok etmaysiz..` 😐"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
@@ -359,11 +365,11 @@ INDEX = {
     "_total" : _TOTAL_PG, "_canceledAT" : _CANCEL_AT, "_upload" : _UPLOADING_AL, "finished" : _COMPLETED_SUCC, "cancelCB" : _EXIT,
     "_cancelCB" : {_CANCEL : "close|P2I"}, "_canceledCB" : {_CANCELED_CB : "close|P2IDONE"}, "_completed" : {_COMPLETED : "close|P2ICOMP"},
     "sizeLoad" : _SIZE_LOAD, "mergeDl" : _MERGE_DL, "merge" : _START_MERGE, "watermark_txt" : _WATERMARK_TXT, "watermark_pdf" : _WATERMARK_PDF,
-    "watermark_img" : _WATERMARK_IMG, "adding_wa" : _ADD_WATERMARK, "readAgain" : _READ_AGAIN, "zipTAR" : _ZIP_CONVERT, "aio" : _DL_COMPLETED,}
+    "watermark_img" : _WATERMARK_IMG, "adding_wa" : _ADD_WATERMARK, "readAgain" : _READ_AGAIN, "zipTAR" : _ZIP_CONVERT, "aio" : _AIO_PROCESS,}
 INLINE = {
     "search" : _SEARCH, "openBot" : _OPEN_BOT, 'query' : _TOTAL, 'lang_t' : _SET_LANG, "lang_d" : _H_LANG, 'caption' : _INLINE_CAP,
-    "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️',
+    "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
     'min' : _MIN_SEARCH, 'process' : _PROCESSING, 'nothing' : _NO_RESULT, "select" : _GET_PDF, 'description' : _INLINE_DES,
-    'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT],}
-
+    'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}
+BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
 HELP = {}
