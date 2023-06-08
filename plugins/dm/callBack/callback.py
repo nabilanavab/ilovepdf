@@ -133,10 +133,9 @@ async def _beta(bot, callbackQuery):
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         tTXT, tBTN = await util.translate(text="_BETA_MESSAGE", button="RESTART['btn']", order=1, lang_code=lang_code)
         
+        referal_link=f"https://t.me/{myID[0].username}?start=-r{callbackQuery.message.chat.id}"
         return await callbackQuery.message.reply(
-            text=tTXT.format(f"https://t.me/{myID[0].username}?start=-r{callbackQuery.message.chat.id}",
-                             f"http://t.me/share/url?url={f"https://t.me/{myID[0].username}?start=-r{callbackQuery.message.chat.id}"}"
-            ), reply_markup=tBTN
+            text=tTXT.format(referal_link, f"http://t.me/share/url?url={referal_link}"), reply_markup=tBTN
         )
     except Exception as Error:
         logger.exception("🐞 %s: %s" %(file_name, Error), exc_info=True)
