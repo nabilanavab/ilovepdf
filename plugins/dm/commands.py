@@ -49,8 +49,6 @@ async def _betaMode(bot, message):
         
         if message.chat.id in dm.ADMINS:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
-        if len(BETA) >= 20:
-            settings.REFER_BETA=True
         
         if not dataBASE.MONGODB_URI:
             return await message.reply_text(CHUNK['cant'], quote=True)
@@ -59,7 +57,8 @@ async def _betaMode(bot, message):
             refer_ids=await db.get_key(id=message.chat.id, key="refer")
             if (not refer_ids) or not(len(refer_ids.split("|")) >= 5):
                 return await message.reply_text(
-                    CHUNK['refer'].format("0" if not refer_ids else refer_ids, f"https://t.me/{myID[0].username}?start=-r{message.from_user.id}"), quote=True
+                    CHUNK['refer'].format("0" if not refer_ids else f"`{refer_ids.replace('|', '`, `')}`",
+                    f"https://t.me/{myID[0].username}?start=-r{message.from_user.id}"), quote=True
                 )
         
         if message.chat.id in dm.ADMINS and len(message.text.split(' '))==2:
