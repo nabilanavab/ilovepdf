@@ -38,7 +38,7 @@ async def default_ans(inline_query) -> list:
             ),
             InlineQueryResultPhoto(
                 photo_url="https://graph.org/file/f47963d0d7a74d280bae1.jpg",
-                title=CHUNK['refer_t'], description=CHUNK['refer_d'],
+                title=CHUNK['refer_t'], description=CHUNK['refer_d'], disable_web_page_preview=True,
                 input_message_content=InputTextMessageContent(f"[@{myID[0].username}](https://t.me/{myID[0].username}?start=-r{inline_query.from_user.id})")
             )
         ]
