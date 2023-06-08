@@ -18,7 +18,7 @@ _API = "API"
 _CAPTION = "CAPTION"
 _BACK_HOME = "« BACK TO HOME «"
 _INSTRUCTIONS = "🛈 INSTRUCTIONS 🛈"
-_HOME_A = "Hey {}..!!\nWelcome to {}.!\n\nWith this tool, you can easily convert images to PDF, compress PDF files, split , merge, encrypt or decrypt PDFs, rotate PDF pages, and much more.\n\nSimply send me a PDF/IMAGE and it will perform the requested action. for help select '⚠️ HELP ⚠️' at any time.the PDF bot is here to make your life easier..\n\nTry it out now and see how it can help you with all of your PDF needs!"
+_HOME_A = "Hey {}..!!\nWelcome to {}.!\n\nWith this tool, you can easily convert images to PDF, compress PDF files, split , merge, encrypt or decrypt PDFs, rotate PDF pages, and much more.\n\nZSimply send me a PDF/IMAGE and it will perform the requested action. for help select '⚠️ HELP ⚠️' at any time.the PDF bot is here to make your life easier..\n\nTry it out now and see how it can help you with all of your PDF needs!"
 _HOME_B = "SETTINGS PAGE ⚙️\n\nUSER NAME   : {}\nUSER ID           : {}\nUSERNAME    : {}\nJOIN DATE      : {}\n\nLANGUAGE    : {}\nAPI                    : {}\nTHUMB            : {}\nCAPTION         : {}\nFILE NAME      : {}"
 _HOME_C = "**Some of the main features are:**\n\n ◍ ```Create a PDF from your images: simply send it in bot pms [png, jpg, jpeg]```\n ◍ ```Extract the text from the PDF: Helps to extract the text from the PDF file and send as separate message.```\n ◍ ```Convert the PDF to another file format: [images, txt, html, json, tar, rar]```\n ◍ ```Merge multiple PDFs into one: Multiple PDF files to combine into a single file```\n ◍ ```Split a PDF into separate pages: Large PDF file to split it into separate ones```\n ◍ ```Extract images from the PDF: [all,range,pages] as image, doc, zip, rar```\n ◍ ```Helps to reduce size by optimizing the images. Useful in sending file via email when it's too large```\n ◍ ```Fetches Metadata: title of the document, the author, the subject, the keywords associated with the document, and the creation and modification dates```\n ◍ ```Encrypt/Decrypt Pdfs Using passwords, Websites to Pdf, Rotate, Rename, stamb..```\n ◍ ```WaterMark, Combine, Zoom, Draw, Add/Delete pages, Ocr pdf..```\n ◍ ```text messages to pdf files, and Much More.. 😎```"
 _HOME_D = "`As you know, this is a free service, I cannot guarantee how long I can maintain this service..`😝\n\n ⚠️ INSTRUCTIONS ⚠️:\n ◍ ```Please note that spamming is generally not tolerated and can result in the user or bot being banned from the service```\n ◍ ```Wait for the bot to process the file: The bot will process the PDF file and perform the requested action. This may take a few minutes, depending on the size of the file and the complexity of the action being performed.```\n ◍ ```Once the bot has completed the action, it will send you the results. If the action was successful, you will receive the output. If the action was not successful, the bot will let you know and provide any relevant error messages.```\n ◍ ```Any user found to be distributing or sharing pornographic content on the bot will be permanently banned```\n**Send any image to start:** 😁"
@@ -244,11 +244,13 @@ _CLICK_RIGHT = "Clic Right Side Button to Select. 👉"
 _REFER = "Invited : {} Users.!/nPlease refer a minimum of 5 new users to utilize this bot ☺\n\nYOUR REFERAL LINK : {}"
 _NOW_BETA = "`Now you are a beta user..` ☺"
 _NOW_NOT_BETA = "`Now you are not part in beta test..` 😐"
+_BETA_MSG = "🍄 BETA [FREE] 🍄"
+_BETA_MESSAGE = "**Join our Beta Program:**\n__Refer your friends and become a part of the beta version, unlocking exclusive access to effortlessly handle multiple tasks with ease.__\n\nYOUR REFERAL LINK: {}"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
-    "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : _SEARCH_PDF,
+    "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : [_SEARCH_PDF, _BETA_MSG],
     "HomeACB" : { _SETTINGS : "Home|B", _LANGUAGE : "set|lang", _HELP : "Home|C", _CHANNEL : f"{str(settings.OWNED_CHANNEL)}",
                  _SOURCE : f"{str(settings.SOURCE_CODE)}", _ADD_GROUP : "https://t.me/{}?startgroup=True" },
     "HomeAdminCB" : { _SETTINGS : "Home|B", _LANGUAGE : "set|lang", _HELP : "Home|C",
