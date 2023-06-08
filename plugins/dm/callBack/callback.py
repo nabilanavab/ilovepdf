@@ -28,9 +28,7 @@ txt2pdf = {
     "t" : "Times", "c" : "Courier", "h" : "Helvetica (Default)", "s" : "Symbol", "z" : "Zapfdingbats",
 }
 
-pdf = filters.create(lambda _, __, query: query.data.startswith("pdf"))
-
-@ILovePDF.on_callback_query(pdf)
+@ILovePDF.on_callback_query(filters.regex("^pdf"))
 async def _pdf(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
@@ -127,8 +125,22 @@ async def _pdf(bot, callbackQuery):
     except Exception as e:
         logger.exception("🐞 %s: %s" %(file_name, e), exc_info = True)
 
-aio = filters.create(lambda _, __, query: query.data.startswith("aio"))
-@ILovePDF.on_callback_query(aio)
+
+@ILovePDF.on_callback_query(filters.regex("beta"))
+async def _beta(bot, callbackQuery):
+    try:
+        await callbackQuery.answer()
+        
+        lang_code = await util.getLang(callbackQuery.message.chat.id)
+        tTXT, tBTN = await util.translate(text="_BETA_MESSAGE", button="RESTART['_CLOSE']", order=1, lang_code=lang_code)
+        
+        return await callbackQuery.message.reply(
+            text=tTXT.format(f"https://t.me/{myID[0].username}?start=-r{message.from_user.id}"), reply_markup=tBTN
+        )
+    except Exception as Error:
+        logger.exception("🐞 %s: %s" %(file_name, Error), exc_info=True)
+
+@ILovePDF.on_callback_query(filters.regex("^aio"))
 async def _aio(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
