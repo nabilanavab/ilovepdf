@@ -90,5 +90,5 @@ class settings(object):
     
     OWNED_CHANNEL = "https://telegram.dog/iLovePDF_bot"
     
-    REFER_BETA = False if os.environ.get('MULTI_LANG_SUP', "False") == "False" else True
+    REFER_BETA = False if os.environ.get('REFER_BETA', "False") == "False" else True
     
