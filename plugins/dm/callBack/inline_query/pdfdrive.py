@@ -39,7 +39,7 @@ async def chosen_inline_result(bot, chosen_inline_result):
                     InlineKeyboardButton(text = "⚔ GET PDF ⚔", callback_data = f"pD|{log_msg.id}|{chosen_inline_result.from_user.id}"),
                     InlineKeyboardButton(text = "🔎 SEARCH 🔎", switch_inline_query_current_chat = f"{chosen_inline_result.query}")
                 ],[
-                    InlineKeyboardButton(text = "🔔 CHANNEL 🔔", url = "https://telegram.dog/ilovepdf_bot")
+                    InlineKeyboardButton(text = "🔔 CHANNEL 🔔", url = "https://telegram.dog/ek_khwaab")
                 ]]
             )
         )
