@@ -244,11 +244,13 @@ _CLICK_RIGHT = "Tanlash uchun o'ng tomondagi tugmani bosing. 👉"
 _REFER = "Iltimos, ushbu botdan foydalanish uchun kamida 5 ta yangi foydalanuvchiga murojaat qiling 😑\n\nYO'LLANISH HAVALE: {}"
 _NOW_BETA = "`Endi siz beta-versiya foydalanuvchisisiz..` ☺"
 _NOW_NOT_BETA = "`Endi siz beta-testda ishtirok etmaysiz..` 😐"
+_BETA_MSG = "🍄 BETA [BEPUL] 🍄 QO'SHILING"
+_BETA_MESSAGE = "**🔰 Beta-dasturimizga qo'shiling 🔰**\n__Do'stlaringizga murojaat qiling va beta-versiyaning bir qismi bo'ling, bir nechta vazifalarni osonlikcha hal qilish uchun eksklyuziv ruxsatni oching.__\n\n🎀 __Bir marta tavsiya havolasini yaratasiz. __\n🎀 __Ushbu havola orqali 5 ta doʻstingizni taklif qiling.__\n🎀 __5 doʻstingizni muvaffaqiyatli yuborganingizdan soʻng, /beta buyrugʻini yuboring.__\n🎀 “Hammasi birida” opsiyasi endi qachon ishlaydi PDF-faylni jo‘natish yoki yo‘naltirish.\n🎀 Bitta jarayonda bir nechta vazifalarni muammosiz bajarishning kengaytirilgan imkoniyatlaridan bahramand bo‘ling.\n\n**__MASLAHAT HAVOLAGI:__** {}\n**__LINK__ :** {}"
 
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
-    "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : _SEARCH_PDF,
+    "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : [_SEARCH_PDF, _BETA_MSG],
     "HomeACB" : { _SETTINGS : "Home|B", _LANGUAGE : "set|lang", _HELP : "Home|C", _CHANNEL : f"{str(settings.OWNED_CHANNEL)}",
                  _SOURCE : f"{str(settings.SOURCE_CODE)}", _ADD_GROUP : "https://t.me/{}?startgroup=True" },
     "HomeAdminCB" : { _SETTINGS : "Home|B", _LANGUAGE : "set|lang", _HELP : "Home|C",
