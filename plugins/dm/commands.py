@@ -45,10 +45,12 @@ async def _cancelI2P(bot, message):
 async def _betaMode(bot, message):
     try:
         lang_code=await util.getLang(message.from_user.id)
-        CHUNK, _ = await util.translate(text="BETA", lang_code=lang_code)
+        CHUNK, _=await util.translate(text="BETA", lang_code=lang_code)
         
         if message.chat.id in dm.ADMINS:
             logger.debug(f"Beta Users:\n\n{BETA}\n\n")
+        if len(BETA) >= 20:
+            settings.REFER_BETA=True
         
         if not dataBASE.MONGODB_URI:
             return await message.reply_text(CHUNK['cant'], quote=True)
