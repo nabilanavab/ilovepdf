@@ -143,11 +143,18 @@ async def non_subscriber(bot, message):
             text="BAN['Force']", button="BAN['ForceCB']", asString=True, lang_code=lang_code
         )
         tBTN = await util.editDICT(inDir=tBTN, value=[invite_link[0], code])
-        button = await util.createBUTTON(btn=tBTN, order="11")
-        return await message.reply_photo(
+        await message.reply_photo(
             photo=images.WELCOME_PIC, quote=True,
-            caption=tTXT.format(message.from_user.first_name, message.from_user.id), reply_markup=button
+            caption=tTXT.format(message.from_user.first_name, message.from_user.id),
+            reply_markup=await util.createBUTTON(btn=tBTN, order="11")
         )
+        if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en":
+            _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=-l{lang}" for lang in langList }
+            BUTTON = await util.createBUTTON(btn=_lang, order=int(f"{(len(BUTTON)//2)*'2'}{len(BUTTON)%2}"))
+            tTXT, _ = await util.translate(text="INLINE['lang_t']", lang_code=lang_code)
+            return message.reply(text=tTXT, reply_markup=BUTTON)
+        else:
+            return
     except Exception as e:
         logger.exception("🐞 %s /close: %s" %(file_name, e))
 
