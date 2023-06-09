@@ -26,7 +26,7 @@ async def _refresh(bot, callbackQuery):
         if invite_link:
             userStatus = await bot.get_chat_member(str(settings.UPDATE_CHANNEL), callbackQuery.from_user.id)
             if userStatus.status == "kicked":
-                await callbackQuery.answer("🤧")
+                return await callbackQuery.answer("🤧")
         
         if callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
             await decode(bot, callbackQuery.data[9:], callbackQuery.message, lang_code, cb=True)
@@ -41,6 +41,12 @@ async def _refresh(bot, callbackQuery):
             await callbackQuery.edit_message_caption(
                 caption=tTXT.format(callbackQuery.from_user.mention, myID[0].mention), reply_markup=tBTN
             )
+            tTXT, tBTN = await util.translate(text="HOME['search']", lang_code=lang_code)
+            await callbackQuery.message.reply_sticker(
+                sticker="CAACAgIAAxkBAAEVZ65kduZn7WTQXlyDFErYqb0BvyoIEQACVQADr8ZRGmTn_PAl6RC_LwQ",
+                reply_markup=InlineKeyboardMarkup(
+                    [[ InlineKeyboardButton(text=tTXT[0], switch_inline_query_current_chat="" ) ],
+                     [ InlineKeyboardButton(text=tTXT[1], callback_data="beta" ) ]]))
             return await callbackQuery.message.reply_to_message.delete()
         
         elif await work.work(callbackQuery, "check", False):
