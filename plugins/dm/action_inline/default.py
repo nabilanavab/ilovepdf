@@ -20,7 +20,7 @@ async def default_ans(inline_query) -> list:
         BUTTON.update(_lang)
         BUTTON.update({"♻" : "-|refresh"})
         BUTTON = await util.createBUTTON(
-            btn=BUTTON, order=int(f"1{((len(BUTTON)-2)//3)*'3'}{(len(BUTTON)-2)%3}1")
+            btn=BUTTON, order=int(f"1{((len(BUTTON)-2)//2)*'3'}{(len(BUTTON)-2)%2}1")
         )
         
         answer = [
