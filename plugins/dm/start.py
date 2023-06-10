@@ -50,7 +50,7 @@ async def start(bot, message):
         
         lang_code=await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
-        if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en":
+        if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en" and lang_code=="eng":
             change, _ = await util.translate(text="SETTINGS['chgLang']", lang_code=lang_code)
             _lang = { langList[lang][1]:f"set|lang|{lang}" for lang in langList if lang != lang_code }
             change.update(_lang); back, _ = await util.translate(text="SETTINGS['back'][1]", lang_code=lang_code)
