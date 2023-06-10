@@ -32,15 +32,7 @@ async def _refresh(bot, callbackQuery):
                 tTXT, _ = await util.translate(text="BAN['Fool']", lang_code=lang_code)
                 return await callbackQuery.answer(tTXT, show_alert=True)
         
-        if callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
-            await decode(bot, callbackQuery.data[9:], callbackQuery.message, lang_code, cb=True)
-            return await callbackQuery.message.delete()
-        
-        elif callbackQuery.data.startswith("refresh-m"):    # this means "refresh-g{code}
-            await openInBot(bot, callbackQuery.message, callbackQuery.data.split("-m"))
-            return await callbackQuery.message.delete()
-        
-        elif callbackQuery.message.reply_to_message.text == "/start":
+        if callbackQuery.message.reply_to_message.text == "/start":
             tTXT, tBTN = await util.translate(text="HOME['HomeA']", button="HOME['HomeACB']", lang_code=lang_code, order=2121)
             await callbackQuery.edit_message_caption(
                 caption=tTXT.format(callbackQuery.from_user.mention, myID[0].mention), reply_markup=tBTN
@@ -52,6 +44,14 @@ async def _refresh(bot, callbackQuery):
                     [[ InlineKeyboardButton(text=tTXT[0], switch_inline_query_current_chat="" ) ],
                      [ InlineKeyboardButton(text=tTXT[1], callback_data="beta" ) ]]))
             return await callbackQuery.message.reply_to_message.delete()
+        
+        elif callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
+            await decode(bot, callbackQuery.data[9:], callbackQuery.message, lang_code, cb=True)
+            return await callbackQuery.message.delete()
+        
+        elif callbackQuery.data.startswith("refresh-m"):    # this means "refresh-g{code}
+            await openInBot(bot, callbackQuery.message, callbackQuery.data.split("-m"))
+            return await callbackQuery.message.delete()
         
         elif await work.work(callbackQuery, "check", False):
             tTXT, _ = await util.translate(text = "PROGRESS['workInP']", lang_code = lang_code)
