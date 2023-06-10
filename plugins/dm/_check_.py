@@ -53,7 +53,7 @@ async def bannedUsr(bot, message):
             caption=trans_txt.format(message.from_user.mention),
         )
     except Exception as e:
-        logger.exception("🐞 %s /close: %s" %(file_name, e))
+        logger.exception("🐞 %s bannedUsr: %s" %(file_name, e))
 
 # ===================> BANNED GROUP <===================
 async def bannedGroups(_, __, message: Message):
@@ -94,7 +94,7 @@ async def bannedGrp(bot, message):
         except Exception: pass
         await bot.leave_chat(message.chat.id)
     except Exception as e:
-        logger.exception("🐞 %s /close: %s" %(file_name, e))
+        logger.exception("🐞 %s bannedGrp: %s" %(file_name, e))
 
 # =====================>  IF FORCE SUBSCRIPTION  <===================
 async def notSubscribed(_, bot, message: Message):
@@ -139,9 +139,8 @@ async def non_subscriber(bot, message):
                 code=""
         else:
             code=""
-        tTXT, tBTN = await util.translate(
-            text="BAN['Force']", button="BAN['ForceCB']", asString=True, lang_code=lang_code
-        )
+        logger.debug(message)
+        tTXT, tBTN = await util.translate(text="BAN['Force']", button="BAN['ForceCB']", asString=True, lang_code=lang_code)
         tBTN = await util.editDICT(inDir=tBTN, value=[invite_link[0], code])
         await message.reply_photo(
             photo=images.WELCOME_PIC, quote=True,
@@ -149,13 +148,13 @@ async def non_subscriber(bot, message):
             reply_markup=await util.createBUTTON(btn=tBTN, order="11")
         )
         if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en":
-            _lang = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=-l{lang}" for lang in langList }
-            BUTTON = await util.createBUTTON(btn=_lang, order=int(f"{(len(BUTTON)//2)*'2'}{len(BUTTON)%2}"))
-            tTXT, _ = await util.translate(text="INLINE['lang_t']", lang_code=lang_code)
-            return message.reply(text=tTXT, reply_markup=BUTTON)
-        else:
-            return
+            change, close = await util.translate(text="SETTINGS['chgLang']", button="REFRESH['btn']", asString=True, lang_code=lang_code)
+            LANG = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=-l{lang}" for lang in langList }
+            LANG.update(close); 
+            BUTTON = await util.createBUTTON(btn=LANG, order=int(f"1{((len(LANG)-1)//2)*'2'}{(len(LANG)-1)%2}1"))
+            await message.reply(text=change, reply_markup=BUTTON)
+        return
     except Exception as e:
-        logger.exception("🐞 %s /close: %s" %(file_name, e))
+        logger.exception("🐞 %s non_subscriber: %s" %(file_name, e))
 
 # Author: @nabilanavab
