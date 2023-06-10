@@ -24,9 +24,13 @@ async def _refresh(bot, callbackQuery):
             return
         
         if invite_link:
-            userStatus = await bot.get_chat_member(str(settings.UPDATE_CHANNEL), callbackQuery.from_user.id)
-            if userStatus.status == "kicked":
-                return await callbackQuery.answer("🤧")
+            try:
+               userStatus = await bot.get_chat_member(str(settings.UPDATE_CHANNEL), callbackQuery.from_user.id)
+               if userStatus.status == "kicked":
+                   return await callbackQuery.answer("🤧")
+            except Exception:
+                tTXT, _ = await util.translate(text="BAN['Fool']", lang_code=lang_code)
+                return await callbackQuery.answer(tTXT, show_alert=True)
         
         if callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
             await decode(bot, callbackQuery.data[9:], callbackQuery.message, lang_code, cb=True)
@@ -69,6 +73,7 @@ async def _refresh(bot, callbackQuery):
             await callbackQuery.message.delete()
             return await _url(bot, callbackQuery.message.reply_to_message)
     
-    except Exception as e:
-        tTXT, _ = await util.translate(text="BAN['Fool']", lang_code=lang_code)
-        return await callbackQuery.answer(tTXT, show_alert=True)
+    except Exception as Error:
+        logger.debug(f"{file_name}: {Error}")
+        
+# nabilanavab
