@@ -147,7 +147,7 @@ async def non_subscriber(bot, message):
             caption=tTXT.format(message.from_user.first_name, message.from_user.id),
             reply_markup=await util.createBUTTON(btn=tBTN, order="11")
         )
-        if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en":
+        if settings.MULTI_LANG_SUP and message.from_user.language_code and message.from_user.language_code!="en" and lang_code=="eng":
             change, close = await util.translate(text="SETTINGS['lang']", button="RESTART['btn']", asString=True, lang_code=lang_code)
             LANG = { langList[lang][1]:f"https://t.me/{myID[0].username}?start=-l{lang}" for lang in langList }; LANG.update(close)
             BUTTON = await util.createBUTTON(btn=LANG, order=int(f"{((len(LANG)-1)//2)*'2'}{(len(LANG)-1)%2}1"))
