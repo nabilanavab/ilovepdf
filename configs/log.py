@@ -83,9 +83,9 @@ class log:
 #{myID[0].username}
 
 __chat type:__ `private 👤`
-{'__username:__ @{}'.format(file.chat.username) if file.chat.username else " "}
 __user profile:__ [{file.chat.first_name}](tg://user?id={file.chat.id})
-__user ID:__ `{file.chat.id}`"""
+__user ID:__ `{file.chat.id}`
+{'__username:__ @{}'.format(file.chat.username) if file.chat.username else " "}"""
             
             else:
                 banUserCB = InlineKeyboardMarkup(
@@ -96,8 +96,7 @@ __user ID:__ `{file.chat.id}`"""
 #{myID[0].username}
 
 __chat type:__ `{file.chat.type} 👥`
-__chat title:__ `{file.chat.title}`
-{'__username:__ @{}'.format(file.chat.username) if {file.chat.username} is not None else " "}
+__chat title:__ `{file.chat.title}`{'\n__username:__ @{}'.format(file.chat.username) if {file.chat.username} is not None else " "}
 
 __user profile:__ {file.from_user.mention}
 __user ID:__ `{file.from_user.id}`"""
