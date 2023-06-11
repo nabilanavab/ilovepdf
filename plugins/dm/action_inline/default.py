@@ -6,8 +6,7 @@ from plugins.utils   import *
 from configs.db      import myID
 from configs.config  import images
 from lang            import langList
-from pyrogram.types  import (InputTextMessageContent, InlineKeyboardMarkup,
-                             InlineKeyboardButton, InlineQueryResultPhoto)
+from pyrogram.types  import InputTextMessageContent, InlineKeyboardMarkup, InlineKeyboardButton
 
 async def default_ans(inline_query) -> list:
     try:
@@ -24,20 +23,20 @@ async def default_ans(inline_query) -> list:
         )
         
         answer = [
-            InlineQueryResultPhoto(
-                photo_url="https://i.imgur.com/NmKgTrk.png",
+            InlineQueryResultArticle(
+                thumb_url="https://i.imgur.com/NmKgTrk.png",
                 title=CHUNK['sear_t'], description=CHUNK['sear_d'],
                 input_message_content=InputTextMessageContent(CHUNK['sear_d']),
                 reply_markup=InlineKeyboardMarkup(
                     [[ InlineKeyboardButton(text=CHUNK['search'], switch_inline_query_current_chat="" )]] ),
             ),
-            InlineQueryResultPhoto(
-                photo_url="https://i.imgur.com/vXzBL0G.png",
+            InlineQueryResultArticle(
+                thumb_url="https://i.imgur.com/vXzBL0G.png",
                 title=CHUNK['lang_t'], reply_markup=BUTTON, description=CHUNK['lang_d'],
                 input_message_content=InputTextMessageContent(CHUNK['lang_d'])
             ),
-            InlineQueryResultPhoto(
-                photo_url="https://i.imgur.com/tRqsigZ.png",
+            InlineQueryResultArticle(
+                thumb_url="https://i.imgur.com/tRqsigZ.png",
                 title=CHUNK['refer_t'], description=CHUNK['refer_d'],
                 input_message_content=InputTextMessageContent(
                     f"[@{myID[0].username}](https://t.me/{myID[0].username}?start=-r{inline_query.from_user.id})",
