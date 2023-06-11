@@ -25,7 +25,7 @@ async def default_ans(inline_query) -> list:
         
         answer = [
             InlineQueryResultPhoto(
-                photo_url="https://i.imgur.com/yikZFu8.png",
+                photo_url="https://i.imgur.com/zT1mtLo.png",
                 title=CHUNK['sear_t'], description=CHUNK['sear_d'],
                 input_message_content=InputTextMessageContent(CHUNK['sear_d']),
                 reply_markup=InlineKeyboardMarkup(
