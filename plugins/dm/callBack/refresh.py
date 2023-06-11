@@ -15,6 +15,7 @@ from ..action_inline.in_bot    import openInBot
 from ..document                import documents
 from configs.db                import invite_link
 from pyrogram                  import filters, Client as ILovePDF
+from pyrogram.types            import InlineKeyboardMarkup, InlineKeyboardButton
 
 @ILovePDF.on_callback_query(filters.regex("^refresh"))
 async def _refresh(bot, callbackQuery):
