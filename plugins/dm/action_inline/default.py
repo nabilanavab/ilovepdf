@@ -42,6 +42,13 @@ async def default_ans(inline_query) -> list:
                 title=CHUNK['refer_t'], description=CHUNK['refer_d'],
                 input_message_content=InputTextMessageContent(
                     f"[@{myID[0].username}](https://t.me/{myID[0].username}?start=-r{inline_query.from_user.id})",
+                    disable_web_page_preview=True)
+            ),
+            InlineQueryResultArticle(
+                thumb_url="https://i.imgur.com/ylUGuxH.png",
+                title="🌟SOURCE CODE 🌟", description="About Source Code..",
+                input_message_content=InputTextMessageContent(
+                    f"https://github.com/nabilanavab/ilovepdf",
                     disable_web_page_preview=True
                 )
             )
