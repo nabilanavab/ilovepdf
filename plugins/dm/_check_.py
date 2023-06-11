@@ -130,7 +130,7 @@ async def non_subscriber(bot, message):
         lang_code = await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         if message.text and message.text.startswith("/start") and ("-g" or "-m" in message.text):
-            lang_code, referID, get_pdf, md5_str = await extract_data(f"{message.text}-")
+            _lang_code, referID, get_pdf, md5_str = await extract_data(f"{message.text}-")
             if get_pdf:
                 code=f'-g{get_pdf}'
             elif md5_str:
@@ -139,7 +139,6 @@ async def non_subscriber(bot, message):
                 code=""
         else:
             code=""
-        logger.debug(message)
         tTXT, tBTN = await util.translate(text="BAN['Force']", button="BAN['ForceCB']", asString=True, lang_code=lang_code)
         tBTN = await util.editDICT(inDir=tBTN, value=[invite_link[0], code])
         await message.reply_photo(
