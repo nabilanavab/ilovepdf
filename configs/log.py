@@ -20,9 +20,9 @@ class log:
     
     LOG_FILE = os.environ.get("LOG_FILE", False)  # "nabilanavab.log"
     
-    LOG_TEXT = f"#newUser @nabilanavab/ILovePDF\n#{myID[0].username}\n\nID: `{}`\nView Profile: {}"
+    LOG_TEXT = "#newUser @nabilanavab/ILovePDF\n#" + {myID[0].username} + "\n\nID: `{}`\nView Profile: {}"
     
-    LOG_TEXT_C = f"#newChat @nabilanavab/ILovePDF\n#{myID[0].username}\n\nID: `{}`\nGroup Title: {}\nTotal Users: {}\nUserName: {}"
+    LOG_TEXT_C = "#newChat @nabilanavab/ILovePDF\n#" + {myID[0].username} + "\n\nID: `{}`\nGroup Title: {}\nTotal Users: {}\nUserName: {}"
     
     async def newUser(bot, message, lang_code, referID):
         if message.chat.type != ChatType.PRIVATE:
