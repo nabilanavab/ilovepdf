@@ -5,7 +5,7 @@ import os
 from plugins.utils     import *
 from asyncio           import sleep
 from logger            import logger
-from configs.db        import dataBASE
+from configs.db        import dataBASE, myID
 from pyrogram.enums    import ChatType
 from configs.config    import settings
 from pyrogram.errors   import FloodWait
@@ -20,9 +20,9 @@ class log:
     
     LOG_FILE = os.environ.get("LOG_FILE", False)  # "nabilanavab.log"
     
-    LOG_TEXT = """#newUser @nabilanavab/ILovePDF\n\nID: `{}`\nView Profile: {}"""
+    LOG_TEXT = f"#newUser @nabilanavab/ILovePDF\n#{myID[0].username}\n\nID: `{}`\nView Profile: {}"
     
-    LOG_TEXT_C = """#newChat @nabilanavab/ILovePDF\n\nID: `{}`\nGroup Title: {}\nTotal Users: {}\nUserName: {}"""
+    LOG_TEXT_C = f"#newChat @nabilanavab/ILovePDF\n#{myID[0].username}\n\nID: `{}`\nGroup Title: {}\nTotal Users: {}\nUserName: {}"
     
     async def newUser(bot, message, lang_code, referID):
         if message.chat.type != ChatType.PRIVATE:
@@ -80,6 +80,7 @@ class log:
                     [[ InlineKeyboardButton("✅ B@N USER ✅", callback_data = f"banU|{file.chat.id}") ]]
                 )
                 captionLOG = f"""#newFile @nabilanavab/ILovePDF
+#{myID[0].username}
 
 __chat type:__ `private 👤`
 {'__username:__ @{}'.format(file.chat.username) if file.chat.username else " "}
@@ -92,6 +93,7 @@ __user ID:__ `{file.chat.id}`"""
                      [ InlineKeyboardButton( "✅ B@N CHAT ✅", callback_data = f"banC|{file.chat.id}" ) ]]
                 )
                 captionLOG = f"""#newFile @nabilanavab/ILovePDF
+#{myID[0].username}
 
 __chat type:__ `{file.chat.type} 👥`
 __chat title:__ `{file.chat.title}`
