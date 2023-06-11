@@ -5,8 +5,10 @@ fileName = "plugins/dm/action_inline/default_ans.py"
 from plugins.utils   import *
 from configs.db      import myID
 from configs.config  import images
+from logger          import logger
 from lang            import langList
-from pyrogram.types  import InputTextMessageContent, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types  import ( InputTextMessageContent, InlineKeyboardMarkup,
+                              InlineKeyboardButton, InlineQueryResultArticle )
 
 async def default_ans(inline_query) -> list:
     try:
