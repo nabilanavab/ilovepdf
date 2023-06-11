@@ -42,14 +42,14 @@ async def default_ans(inline_query) -> list:
                 title=CHUNK['refer_t'], description=CHUNK['refer_d'],
                 input_message_content=InputTextMessageContent(
                     f"[@{myID[0].username}](https://t.me/{myID[0].username}?start=-r{inline_query.from_user.id})",
-                    disable_web_page_preview=True)
+                    disable_web_page_preview=True
+                )
             ),
             InlineQueryResultArticle(
                 thumb_url="https://i.imgur.com/ylUGuxH.png",
                 title="🌟SOURCE CODE 🌟", description="About Source Code..",
                 input_message_content=InputTextMessageContent(
-                    f"https://github.com/nabilanavab/ilovepdf",
-                    disable_web_page_preview=True
+                    f"https://github.com/nabilanavab/ilovepdf", disable_web_page_preview=True
                 )
             )
         ]
@@ -64,14 +64,13 @@ async def search(inline_query) -> list:
         CHUNK, _ = await util.translate(text="INLINE", lang_code=lang_code)
         
         answer = [
-            InlineQueryResultPhoto(
-                photo_url="https://graph.org/file/e0543a5ace611768e71d1.jpg",
+            InlineQueryResultArticle(
+                thumb_url="https://graph.org/file/e0543a5ace611768e71d1.jpg",
                 title=CHUNK['sear_t'], description=CHUNK['sear_d'],
                 input_message_content=InputTextMessageContent(CHUNK['sear_d']),
                 reply_markup=InlineKeyboardMarkup(
                     [[ InlineKeyboardButton(
-                        text=CHUNK['search'],
-                        switch_inline_query_current_chat=f"{inline_query.query.split('|')[1]}")
+                        text=CHUNK['search'], switch_inline_query_current_chat=f"{inline_query.query.split('|')[1]}")
                     ]]
                 ),
             )]
