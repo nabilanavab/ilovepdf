@@ -65,7 +65,7 @@ async def search(inline_query) -> list:
         
         answer = [
             InlineQueryResultArticle(
-                thumb_url="https://graph.org/file/e0543a5ace611768e71d1.jpg",
+                thumb_url="https://i.imgur.com/NmKgTrk.png",
                 title=CHUNK['sear_t'], description=CHUNK['sear_d'],
                 input_message_content=InputTextMessageContent(CHUNK['sear_d']),
                 reply_markup=InlineKeyboardMarkup(
