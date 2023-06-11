@@ -33,20 +33,7 @@ async def _refresh(bot, callbackQuery):
                 tTXT, _ = await util.translate(text="BAN['Fool']", lang_code=lang_code)
                 return await callbackQuery.answer(tTXT, show_alert=True)
         
-        if callbackQuery.message.reply_to_message.text == "/start":
-            tTXT, tBTN = await util.translate(text="HOME['HomeA']", button="HOME['HomeACB']", lang_code=lang_code, order=2121)
-            await callbackQuery.edit_message_caption(
-                caption=tTXT.format(callbackQuery.from_user.mention, myID[0].mention), reply_markup=tBTN
-            )
-            tTXT, tBTN = await util.translate(text="HOME['search']", lang_code=lang_code)
-            await callbackQuery.message.reply_sticker(
-                sticker="CAACAgIAAxkBAAEVZ65kduZn7WTQXlyDFErYqb0BvyoIEQACVQADr8ZRGmTn_PAl6RC_LwQ",
-                reply_markup=InlineKeyboardMarkup(
-                    [[ InlineKeyboardButton(text=tTXT[0], switch_inline_query_current_chat="" ) ],
-                     [ InlineKeyboardButton(text=tTXT[1], callback_data="beta" ) ]]))
-            return await callbackQuery.message.reply_to_message.delete()
-        
-        elif callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
+        if callbackQuery.data.startswith("refresh-g"):    # this means "refresh-g{code}
             await decode(bot, callbackQuery.data[9:], callbackQuery.message, lang_code, cb=True)
             return await callbackQuery.message.delete()
         
@@ -70,10 +57,25 @@ async def _refresh(bot, callbackQuery):
             await callbackQuery.message.delete()
             return await gDOC(bot, callbackQuery.message.reply_to_message)
         
+        elif callbackQuery.message.reply_to_message.text == "/start" or callbackQuery.message.reply_to_message.text:
+            tTXT, tBTN = await util.translate(text="HOME['HomeA']", button="HOME['HomeACB']", lang_code=lang_code, order=2121)
+            await callbackQuery.edit_message_caption(
+                caption=tTXT.format(callbackQuery.from_user.mention, myID[0].mention), reply_markup=tBTN
+            )
+            tTXT, tBTN = await util.translate(text="HOME['search']", lang_code=lang_code)
+            await callbackQuery.message.reply_sticker(
+                sticker="CAACAgIAAxkBAAEVZ65kduZn7WTQXlyDFErYqb0BvyoIEQACVQADr8ZRGmTn_PAl6RC_LwQ",
+                reply_markup=InlineKeyboardMarkup(
+                    [[ InlineKeyboardButton(text=tTXT[0], switch_inline_query_current_chat="" ) ],
+                     [ InlineKeyboardButton(text=tTXT[1], callback_data="beta" ) ]]))
+            return await callbackQuery.message.reply_to_message.delete()
+        
+        """
         elif callbackQuery.message.reply_to_message.text:
             await callbackQuery.message.delete()
             return await _url(bot, callbackQuery.message.reply_to_message)
-    
+        """
+        
     except Exception as Error:
         logger.debug(f"{file_name}: {Error}")
         
