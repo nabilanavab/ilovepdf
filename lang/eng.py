@@ -237,7 +237,8 @@ _NOW_BETA = "`Now you are a beta user..` ☺"
 _NOW_NOT_BETA = "`Now you are not part in beta test..` 😐"
 _BETA_MSG = "🍄 JOIN BETA [FREE] 🍄"
 _BETA_MESSAGE = "**🔰 Join our Beta Program 🔰**\n__Refer your friends and become a part of the beta version, unlocking exclusive access to effortlessly handle multiple tasks with ease.__\n\n🎀 __Once you Generate your referral link.__\n🎀 __Invite 5 friends to join using this referral link.__\n🎀 __Once you've successfully referred 5 friends, send /beta command.__\n🎀 The 'All-in-One' option will now be available when sending or forwarding a PDF.\n🎀 Enjoy the enhanced capabilities of performing multiple tasks seamlessly in a single process.\n\n**__YOUR REFERAL LINK :__** {}\n**__SHARE LINK__ : [Click Here]({})**"
-
+_SELECT_SCALE = "SELECT SCALE"
+_SELECT_FONT = "SET FONT"
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
@@ -332,11 +333,6 @@ AIO = {
 gDOCUMENT = { "admin" : _ADMIN_ONLY, "notDOC" : _NOT_DOC, "Gadmin" : _G_ADMIN, "adminO" : _NOT_YOUR }
 gDOCUMENT.update(DOCUMENT)
 noHelp = _WASTE
-pdf2TXT = {
-    "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,
-    "font_btn" : {"TXT@PDF » SET FONT" : "nabilanavab", "Times" : "t2p|t", "Courier" : "t2p|c", "Helvetica (Default)" : "t2p|h",
-        "Symbol" : "t2p|s", "Zapfdingbats" : "t2p|z", _CLOSE : "close|me"}, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P,
-    "size_btn" : {"TXT@PDF » {} » SET SCALE" : "nabilanavab", "Portarate" : "t2p|{}|p", "Landscape" : "t2p|{}|l", _BACK: "pdf|T2P"}}
 URL = {
     "notPDF" : _CODEC, "close" : { _CLOSE : "close|all" }, "get" : { _GET_TG_PDF : "getFile"}, "error" : _ERROR, "view" : _VIEW_ONLY,
     "done" : _DONE, "_error_" : _TEXT_REPLY, "openCB" : {_OPEN_BROW : "{}"}, "_error" : _ERROR,"_get" : _TG_PDF }
@@ -363,4 +359,9 @@ INLINE = {
     'min' : _MIN_SEARCH, 'process' : _PROCESSING, 'nothing' : _NO_RESULT, "select" : _GET_PDF, 'description' : _INLINE_DES,
     'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}
 BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
+pdf2TXT = {
+    "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,
+    "font_btn" : {_SELECT_FONT : "nabilanavab", "Times" : "t2p|t", "Courier" : "t2p|c", "Helvetica (Default)" : "t2p|h",
+        "Symbol" : "t2p|s", "Zapfdingbats" : "t2p|z", _CLOSE : "close|me"}, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P,
+    "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"}}
 HELP = {}
