@@ -8,7 +8,7 @@ _CLOSE = "🚶 CLOSE 🚶"
 _RESTART = "☠ `𝐎𝐕𝐄𝐑𝐋𝐎𝐀𝐃 𝐃𝐄𝐂𝐓𝐄𝐂𝐓𝐄𝐃`☠:\n__𝐬𝐞𝐫𝐯𝐞𝐫 𝐫𝐞𝐬𝐭𝐚𝐫𝐭𝐞𝐝__ \n\nI noticed that your work was also in queue\n\nCan you please try again..!"
 _SETTINGS = "⚙️ SETTINGS ⚙️"
 _LANGUAGE = "🌍 LANGUAGE 🌍"
-_HELP = "⚠️ HELP ⚠️"
+_HELP = "📚 HELP 📚"
 _CHANNEL = "📢 CHANNEL 📢"
 _SOURCE = "🌟 SOURCE CODE 🌟"
 _ADD_GROUP = "➕ ADD IN GROUP ➕"
@@ -78,26 +78,18 @@ _FORCE = "Wait [{}](tg://user?id={})..!!\n\nDue To The Huge Traffic Only **Chann
 _JOIN_CHANNEL =  "🌟 JOIN CHANNEL 🌟"
 _REFRESH = "♻️ Refresh ♻️"
 _BACK = "« BACK «"
-_H_META = "❓ META£ATA:HELP ❓"
-_H_ENC = "❓ ENCRYPT/DECRYPT:HELP ❓"
 _ONLY_META = "✔ ONLY METADATA ✔"
 _ALL_META = "✅ WITH PREVIEW ✅"
-_H_SPLIT_MERGE = "❓ SPLIT/MERGE PDF:HELP ❓"
 _H_SPLIT = "✂️ SPLIT ✂️"
 _H_MERGE = "🧬 MERGE 🧬"
-_H_FORMAT = "❓ FORMAT:HELP ❓"
-_H_COMP_OCR = "❓ COMPRESS/OCR PDF:HELP ❓"
 _H_COMPRESS = "🗜 COMPRESS 🗜"
 _H_OCR = "📝 OCR 📝"
-_H_WATERMARK = "❓ WATERMARK:HELP ❓"
 _H_WATER = "💦 WATERMARK 💦"
 _H_STAMP = "™️ STAMP ™️"
-_H_FILTER = "❓ FILTER:HELP ❓"
 _H_DRAW = "🎨 DRAW 🎨"
 _H_BAW = "⚫ BLACK/WHITE ⚪"
 _H_SAT = "🪐 SATURARE 🪐"
 _H_INV = "🖌 INVERT 🖌"
-_H_ADD_DEL = "❓ ADD/DELETE PAGES:HELP ❓"
 _ADD = "🟢 ADD PAGES 🟢"
 _DEL = "🔴 DELETE PAGES 🔴"
 _P2IMG = "⚙️ PDF » IMAGES ↓"
@@ -159,7 +151,6 @@ _IMG_ADDED = "`Added {} pages to your PDF..`🤓\n\nfileName: `{}.pdf`"
 _TRUE = "✅ TRUE ✅"
 _FALSE = "🔴 FALSE 🔴"
 _PASS_REQUIRED = "Does the PDF file require a password to open.?🤔💭\n\nFile Name : `{}`\nFile Size : `{}`"
-_H_AIO = "❓ INPUT FILE:HELP ❓"
 _YES = "✅ YES ✅"
 _NO = "🔴 NO 🔴"
 _MOVE = "⏭ MOVE ⏭"
@@ -295,15 +286,15 @@ PDF_MESSAGE = {
         _RENAME : "#rename", _ZOOM : "#zoom", _URL : "link", _FILTER : "pdf|filter", _ADD_DELETE : "pdf|addlt", _CLOSE : "close|all"},
     "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,}
 BUTTONS = {
-    "meta" : { _H_META : "nabilanavab|meta", _ONLY_META : "#metadata", _ALL_META : "#preview", _BACK : "pdf" },
-    "lock" : { _H_ENC : "nabilanavab|lock", _ENCRYPT_CB : "#encrypt", _DECRYPT_CB : "#decrypt", _BACK : "pdf" },
+    "meta" : { _HELP : "nabilanavab|meta", _ONLY_META : "#metadata", _ALL_META : "#preview", _BACK : "pdf" },
+    "lock" : { _HELP : "nabilanavab|lock", _ENCRYPT_CB : "#encrypt", _DECRYPT_CB : "#decrypt", _BACK : "pdf" },
     "trim" : { _SPLIT_MERGE : "nabilanavab|trim", _H_SPLIT : "#split", _H_MERGE : "#merge", _BACK : "pdf" },
-    "format" : { _H_FORMAT : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
+    "format" : { _HELP : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
                  "🤟 1 × 3 🤟" : "#3-format-H", "🤟 3 × 1 🤟" : "#3-format-V", "2 × 2" : "#4-format", _BACK : "pdf" },
-    "comocr" : { _H_COMP_OCR : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
-    "trade" : { _H_WATERMARK : "nabilanavab|trade", _H_WATER : "pdf|wa", _H_STAMP : "pdf|stp", _BACK : "pdf" },
-    "filter" : { _H_FILTER : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
-    "addlt" : { _H_ADD_DEL : "nabilanavab|add", _ADD : "close|dev", _DEL : "#deletePg", _BACK : "pdf" },
+    "comocr" : { _HELP : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
+    "trade" : { _HELP : "nabilanavab|trade", _H_WATER : "pdf|wa", _H_STAMP : "pdf|stp", _BACK : "pdf" },
+    "filter" : { _HELP : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
+    "addlt" : { _HELP : "nabilanavab|add", _ADD : "close|dev", _DEL : "#deletePg", _BACK : "pdf" },
     "toImage" : { _P2IMG : "nabilanavab", _P2I : "pdf|img|img", _P2D : "pdf|img|doc", _P2Z : "pdf|img|zip", _P2T : "pdf|img|tar", _BACK : "pdf" },
     "imgRange" : { _P2IMG_ : "nabilanavab", _ALL : "#p2img|{}A", _CUSTOM : "#p2img|{}C", _BACK : "pdf|img" },
     "rotate" : { _B_ROTATE : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
@@ -334,7 +325,7 @@ DOCUMENT = {
     "bigCB" : { _BIG_SUPP : "https://github.com/nabilanavab/ilovepdf" }, "imageAdded" : _IMG_ADDED}
 AIO = {
     "true" : _TRUE, "false" : _FALSE, "aio" : _PASS_REQUIRED, "waitPASS" : _WAIT_TXT, "passMSG" : _AIO_QN,
-    "aio_button" : {_H_AIO :"nabilanavab|aioInput", _YES:"aioInput|enc", _NO :"aioInput|dec", _MOVE :"aioInput|dec" },
+    "aio_button" : {_HELP :"nabilanavab|aioInput", _YES:"aioInput|enc", _NO :"aioInput|dec", _MOVE :"aioInput|dec" },
     "out_button" : { _META : "nabilanavab|aio|met", _PREVIEW : "nabilanavab|aio|pre", _H_COMPRESS: "nabilanavab|aio|com", _B_TEXT_T : "nabilanavab|aio|txt", _ROTATE : "nabilanavab|aio|rot", _FORMAT : "nabilanavab|aio|for",
         _ENCRYPT_CB : "nabilanavab|aio|enc", _WATERMARK : "nabilanavab|aio|wat", _RENAME : "nabilanavab|aio|rnm", _BACK : "aio", _PROCEED : "processAIO" },
     "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|com|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|for|{F}", "aio|enc|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]}
