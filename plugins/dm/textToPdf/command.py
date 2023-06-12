@@ -12,7 +12,7 @@ async def text2PDF(bot, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
         lang_code = await util.getLang(message.chat.id)
-        tTXT, tBTN = await util.translate(text="pdf2TXT['TEXT']", button="pdf2TXT['font_btn']", order=12121, lang_code=lang_code)
+        tTXT, tBTN = await util.translate(text="pdf2TXT['TEXT']", button="pdf2TXT['size_btn']", order=121, lang_code=lang_code)
         await message.reply_photo(photo="https://graph.org/file/8b2073fb48283eddc4ebb.jpg", caption=tTXT, reply_markup=tBTN)
         await message.delete()
     except Exception as Error:
