@@ -160,7 +160,7 @@ _PREVIEW = "📸 PREVIEW 📸"
 _PROCEED = "🆗 PROCESS 🆗"
 _EXIT = "`Process Cancelled..` 😏"
 _NOTHING = "Nothing to create.. 😏"
-_TEXT2PDF = "`Create PDF From Text Messages »`"
+_TEXT2PDF = "`You can now create PDF from text messages. 😲\n\nTo get started, select the option below to make the PDF look good..😏`"
 _TEXT2PDF_S = "Started Converting txt to Pdf..🎉"
 _TEXT2PDF_T = "__TEXT TO PDF » Now, please enter a TITLE:__\n\n/exit __to cancel__\n/skip __to skip__"
 _TEXT2PDF_P = "__TEXT TO PDF » Now, please enter paragraph {}:__\n\n/exit __to cancel__\n/create __to create__"
@@ -237,8 +237,9 @@ _NOW_BETA = "`Now you are a beta user..` ☺"
 _NOW_NOT_BETA = "`Now you are not part in beta test..` 😐"
 _BETA_MSG = "🍄 JOIN BETA [FREE] 🍄"
 _BETA_MESSAGE = "**🔰 Join our Beta Program 🔰**\n__Refer your friends and become a part of the beta version, unlocking exclusive access to effortlessly handle multiple tasks with ease.__\n\n🎀 __Once you Generate your referral link.__\n🎀 __Invite 5 friends to join using this referral link.__\n🎀 __Once you've successfully referred 5 friends, send /beta command.__\n🎀 The 'All-in-One' option will now be available when sending or forwarding a PDF.\n🎀 Enjoy the enhanced capabilities of performing multiple tasks seamlessly in a single process.\n\n**__YOUR REFERAL LINK :__** {}\n**__SHARE LINK__ : [Click Here]({})**"
-_SELECT_SCALE = "SELECT SCALE"
-_SELECT_FONT = "SET FONT"
+_SELECT_SCALE = "🖼 SELECT SCALE 🖼"
+_SELECT_FONT = "✒ Select Font ✒"
+_SELECT_COLOR = "🎨 Select Color 🎨"
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
@@ -360,8 +361,12 @@ INLINE = {
     'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}
 BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
 pdf2TXT = {
-    "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,
-    "font_btn" : {_SELECT_FONT : "nabilanavab", "Times" : "t2p|{}|1", "Courier" : "t2p|{}|2", "Helvetica (Default)" : "t2p|{}|3",
-        "Symbol" : "t2p|{}|4", "Zapfdingbats" : "t2p|{}|5", _BACK : "t2p"}, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P,
+    "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,  "askC" : _TEXT2PDF_P,
+    "font_btn" : {_SELECT_FONT : "nabilanavab", "1" : "t2p|{}|1", "2" : "t2p|{}|2", "3" : "t2p|{}|3", "4" : "t2p|{}|4", "5" : "t2p|{}|5",
+         "6" : "t2p|{}|6", "7" : "t2p|{}|7", "8" : "t2p|{}|8", "9" : "t2p|{}|9", "10" : "t2p|{}|10","11" : "t2p|{}|11",
+         "12" : "t2p|{}|12", "13" : "t2p|{}|13", "14" : "t2p|{}|14", "15" : "t2p|{}|15", _BACK : "t2p"}, "askT" : _TEXT2PDF,
+    "font_color" : {_SELECT_COLOR : "nabilanavab", "1" : "t2p|{}|{}|1", "2" : "t2p|{}|{}|2", "3" : "t2p|{}|{}|3", "4" : "t2p|{}|{}|4", "5" : "t2p|{}|{}|5",
+         "6" : "t2p|{}|{}|6", "7" : "t2p|{}|{}|7", "8" : "t2p|{}|{}|8", "9" : "t2p|{}|{}|9", "10" : "t2p|{}|{}|10","11" : "t2p|{}|{}|11",
+         "12" : "t2p|{}|{}|12", "13" : "t2p|{}|{}|13", "14" : "t2p|{}|{}|14", "15" : "t2p|{}|{}|15", _BACK : "t2p|{}"},
     "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"}}
 HELP = {}
