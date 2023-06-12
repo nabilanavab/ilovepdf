@@ -3,6 +3,7 @@ author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
 import                   os
+from plugins.utils       import *
 from configs.log         import log
 from fpdf                import FPDF
 from configs.config      import settings, images
