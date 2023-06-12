@@ -24,10 +24,6 @@ annotSet = {
     11 : "STAMP_Sold", 12 : "STAMP_TopSecret", 13 : "STAMP_Draft"
 }
 
-txt2pdf = {
-    "t" : "Times", "c" : "Courier", "h" : "Helvetica (Default)", "s" : "Symbol", "z" : "Zapfdingbats",
-}
-
 @ILovePDF.on_callback_query(filters.regex("^pdf"))
 async def _pdf(bot, callbackQuery):
     try:
