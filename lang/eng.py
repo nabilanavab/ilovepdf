@@ -362,11 +362,7 @@ INLINE = {
 BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
 pdf2TXT = {
     "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,  "askC" : _TEXT2PDF_P,
-    "font_btn" : {_SELECT_FONT : "nabilanavab", "1" : "t2p|{}|1", "2" : "t2p|{}|2", "3" : "t2p|{}|3", "4" : "t2p|{}|4", "5" : "t2p|{}|5",
-         "6" : "t2p|{}|6", "7" : "t2p|{}|7", "8" : "t2p|{}|8", "9" : "t2p|{}|9", "10" : "t2p|{}|10","11" : "t2p|{}|11",
-         "12" : "t2p|{}|12", "13" : "t2p|{}|13", "14" : "t2p|{}|14", "15" : "t2p|{}|15", _BACK : "t2p"}, "askT" : _TEXT2PDF,
-    "font_color" : {_SELECT_COLOR : "nabilanavab", "1" : "t2p|{}|{}|1", "2" : "t2p|{}|{}|2", "3" : "t2p|{}|{}|3", "4" : "t2p|{}|{}|4", "5" : "t2p|{}|{}|5",
-         "6" : "t2p|{}|{}|6", "7" : "t2p|{}|{}|7", "8" : "t2p|{}|{}|8", "9" : "t2p|{}|{}|9", "10" : "t2p|{}|{}|10","11" : "t2p|{}|{}|11",
-         "12" : "t2p|{}|{}|12", "13" : "t2p|{}|{}|13", "14" : "t2p|{}|{}|14", "15" : "t2p|{}|{}|15", _BACK : "t2p|{}"},
-    "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"}}
+    "fifteen" : {_SELECT_FONT : "nabilanavab", "1" : "{}|1", "2" : "{}|2", "3" : "{}|3", "4" : "{}|4", "5" : "{}|5", "6" : "{}|6",
+         "7" : "{}|7", "8" : "{}|8", "9" : "{}|9", "10" : "{}|10","11" : "{}|11", "12" : "{}|12", "13" : "{}|13", "14" : "{}|14",
+         "15" : "{}|15", _BACK : "{}"}, "askT" : _TEXT2PDF, "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"}}
 HELP = {}
