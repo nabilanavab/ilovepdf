@@ -4,11 +4,9 @@ source_code = "https://github.com/nabilanavab/ilovepdf"
 
 import                   os
 from configs.log         import log
-from plugins.work        import work
 from fpdf                import FPDF
 from configs.config      import settings, images
 from .                   import FONT, COLOR, PAGE_SIZE
-from plugins.fncta       import thumbName, formatThumb
 from pyrogram            import filters, Client as ILovePDF, enums
 
 
