@@ -30,9 +30,8 @@ async def text_to_pdf_cb(bot, callbackQuery):
             )
         
         else:
-            if len(data) == 2
-                # callbackQuery.data = t2p|{text_font}
-                tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
+            # callbackQuery.data = t2p|{text_font}
+            tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
             tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}")
             tTXT = await util.createBUTTON(tTXT, "12121")
             return await callbackQuery.edit_message_media(
