@@ -6,7 +6,7 @@ PyPDF2==3.0.1
 convertapi==1.6.0
 pyromod==1.5
 fpdf==1.7.2
-ocrmypdf==14.1.0
+ocrmypdf==13.6.0
 motor==3.1.2
 psutil==5.9.0
 pymongo[srv]==4.3.3
