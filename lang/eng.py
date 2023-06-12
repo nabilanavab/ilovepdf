@@ -361,7 +361,7 @@ INLINE = {
 BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
 pdf2TXT = {
     "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,
-    "font_btn" : {_SELECT_FONT : "nabilanavab", "Times" : "t2p|t", "Courier" : "t2p|c", "Helvetica (Default)" : "t2p|h",
-        "Symbol" : "t2p|s", "Zapfdingbats" : "t2p|z", _CLOSE : "close|me"}, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P,
+    "font_btn" : {_SELECT_FONT : "nabilanavab", "Times" : "t2p|{}|1", "Courier" : "t2p|{}|2", "Helvetica (Default)" : "t2p|{}|3",
+        "Symbol" : "t2p|{}|4", "Zapfdingbats" : "t2p|{}|5", _CLOSE : "close|me"}, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P,
     "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"}}
 HELP = {}
