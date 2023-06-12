@@ -240,6 +240,7 @@ _BETA_MESSAGE = "**🔰 Join our Beta Program 🔰**\n__Refer your friends and b
 _SELECT_SCALE = "🖼 SELECT SCALE 🖼"
 _SELECT_FONT = "✒ Select Font ✒"
 _SELECT_COLOR = "🎨 Select Color 🎨"
+_USE_DEFAULT = "» Use Default »"
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
@@ -364,5 +365,5 @@ pdf2TXT = {
     "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,  "askC" : _TEXT2PDF_P,
     "fifteen" : { "{}" : "nabilanavab", "1" : "{}|1", "2" : "{}|2", "3" : "{}|3", "4" : "{}|4", "5" : "{}|5", "6" : "{}|6", "7" : "{}|7",
           "8" : "{}|8", "9" : "{}|9", "10" : "{}|10","11" : "{}|11", "12" : "{}|12", "13" : "{}|13", "14" : "{}|14", "15" : "{}|15", 
-         _BACK : "{}"}, "askT" : _TEXT2PDF, "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"}}
+         _BACK : "{}|_"}, "askT" : _TEXT2PDF, "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"}}
 HELP = {}
