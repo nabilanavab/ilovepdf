@@ -53,11 +53,7 @@ async def _refresh(bot, callbackQuery):
             await callbackQuery.message.delete()
             return await images(bot, callbackQuery.message.reply_to_message)
         
-        elif callbackQuery.message.reply_to_message.text.startswith("/"):
-            await callbackQuery.message.delete()
-            return await gDOC(bot, callbackQuery.message.reply_to_message)
-        
-        elif callbackQuery.message.reply_to_message.text == "/start" or callbackQuery.message.reply_to_message.text:
+        elif callbackQuery.message.reply_to_message.text == "/start":
             tTXT, tBTN = await util.translate(text="HOME['HomeA']", button="HOME['HomeACB']", lang_code=lang_code, order=2121)
             await callbackQuery.edit_message_caption(
                 caption=tTXT.format(callbackQuery.from_user.mention, myID[0].mention), reply_markup=tBTN
@@ -70,11 +66,13 @@ async def _refresh(bot, callbackQuery):
                      [ InlineKeyboardButton(text=tTXT[1], callback_data="beta" ) ]]))
             return await callbackQuery.message.reply_to_message.delete()
         
-        """
+        elif callbackQuery.message.reply_to_message.text.startswith("/"):
+            await callbackQuery.message.delete()
+            return await gDOC(bot, callbackQuery.message.reply_to_message)
+        
         elif callbackQuery.message.reply_to_message.text:
             await callbackQuery.message.delete()
             return await _url(bot, callbackQuery.message.reply_to_message)
-        """
         
     except Exception as Error:
         logger.debug(f"{file_name}: {Error}")
