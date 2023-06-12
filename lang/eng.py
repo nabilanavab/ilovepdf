@@ -344,7 +344,7 @@ noHelp = _WASTE
 pdf2TXT = {
     "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,
     "font_btn" : {"TXT@PDF » SET FONT" : "nabilanavab", "Times" : "t2p|t", "Courier" : "t2p|c", "Helvetica (Default)" : "t2p|h",
-        "Symbol" : "t2p|s", "Zapfdingbats" : "t2p|z", _CLOSE : "close|me"}, , "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P,
+        "Symbol" : "t2p|s", "Zapfdingbats" : "t2p|z", _CLOSE : "close|me"}, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P,
     "size_btn" : {"TXT@PDF » {} » SET SCALE" : "nabilanavab", "Portarate" : "t2p|{}|p", "Landscape" : "t2p|{}|l", _BACK: "pdf|T2P"}}
 URL = {
     "notPDF" : _CODEC, "close" : { _CLOSE : "close|all" }, "get" : { _GET_TG_PDF : "getFile"}, "error" : _ERROR, "view" : _VIEW_ONLY,
