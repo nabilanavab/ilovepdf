@@ -6,6 +6,7 @@ import                   os
 from plugins.utils       import *
 from configs.log         import log
 from fpdf                import FPDF
+from logger              import logger
 from configs.config      import settings, images
 from .                   import FONT, COLOR, PAGE_SIZE
 from pyrogram            import filters, Client as ILovePDF, enums
@@ -22,10 +23,12 @@ async def text_to_pdf_cb(bot, callbackQuery):
         
         if len(data) == 2:
             # callbackQuery.data = t2p|{text_font}
-            tTXT, _ = await util.translate(text="pdf2TXT['size_btn']", lang_code=lang_code)
-            tTXT = await util.editDICT(inDir=tTXT, value=f"{data[1]}", front=f"{txt2pdf[data[1]]}".upper())
+            tTXT, _ = await util.translate(text="pdf2TXT['font_btn']", lang_code=lang_code)
+            tTXT = await util.editDICT(inDir=tTXT, value=f"{data[1]}")
             tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_reply_markup(tTXT)
+            return await callbackQuery.message.edit_message_media(
+                media= "https://graph.org/file/c301b7af1e637f642a520.jpg",reply_markup=tTXT
+            )
         
         elif len(data) == 3:
             # callbackQuery.data = t2p|{text_font}|{page_format}
@@ -33,7 +36,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
             tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
             tTXT = await util.editDICT(inDir=tTXT, value=f"{font}", front=f"{txt2pdf[font]}".upper())
             tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_reply_markup(tTXT)
+            return await callbackQuery.message.edit_message_reply_markup(tTXT)
         
         elif len(data) == 4:
             # callbackQuery.data = t2p|{text_font}|{page_format}|{background}
@@ -41,7 +44,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
             tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
             tTXT = await util.editDICT(inDir=tTXT, value=f"{font}", front=f"{txt2pdf[font]}".upper())
             tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_reply_markup(tTXT)
+            return await callbackQuery.message.edit_message_reply_markup(tTXT)
         
         elif len(data) == 5:
             # callbackQuery.data = t2p|{text_font}|{page_format}|{background}|{border}
@@ -49,7 +52,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
             tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
             tTXT = await util.editDICT(inDir=tTXT, value=f"{font}", front=f"{txt2pdf[font]}".upper())
             tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_reply_markup(tTXT)
+            return await callbackQuery.message.edit_message_reply_markup(tTXT)
         
     except Exception as Error:
         logger.exception("1️⃣ 🐞 %s: %s" %(file_name, Error), exc_info=True)
