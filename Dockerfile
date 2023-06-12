@@ -9,7 +9,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY libgenesis/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-RUN apt update && apt install -y ocrmypdf wkhtmltopdf
+RUN apt update
+RUN apt install -y ocrmypdf
+RUN apt install -y wkhtmltopdf
 
 COPY . .
 
