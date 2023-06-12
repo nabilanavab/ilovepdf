@@ -26,7 +26,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
             tTXT, _ = await util.translate(text="pdf2TXT['font_btn']", lang_code=lang_code)
             tTXT = await util.editDICT(inDir=tTXT, value=f"{data[1]}")
             tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_message_media(
+            return await callbackQuery.edit_message_media(
                 media= "https://graph.org/file/c301b7af1e637f642a520.jpg",reply_markup=tTXT
             )
         
@@ -36,7 +36,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
             tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
             tTXT = await util.editDICT(inDir=tTXT, value=f"{font}", front=f"{txt2pdf[font]}".upper())
             tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_message_reply_markup(tTXT)
+            return await callbackQuery.edit_message_media(tTXT)
         
         elif len(data) == 4:
             # callbackQuery.data = t2p|{text_font}|{page_format}|{background}
@@ -44,7 +44,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
             tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
             tTXT = await util.editDICT(inDir=tTXT, value=f"{font}", front=f"{txt2pdf[font]}".upper())
             tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_message_reply_markup(tTXT)
+            return await callbackQuery.edit_message_media(tTXT)
         
         elif len(data) == 5:
             # callbackQuery.data = t2p|{text_font}|{page_format}|{background}|{border}
@@ -52,7 +52,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
             tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
             tTXT = await util.editDICT(inDir=tTXT, value=f"{font}", front=f"{txt2pdf[font]}".upper())
             tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_message_reply_markup(tTXT)
+            return await callbackQuery.edit_message_media(tTXT)
         
     except Exception as Error:
         logger.exception("1️⃣ 🐞 %s: %s" %(file_name, Error), exc_info=True)
