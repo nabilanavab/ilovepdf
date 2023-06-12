@@ -28,7 +28,8 @@ async def text_to_pdf_cb(bot, callbackQuery):
             tTXT, _ = await util.translate(text="pdf2TXT['size_btn']", lang_code=lang_code)
             tTXT = await util.createBUTTON(tTXT, "121")
             return await callbackQuery.edit_message_media(
-                media=InputMediaPhoto("https://graph.org/file/c301b7af1e637f642a520.jpg"), reply_markup=tTXT
+                media=InputMediaPhoto(media="https://graph.org/file/c301b7af1e637f642a520.jpg",
+                                      caption=callbackQuery.message.caption), reply_markup=tTXT
             )
         
         elif len(data) == 2:
