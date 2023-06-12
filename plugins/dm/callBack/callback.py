@@ -113,13 +113,6 @@ async def _pdf(bot, callbackQuery):
                 tTXT = await util.createBUTTON(tTXT, "122221")
                 return await callbackQuery.message.edit_reply_markup(tTXT)
         
-        elif data.startswith("font"):
-            data = data.split("|", 1)[1]
-            tTXT, _ = await util.translate(text = "pdf2TXT['size_btn']", lang_code = lang_code)
-            tTXT = await util.editDICT(inDir = tTXT, value = f"{data}", front = f"{txt2pdf[data]}".upper())
-            tTXT = await util.createBUTTON(tTXT, "12121")
-            return await callbackQuery.message.edit_reply_markup(tTXT)
-        
         # edit button
         return await callbackQuery.message.edit_reply_markup(tBTN)
     except Exception as e:
