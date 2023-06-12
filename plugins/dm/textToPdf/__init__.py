@@ -7,7 +7,7 @@ source_code = "https://github.com/nabilanavab/ilovepdf"
 # Just a DB Variable
 TXT = {}
 
-FONT = {"t": "Times", "c": "Courier", "h": "Helvetica", "s": "Symbol", "z": "ZapfDingbats"}
+FONT = { 1 : "Times", 2 : "Courier", 3 : "Helvetica", 4 : "Symbol", 5 : "ZapfDingbats"}
 
 COLOR = {}
 
