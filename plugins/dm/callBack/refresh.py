@@ -53,7 +53,7 @@ async def _refresh(bot, callbackQuery):
             await callbackQuery.message.delete()
             return await images(bot, callbackQuery.message.reply_to_message)
         
-        elif callbackQuery.message.reply_to_message.text == "/start":
+        elif callbackQuery.message.reply_to_message.text.startswith("/start"):
             tTXT, tBTN = await util.translate(text="HOME['HomeA']", button="HOME['HomeACB']", lang_code=lang_code, order=2121)
             await callbackQuery.edit_message_caption(
                 caption=tTXT.format(callbackQuery.from_user.mention, myID[0].mention), reply_markup=tBTN
