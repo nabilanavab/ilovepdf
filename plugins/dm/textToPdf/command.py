@@ -2,7 +2,7 @@ file_name = "plugins/dm/textToPdf/command.py"
 author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
-from plugins.util        import *
+from plugins.utils       import *
 from .                   import TXT
 from logger              import logger
 from pyrogram            import filters, Client as ILovePDF, enums
