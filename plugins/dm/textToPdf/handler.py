@@ -6,6 +6,7 @@ import                   os
 from plugins.utils       import *
 from configs.log         import log
 from fpdf                import FPDF
+from logger              import logger
 from configs.config      import settings, images
 from .                   import FONT, COLOR, BACKGROUND, SCALE
 from pyrogram            import filters, Client as ILovePDF, enums
@@ -36,15 +37,15 @@ async def ask_for_bg(callbackQuery, text: str):
 @ILovePDF.on_callback_query(filters.regex("^t2p.*:$"))
 async def text_to_pdf(bot, callbackQuery):
     try:
-        lang_code = await getLang(callbackQuery.message.chat.id)
+        lang_code = await util.getLang(callbackQuery.message.chat.id)
         
         cDIR = await work(callbackQuery, "create", False)
         if not cDIR:
-            tTXT, _ = await translate(text="PROGRESS['workInP']", lang_code=lang_code)
+            tTXT, _ = await util.translate(text="PROGRESS['workInP']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT)
         await callbackQuery.answer()
         
-        CHUNK, _ = await translate(text="pdf2TXT", lang_code=lang_code)
+        CHUNK, _ = await util.translate(text="pdf2TXT", lang_code=lang_code)
         _, scale, h_font, p_font, color, background = callbackQuery.data.split("|")
         logger.debug(f"{SCALE[scale]}/{FONT[h_font]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[background]}")
 
