@@ -19,8 +19,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
         if await render.header(bot, callbackQuery, lang_code=lang_code):
             return
         await callbackQuery.answer()
-        logger.debug(callbackQuery)
-        logger.debug(callbackQuery.data)
+        
         if len(callbackQuery.data.split("|")) == 1:
             # callbackQuery.data = t2p|{text_font}
             tTXT, _ = await util.translate(text="pdf2TXT['size_btn']", lang_code=lang_code)
