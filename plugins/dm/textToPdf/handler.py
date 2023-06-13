@@ -41,7 +41,7 @@ async def text_to_pdf(bot, callbackQuery):
         
         cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
-            tTXT, _ = await util.translate(text="PROGRESS['workInP']", lang_code=lang_code)
+            tTXT, _ = await util.translate(text="_W_I_P", lang_code=lang_code)
             return await callbackQuery.answer(tTXT)
         await callbackQuery.answer()
         
@@ -76,7 +76,7 @@ async def text_to_pdf(bot, callbackQuery):
                     processMessage = await paragraph.reply(CHUNK['start'], quote=True)
                     nabilanavab = False
             else:
-                TXT[chat_id].append(f"{paragraph.text}")
+                TXT[callbackQuery.message.chat.id].append(f"{paragraph.text}")
         
         pdf = FPDF(orientation=SCALE[scale], format="A4")
         pdf.set_title("NABIL A NAVAB")
@@ -106,7 +106,7 @@ async def text_to_pdf(bot, callbackQuery):
         await processMessage.delete()
         await log.footer(callbackQuery.message, output=logFile, lang_code=lang_code)
     except Exception as Error:
-        logger.exception("PAGE SIZE:CAUSES %s ERROR" %(file_name. Error), exc_info=True)
+        logger.exception("PAGE SIZE:CAUSES %s ERROR" %(file_name, Error), exc_info=True)
         await processMessage.edit(f"`ERROR`: __{e}__"); del TXT[callbackQuery.message.chat.id]
     finally:
         del TXT[callbackQuery.message.chat.id]
