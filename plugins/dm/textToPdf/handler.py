@@ -7,7 +7,7 @@ from plugins.utils       import *
 from configs.log         import log
 from fpdf                import FPDF
 from configs.config      import settings, images
-from .                   import FONT, COLOR, PAGE_SIZE
+from .                   import FONT, COLOR, BACKGROUND, SCALE
 from pyrogram            import filters, Client as ILovePDF, enums
 
 
@@ -37,7 +37,8 @@ async def text_to_pdf(bot, callbackQuery):
             await callbackQuery.answer()
         
         CHUNK, _ = await translate(text="pdf2TXT", lang_code=lang_code)
-        _, orientation, font, color, background, border = callbackQuery.data.split("|")
+        _, scale, h_font, p_font, color, background = callbackQuery.data.split("|")
+        logger.debug(f"{SCALE[scale]}/{FONT[h_font]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[background]}")
         
         TXT[callbackQuery.message.chat.id] = []
         
@@ -63,13 +64,13 @@ async def text_to_pdf(bot, callbackQuery):
             else:
                 TXT[chat_id].append(f"{paragraph.text}")
         
-        pdf = FPDF(orientation=orientation, format="A4")
+        pdf = FPDF(orientation=SCALE[scale], format="A4")
         pdf.set_title("NABIL A NAVAB")
         pdf.set_subject("pdf created using nabilanavab open source Telegram Pdf Bot\n\nContact Nabil A Navab: telegram.dog/nabilanavab ❤")
         pdf.set_author("https://github.com/nabilanavab/ilovepdf")
         pdf.set_producer("by nabilanavab@gmail.com")
         
-        pdf.set_font(FONT[_], "B", size=20)
+        pdf.set_font(FONT[h_font], "B", size=20)
         if TXT[callbackQuery.message.chat.id][0] != None:
             pdf.cell(200, 20, txt=TXT[callbackQuery.message.chat.id][0], ln=1, align="C")
         pdf.set_font(FONT[_], size=15)
