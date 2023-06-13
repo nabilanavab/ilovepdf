@@ -16,13 +16,22 @@ async def ask_for_test(callbackQuery, text: str):
         askTEXT = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
                                reply_to_message_id=callbackQuery.message.id, filters=None)
         
-        if askTEXT.text == "/exit":
-            return False, askTEXT
-        elif askTEXT.text == "/skip":
-            return True, None
-        elif askTEXT.text:
+        if askTEXT.text:
+            if askTEXT.text == "/exit":
+                return False, askTEXT
+            elif askTEXT.text == "/skip":
+                return True, None
             return True, askTEXT
         # return isSuccess, result
+
+async def ask_for_bg(callbackQuery, text: str):
+    askBG = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
+                               reply_to_message_id=callbackQuery.message.id, filters=None)
+        
+    if askBG.photo:
+        return askBG.photo
+    else:
+        return "_"
 
 @ILovePDF.on_callback_query(filters.regex("^t2p.*:$"))
 async def text_to_pdf(bot, callbackQuery):
@@ -33,12 +42,14 @@ async def text_to_pdf(bot, callbackQuery):
         if not cDIR:
             tTXT, _ = await translate(text="PROGRESS['workInP']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT)
-        else:
-            await callbackQuery.answer()
+        await callbackQuery.answer()
         
         CHUNK, _ = await translate(text="pdf2TXT", lang_code=lang_code)
         _, scale, h_font, p_font, color, background = callbackQuery.data.split("|")
         logger.debug(f"{SCALE[scale]}/{FONT[h_font]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[background]}")
+
+        if callbackQuery.data.endswith("9:"):
+            background = await ask_for_bg(callbackQuery=callbackQuery, text="send me an image")
         
         TXT[callbackQuery.message.chat.id] = []
         
