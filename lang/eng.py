@@ -238,7 +238,8 @@ _NOW_NOT_BETA = "`Now you are not part in beta test..` 😐"
 _BETA_MSG = "🍄 JOIN BETA [FREE] 🍄"
 _BETA_MESSAGE = "**🔰 Join our Beta Program 🔰**\n__Refer your friends and become a part of the beta version, unlocking exclusive access to effortlessly handle multiple tasks with ease.__\n\n🎀 __Once you Generate your referral link.__\n🎀 __Invite 5 friends to join using this referral link.__\n🎀 __Once you've successfully referred 5 friends, send /beta command.__\n🎀 The 'All-in-One' option will now be available when sending or forwarding a PDF.\n🎀 Enjoy the enhanced capabilities of performing multiple tasks seamlessly in a single process.\n\n**__YOUR REFERAL LINK :__** {}\n**__SHARE LINK__ : [Click Here]({})**"
 _SELECT_SCALE = "🖼 SELECT SCALE 🖼"
-_SELECT_FONT = "✒ Select Font ✒"
+_SELECT_HEAD_FONT = "✒ Select Heading Font ✒"
+_SELECT_PARA_FONR = "🪂 Select Paragraph Font 🪂"
 _SELECT_COLOR = "🎨 Select Color 🎨"
 _USE_DEFAULT = "» Use Default »"
 
@@ -360,10 +361,11 @@ INLINE = {
     "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
     'min' : _MIN_SEARCH, 'process' : _PROCESSING, 'nothing' : _NO_RESULT, "select" : _GET_PDF, 'description' : _INLINE_DES,
     'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}
-BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
+BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA }
 pdf2TXT = {
     "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,  "askC" : _TEXT2PDF_P,
     "fifteen" : { "{}" : "nabilanavab", "1" : "{}|1", "2" : "{}|2", "3" : "{}|3", "4" : "{}|4", "5" : "{}|5", "6" : "{}|6", "7" : "{}|7",
           "8" : "{}|8", "9" : "{}|9", "10" : "{}|10","11" : "{}|11", "12" : "{}|12", "13" : "{}|13", "14" : "{}|14", "15" : "{}|15", 
-         _USE_DEFAULT : "{}|_"}, "askT" : _TEXT2PDF, "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"}}
+         _USE_DEFAULT : "{}|_"}, "askT" : _TEXT2PDF, "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"},
+    "five" : { "{}" : "nabilanavab", "1" : "{}|1", "2" : "{}|2", "3" : "{}|3", "4" : "{}|4", "5" : "{}|5", _USE_DEFAULT : "{}|_"}}
 HELP = {}
