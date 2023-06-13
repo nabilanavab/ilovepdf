@@ -46,7 +46,8 @@ async def text_to_pdf(bot, callbackQuery):
         await callbackQuery.answer()
         
         CHUNK, _ = await util.translate(text="pdf2TXT", lang_code=lang_code)
-        _, scale, h_font, p_font, color, background = callbackQuery.data.split("|")
+        _, scale, h_font, p_font, color, background = [int(i) for i in callbackQuery.data.split('|') if i.isdigit()]
+        
         logger.debug(f"{scale}/{h_font}/{p_font}/{color}/{background}")
         logger.debug(f"{SCALE[scale]}/{FONT[h_font]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[background]}")
 
