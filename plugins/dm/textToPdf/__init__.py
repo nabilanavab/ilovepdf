@@ -29,6 +29,15 @@ COLOR = {
         6 : { "color" : "blue", "code" : (0, 0, 255) }
 }
 
-PAGE_SIZE = {}
+BACKGROUND = {
+        1 : { "isColor" : True, "code" : (255, 255, 255) },
+        2 : { "isColor" : True, "code" : (0, 0, 0) },
+        3 : { "isColor" : True, "code" : (128, 128, 128) },
+        4 : { "isColor" : False, "code" : "./IMAGES/notebook.png" },
+        5 : { "isColor" : False, "code" : "./IMAGES/sanscrit.png" },
+        6 : { "isColor" : False, "code" : "./IMAGES/folded.png" },
+        7 : { "isColor" : False, "code" : "./IMAGES/imageOne.png" },
+        8 : { "isColor" : False, "code" : "" },
+}
 
 # UPDATE CHANNEL: https://telegram.dog/ilovepdf_bot
