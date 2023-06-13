@@ -31,15 +31,25 @@ async def text_to_pdf_cb(bot, callbackQuery):
             )
         
         else:
-            tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
             if len(callbackQuery.data.split("|")) == 2:
-                front, _ = await util.translate(text="_SELECT_FONT", lang_code=lang_code)
+                tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
+                front, _ = await util.translate(text="_SELECT_HEAD_FONT", lang_code=lang_code)
             elif len(callbackQuery.data.split("|")) == 3:
+                tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
+                front, _ = await util.translate(text="_SELECT_PARA_FONT", lang_code=lang_code)
+            elif len(callbackQuery.data.split("|")) == 4:
+                tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_COLOR", lang_code=lang_code)
+            elif len(callbackQuery.data.split("|")) == 5:
+                tTXT, _ = await util.translate(text="pdf2TXT['5']", lang_code=lang_code)
+                front, _ = await util.translate(text="_SELECT_BG_COLOR", lang_code=lang_code)
             else:
                 front = " "
             tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
-            tTXT = await util.createBUTTON(tTXT, "15551")
+            if len(callbackQuery.data.split("|")) in [ 2, 3, 4 ]:
+                tTXT = await util.createBUTTON(tTXT, "15551")
+            else:
+                tTXT = await util.createBUTTON(tTXT, "1321")
             return await callbackQuery.edit_message_media(
                 media=InputMediaPhoto(media="https://graph.org/file/c301b7af1e637f642a520.jpg",
                                       caption=callbackQuery.message.caption), reply_markup=tTXT
