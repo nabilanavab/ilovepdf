@@ -40,7 +40,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
                 tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_COLOR", lang_code=lang_code)
             elif len(callbackQuery.data.split("|")) == 5:
-                tTXT, _ = await util.translate(text="pdf2TXT['five']", lang_code=lang_code)
+                tTXT, _ = await util.translate(text="pdf2TXT['nine']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_BG_COLOR", lang_code=lang_code)
             else:
                 front = " "
