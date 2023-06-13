@@ -33,22 +33,24 @@ async def text_to_pdf_cb(bot, callbackQuery):
             if len(callbackQuery.data.split("|")) == 2:
                 tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_HEAD_FONT", lang_code=lang_code)
+                tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
+                tTXT = await util.createBUTTON(tTXT, "15551")
             elif len(callbackQuery.data.split("|")) == 3:
                 tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_PARA_FONT", lang_code=lang_code)
+                tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
+                tTXT = await util.createBUTTON(tTXT, "15551")
             elif len(callbackQuery.data.split("|")) == 4:
                 tTXT, _ = await util.translate(text="pdf2TXT['six']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_COLOR", lang_code=lang_code)
+                tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
+                tTXT = await util.createBUTTON(tTXT, "1331") 
             elif len(callbackQuery.data.split("|")) == 5:
                 tTXT, _ = await util.translate(text="pdf2TXT['nine']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_BG_COLOR", lang_code=lang_code)
-            else:
-                front = " "
-            tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
-            if len(callbackQuery.data.split("|")) in [ 2, 3, 4 ]:
-                tTXT = await util.createBUTTON(tTXT, "15551")
-            else:
-                tTXT = await util.createBUTTON(tTXT, "1321")
+                tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
+                tTXT = await util.createBUTTON(tTXT, "13331")
+            
             return await callbackQuery.edit_message_media(
                 media=InputMediaPhoto(media="https://graph.org/file/c301b7af1e637f642a520.jpg",
                                       caption=callbackQuery.message.caption), reply_markup=tTXT
