@@ -8,8 +8,8 @@ from configs.log         import log
 from fpdf                import FPDF
 from logger              import logger
 from configs.config      import settings, images
-from .                   import FONT, COLOR, BACKGROUND, SCALE
 from pyrogram            import filters, Client as ILovePDF, enums
+from .                   import FONT, COLOR, BACKGROUND, SCALE, TXT
 
 
 async def ask_for_test(callbackQuery, text: str):
@@ -39,7 +39,7 @@ async def text_to_pdf(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
         
-        cDIR = await work(callbackQuery, "create", False)
+        cDIR = await work.work(callbackQuery, "create", False)
         if not cDIR:
             tTXT, _ = await util.translate(text="PROGRESS['workInP']", lang_code=lang_code)
             return await callbackQuery.answer(tTXT)
@@ -57,7 +57,7 @@ async def text_to_pdf(bot, callbackQuery):
         isSuccess, title = await ask_for_text(callbackQuery=callbackQuery, text=CHUNK['askT'])
         if not isSuccess:
             await title.reply(CHUNK['exit'], quote=True)
-            del TXT[callbackQuery.message.chat.id]; return await work(callbackQuery, "delete", False)
+            del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
         else:
             TXT[callbackQuery.message.chat.id].append(title.text)
         
@@ -66,7 +66,7 @@ async def text_to_pdf(bot, callbackQuery):
             isSuccess, paragraph = await ask_for_text(callbackQuery=callbackQuery, text=CHUNK['askC'])
             if not isSuccess:
                 await paragraph.reply(CHUNK['exit'], quote=True)
-                del TXT[callbackQuery.message.chat.id]; await work(callbackQuery, "delete", False)
+                del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
             elif isSuccess and paragraph.text == "/create":
                 if TXT[callbackQuery.message.chat.id][0] == None and len(TXT[callbackQuery.message.chat.id]) == 1:
                     await askPDF.reply(CHUNK['nothing'], quote=True)
@@ -108,6 +108,6 @@ async def text_to_pdf(bot, callbackQuery):
         await processMessage.edit(f"`ERROR`: __{e}__"); del TXT[callbackQuery.message.chat.id]
     finally:
         del TXT[callbackQuery.message.chat.id]
-        await work(callbackQuery, "delete", False)
+        await work.work(callbackQuery, "delete", False)
 
 # SOURCE CODE: "https://github.com/nabilanavab/ilovepdf"
