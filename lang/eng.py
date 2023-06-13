@@ -242,6 +242,7 @@ _SELECT_HEAD_FONT = "✒ Select Heading Font ✒"
 _SELECT_PARA_FONR = "🪂 Select Paragraph Font 🪂"
 _SELECT_COLOR = "🎨 Select Color 🎨"
 _USE_DEFAULT = "» Use Default »"
+_SELECT_BG_COLOR = "🎨 Select Background Image 🎨"
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
