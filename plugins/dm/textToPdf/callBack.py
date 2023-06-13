@@ -2,14 +2,9 @@ file_name = "plugins/dm/textToPdf/callBack.py"
 author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
-import                   os
 from plugins.utils       import *
-from configs.log         import log
-from fpdf                import FPDF
 from logger              import logger
 from pyrogram.types      import InputMediaPhoto
-from configs.config      import settings, images
-from .                   import FONT, COLOR, PAGE_SIZE
 from pyrogram            import filters, Client as ILovePDF
 
 @ILovePDF.on_callback_query(filters.regex("^t2p(?!.*:).*$"))
