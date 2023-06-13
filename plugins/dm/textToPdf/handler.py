@@ -12,7 +12,7 @@ from pyrogram            import filters, Client as ILovePDF, enums
 from .                   import FONT, COLOR, BACKGROUND, SCALE, TXT
 
 
-async def ask_for_text(callbackQuery, text: str):
+async def ask_for_text(bot, callbackQuery, text: str):
     while(text):
         askTEXT = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
                                reply_to_message_id=callbackQuery.message.id, filters=None)
@@ -25,7 +25,7 @@ async def ask_for_text(callbackQuery, text: str):
             return True, askTEXT
         # return isSuccess, result
 
-async def ask_for_bg(callbackQuery, text: str):
+async def ask_for_bg(bot, callbackQuery, text: str):
     askBG = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
                                reply_to_message_id=callbackQuery.message.id, filters=None)
         
@@ -52,11 +52,11 @@ async def text_to_pdf(bot, callbackQuery):
         logger.debug(f"{SCALE[scale]}/{FONT[h_font]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[int(background[0])]}")
 
         if callbackQuery.data.endswith("9:"):
-            background = await ask_for_bg(callbackQuery=callbackQuery, text="send me an image")
+            background = await ask_for_bg(bot, callbackQuery=callbackQuery, text="send me an image")
         
         TXT[callbackQuery.message.chat.id] = []
         
-        isSuccess, title = await ask_for_text(callbackQuery=callbackQuery, text=CHUNK['askT'])
+        isSuccess, title = await ask_for_text(bot, callbackQuery=callbackQuery, text=CHUNK['askT'])
         if not isSuccess:
             await title.reply(CHUNK['exit'], quote=True)
             del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
@@ -65,7 +65,7 @@ async def text_to_pdf(bot, callbackQuery):
         
         nabilanavab = True
         while(nabilanavab):
-            isSuccess, paragraph = await ask_for_text(callbackQuery=callbackQuery, text=CHUNK['askC'])
+            isSuccess, paragraph = await ask_for_text(bot, callbackQuery=callbackQuery, text=CHUNK['askC'])
             if not isSuccess:
                 await paragraph.reply(CHUNK['exit'], quote=True)
                 del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
