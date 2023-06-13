@@ -49,7 +49,7 @@ async def text_to_pdf(bot, callbackQuery):
         _, scale, h_font, p_font, color, background = [int(i) if i.isdigit() else i for i in callbackQuery.data.split('|')]
         
         logger.debug(f"{scale}/{h_font}/{p_font}/{color}/{background}")
-        logger.debug(f"{SCALE[scale]}/{FONT[h_font]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[background]}")
+        logger.debug(f"{SCALE[scale]}/{FONT[h_font]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[int(background[0])]}")
 
         if callbackQuery.data.endswith("9:"):
             background = await ask_for_bg(callbackQuery=callbackQuery, text="send me an image")
