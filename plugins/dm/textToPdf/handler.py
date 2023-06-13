@@ -12,7 +12,7 @@ from pyrogram            import filters, Client as ILovePDF, enums
 from .                   import FONT, COLOR, BACKGROUND, SCALE, TXT
 
 
-async def ask_for_test(callbackQuery, text: str):
+async def ask_for_text(callbackQuery, text: str):
     while(text):
         askTEXT = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
                                reply_to_message_id=callbackQuery.message.id, filters=None)
