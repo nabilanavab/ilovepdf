@@ -12,7 +12,7 @@ from configs.config      import settings, images
 from .                   import FONT, COLOR, PAGE_SIZE
 from pyrogram            import filters, Client as ILovePDF
 
-@ILovePDF.on_callback_query(filters.regex("^t2p"))
+@ILovePDF.on_callback_query(filters.regex("^t2p(?!.*:).*$"))
 async def text_to_pdf_cb(bot, callbackQuery):
     try:
         lang_code = await util.getLang(callbackQuery.message.chat.id)
