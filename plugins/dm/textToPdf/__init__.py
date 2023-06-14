@@ -16,8 +16,18 @@ FONT = {
         1 : { "default" : True, "name" : "Times" },
         2 : { "default" : True, "name" : "Courier" },
         3 : { "default" : True, "name" : "Helvetica" },
-        4 : { "default" : True, "name" : "Symbol" },
-        5 : { "default" : True, "name" : "ZapfDingbats" }
+        4 : { "default" : True, "name" : "Bookman" },
+        5 : { "default" : True, "name" : "ZapfDingbats" },
+        6 : { "default" : False, "name" : "./FONT_LIBRARY/3Dumb" },
+        7 : { "default" : False, "name" : "./FONT_LIBRARY/AlexBrush-Regular" },
+        8 : { "default" : False, "name" : "./FONT_LIBRARY/Archistico_Bold" },
+        9 : { "default" : False, "name" : "./FONT_LIBRARY/Archistico_Simple" },
+        10 : { "default" : False, "name" : "./FONT_LIBRARY/Calligraffiti" },
+        11 : { "default" : False, "name" : "./FONT_LIBRARY/DancingScript-Regular" },
+        12 : { "default" : False, "name" : "./FONT_LIBRARY/FFF_Tusj" },
+        13 : { "default" : False, "name" : "./FONT_LIBRARY/GreatVibes-Regular" },
+        14 : { "default" : False, "name" : "./FONT_LIBRARY/Kristi" },
+        15 : { "default" : False, "name" : "./FONT_LIBRARY/Pacifico" },
     }
 
 COLOR = {
