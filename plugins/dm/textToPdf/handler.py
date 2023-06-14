@@ -90,6 +90,7 @@ async def text_to_pdf(bot, callbackQuery):
             pdf.set_font('headFont', '', size=20)
         else:
             pdf = await add_DejaVu(pdf)
+            logger.debug(pdf)
             pdf.set_font("DejaVu", "B", size=20)
         
         if TXT[callbackQuery.message.chat.id][0] != None:
@@ -100,6 +101,7 @@ async def text_to_pdf(bot, callbackQuery):
             pdf.set_font('paraFont', '', size=20)
         else:
             pdf = await add_DejaVu(pdf)
+            logger.debug(pdf)
             pdf.set_font("DejaVu", "B", size=20)
         
         for _ in TXT[callbackQuery.message.chat.id][1:]:
