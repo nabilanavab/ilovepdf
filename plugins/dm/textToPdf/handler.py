@@ -50,19 +50,16 @@ async def text_to_pdf(bot, callbackQuery):
         CHUNK, _ = await util.translate(text="pdf2TXT", lang_code=lang_code)
         _, scale, h_font, p_font, color, background = [int(i) if i.isdigit() else i for i in callbackQuery.data.split('|')]
         
-        logger.debug(f"{SCALE[scale]}/{FONT[h_font]['name']}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[int(background[0])]}")
-
         if callbackQuery.data.endswith("9:"):
             background = await ask_for_bg(bot, callbackQuery=callbackQuery, text="send me an image")
         
         TXT[callbackQuery.message.chat.id] = []
-        
         isSuccess, title = await ask_for_text(bot, callbackQuery=callbackQuery, text=CHUNK['askT'])
         if not isSuccess:
             await title.reply(CHUNK['exit'], quote=True)
             del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
         else:
-            TXT[callbackQuery.message.chat.id].append(None if title is None else title.text)
+            TXT[callbackQuery.message.chat.id].append(None if title is None else title.text[:20])
         
         nabilanavab = True
         while(nabilanavab):
@@ -88,7 +85,6 @@ async def text_to_pdf(bot, callbackQuery):
         pdf.set_producer("by nabilanavab@gmail.com")
 
         if not FONT[h_font]['default']:
-            logger.debug(os.getcwd())
             pdf.add_font('NewFont', '', FONT[h_font]['name'], uni=True)
             pdf.set_font('NewFont', "", size=20)
         else:
@@ -97,13 +93,13 @@ async def text_to_pdf(bot, callbackQuery):
             pdf.cell(200, 20, txt=get_display(reshape(TXT[callbackQuery.message.chat.id][0])), ln=1, align="C")
         
         if not FONT[p_font]['default']:
-            logger.debug(os.getcwd())
             pdf.add_font('NewFont', '', FONT[p_font]['name'], uni=True)
             pdf.set_font('NewFont', "", size=20)
         else:
             pdf.set_font(FONT[p_font]['name'], "B", size=20)
         
         for _ in TXT[callbackQuery.message.chat.id][1:]:
+            logger.debug(_)
             pdf.multi_cell(200, 10, txt=get_display(reshape(_)), border=0, align="L")
         
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
