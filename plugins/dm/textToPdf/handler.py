@@ -12,7 +12,7 @@ from .FONT_LIBRARY.DejaVu import add_DejaVu
 from bidi.algorithm       import get_display
 from configs.config       import settings, images
 from pyrogram             import filters, Client as ILovePDF, enums
-from .                    import FONT, COLOR, BACKGROUND, SCALE, TXT
+from .                    import FONT, COLOR, BACKGROUND_L, BACKGROUND_P, SCALE, TXT
 
 
 async def ask_for_text(bot, callbackQuery, text: str, num: int = False):
