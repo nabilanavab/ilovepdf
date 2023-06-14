@@ -84,22 +84,23 @@ async def text_to_pdf(bot, callbackQuery):
         pdf.set_author("https://github.com/nabilanavab/ilovepdf")
         pdf.set_producer("by nabilanavab@gmail.com")
 
+        logger.debug(f"{FONT[h_font]['name']} : {FONT[p_font]['name']}")
         if not FONT[h_font]['default']:
-            pdf.add_font('NewFont', '', FONT[h_font]['name'], uni=True)
-            pdf.set_font('NewFont', "", size=20)
+            pdf.add_font('headFont', '', FONT[h_font]['name'], uni=True)
+            pdf.set_font('headFont', '', size=20)
         else:
             pdf.set_font(FONT[h_font]['name'], "B", size=20)
+        
         if TXT[callbackQuery.message.chat.id][0] != None:
             pdf.cell(200, 20, txt=get_display(reshape(TXT[callbackQuery.message.chat.id][0])), ln=1, align="C")
         
         if not FONT[p_font]['default']:
-            pdf.add_font('NewFont', '', FONT[p_font]['name'], uni=True)
-            pdf.set_font('NewFont', "", size=20)
+            pdf.add_font('paraFont', '', FONT[p_font]['name'], uni=True)
+            pdf.set_font('paraFont', '', size=20)
         else:
             pdf.set_font(FONT[p_font]['name'], "B", size=20)
         
         for _ in TXT[callbackQuery.message.chat.id][1:]:
-            logger.debug(_)
             pdf.set_x(10)
             pdf.multi_cell(200, 10, txt=get_display(reshape(_)), border=0, align="L")
         
