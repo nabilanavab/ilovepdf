@@ -91,7 +91,7 @@ async def text_to_pdf(bot, callbackQuery):
         else:
             pdf = await add_DejaVu(pdf)
             logger.debug(pdf)
-            pdf.set_font("DejaVu", "B", size=20)
+            pdf.set_font("DejaVu", "", size=20)
         
         if TXT[callbackQuery.message.chat.id][0] != None:
             pdf.cell(200, 20, txt=get_display(reshape(TXT[callbackQuery.message.chat.id][0])), ln=1, align="C")
@@ -102,7 +102,7 @@ async def text_to_pdf(bot, callbackQuery):
         else:
             pdf = await add_DejaVu(pdf)
             logger.debug(pdf)
-            pdf.set_font("DejaVu", "B", size=20)
+            pdf.set_font("DejaVu", "", size=20)
         
         for _ in TXT[callbackQuery.message.chat.id][1:]:
             pdf.set_x(10)
