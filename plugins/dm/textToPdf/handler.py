@@ -88,6 +88,7 @@ async def text_to_pdf(bot, callbackQuery):
         pdf.set_producer("by nabilanavab@gmail.com")
 
         if not FONT[h_font]['default']:
+            logger.debug(os.getcwd())
             pdf.add_font('NewFont', '', FONT[h_font]['name'], uni=True)
             pdf.set_font('NewFont', "B", size=20)
         else:
@@ -96,6 +97,7 @@ async def text_to_pdf(bot, callbackQuery):
             pdf.cell(200, 20, txt=get_display(reshape(TXT[callbackQuery.message.chat.id][0])), ln=1, align="C")
         
         if not FONT[p_font]['default']:
+            logger.debug(os.getcwd())
             pdf.add_font('NewFont', '', FONT[p_font]['name'], uni=True)
             pdf.set_font('NewFont', "B", size=20)
         else:
