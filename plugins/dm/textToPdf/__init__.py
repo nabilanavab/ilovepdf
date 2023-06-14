@@ -2,8 +2,12 @@ file_name = "plugins/dm/textToPdf/__init__.py"
 author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
-# GLOBAL VARIABLES
 
+import os
+
+path = os.path.abspath(os.getcwd())
+
+# GLOBAL VARIABLES
 # Just a DB Variable
 TXT = {}
 
@@ -18,16 +22,16 @@ FONT = {
         3 : { "default" : True, "name" : "Helvetica" },
         4 : { "default" : True, "name" : "Bookman" },
         5 : { "default" : True, "name" : "ZapfDingbats" },
-        6 : { "default" : False, "name" : "./FONT_LIBRARY/3Dumb.ttf" },
-        7 : { "default" : False, "name" : "./FONT_LIBRARY/AlexBrush-Regular.ttf" },
-        8 : { "default" : False, "name" : "./FONT_LIBRARY/Archistico_Bold.ttf" },
-        9 : { "default" : False, "name" : "./FONT_LIBRARY/Archistico_Simple.ttf" },
-        10 : { "default" : False, "name" : "./FONT_LIBRARY/Calligraffiti.ttf" },
-        11 : { "default" : False, "name" : "./FONT_LIBRARY/DancingScript-Regular.otf" },
-        12 : { "default" : False, "name" : "./FONT_LIBRARY/FFF_Tusj.ttf" },
-        13 : { "default" : False, "name" : "./FONT_LIBRARY/GreatVibes-Regular.otf" },
-        14 : { "default" : False, "name" : "./FONT_LIBRARY/Kristi.ttf" },
-        15 : { "default" : False, "name" : "./FONT_LIBRARY/Pacifico.ttf" },
+        6 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/3Dumb.ttf" },
+        7 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/AlexBrush-Regular.ttf" },
+        8 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Archistico_Bold.ttf" },
+        9 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Archistico_Simple.ttf" },
+        10 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Calligraffiti.ttf" },
+        11 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/DancingScript-Regular.otf" },
+        12 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/FFF_Tusj.ttf" },
+        13 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/GreatVibes-Regular.otf" },
+        14 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Kristi.ttf" },
+        15 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Pacifico.ttf" },
     }
 
 COLOR = {
