@@ -3,6 +3,7 @@ author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
 import os
+from logger import logger
 path = os.path.abspath(__file__)
 logger.debug(f"{path} 🎃")
 
