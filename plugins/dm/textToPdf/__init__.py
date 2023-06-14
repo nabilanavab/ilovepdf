@@ -3,9 +3,8 @@ author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
 
-import os
+path = "~/pdf/plugins/dm/textToPdf"
 
-path = os.path.abspath(os.getcwd())
 
 # GLOBAL VARIABLES
 # Just a DB Variable
