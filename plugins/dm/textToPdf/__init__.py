@@ -4,8 +4,7 @@ source_code = "https://github.com/nabilanavab/ilovepdf"
 
 import os
 from logger import logger
-path = os.path.abspath(__file__)
-logger.debug(f"{path} 🎃")
+path = "/plugins/dm/textToPdf"
 
 # GLOBAL VARIABLES
 # Just a DB Variable
