@@ -102,7 +102,7 @@ async def text_to_pdf(bot, callbackQuery):
         for _ in TXT[callbackQuery.message.chat.id][1:]:
             pdf.multi_cell(200, 10, txt=_, border=0, align="L")
         
-        pdf.output(f"{cDIR}/out.pdf")
+        pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(callbackQuery.message, f"{callbackQuery.message.chat.id}.pdf")
         if images.PDF_THUMBNAIL != THUMBNAIL:
