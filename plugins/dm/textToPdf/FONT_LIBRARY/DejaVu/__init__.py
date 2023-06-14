@@ -1,7 +1,7 @@
 
 import os
 
-async def add_DejaVu(pdf)
+async def add_DejaVu(pdf):
     for file_name in os.listdir('./'):
         if file_name.endswith('.ttf'):
             font_name = os.path.splitext(file_name)[0]
