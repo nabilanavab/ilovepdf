@@ -2,9 +2,9 @@ file_name = "plugins/dm/textToPdf/__init__.py"
 author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
-
-path = "~/pdf/plugins/dm/textToPdf"
-
+import os
+path = os.path.abspath(__file__)
+logger.debug(f"{path} 🎃")
 
 # GLOBAL VARIABLES
 # Just a DB Variable
