@@ -90,7 +90,7 @@ async def text_to_pdf(bot, callbackQuery):
         if not FONT[h_font]['default']:
             logger.debug(os.getcwd())
             pdf.add_font('NewFont', '', FONT[h_font]['name'], uni=True)
-            pdf.set_font('NewFont', "B", size=20)
+            pdf.set_font('NewFont', "", size=20)
         else:
             pdf.set_font(FONT[h_font]['name'], "B", size=20)
         if TXT[callbackQuery.message.chat.id][0] != None:
@@ -99,7 +99,7 @@ async def text_to_pdf(bot, callbackQuery):
         if not FONT[p_font]['default']:
             logger.debug(os.getcwd())
             pdf.add_font('NewFont', '', FONT[p_font]['name'], uni=True)
-            pdf.set_font('NewFont', "B", size=20)
+            pdf.set_font('NewFont', "", size=20)
         else:
             pdf.set_font(FONT[p_font]['name'], "B", size=20)
         
