@@ -5,7 +5,7 @@ PyMuPdf==1.22.2
 PyPDF2==3.0.1
 convertapi==1.6.0
 pyromod==1.5
-fpdf==1.7.2
+fpdf2==2.7.4
 ocrmypdf==13.6.0
 motor==3.1.2
 psutil==5.9.0
