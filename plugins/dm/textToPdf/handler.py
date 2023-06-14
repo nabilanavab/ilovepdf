@@ -48,8 +48,7 @@ async def text_to_pdf(bot, callbackQuery):
         CHUNK, _ = await util.translate(text="pdf2TXT", lang_code=lang_code)
         _, scale, h_font, p_font, color, background = [int(i) if i.isdigit() else i for i in callbackQuery.data.split('|')]
         
-        logger.debug(f"{scale}/{h_font}/{p_font}/{color}/{background}")
-        logger.debug(f"{SCALE[scale]}/{FONT[h_font]["name"]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[int(background[0])]}")
+        logger.debug(f"{SCALE[scale]}/{FONT[h_font]['name']}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[int(background[0])]}")
 
         if callbackQuery.data.endswith("9:"):
             background = await ask_for_bg(bot, callbackQuery=callbackQuery, text="send me an image")
