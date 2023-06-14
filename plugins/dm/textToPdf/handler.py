@@ -12,9 +12,9 @@ from pyrogram            import filters, Client as ILovePDF, enums
 from .                   import FONT, COLOR, BACKGROUND, SCALE, TXT
 
 
-async def ask_for_text(bot, callbackQuery, text: str):
+async def ask_for_text(bot, callbackQuery, text: str, num: int = False):
     while(text):
-        askTEXT = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
+        askTEXT = await bot.ask(text=text.format(num), chat_id=callbackQuery.message.chat.id,
                                reply_to_message_id=callbackQuery.message.id, filters=None)
         
         if askTEXT.text:
@@ -64,7 +64,8 @@ async def text_to_pdf(bot, callbackQuery):
         
         nabilanavab = True
         while(nabilanavab):
-            isSuccess, paragraph = await ask_for_text(bot, callbackQuery=callbackQuery, text=CHUNK['askC'])
+            isSuccess, paragraph = await ask_for_text(bot, callbackQuery=callbackQuery, text=CHUNK['askC'],
+                                                               num=len(TXT[callbackQuery.message.chat.id]))
             if not isSuccess:
                 await paragraph.reply(CHUNK['exit'], quote=True)
                 del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
@@ -87,7 +88,7 @@ async def text_to_pdf(bot, callbackQuery):
             pdf.add_font('NewFont', '', FONT[h_font]['name'], uni=True)
             pdf.set_font('NewFont', "B", size=20)
         else:
-            pdf.set_font(FONT[h_font], "B", size=20)
+            pdf.set_font(FONT[h_font]['name'], "B", size=20)
         if TXT[callbackQuery.message.chat.id][0] != None:
             pdf.cell(200, 20, txt=TXT[callbackQuery.message.chat.id][0], ln=1, align="C")
         
@@ -95,7 +96,8 @@ async def text_to_pdf(bot, callbackQuery):
             pdf.add_font('NewFont', '', FONT[p_font]['name'], uni=True)
             pdf.set_font('NewFont', "B", size=20)
         else:
-            pdf.set_font(FONT[p_font], "B", size=20)
+            pdf.set_font(FONT[p_font]['name'], "B", size=20)
+        
         for _ in TXT[callbackQuery.message.chat.id][1:]:
             pdf.multi_cell(200, 10, txt=_, border=0, align="L")
         pdf.output(f"{cDIR}/out.pdf")
