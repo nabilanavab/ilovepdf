@@ -4,7 +4,7 @@ source_code = "https://github.com/nabilanavab/ilovepdf"
 
 import os
 from logger import logger
-path = "/plugins/dm/textToPdf"
+path = "plugins/dm/textToPdf"
 
 # GLOBAL VARIABLES
 # Just a DB Variable
