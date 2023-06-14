@@ -104,7 +104,7 @@ async def text_to_pdf(bot, callbackQuery):
         
         pdf.output(f"{cDIR}/out.pdf")
         
-        FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, f"{callbackQuery.message.chat.id}.pdf")
+        FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(callbackQuery.message, f"{callbackQuery.message.chat.id}.pdf")
         if images.PDF_THUMBNAIL != THUMBNAIL:
             location = await bot.download_media(message = THUMBNAIL, file_name = f"{cDIR}/{callbackQuery.message.id}.jpeg")
             THUMBNAIL = await formatThumb(location)
