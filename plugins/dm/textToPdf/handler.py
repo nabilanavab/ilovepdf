@@ -79,6 +79,7 @@ async def text_to_pdf(bot, callbackQuery):
                 TXT[callbackQuery.message.chat.id].append(f"{paragraph.text}")
         
         pdf = FPDF(orientation=SCALE[scale], format="A4")
+        pdf.add_page()
         pdf.set_title("NABIL A NAVAB")
         pdf.set_subject("pdf created using nabilanavab open source Telegram Pdf Bot\n\nContact Nabil A Navab: telegram.dog/nabilanavab ❤")
         pdf.set_author("https://github.com/nabilanavab/ilovepdf")
@@ -100,6 +101,7 @@ async def text_to_pdf(bot, callbackQuery):
         
         for _ in TXT[callbackQuery.message.chat.id][1:]:
             pdf.multi_cell(200, 10, txt=_, border=0, align="L")
+        
         pdf.output(f"{cDIR}/out.pdf")
         
         FILE_NAME, FILE_CAPT, THUMBNAIL = await thumbName(callbackQuery.message, f"{callbackQuery.message.chat.id}.pdf")
