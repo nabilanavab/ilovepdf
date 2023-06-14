@@ -3,7 +3,6 @@ author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
 import os
-from logger import logger
 
 font_directory = 'plugins/dm/textToPdf/FONT_LIBRARY/DejaVu'
 
