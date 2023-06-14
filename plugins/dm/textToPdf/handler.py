@@ -49,7 +49,7 @@ async def text_to_pdf(bot, callbackQuery):
         _, scale, h_font, p_font, color, background = [int(i) if i.isdigit() else i for i in callbackQuery.data.split('|')]
         
         logger.debug(f"{scale}/{h_font}/{p_font}/{color}/{background}")
-        logger.debug(f"{SCALE[scale]}/{FONT[h_font]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[int(background[0])]}")
+        logger.debug(f"{SCALE[scale]}/{FONT[h_font]["name"]}/{FONT[p_font]}/{COLOR[color]}/{BACKGROUND[int(background[0])]}")
 
         if callbackQuery.data.endswith("9:"):
             background = await ask_for_bg(bot, callbackQuery=callbackQuery, text="send me an image")
@@ -83,11 +83,20 @@ async def text_to_pdf(bot, callbackQuery):
         pdf.set_subject("pdf created using nabilanavab open source Telegram Pdf Bot\n\nContact Nabil A Navab: telegram.dog/nabilanavab ❤")
         pdf.set_author("https://github.com/nabilanavab/ilovepdf")
         pdf.set_producer("by nabilanavab@gmail.com")
-        
-        pdf.set_font(FONT[h_font], "B", size=20)
+
+        if not FONT[h_font]['default']:
+            pdf.add_font('NewFont', '', FONT[h_font]['name'], uni=True)
+            pdf.set_font('NewFont', "B", size=20)
+        else:
+            pdf.set_font(FONT[h_font], "B", size=20)
         if TXT[callbackQuery.message.chat.id][0] != None:
             pdf.cell(200, 20, txt=TXT[callbackQuery.message.chat.id][0], ln=1, align="C")
-        pdf.set_font(FONT[_], size=15)
+        
+        if not FONT[p_font]['default']:
+            pdf.add_font('NewFont', '', FONT[p_font]['name'], uni=True)
+            pdf.set_font('NewFont', "B", size=20)
+        else:
+            pdf.set_font(FONT[p_font], "B", size=20)
         for _ in TXT[callbackQuery.message.chat.id][1:]:
             pdf.multi_cell(200, 10, txt=_, border=0, align="L")
         pdf.output(f"{cDIR}/out.pdf")
@@ -106,8 +115,8 @@ async def text_to_pdf(bot, callbackQuery):
         await processMessage.delete()
         await log.footer(callbackQuery.message, output=logFile, lang_code=lang_code)
     except Exception as Error:
-        logger.exception("PAGE SIZE:CAUSES %s ERROR" %(file_name, Error), exc_info=True)
-        await processMessage.edit(f"`ERROR`: __{e}__"); del TXT[callbackQuery.message.chat.id]
+        logger.exception("🐞 %s: %s" %(file_name, Error), exc_info=True)
+        await processMessage.edit(CHUNK['error'].format(Error))
     finally:
         del TXT[callbackQuery.message.chat.id]
         await work.work(callbackQuery, "delete", False)
