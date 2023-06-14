@@ -51,7 +51,7 @@ BACKGROUND_L = {
         8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png" },
 }
 
-BACKGROUND_L = {
+BACKGROUND_P = {
         1 : { "isColor" : True, "code" : (255, 255, 255) },
         2 : { "isColor" : True, "code" : (0, 0, 0) },
         3 : { "isColor" : True, "code" : (128, 128, 128) },
