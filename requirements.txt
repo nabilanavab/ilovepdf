@@ -17,3 +17,5 @@ aspose-words==23.4.0
 pdfkit==1.0.0
 beautifulsoup4==4.12.2
 requests==2.30.0
+arabic-reshaper==3.0.0
+python-bidi==0.4.2
