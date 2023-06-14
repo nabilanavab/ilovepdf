@@ -60,7 +60,7 @@ async def text_to_pdf(bot, callbackQuery):
             await title.reply(CHUNK['exit'], quote=True)
             del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
         else:
-            TXT[callbackQuery.message.chat.id].append(title.text if not title else title)
+            TXT[callbackQuery.message.chat.id].append(None if title is None else title.text)
         
         nabilanavab = True
         while(nabilanavab):
