@@ -7,6 +7,8 @@ from plugins.utils       import *
 from configs.log         import log
 from fpdf                import FPDF
 from logger              import logger
+from arabic_reshaper     import reshape
+from bidi.algorithm      import get_display
 from configs.config      import settings, images
 from pyrogram            import filters, Client as ILovePDF, enums
 from .                   import FONT, COLOR, BACKGROUND, SCALE, TXT
@@ -91,7 +93,7 @@ async def text_to_pdf(bot, callbackQuery):
         else:
             pdf.set_font(FONT[h_font]['name'], "B", size=20)
         if TXT[callbackQuery.message.chat.id][0] != None:
-            pdf.cell(200, 20, txt=TXT[callbackQuery.message.chat.id][0], ln=1, align="C")
+            pdf.cell(200, 20, txt=get_display(reshape(TXT[callbackQuery.message.chat.id][0])), ln=1, align="C")
         
         if not FONT[p_font]['default']:
             pdf.add_font('NewFont', '', FONT[p_font]['name'], uni=True)
@@ -100,7 +102,7 @@ async def text_to_pdf(bot, callbackQuery):
             pdf.set_font(FONT[p_font]['name'], "B", size=20)
         
         for _ in TXT[callbackQuery.message.chat.id][1:]:
-            pdf.multi_cell(200, 10, txt=_, border=0, align="L")
+            pdf.multi_cell(200, 10, txt=get_display(reshape(_)), border=0, align="L")
         
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
