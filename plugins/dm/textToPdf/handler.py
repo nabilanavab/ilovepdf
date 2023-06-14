@@ -100,6 +100,7 @@ async def text_to_pdf(bot, callbackQuery):
         
         for _ in TXT[callbackQuery.message.chat.id][1:]:
             logger.debug(_)
+            pdf.set_x(10)
             pdf.multi_cell(200, 10, txt=get_display(reshape(_)), border=0, align="L")
         
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
