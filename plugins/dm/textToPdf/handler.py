@@ -80,7 +80,8 @@ async def text_to_pdf(bot, callbackQuery):
         pdf = FPDF(orientation=SCALE[scale], format="A4")
         pdf.add_page()
         pdf.set_text_color( *COLOR[color]['code'] )
-        
+
+        logger.debug(BACKGROUND_L[background])
         if not BACKGROUND_L[background]:
             pass    # download 
         elif BACKGROUND_L[background]["isColor"]:
