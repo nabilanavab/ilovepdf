@@ -15,7 +15,7 @@ from pyrogram             import filters, Client as ILovePDF, enums
 from .                    import FONT, COLOR, BACKGROUND_L, BACKGROUND_P, SCALE, TXT
 
 
-async def ask_for_text(bot, callbackQuery, text: str, num: int = False):
+async def ask_for_title(bot, callbackQuery, text: str, num: int = False):
     while(text):
         askTEXT = await bot.ask(text=text.format(num), chat_id=callbackQuery.message.chat.id,
                                reply_to_message_id=callbackQuery.message.id, filters=None,
@@ -28,6 +28,21 @@ async def ask_for_text(bot, callbackQuery, text: str, num: int = False):
                 return True, None
             return True, askTEXT
         # return isSuccess, result
+
+async def ask_for_paragraph(bot, callbackQuery, text: str, num: int = False):
+    while(text):
+        askTEXT = await bot.ask(text=text.format(num), chat_id=callbackQuery.message.chat.id,
+                               reply_to_message_id=callbackQuery.message.id, filters=None,
+                               reply_markup = ForceReply(True))
+        
+        if askTEXT.text:
+            if askTEXT.text == "/exit":
+                return False, askTEXT
+            elif askTEXT.text == "/skip":
+                return True, None
+            return True, askTEXT
+        elif askTEXT.photo:
+            return True, { askTEXT.photo.file_id, askTEXT.photo.caption }
 
 async def ask_for_bg(bot, callbackQuery, text: str):
     askBG = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
@@ -58,7 +73,7 @@ async def text_to_pdf(bot, callbackQuery):
             background = await ask_for_bg(bot, callbackQuery=callbackQuery, text="send me an image")
         
         TXT[callbackQuery.message.chat.id] = []
-        isSuccess, title = await ask_for_text(bot, callbackQuery=callbackQuery, text=CHUNK['askT'])
+        isSuccess, title = await ask_for_title(bot, callbackQuery=callbackQuery, text=CHUNK['askT'])
         if not isSuccess:
             await title.reply(CHUNK['exit'], quote=True)
             del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
@@ -67,7 +82,7 @@ async def text_to_pdf(bot, callbackQuery):
         
         nabilanavab = True
         while(nabilanavab):
-            isSuccess, paragraph = await ask_for_text(bot, callbackQuery=callbackQuery, text=CHUNK['askC'],
+            isSuccess, paragraph = await ask_for_paragraph(bot, callbackQuery=callbackQuery, text=CHUNK['askC'],
                                                                num=len(TXT[callbackQuery.message.chat.id]))
             if not isSuccess:
                 await paragraph.reply(CHUNK['exit'], quote=True)
@@ -80,6 +95,8 @@ async def text_to_pdf(bot, callbackQuery):
                     nabilanavab = False
             elif paragraph.text:
                 TXT[callbackQuery.message.chat.id].append(f"{paragraph.text}")
+            elif paragraph:
+                TXT[callbackQuery.message.chat.id].append(f"{paragraph}")
         
         pdf = FPDF(orientation=SCALE[scale], format="A4")
         
