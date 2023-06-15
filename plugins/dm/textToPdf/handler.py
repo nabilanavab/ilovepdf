@@ -8,6 +8,7 @@ from configs.log          import log
 from fpdf                 import FPDF
 from logger               import logger
 from arabic_reshaper      import reshape
+from pyrogram.types       import ForceReply
 from bidi.algorithm       import get_display
 from configs.config       import settings, images
 from pyrogram             import filters, Client as ILovePDF, enums
@@ -17,7 +18,8 @@ from .                    import FONT, COLOR, BACKGROUND_L, BACKGROUND_P, SCALE,
 async def ask_for_text(bot, callbackQuery, text: str, num: int = False):
     while(text):
         askTEXT = await bot.ask(text=text.format(num), chat_id=callbackQuery.message.chat.id,
-                               reply_to_message_id=callbackQuery.message.id, filters=None)
+                               reply_to_message_id=callbackQuery.message.id, filters=None,
+                               reply_markup = ForceReply(True))
         
         if askTEXT.text:
             if askTEXT.text == "/exit":
@@ -29,12 +31,13 @@ async def ask_for_text(bot, callbackQuery, text: str, num: int = False):
 
 async def ask_for_bg(bot, callbackQuery, text: str):
     askBG = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
-                               reply_to_message_id=callbackQuery.message.id, filters=None)
+                          reply_to_message_id=callbackQuery.message.id, filters=None,
+                          reply_markup = ForceReply(True))
         
     if askBG.photo:
         return askBG.photo
     else:
-        return "_"
+        return 1
 
 @ILovePDF.on_callback_query(filters.regex("^t2p.*:$"))
 async def text_to_pdf(bot, callbackQuery):
@@ -50,7 +53,7 @@ async def text_to_pdf(bot, callbackQuery):
         CHUNK, _ = await util.translate(text="pdf2TXT", lang_code=lang_code)
         _, scale, h_font, p_font, color, background = [int(i) if i.isdigit() else 1 for i in callbackQuery.data.replace(":", "").split('|')]
         
-        if callbackQuery.data.endswith("9"):
+        if background==9:
             background = await ask_for_bg(bot, callbackQuery=callbackQuery, text="send me an image")
         
         TXT[callbackQuery.message.chat.id] = []
@@ -80,7 +83,8 @@ async def text_to_pdf(bot, callbackQuery):
         pdf = FPDF(orientation=SCALE[scale], format="A4")
         
         if not BACKGROUND_L[background]:
-            pass    # download 
+            background = await bot.download_media(message=background, file_name=f"{cDIR}/")
+            pdf.set_page_background(background)
         else:
             pdf.set_page_background(BACKGROUND_L[background]['code'])
         
