@@ -8,7 +8,6 @@ from configs.log          import log
 from fpdf                 import FPDF
 from logger               import logger
 from arabic_reshaper      import reshape
-from .FONT_LIBRARY.DejaVu import add_DejaVu
 from bidi.algorithm       import get_display
 from configs.config       import settings, images
 from pyrogram             import filters, Client as ILovePDF, enums
@@ -80,6 +79,8 @@ async def text_to_pdf(bot, callbackQuery):
         
         pdf = FPDF(orientation=SCALE[scale], format="A4")
         pdf.add_page()
+        pdf.set_text_color( *COLOR[color]['code'] )
+        
         pdf.set_title("NABIL A NAVAB")
         pdf.set_subject("pdf created using nabilanavab open source Telegram Pdf Bot\n\nContact Nabil A Navab: telegram.dog/nabilanavab ❤")
         pdf.set_author("https://github.com/nabilanavab/ilovepdf")
