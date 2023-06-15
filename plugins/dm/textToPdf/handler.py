@@ -78,14 +78,14 @@ async def text_to_pdf(bot, callbackQuery):
                 TXT[callbackQuery.message.chat.id].append(f"{paragraph.text}")
         
         pdf = FPDF(orientation=SCALE[scale], format="A4")
-        pdf.add_page()
-        pdf.set_text_color( *COLOR[color]['code'] )
-
-        logger.debug(BACKGROUND_L[background])
+        
         if not BACKGROUND_L[background]:
             pass    # download 
         else:
             pdf.set_page_background(BACKGROUND_L[background]['code'])
+        
+        pdf.add_page()
+        pdf.set_text_color( *COLOR[color]['code'] )
         
         pdf.set_title("NABIL A NAVAB")
         pdf.set_subject("pdf created using nabilanavab open source Telegram Pdf Bot\n\nContact Nabil A Navab: telegram.dog/nabilanavab ❤")
