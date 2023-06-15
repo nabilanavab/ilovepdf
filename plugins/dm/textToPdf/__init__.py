@@ -33,8 +33,8 @@ FONT = {
     }
 
 COLOR = {
-        1 : { "color" : "white", "code" : (255, 255, 255) },
-        2 : { "color" : "black", "code" : (0, 0, 0) },
+        1 : { "color" : "black", "code" : (0, 0, 0) },
+        2 : { "color" : "white", "code" : (255, 255, 255) },
         3 : { "color" : "grey", "code" : (128, 128, 128) },
         4 : { "color" : "red", "code" : (255, 0, 0) },
         5 : { "color" : "green", "code" : (0, 255, 0) },
