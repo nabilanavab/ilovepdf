@@ -35,8 +35,8 @@ async def ask_for_bg(bot, callbackQuery, text: str):
                           reply_markup = ForceReply(True))
         
     if askBG.photo:
-        logger.debug(askBG.photo)
-        return askBG.photo
+        logger.debug(askBG.photo.file_id)
+        return askBG.photo.file_id
     else:
         return 1
 
