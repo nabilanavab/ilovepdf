@@ -83,7 +83,7 @@ async def text_to_pdf(bot, callbackQuery):
         
         pdf = FPDF(orientation=SCALE[scale], format="A4")
         
-        if BACKGROUND_L.get(background, False):
+        if not BACKGROUND_L.get(background, False):
             background = await bot.download_media(message=background, file_name=f"{cDIR}/")
             pdf.set_page_background(background)
         else:
