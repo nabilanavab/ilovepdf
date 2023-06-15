@@ -2,7 +2,7 @@ file_name = "plugins/dm/textToPdf/__init__.py"
 author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
-path = "plugins/dm/textToPdf/FONT_LIBRARY"
+path = "plugins/dm/textToPdf"
 
 # GLOBAL VARIABLES
 # Just a DB Variable
@@ -15,21 +15,21 @@ SCALE = {
 
 # FONT PREVIEW: https://graph.org/Nabil-A-Navab-06-15
 FONT = {
-        1 : f"{path}/DejaVuSans.ttf",
-        2 : f"{path}/WinterSong-owRGB.ttf",
-        3 : f"{path}/Conquest-8MxyM.ttf",
-        4 : f"{path}/Branda-yolq.ttf",
-        5 : f"{path}/ArianaVioleta-dz2K.ttf",
-        6 : f"{path}/3Dumb.ttf",
-        7 : f"{path}/AlexBrush-Regular.ttf",
-        8 : f"{path}/Archistico_Bold.ttf",
-        9 : f"{path}/Archistico_Simple.ttf",
-        10 : f"{path}/Calligraffiti.ttf",
-        11 : f"{path}/DancingScript-Regular.otf",
-        12 : f"{path}/FFF_Tusj.ttf",
-        13 : f"{path}/GreatVibes-Regular.otf",
-        14 : f"{path}/Kristi.ttf",
-        15 : f"{path}/Pacifico.ttf",
+        1 : f"{path}/FONT_LIBRARY/DejaVuSans.ttf",
+        2 : f"{path}/FONT_LIBRARY/WinterSong-owRGB.ttf",
+        3 : f"{path}/FONT_LIBRARY/Conquest-8MxyM.ttf",
+        4 : f"{path}/FONT_LIBRARY/Branda-yolq.ttf",
+        5 : f"{path}/FONT_LIBRARY/ArianaVioleta-dz2K.ttf",
+        6 : f"{path}/FONT_LIBRARY/3Dumb.ttf",
+        7 : f"{path}FONT_LIBRARY/AlexBrush-Regular.ttf",
+        8 : f"{path}/FONT_LIBRARY/Archistico_Bold.ttf",
+        9 : f"{path}/FONT_LIBRARY/Archistico_Simple.ttf",
+        10 : f"{path}/FONT_LIBRARY/Calligraffiti.ttf",
+        11 : f"{path}/FONT_LIBRARY/DancingScript-Regular.otf",
+        12 : f"{path}/FONT_LIBRARY/FFF_Tusj.ttf",
+        13 : f"{path}/FONT_LIBRARY/GreatVibes-Regular.otf",
+        14 : f"{path}/FONT_LIBRARY/Kristi.ttf",
+        15 : f"{path}/FONT_LIBRARY/Pacifico.ttf",
     }
 
 COLOR = {
