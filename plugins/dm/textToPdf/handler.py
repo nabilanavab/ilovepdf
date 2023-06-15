@@ -81,6 +81,13 @@ async def text_to_pdf(bot, callbackQuery):
         pdf.add_page()
         pdf.set_text_color( *COLOR[color]['code'] )
         
+        if not BACKGROUND_L[background]:
+            pass    # download 
+        elif BACKGROUND_L[background]["isColor"]:
+            pdf.set_fill_color(BACKGROUND_L[background]['code'])
+        else:
+            pdf.set_page_background(BACKGROUND_L[background]['code'])
+        
         pdf.set_title("NABIL A NAVAB")
         pdf.set_subject("pdf created using nabilanavab open source Telegram Pdf Bot\n\nContact Nabil A Navab: telegram.dog/nabilanavab ❤")
         pdf.set_author("https://github.com/nabilanavab/ilovepdf")
