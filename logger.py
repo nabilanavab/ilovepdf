@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 #LOG_FILE = log.LOG_FILE
 
 logging.getLogger("PIL").setLevel(logging.ERROR)
+logging.getLogger("fpdf").setLevel(logging.ERROR)
 logging.getLogger("pikepdf").setLevel(logging.ERROR)
 logging.getLogger("requests").setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
