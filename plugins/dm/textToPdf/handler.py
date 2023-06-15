@@ -84,7 +84,7 @@ async def text_to_pdf(bot, callbackQuery):
         logger.debug(BACKGROUND_L[background])
         if not BACKGROUND_L[background]:
             pass    # download 
-        elif:
+        else:
             pdf.set_page_background(BACKGROUND_L[background]['code'])
         
         pdf.set_title("NABIL A NAVAB")
