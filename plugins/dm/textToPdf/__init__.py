@@ -2,7 +2,7 @@ file_name = "plugins/dm/textToPdf/__init__.py"
 author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
-path = "plugins/dm/textToPdf"
+path = "plugins/dm/textToPdf/FONT_LIBRARY"
 
 # GLOBAL VARIABLES
 # Just a DB Variable
@@ -13,22 +13,23 @@ SCALE = {
         2 : "Portrait"
     }
 
+# FONT PREVIEW: https://graph.org/Nabil-A-Navab-06-15
 FONT = {
-        1 : { "default" : True, "name" : "DejaVu" },
-        2 : { "default" : False, "name" : "" },
-        3 : { "default" : False, "name" : "" },
-        4 : { "default" : False, "name" : "" },
-        5 : { "default" : False, "name" : "" },
-        6 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/3Dumb.ttf" },
-        7 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/AlexBrush-Regular.ttf" },
-        8 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Archistico_Bold.ttf" },
-        9 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Archistico_Simple.ttf" },
-        10 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Calligraffiti.ttf" },
-        11 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/DancingScript-Regular.otf" },
-        12 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/FFF_Tusj.ttf" },
-        13 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/GreatVibes-Regular.otf" },
-        14 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Kristi.ttf" },
-        15 : { "default" : False, "name" : f"{path}/FONT_LIBRARY/Pacifico.ttf" },
+        1 : f"{path}/DejaVuSans.ttf",
+        2 : f"{path}/WinterSong-owRGB.ttf",
+        3 : f"{path}/Conquest-8MxyM.ttf" },
+        4 : f"{path}/Branda-yolq.ttf" },
+        5 : f"{path}/ArianaVioleta-dz2K.ttf" },
+        6 : f"{path}/3Dumb.ttf" },
+        7 : f"{path}/AlexBrush-Regular.ttf" },
+        8 : f"{path}/Archistico_Bold.ttf" },
+        9 : f"{path}/Archistico_Simple.ttf" },
+        10 : f"{path}/Calligraffiti.ttf" },
+        11 : f"{path}/DancingScript-Regular.otf" },
+        12 : f"{path}/FFF_Tusj.ttf" },
+        13 : f"{path}/GreatVibes-Regular.otf" },
+        14 : f"{path}/Kristi.ttf" },
+        15 : f"{path}/Pacifico.ttf" },
     }
 
 COLOR = {
