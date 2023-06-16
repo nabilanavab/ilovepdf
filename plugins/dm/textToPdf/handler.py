@@ -124,7 +124,7 @@ async def text_to_pdf(bot, callbackQuery):
         elif scale == 2 and BACKGROUND_P.get(background, False):
             POSITION = BACKGROUND_P[background]['position']
         else:
-            POSITION = ['w', 20, 'w', 10]
+            POSITION = ['w', 40, 'w', 10]
         
         if TXT[callbackQuery.message.chat.id][0] != None:
             pdf.cell(pdf.w if POSITION[0]=='w' else POSITION[0], POSITION[1],
