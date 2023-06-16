@@ -95,9 +95,9 @@ async def text_to_pdf(bot, callbackQuery):
                 else:
                     processMessage = await paragraph.reply(CHUNK['start'], quote=True)
                     nabilanavab = False
-            elif paragraph.text:
+            elif isinstance(paragraph, str) and paragraph.text:
                 TXT[callbackQuery.message.chat.id].append(f"{paragraph.text}")
-            elif paragraph:
+            elif isinstance(paragraph, dict) and paragraph:
                 TXT[callbackQuery.message.chat.id].append(f"{paragraph}")
         
         pdf = FPDF(orientation=SCALE[scale], format="A4")
