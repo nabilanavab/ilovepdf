@@ -118,17 +118,24 @@ async def text_to_pdf(bot, callbackQuery):
         
         pdf.add_font('headFont', '', FONT[h_font], uni=True)
         pdf.set_font('headFont', '', size=20)
+
+        if scale == 1 and BACKGROUND_L.get(background, False):
+            POSITION = BACKGROUND_L[background]['position']
+        elif scale == 2 and BACKGROUND_P.get(background, False):
+            POSITION = BACKGROUND_P[background]['position']
+        else:
+            POSITION = [200, 20, 200, 10]
         
         if TXT[callbackQuery.message.chat.id][0] != None:
-            pdf.cell(200, 20, txt=get_display(reshape(TXT[callbackQuery.message.chat.id][0])), ln=1, align="C")
+            pdf.cell(POSITION[0], POSITION[1], txt=get_display(reshape(TXT[callbackQuery.message.chat.id][0])), ln=True, align="C")
         
         pdf.add_font('paraFont', '', FONT[p_font], uni=True)
         pdf.set_font('paraFont', '', size=20)
-        
+
         for para in TXT[callbackQuery.message.chat.id][1:]:
-            pdf.set_x(10)
+            # pdf.set_x(10)
             if isinstance(para, str):
-                pdf.multi_cell(200, 10, txt=get_display(reshape(f"     {para}")), border=0, align="L")
+                pdf.multi_cell(POSITION[2], POSITION[3], txt=get_display(reshape(f"     {para}")), border=0, align="L")
             if isinstance(para, dict):
                 if para['type']=='photo':
                     img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
