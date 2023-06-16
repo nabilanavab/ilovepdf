@@ -153,10 +153,11 @@ async def text_to_pdf(bot, callbackQuery):
                             x = (pdf_width - new_width) / 2
                             y = (pdf_height - new_height) / 2
                             image = image.resize((new_width, new_height))
+                            pdf.image(img, x, y, new_width, new_height)
                         else:
                             x = (pdf_width - image_width) / 2
                             y = (pdf_height - image_height) / 2
-                        pdf.image(image_path, x, y, image_width, image_height)
+                            pdf.image(img, x, y, image_width, image_height)
                 
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
