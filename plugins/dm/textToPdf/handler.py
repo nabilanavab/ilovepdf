@@ -52,7 +52,6 @@ async def ask_for_bg(bot, callbackQuery, text: str):
                           reply_markup = ForceReply(True))
         
     if askBG.photo:
-        logger.debug(askBG.photo.file_id)
         return askBG.photo.file_id
     else:
         return 1
@@ -117,14 +116,14 @@ async def text_to_pdf(bot, callbackQuery):
         pdf.set_producer("by nabilanavab@gmail.com")
         
         pdf.add_font('headFont', '', FONT[h_font], uni=True)
-        pdf.set_font('headFont', '', size=20)
+        pdf.set_font('headFont', '', size=40)
 
         if scale == 1 and BACKGROUND_L.get(background, False):
             POSITION = BACKGROUND_L[background]['position']
         elif scale == 2 and BACKGROUND_P.get(background, False):
             POSITION = BACKGROUND_P[background]['position']
         else:
-            POSITION = ['w', 40, 'w', 10]
+            POSITION = ['w', 20, 'w', 10]
         
         if TXT[callbackQuery.message.chat.id][0] != None:
             pdf.cell(pdf.w if POSITION[0]=='w' else POSITION[0], POSITION[1],
