@@ -42,7 +42,7 @@ async def ask_for_paragraph(bot, callbackQuery, text: str, num: int = False):
                 return True, None
             return True, askTEXT
         elif askTEXT.photo:
-            return True, { askTEXT.photo.file_id, askTEXT.photo.caption }
+            return True, { 'type': 'photo', 'id': askTEXT.photo.file_id, 'caption': askTEXT.photo.caption }
 
 async def ask_for_bg(bot, callbackQuery, text: str):
     askBG = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
@@ -123,11 +123,15 @@ async def text_to_pdf(bot, callbackQuery):
         pdf.add_font('paraFont', '', FONT[p_font], uni=True)
         pdf.set_font('paraFont', '', size=20)
         
-        for _ in TXT[callbackQuery.message.chat.id][1:]:
+        for para in TXT[callbackQuery.message.chat.id][1:]:
             pdf.set_x(10)
-            if isinstance(_, str):
-                pdf.multi_cell(200, 10, txt=get_display(reshape(f"     {_}")), border=0, align="L")
-        
+            if isinstance(para, str):
+                pdf.multi_cell(200, 10, txt=get_display(reshape(f"     {para}")), border=0, align="L")
+            if isinstance(para, dict):
+                if para['type']=='photo':
+                    img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
+                    pdf.image(img, w=pdf.epw, keep_aspect_ratio=True)
+                
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
         FILE_NAME, FILE_CAPT, THUMBNAIL = await fncta.thumbName(callbackQuery.message, f"{callbackQuery.message.chat.id}.pdf")
