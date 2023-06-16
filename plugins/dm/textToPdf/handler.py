@@ -93,7 +93,7 @@ async def text_to_pdf(bot, callbackQuery):
                 if TXT[callbackQuery.message.chat.id][0] == None and len(TXT[callbackQuery.message.chat.id]) == 1:
                     await askPDF.reply(CHUNK['nothing'], quote=True)
                 else:
-                    processMessage = await paragraph.reply(CHUNK['start'], quote=True)
+                    processMessage = await callbackQuery.message.reply(CHUNK['start'], quote=True)
                     nabilanavab = False
             elif isinstance(paragraph, str):
                 TXT[callbackQuery.message.chat.id].append(f"{paragraph}")
