@@ -141,10 +141,10 @@ async def text_to_pdf(bot, callbackQuery):
             if isinstance(para, dict):
                 if para['type']=='photo':
                     img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
-                    with pdf.local_context(blend_mode="Multiply"):
-                        image_info = pdf.image_info(image_path)
-                        x = (pdf.w - image_info['w']) / 2
-                        pdf.image(img, x, 10, image_info['w'], image_info['h'])
+                    with Image.open(img) as image, pdf.local_context(blend_mode="Multiply"):
+                        image_width, image_height = image.size
+                        x = (pdf.w - image_width) / 2
+                        pdf.image(img, x, 10, image_width, image_height)
                 
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
