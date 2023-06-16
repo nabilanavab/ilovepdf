@@ -42,8 +42,9 @@ async def ask_for_paragraph(bot, callbackQuery, text: str, num: int = False):
                 return True, None
             return True, askTEXT
         elif askTEXT.photo:
+            logger.debug(askTEXT)
             return True, { 'type': 'photo', 'id': askTEXT.photo.file_id,
-                          'caption': askTEXT.photo.caption if askTEXT.photo.caption else None}
+                          'caption': askTEXT.caption if askTEXT.caption else None}
 
 async def ask_for_bg(bot, callbackQuery, text: str):
     askBG = await bot.ask(text=text, chat_id=callbackQuery.message.chat.id,
