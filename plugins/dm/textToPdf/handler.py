@@ -23,10 +23,10 @@ async def ask_for_title(bot, callbackQuery, text: str, num: int = False):
         
         if askTEXT.text:
             if askTEXT.text == "/exit":
-                return False, askTEXT
+                return False, askTEXT.text
             elif askTEXT.text == "/skip":
                 return True, None
-            return True, askTEXT
+            return True, askTEXT.text
         # return isSuccess, result
 
 async def ask_for_paragraph(bot, callbackQuery, text: str, num: int = False):
