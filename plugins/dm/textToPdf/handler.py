@@ -152,7 +152,6 @@ async def text_to_pdf(bot, callbackQuery):
                             new_height = int(image_height * scale_factor)
                             x = (pdf_width - new_width) / 2
                             y = pdf.get_y()
-                            image = image.resize((new_width, new_height))
                             pdf.image(img, x, y, new_width, new_height)
                             pdf.ln(new_height+10)
                         else:
