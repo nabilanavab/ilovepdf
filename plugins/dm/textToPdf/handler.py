@@ -42,7 +42,6 @@ async def ask_for_paragraph(bot, callbackQuery, text: str, num: int = False):
                 return True, None
             return True, askTEXT.text
         elif askTEXT.photo:
-            logger.debug(askTEXT)
             return True, { 'type': 'photo', 'id': askTEXT.photo.file_id,
                           'caption': askTEXT.caption if askTEXT.caption else None}
 
@@ -132,7 +131,8 @@ async def text_to_pdf(bot, callbackQuery):
             if isinstance(para, dict):
                 if para['type']=='photo':
                     img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
-                    pdf.image(img, w=pdf.epw, keep_aspect_ratio=True)
+                    with pdf.local_context(blend_mode="Multiply"):
+                        pdf.image(img, w=pdf.epw/2, keep_aspect_ratio=True)
                 
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
