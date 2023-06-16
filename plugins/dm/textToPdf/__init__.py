@@ -21,7 +21,7 @@ FONT = {
         4 : f"{path}/FONT_LIBRARY/Branda-yolq.ttf",
         5 : f"{path}/FONT_LIBRARY/ArianaVioleta-dz2K.ttf",
         6 : f"{path}/FONT_LIBRARY/3Dumb.ttf",
-        7 : f"{path}FONT_LIBRARY/AlexBrush-Regular.ttf",
+        7 : f"{path}/FONT_LIBRARY/AlexBrush-Regular.ttf",
         8 : f"{path}/FONT_LIBRARY/Archistico_Bold.ttf",
         9 : f"{path}/FONT_LIBRARY/Archistico_Simple.ttf",
         10 : f"{path}/FONT_LIBRARY/Calligraffiti.ttf",
