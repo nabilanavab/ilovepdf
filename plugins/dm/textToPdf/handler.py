@@ -106,7 +106,8 @@ async def text_to_pdf(bot, callbackQuery):
             pdf.set_page_background(background)
         else:
             pdf.set_page_background(BACKGROUND_L[background]['code'])
-        
+
+        pdf.set_auto_page_break(auto=True, margin=10)
         pdf.add_page()
         pdf.set_text_color( *COLOR[color]['code'] )
         
