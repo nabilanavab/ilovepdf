@@ -89,7 +89,7 @@ async def text_to_pdf(bot, callbackQuery):
             if not isSuccess:
                 await paragraph.reply(CHUNK['exit'], quote=True)
                 del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
-            elif isSuccess and paragraph.text and paragraph.text == "/create":
+            elif isSuccess and isinstance(paragraph, str) and paragraph.text == "/create":
                 if TXT[callbackQuery.message.chat.id][0] == None and len(TXT[callbackQuery.message.chat.id]) == 1:
                     await askPDF.reply(CHUNK['nothing'], quote=True)
                 else:
