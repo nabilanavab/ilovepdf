@@ -135,7 +135,7 @@ async def text_to_pdf(bot, callbackQuery):
         for para in TXT[callbackQuery.message.chat.id][1:]:
             # pdf.set_x(10)
             if isinstance(para, str):
-                pdf.multi_cell(pdf.w, 10, txt=get_display(reshape(f"     {para}")), ln=True, align="L")
+                pdf.multi_cell(pdf.w-20, 10, txt=get_display(reshape(f"     {para}")), ln=True, align="C")
             if isinstance(para, dict):
                 if para['type']=='photo':
                     img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
