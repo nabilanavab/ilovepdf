@@ -6,6 +6,7 @@ import                    os
 from plugins.utils        import *
 from configs.log          import log
 from fpdf                 import FPDF
+from PIL                  import Image
 from logger               import logger
 from arabic_reshaper      import reshape
 from pyrogram.types       import ForceReply
@@ -131,8 +132,11 @@ async def text_to_pdf(bot, callbackQuery):
             if isinstance(para, dict):
                 if para['type']=='photo':
                     img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
-                    with pdf.local_context(blend_mode="Multiply"):
-                        pdf.image(img, w=pdf.epw/2, keep_aspect_ratio=True)
+                    with Image.open(img) as image, pdf.local_context(blend_mode="Multiply"):
+                        image_width, image_height = image.size
+                        x = (pdf.w - image_width) / 2
+                        y = pdf.get_y()
+                        pdf.image(img, x=x, y=y, keep_aspect_ratio=True)
                 
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
