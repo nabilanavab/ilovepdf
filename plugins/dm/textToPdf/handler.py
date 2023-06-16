@@ -143,7 +143,7 @@ async def text_to_pdf(bot, callbackQuery):
                     img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
                     with Image.open(img) as image, pdf.local_context(blend_mode="Multiply"):
                         image_width, image_height = image.size
-                        pdf_width, pdf_height = pdf.w, pdf.h
+                        pdf_width, pdf_height = pdf.w-20, pdf.h-20
                         if image_width > pdf_width or image_height > pdf_height:
                             scale_width = pdf_width / image_width
                             scale_height = pdf_height / image_height
@@ -154,12 +154,12 @@ async def text_to_pdf(bot, callbackQuery):
                             y = pdf.get_y()
                             image = image.resize((new_width, new_height))
                             pdf.image(img, x, y, new_width, new_height)
-                            pdf.ln(new_height)
+                            pdf.ln(new_height+10)
                         else:
                             x = (pdf_width - image_width) / 2
                             y = pdf.get_y()
                             pdf.image(img, x, y, image_width, image_height)
-                            pdf.ln(image_height)
+                            pdf.ln(image_height+10)
                 
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
