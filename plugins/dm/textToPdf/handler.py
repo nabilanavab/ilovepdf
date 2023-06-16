@@ -37,10 +37,10 @@ async def ask_for_paragraph(bot, callbackQuery, text: str, num: int = False):
         
         if askTEXT.text:
             if askTEXT.text == "/exit":
-                return False, askTEXT
+                return False, askTEXT.text
             elif askTEXT.text == "/skip":
                 return True, None
-            return True, askTEXT
+            return True, askTEXT.text
         elif askTEXT.photo:
             logger.debug(askTEXT)
             return True, { 'type': 'photo', 'id': askTEXT.photo.file_id,
@@ -80,7 +80,7 @@ async def text_to_pdf(bot, callbackQuery):
             await title.reply(CHUNK['exit'], quote=True)
             del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
         else:
-            TXT[callbackQuery.message.chat.id].append(None if title is None else title.text[:20])
+            TXT[callbackQuery.message.chat.id].append(None if title is None else title[:20])
         
         nabilanavab = True
         while(nabilanavab):
@@ -89,16 +89,16 @@ async def text_to_pdf(bot, callbackQuery):
             if not isSuccess:
                 await paragraph.reply(CHUNK['exit'], quote=True)
                 del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
-            elif isSuccess and isinstance(paragraph, str) and paragraph.text == "/create":
+            elif isSuccess and isinstance(paragraph, str) and paragraph == "/create":
                 if TXT[callbackQuery.message.chat.id][0] == None and len(TXT[callbackQuery.message.chat.id]) == 1:
                     await askPDF.reply(CHUNK['nothing'], quote=True)
                 else:
                     processMessage = await paragraph.reply(CHUNK['start'], quote=True)
                     nabilanavab = False
-            elif isinstance(paragraph, str) and paragraph.text:
-                TXT[callbackQuery.message.chat.id].append(f"{paragraph.text}")
-            elif isinstance(paragraph, dict) and paragraph:
+            elif isinstance(paragraph, str):
                 TXT[callbackQuery.message.chat.id].append(f"{paragraph}")
+            elif isinstance(paragraph, dict):
+                TXT[callbackQuery.message.chat.id].append(paragraph)
         
         pdf = FPDF(orientation=SCALE[scale], format="A4")
         
