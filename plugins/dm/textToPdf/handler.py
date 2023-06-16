@@ -116,7 +116,7 @@ async def text_to_pdf(bot, callbackQuery):
         pdf.set_producer("by nabilanavab@gmail.com")
         
         pdf.add_font('headFont', '', FONT[h_font], uni=True)
-        pdf.set_font('headFont', '', size=40)
+        pdf.set_font('headFont', '', size=30)
 
         if scale == 1 and BACKGROUND_L.get(background, False):
             POSITION = BACKGROUND_L[background]['position']
