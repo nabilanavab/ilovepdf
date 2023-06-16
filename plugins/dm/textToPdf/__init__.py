@@ -42,25 +42,25 @@ COLOR = {
 }
 
 BACKGROUND_L = {
-        1 : { "isColor" : True, "code" : (255, 255, 255), position : [200, 20, 200, 10] },
-        2 : { "isColor" : True, "code" : (0, 0, 0), position : [200, 20, 200, 10] },
-        3 : { "isColor" : True, "code" : (128, 128, 128), position : [200, 20, 200, 10] },
-        4 : { "isColor" : False, "code" : f"{path}/IMAGES/notebook.png", position : [200, 20, 200, 10] },
-        5 : { "isColor" : False, "code" : f"{path}/IMAGES/sanscrit.png", position : [200, 20, 200, 10] },
-        6 : { "isColor" : False, "code" : f"{path}/IMAGES/folded.png", position : [200, 20, 200, 10] },
-        7 : { "isColor" : False, "code" : f"{path}/IMAGES/imageOne.png", position : [200, 20, 200, 10] },
-        8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png", position : [200, 20, 200, 10] },
+        1 : { "isColor" : True, "code" : (255, 255, 255), 'position' : [200, 20, 200, 10] },
+        2 : { "isColor" : True, "code" : (0, 0, 0), 'position' : [200, 20, 200, 10] },
+        3 : { "isColor" : True, "code" : (128, 128, 128), 'position' : [200, 20, 200, 10] },
+        4 : { "isColor" : False, "code" : f"{path}/IMAGES/notebook.png", 'position' : [200, 20, 200, 10] },
+        5 : { "isColor" : False, "code" : f"{path}/IMAGES/sanscrit.png", 'position' : [200, 20, 200, 10] },
+        6 : { "isColor" : False, "code" : f"{path}/IMAGES/folded.png", 'position' : [200, 20, 200, 10] },
+        7 : { "isColor" : False, "code" : f"{path}/IMAGES/imageOne.png", 'position' : [200, 20, 200, 10] },
+        8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png", 'position' : [200, 20, 200, 10] },
 }
 
 BACKGROUND_P = {
-        1 : { "isColor" : True, "code" : (255, 255, 255), position : [200, 20, 200, 10] },
-        2 : { "isColor" : True, "code" : (0, 0, 0), position : [200, 20, 200, 10] },
-        3 : { "isColor" : True, "code" : (128, 128, 128), position : [200, 20, 200, 10] },
-        4 : { "isColor" : False, "code" : f"{path}/IMAGES/notebook.png", position : [200, 20, 200, 10] },
-        5 : { "isColor" : False, "code" : f"{path}/IMAGES/sanscrit.png", position : [200, 20, 200, 10] },
-        6 : { "isColor" : False, "code" : f"{path}/IMAGES/folded.png", position : [200, 20, 200, 10] },
-        7 : { "isColor" : False, "code" : f"{path}/IMAGES/imageOne.png", position : [200, 20, 200, 10] },
-        8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png", position : [200, 20, 200, 10] },
+        1 : { "isColor" : True, "code" : (255, 255, 255), 'position' : [200, 20, 200, 10] },
+        2 : { "isColor" : True, "code" : (0, 0, 0), 'position' : [200, 20, 200, 10] },
+        3 : { "isColor" : True, "code" : (128, 128, 128), 'position' : [200, 20, 200, 10] },
+        4 : { "isColor" : False, "code" : f"{path}/IMAGES/notebook.png", 'position' : [200, 20, 200, 10] },
+        5 : { "isColor" : False, "code" : f"{path}/IMAGES/sanscrit.png", 'position' : [200, 20, 200, 10] },
+        6 : { "isColor" : False, "code" : f"{path}/IMAGES/folded.png", 'position' : [200, 20, 200, 10] },
+        7 : { "isColor" : False, "code" : f"{path}/IMAGES/imageOne.png", 'position' : [200, 20, 200, 10] },
+        8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png", 'position' : [200, 20, 200, 10] },
 }
 
 # UPDATE CHANNEL: https://telegram.dog/ilovepdf_bot
