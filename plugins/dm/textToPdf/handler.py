@@ -144,8 +144,7 @@ async def text_to_pdf(bot, callbackQuery):
                     with Image.open(img) as image, pdf.local_context(blend_mode="Multiply"):
                         image_width, image_height = image.size
                         x = (pdf.w - image_width) / 2
-                        y = pdf.get_y()
-                        pdf.image(img, x=x, y=y, keep_aspect_ratio=True)
+                        pdf.image(img, x=x, keep_aspect_ratio=True)
                 
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
         
