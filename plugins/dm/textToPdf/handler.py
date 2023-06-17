@@ -140,8 +140,8 @@ async def text_to_pdf(bot, callbackQuery):
                                txt=get_display(reshape(f"     {para}")), ln=True, align="L")
             if isinstance(para, dict):
                 if para['type']=='photo':
-                    if para['caption']:
-                        link=para['caption'] if re.match(r"^(http|https|ftp)://[^\s/$.?#].[^\s]*$", para['caption']) else ''
+                    logger.debug(para['caption'])
+                    link=para['caption'] if para['caption'] and re.match(r"^(http|https|ftp)://[^\s/$.?#].[^\s]*$", para['caption']) else ''
                     img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
                     with Image.open(img) as image, pdf.local_context(blend_mode="Multiply"):
                         image_width, image_height = image.size
@@ -154,12 +154,12 @@ async def text_to_pdf(bot, callbackQuery):
                             new_height = int(image_height * scale_factor)
                             x = (pdf_width - new_width) / 2
                             y = pdf.get_y()
-                            pdf.image(img, x, y, new_width, new_height)
+                            pdf.image(img, x, y, new_width, new_height, link=link)
                             pdf.ln(new_height+10)
                         else:
                             x = (pdf_width - image_width) / 2
                             y = pdf.get_y()
-                            pdf.image(img, x, y, image_width, image_height)
+                            pdf.image(img, x, y, image_width, image_height, link=link)
                             pdf.ln(image_height+10)
                 
         pdf.output(f"{cDIR}/{callbackQuery.message.chat.id}.pdf")
