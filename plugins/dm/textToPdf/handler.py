@@ -146,7 +146,7 @@ async def text_to_pdf(bot, callbackQuery):
                     with Image.open(img) as image, pdf.local_context(blend_mode="Multiply"):
                         image_width, image_height = image.size
                         image_width, image_height = image_width-20, image_height-20
-                        pdf_width, pdf_height = pdf.w-20, pdf.h-20
+                        pdf_width, pdf_height = pdf.w, pdf.h
                         if image_width > pdf_width or image_height > pdf_height:
                             scale_width = pdf_width / image_width
                             scale_height = pdf_height / image_height
