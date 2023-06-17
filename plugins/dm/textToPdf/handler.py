@@ -154,14 +154,14 @@ async def text_to_pdf(bot, callbackQuery):
                             new_height = int(image_height * scale_factor)
                             x = (pdf_width - new_width) / 2
                             y = pdf.get_y()
-                            if y + new_height > pdf_width:
+                            if y + new_height > pdf_height:
                                 pdf.add_page()
                             pdf.image(img, x, y, new_width, new_height, link=link)
                             pdf.ln(new_height+10)
                         else:
                             x = (pdf_width - image_width) / 2
                             y = pdf.get_y()
-                            if y + new_height > pdf_width:
+                            if y + new_height > pdf_height:
                                 pdf.add_page()
                             pdf.image(img, x, y, image_width, image_height, link=link)
                             pdf.ln(image_height+10)
