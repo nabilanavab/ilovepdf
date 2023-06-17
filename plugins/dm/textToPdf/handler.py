@@ -86,11 +86,11 @@ async def text_to_pdf(bot, callbackQuery):
             isSuccess, paragraph = await ask_for_paragraph(bot, callbackQuery=callbackQuery, text=CHUNK['askC'],
                                                                num=len(TXT[callbackQuery.message.chat.id]))
             if not isSuccess:
-                await paragraph.reply(CHUNK['exit'], quote=True)
+                await callbackQuery.message.reply(CHUNK['exit'], quote=True)
                 del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
             elif isSuccess and isinstance(paragraph, str) and paragraph == "/create":
                 if TXT[callbackQuery.message.chat.id][0] == None and len(TXT[callbackQuery.message.chat.id]) == 1:
-                    await askPDF.reply(CHUNK['nothing'], quote=True)
+                    await callbackQuery.message.reply(CHUNK['nothing'], quote=True)
                 else:
                     processMessage = await callbackQuery.message.reply(CHUNK['start'], quote=True)
                     nabilanavab = False
