@@ -2,7 +2,7 @@ file_name = "plugins/dm/textToPdf/handler.py"
 author_name = "telegram.dog/nabilanavab"
 source_code = "https://github.com/nabilanavab/ilovepdf"
 
-import                    os
+import                    os, re
 from plugins.utils        import *
 from configs.log          import log
 from fpdf                 import FPDF
@@ -140,6 +140,8 @@ async def text_to_pdf(bot, callbackQuery):
                                txt=get_display(reshape(f"     {para}")), ln=True, align="L")
             if isinstance(para, dict):
                 if para['type']=='photo':
+                    if para['caption']:
+                        link=para['caption'] if re.match(r"^(http|https|ftp)://[^\s/$.?#].[^\s]*$", para['caption']) else ''
                     img = await bot.download_media(message=para['id'], file_name=f"{cDIR}/")
                     with Image.open(img) as image, pdf.local_context(blend_mode="Multiply"):
                         image_width, image_height = image.size
