@@ -78,26 +78,18 @@ _FORCE = "Kutib turing [{}](tg://user?id={})..!!\n\nYuklamaning kattaligi tufayl
 _JOIN_CHANNEL =  "🌟 KANALGA QO'SHILING 🌟"
 _REFRESH = "♻️ Yangilash ♻️"
 _BACK = "   Orqaga"
-_H_META = "❓ META ma'lumoti: YORDAM ❓"
-_H_ENC = "❓ SHIFRLASH/Shifrni ochish: YORDAM ❓"
 _ONLY_META = "✔ FAQAT META Ma'lumoti ✔"
 _ALL_META = "✅ OLDINDAN KOʻRISH BILAN ✅"
-_H_SPLIT_MERGE = "❓ PDF ni ajratish/birlashtirish: YORDAM ❓"
 _H_SPLIT = "✂️ Bo'lish ✂️"
 _H_MERGE = "🧬 🧬 Birlashtirish"
-_H_FORMAT = "❓ FORMAT: YORDAM ❓"
-_H_COMP_OCR = "❓ SIQISH/OCR PDF: YORDAM ❓"
 _H_COMPRESS = "🗜 Siqish 🗜"
 _H_OCR = "📝 OCR 📝"
-_H_WATERMARK = "❓ Suv belgisi: YORDAM ❓"
 _H_WATER = "💦 Suv belgisi 💦"
 _H_STAMP = "™️ Shtamp ™️"
-_H_FILTER = "❓ Filtr: YORDAM ❓"
 _H_DRAW = "🎨 Chizish 🎨"
 _H_BAW = "⚫ QORA/OQ ⚪"
 _H_SAT = "🪐 To'yintirish 🪐"
 _H_INV = "🖌 Inversiya 🖌"
-_H_ADD_DEL = "❓ Sahifalarni qo'shish/o'chirish: YORDAM ❓"
 _ADD = "🟢 SAHIFALAR QO'SHISH 🟢"
 _DEL = "🔴 SAHIFALARNI O'CHIRISh 🔴"
 _P2IMG = "⚙️ PDF » TASVIRLAR ↓"
@@ -159,7 +151,6 @@ _IMG_ADDED = "`PDF faylingizga {} ta sahifa qoʻshildi..`🤓\n\nFayl nomi: `{}.
 _TRUE = "✅ Ha"
 _FALSE = "🔴 Yo'q"
 _PASS_REQUIRED = "PDF faylni ochish uchun parol kerakmi?🤔💭\n\nFayl nomi: `{}`\nFayl hajmi: `{}`"
-_H_AIO = "❓ KIRISH FAYL: YORDAM ❓"
 _YES = "✅ HA"
 _NO = "🔴 YO'Q"
 _MOVE = "⏭ HARAKAT"
@@ -246,7 +237,12 @@ _NOW_BETA = "`Endi siz beta-versiya foydalanuvchisisiz..` ☺"
 _NOW_NOT_BETA = "`Endi siz beta-testda ishtirok etmaysiz..` 😐"
 _BETA_MSG = "🍄 BETA [BEPUL] 🍄 QO'SHILING"
 _BETA_MESSAGE = "**🔰 Beta-dasturimizga qo'shiling 🔰**\n__Do'stlaringizga murojaat qiling va beta-versiyaning bir qismi bo'ling, bir nechta vazifalarni osonlikcha hal qilish uchun eksklyuziv ruxsatni oching.__\n\n🎀 __Bir marta tavsiya havolasini yaratasiz. __\n🎀 __Ushbu havola orqali 5 ta doʻstingizni taklif qiling.__\n🎀 __5 doʻstingizni muvaffaqiyatli yuborganingizdan soʻng, /beta buyrugʻini yuboring.__\n🎀 “Hammasi birida” opsiyasi endi qachon ishlaydi PDF-faylni jo‘natish yoki yo‘naltirish.\n🎀 Bitta jarayonda bir nechta vazifalarni muammosiz bajarishning kengaytirilgan imkoniyatlaridan bahramand bo‘ling.\n\n**__MASLAHAT HAVOLAGI:__** {}\n**__LINK__ :** {}"
-
+_SELECT_SCALE = "🖼 TANLASH MOSLASH 🖼"
+_SELECT_HEAD_FONT = "✒ Sarlavha shriftini tanlang ✒"
+_SELECT_PARA_FONT = "🪂 Paragraf shriftini tanlang 🪂"
+_SELECT_COLOR = "🎨 Rangni tanlash 🎨"
+_USE_DEFAULT = "» Standartdan foydalanish »"
+_SELECT_BG_COLOR = "🎨 Fon rasmini tanlash 🎨"
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
@@ -295,15 +291,15 @@ PDF_MESSAGE = {
         _RENAME : "#rename", _ZOOM : "#zoom", _URL : "link", _FILTER : "pdf|filter", _ADD_DELETE : "pdf|addlt", _CLOSE : "close|all"},
     "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,}
 BUTTONS = {
-    "meta" : { _H_META : "nabilanavab|meta", _ONLY_META : "#metadata", _ALL_META : "#preview", _BACK : "pdf" },
-    "lock" : { _H_ENC : "nabilanavab|lock", _ENCRYPT_CB : "#encrypt", _DECRYPT_CB : "#decrypt", _BACK : "pdf" },
+    "meta" : { _HELP : "nabilanavab|meta", _ONLY_META : "#metadata", _ALL_META : "#preview", _BACK : "pdf" },
+    "lock" : { _HELP : "nabilanavab|lock", _ENCRYPT_CB : "#encrypt", _DECRYPT_CB : "#decrypt", _BACK : "pdf" },
     "trim" : { _SPLIT_MERGE : "nabilanavab|trim", _H_SPLIT : "#split", _H_MERGE : "#merge", _BACK : "pdf" },
-    "format" : { _H_FORMAT : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
+    "format" : { _HELP : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
                  "🤟 1 × 3 🤟" : "#3-format-H", "🤟 3 × 1 🤟" : "#3-format-V", "2 × 2" : "#4-format", _BACK : "pdf" },
-    "comocr" : { _H_COMP_OCR : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
-    "trade" : { _H_WATERMARK : "nabilanavab|trade", _H_WATER : "pdf|wa", _H_STAMP : "pdf|stp", _BACK : "pdf" },
-    "filter" : { _H_FILTER : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
-    "addlt" : { _H_ADD_DEL : "nabilanavab|add", _ADD : "close|dev", _DEL : "#deletePg", _BACK : "pdf" },
+    "comocr" : { _HELP : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
+    "trade" : { _HELP : "nabilanavab|trade", _H_WATER : "pdf|wa", _H_STAMP : "pdf|stp", _BACK : "pdf" },
+    "filter" : { _HELP : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
+    "addlt" : { _HELP : "nabilanavab|add", _ADD : "close|dev", _DEL : "#deletePg", _BACK : "pdf" },
     "toImage" : { _P2IMG : "nabilanavab", _P2I : "pdf|img|img", _P2D : "pdf|img|doc", _P2Z : "pdf|img|zip", _P2T : "pdf|img|tar", _BACK : "pdf" },
     "imgRange" : { _P2IMG_ : "nabilanavab", _ALL : "#p2img|{}A", _CUSTOM : "#p2img|{}C", _BACK : "pdf|img" },
     "rotate" : { _B_ROTATE : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
@@ -334,20 +330,13 @@ DOCUMENT = {
     "bigCB" : { _BIG_SUPP : "https://github.com/nabilanavab/ilovepdf" }, "imageAdded" : _IMG_ADDED}
 AIO = {
     "true" : _TRUE, "false" : _FALSE, "aio" : _PASS_REQUIRED, "waitPASS" : _WAIT_TXT, "passMSG" : _AIO_QN,
-    "aio_button" : {_H_AIO :"nabilanavab|aioInput", _YES:"aioInput|enc", _NO :"aioInput|dec", _MOVE :"aioInput|dec" },
+    "aio_button" : {_HELP :"nabilanavab|aioInput", _YES:"aioInput|enc", _NO :"aioInput|dec", _MOVE :"aioInput|dec" },
     "out_button" : { _META : "nabilanavab|aio|met", _PREVIEW : "nabilanavab|aio|pre", _H_COMPRESS: "nabilanavab|aio|com", _B_TEXT_T : "nabilanavab|aio|txt", _ROTATE : "nabilanavab|aio|rot", _FORMAT : "nabilanavab|aio|for",
         _ENCRYPT_CB : "nabilanavab|aio|enc", _WATERMARK : "nabilanavab|aio|wat", _RENAME : "nabilanavab|aio|rnm", _BACK : "aio", _PROCEED : "processAIO" },
     "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|com|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|for|{F}", "aio|enc|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]}
 gDOCUMENT = { "admin" : _ADMIN_ONLY, "notDOC" : _NOT_DOC, "Gadmin" : _G_ADMIN, "adminO" : _NOT_YOUR }
 gDOCUMENT.update(DOCUMENT)
 noHelp = _WASTE
-pdf2TXT = {
-    "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,
-    "font_btn" : {"TXT@PDF » SET FONT" : "nabilanavab", "Times" : "pdf|font|t", "Courier" : "pdf|font|c", "Helvetica (Default)" : "pdf|font|h",
-        "Symbol" : "pdf|font|s", "Zapfdingbats" : "pdf|font|z", _CLOSE : "close|me"},
-    "size_btn" : {
-        "TXT@PDF » {} » SET SCALE" : "nabilanavab", "Portarate" : "t2p|{}|p", "Landscape" : "t2p|{}|l", _BACK: "pdf|T2P"
-    }, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P}
 URL = {
     "notPDF" : _CODEC, "close" : { _CLOSE : "close|all" }, "get" : { _GET_TG_PDF : "getFile"}, "error" : _ERROR, "view" : _VIEW_ONLY,
     "done" : _DONE, "_error_" : _TEXT_REPLY, "openCB" : {_OPEN_BROW : "{}"}, "_error" : _ERROR,"_get" : _TG_PDF }
@@ -373,5 +362,13 @@ INLINE = {
     "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
     'min' : _MIN_SEARCH, 'process' : _PROCESSING, 'nothing' : _NO_RESULT, "select" : _GET_PDF, 'description' : _INLINE_DES,
     'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}
-BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
+BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA }
+pdf2TXT = {
+    "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,  "askC" : _TEXT2PDF_P,
+    "fifteen" : { "{}" : "nabilanavab", "1" : "{}|1", "2" : "{}|2", "3" : "{}|3", "4" : "{}|4", "5" : "{}|5", "6" : "{}|6", "7" : "{}|7",
+    "8" : "{}|8", "9" : "{}|9", "10" : "{}|10","11" : "{}|11", "12" : "{}|12", "13" : "{}|13", "14" : "{}|14", "15" : "{}|15", 
+    _USE_DEFAULT : "{}|_"}, "askT" : _TEXT2PDF_T, "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"},
+    "six_" : { "{}" : "nabilanavab", "1" : "{}|1:", "2" : "{}|2:", "3" : "{}|3:", "4" : "{}|4:", "5" : "{}|5:", "6" : "{}|6:", _USE_DEFAULT : "{}|_:"},
+    "six" : { "{}" : "nabilanavab", "1" : "{}|1", "2" : "{}|2", "3" : "{}|3", "4" : "{}|4", "5" : "{}|5", "6" : "{}|6", _USE_DEFAULT : "{}|_"},
+    "error" : _ERROR }
 HELP = {}
