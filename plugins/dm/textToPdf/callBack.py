@@ -46,7 +46,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
                 media="https://graph.org/file/427b991e3e24865ad9cf7.jpg"
             
             return await callbackQuery.edit_message_media(
-                media=InputMediaPhoto(media=media, caption=callbackQuery.message.caption), reply_markup=tTXT
+                media=InputMediaPhoto(media=media, caption=f"```{callbackQuery.message.caption```"), reply_markup=tTXT
             )
         
     except Exception as Error:
