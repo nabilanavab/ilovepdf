@@ -34,33 +34,33 @@ FONT = {
 
 COLOR = {
         1 : { "color" : "black", "code" : (0, 0, 0) },
-        2 : { "color" : "white", "code" : (255, 255, 255) },
-        3 : { "color" : "grey", "code" : (128, 128, 128) },
+        2 : { "color" : "grey", "code" : (128, 128, 128) },
+        3 : { "color" : "white", "code" : (255, 255, 255) },
         4 : { "color" : "red", "code" : (255, 0, 0) },
         5 : { "color" : "green", "code" : (0, 255, 0) },
         6 : { "color" : "blue", "code" : (0, 0, 255) }
 }
 
-BACKGROUND_L = {
+BACKGROUND_P = {
         1 : { "isColor" : True, "code" : (255, 255, 255), 'position' : ['w', 20,  'w', 10] },
-        2 : { "isColor" : True, "code" : (0, 0, 0), 'position' : ['w', 20,  'w', 10] },
+        2 : { "isColor" : False, "code" : f"{path}/IMAGES/black.png", 'position' : ['w', 20,  'w', 10] },
         3 : { "isColor" : True, "code" : (128, 128, 128), 'position' : ['w', 20,  'w', 10] },
-        4 : { "isColor" : False, "code" : f"{path}/IMAGES/notebook.png", 'position' : ['w', 20,  'w', 10] },
-        5 : { "isColor" : False, "code" : f"{path}/IMAGES/sanscrit.png", 'position' : ['w', 20,  'w', 10] },
-        6 : { "isColor" : False, "code" : f"{path}/IMAGES/folded.png", 'position' : ['w', 20,  'w', 10] },
-        7 : { "isColor" : False, "code" : f"{path}/IMAGES/imageOne.png", 'position' : ['w', 20,  'w', 10] },
-        8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png", 'position' : ['w', 20,  'w', 10] },
+        # 4 : { "isColor" : False, "code" : f"{path}/IMAGES/notebook.png", 'position' : ['w', 20,  'w', 10] },
+        4 : { "isColor" : False, "code" : f"{path}/IMAGES/sanscrit.png", 'position' : ['w', 20,  'w', 10] },
+        5 : { "isColor" : False, "code" : f"{path}/IMAGES/folded.png", 'position' : ['w', 20,  'w', 10] },
+        # 7 : { "isColor" : False, "code" : f"{path}/IMAGES/imageOne.png", 'position' : ['w', 20,  'w', 10] },
+        # 8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png", 'position' : ['w', 20,  'w', 10] },
 }
 
 BACKGROUND_P = {
         1 : { "isColor" : True, "code" : (255, 255, 255), 'position' : ['w', 20,  'w', 10] },
-        2 : { "isColor" : True, "code" : (0, 0, 0), 'position' : ['w', 20,  'w', 10] },
+        2 : { "isColor" : False, "code" : f"{path}/IMAGES/black.png", 'position' : ['w', 20,  'w', 10] },
         3 : { "isColor" : True, "code" : (128, 128, 128), 'position' : ['w', 20,  'w', 10] },
-        4 : { "isColor" : False, "code" : f"{path}/IMAGES/notebook.png", 'position' : ['w', 20,  'w', 10] },
-        5 : { "isColor" : False, "code" : f"{path}/IMAGES/sanscrit.png", 'position' : ['w', 20,  'w', 10] },
-        6 : { "isColor" : False, "code" : f"{path}/IMAGES/folded.png", 'position' : ['w', 20,  'w', 10] },
-        7 : { "isColor" : False, "code" : f"{path}/IMAGES/imageOne.png", 'position' : ['w', 20,  'w', 10] },
-        8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png", 'position' : ['w', 20,  'w', 10] },
+        # 4 : { "isColor" : False, "code" : f"{path}/IMAGES/notebook.png", 'position' : ['w', 20,  'w', 10] },
+        4 : { "isColor" : False, "code" : f"{path}/IMAGES/sanscrit.png", 'position' : ['w', 20,  'w', 10] },
+        5 : { "isColor" : False, "code" : f"{path}/IMAGES/folded.png", 'position' : ['w', 20,  'w', 10] },
+        # 7 : { "isColor" : False, "code" : f"{path}/IMAGES/imageOne.png", 'position' : ['w', 20,  'w', 10] },
+        # 8 : { "isColor" : False, "code" : f"{path}/IMAGES/imageTwo.png", 'position' : ['w', 20,  'w', 10] },
 }
 
 # UPDATE CHANNEL: https://telegram.dog/ilovepdf_bot
