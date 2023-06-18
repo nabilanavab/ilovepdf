@@ -70,7 +70,7 @@ async def text_to_pdf(bot, callbackQuery):
         CHUNK, _ = await util.translate(text="pdf2TXT", lang_code=lang_code)
         _, scale, h_font, p_font, color, background = [int(i) if i.isdigit() else 1 for i in callbackQuery.data.replace(":", "").split('|')]
         
-        if background==9:
+        if background==6:
             background = await ask_for_bg(bot, callbackQuery=callbackQuery, text="send me an image")
         
         TXT[callbackQuery.message.chat.id] = []
