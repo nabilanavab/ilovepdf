@@ -39,7 +39,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
                 tTXT = await util.createBUTTON(tTXT, "1331")
                 media="https://graph.org/file/055bc5df94dc7859f59fd.jpg"
             elif len(callbackQuery.data.split("|")) == 5:
-                tTXT, _ = await util.translate(text="pdf2TXT['nine']", lang_code=lang_code)
+                tTXT, _ = await util.translate(text="pdf2TXT['six']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_BG_COLOR", lang_code=lang_code)
                 tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
                 tTXT = await util.createBUTTON(tTXT, "1331")
