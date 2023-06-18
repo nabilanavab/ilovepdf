@@ -100,7 +100,7 @@ class Bot(ILovePDF):
             await super().start()
         except errors.FloodWait as e:
             logger.debug(f"wait {e.value} seconds.. automtically restarts..")
-            for time in range(e.value, 0, -1):
+            for time in range(e.value, 0, -10):
                 await asyncio.sleep(10)
                 if time % 10 == 0:
                     logger.debug(f"Remaining seconds: {time}")
