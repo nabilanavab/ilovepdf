@@ -14,40 +14,39 @@ async def text_to_pdf_cb(bot, callbackQuery):
         if await render.header(bot, callbackQuery, lang_code=lang_code):
             return
         await callbackQuery.answer()
-        
-        if len(callbackQuery.data.split("|")) == 1:
-            # callbackQuery.data = t2p|{text_font}
-            tTXT, _ = await util.translate(text="pdf2TXT['size_btn']", lang_code=lang_code)
-            tTXT = await util.createBUTTON(tTXT, "121")
-            return await callbackQuery.edit_message_media(
-                media=InputMediaPhoto(media="https://graph.org/file/c301b7af1e637f642a520.jpg",
-                                      caption=callbackQuery.message.caption), reply_markup=tTXT
-            )
-        
-        else:
+
+        if True:
+            if len(callbackQuery.data.split("|")) == 1:
+                tTXT, _ = await util.translate(text="pdf2TXT['size_btn']", lang_code=lang_code)
+                tTXT = await util.createBUTTON(tTXT, "121")
+                media="https://graph.org/file/c301b7af1e637f642a520.jpg"
             if len(callbackQuery.data.split("|")) == 2:
                 tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_HEAD_FONT", lang_code=lang_code)
                 tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
                 tTXT = await util.createBUTTON(tTXT, "15551")
+                media="https://graph.org/file/83c1f58d4c36b62aa92f3.jpg"
             elif len(callbackQuery.data.split("|")) == 3:
                 tTXT, _ = await util.translate(text="pdf2TXT['fifteen']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_PARA_FONT", lang_code=lang_code)
                 tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
                 tTXT = await util.createBUTTON(tTXT, "15551")
+                media="https://graph.org/file/83c1f58d4c36b62aa92f3.jpg"
             elif len(callbackQuery.data.split("|")) == 4:
                 tTXT, _ = await util.translate(text="pdf2TXT['six']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_COLOR", lang_code=lang_code)
                 tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
-                tTXT = await util.createBUTTON(tTXT, "1331") 
+                tTXT = await util.createBUTTON(tTXT, "1331")
+                media="https://graph.org/file/055bc5df94dc7859f59fd.jpg"
             elif len(callbackQuery.data.split("|")) == 5:
                 tTXT, _ = await util.translate(text="pdf2TXT['nine']", lang_code=lang_code)
                 front, _ = await util.translate(text="_SELECT_BG_COLOR", lang_code=lang_code)
                 tTXT = await util.editDICT(inDir=tTXT, value=f"{callbackQuery.data}", front=front)
                 tTXT = await util.createBUTTON(tTXT, "13331")
+                media="https://graph.org/file/c301b7af1e637f642a520.jpg"
             
             return await callbackQuery.edit_message_media(
-                media=InputMediaPhoto(media="https://graph.org/file/c301b7af1e637f642a520.jpg",
+                media=InputMediaPhoto(media=media,
                                       caption=callbackQuery.message.caption), reply_markup=tTXT
             )
         
