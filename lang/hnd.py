@@ -78,26 +78,18 @@ _FORCE = "प्रतीक्षा करें [{}](tg://user?id={})..!!\n\n
 _JOIN_CHANNEL =  "🌟 चैनल 🌟 से जुड़ें"
 _REFRESH = "♻️ रिफ्रेश ♻️"
 _BACK = "   पीछे"
-_H_META = "मेटा £ डेटा: मदद ❓"
-_H_ENC = "❓ एनक्रिप्ट / डिक्रिप्ट: सहायता ❓"
 _ONLY_META = "✔ केवल मेटाडेटा ✔"
 _ALL_META = "✅ पूर्वावलोकन के साथ ✅"
-_H_SPLIT_MERGE = "❓ स्प्लिट / मर्ज पीडीएफ: हेल्प ❓"
 _H_SPLIT = "✂️ विभाजित ✂️"
 _H_MERGE = "🧬 विलय 🧬"
-_H_FORMAT = "❓ प्रारूप: सहायता ❓"
-_H_COMP_OCR = "❓ कंप्रेस/ओसीआर पीडीएफ: हेल्प ❓"
 _H_COMPRESS = "🗜 कंप्रेस 🗜"
 _H_OCR = "📝 ओसीआर 📝"
-_H_WATERMARK = "❓ वॉटरमार्क: मदद ❓"
 _H_WATER = "💦 वॉटरमार्क 💦"
 _H_STAMP = "™️ स्टैम्प ™️"
-_H_FILTER = "❓ फ़िल्टर: सहायता ❓"
 _H_DRAW = "🎨 ड्रा 🎨"
 _H_BAW = "⚫ काला/सफेद ⚪"
 _H_SAT = "🪐सतुररे 🪐"
 _H_INV = "🖌 पलटें 🖌"
-_H_ADD_DEL = "❓ पृष्ठ जोड़ें/हटाएं: सहायता ❓"
 _ADD = "🟢 पेज जोड़ें 🟢"
 _DEL = "🔴 पृष्ठों को हटाएं 🔴"
 _P2IMG = "⚙️ पीडीएफ » छवियां ↓"
@@ -159,7 +151,6 @@ _IMG_ADDED = "`आपके PDF में {} पेज जोड़े गए..`
 _TRUE = "✅ सच ✅"
 _FALSE = "🔴 झूठा 🔴"
 _PASS_REQUIRED = "क्या पीडीएफ फाइल को खोलने के लिए पासवर्ड की जरूरत होती है?🤔💭\n\nफाइल का नाम : `{}`\nफाइल का आकार : `{}`"
-_H_AIO = "❓ इनपुट फ़ाइल: सहायता ❓"
 _YES = "✅ हाँ ✅"
 _NO = "🔴 नहीं 🔴"
 _MOVE = "⏭ हटो ⏭"
@@ -246,7 +237,12 @@ _NOW_BETA = "`अब आप एक बीटा उपयोगकर्ता �
 _NOW_NOT_BETA = "`अब आप बीटा परीक्षण में भाग नहीं ले रहे हैं..` 😐"
 _BETA_MSG = "🍄 बीटा में शामिल हों [मुफ़्त] 🍄"
 _BETA_MESSAGE = "**🔰 हमारे बीटा प्रोग्राम में शामिल हों 🔰**\n__ अपने दोस्तों को रेफ़र करें और बीटा संस्करण का हिस्सा बनें, आसानी से कई कार्यों को आसानी से संभालने के लिए विशेष एक्सेस अनलॉक करना। __\n\n🎀 __एक बार जब आप अपना रेफ़रल लिंक जनरेट कर लेते हैं। __\n🎀 __इस रेफ़रल लिंक का उपयोग करके 5 दोस्तों को शामिल होने के लिए आमंत्रित करें। एक PDF भेजना या अग्रेषित करना।\n🎀 एक ही प्रक्रिया में कई कार्यों को निर्बाध रूप से करने की बढ़ी हुई क्षमताओं का आनंद लें।\n\n**__आपका संदर्भ लिंक :__** {}\n**__शेयर लिंक__ :** {}"
-
+_SELECT_SCALE = "🖼 चयन स्केल 🖼"
+_SELECT_HEAD_FONT = "✒ शीर्षक फ़ॉन्ट चुनें ✒"
+_SELECT_PARA_FONT = "🪂 पैराग्राफ फ़ॉन्ट चुनें 🪂"
+_SELECT_COLOR = "🎨 रंग चुनें 🎨"
+_USE_DEFAULT = "» डिफ़ॉल्ट का प्रयोग करें »"
+_SELECT_BG_COLOR = "🎨 बैकग्राउंड इमेज चुनें 🎨"
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
@@ -295,15 +291,15 @@ PDF_MESSAGE = {
         _RENAME : "#rename", _ZOOM : "#zoom", _URL : "link", _FILTER : "pdf|filter", _ADD_DELETE : "pdf|addlt", _CLOSE : "close|all"},
     "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,}
 BUTTONS = {
-    "meta" : { _H_META : "nabilanavab|meta", _ONLY_META : "#metadata", _ALL_META : "#preview", _BACK : "pdf" },
-    "lock" : { _H_ENC : "nabilanavab|lock", _ENCRYPT_CB : "#encrypt", _DECRYPT_CB : "#decrypt", _BACK : "pdf" },
+    "meta" : { _HELP : "nabilanavab|meta", _ONLY_META : "#metadata", _ALL_META : "#preview", _BACK : "pdf" },
+    "lock" : { _HELP : "nabilanavab|lock", _ENCRYPT_CB : "#encrypt", _DECRYPT_CB : "#decrypt", _BACK : "pdf" },
     "trim" : { _SPLIT_MERGE : "nabilanavab|trim", _H_SPLIT : "#split", _H_MERGE : "#merge", _BACK : "pdf" },
-    "format" : { _H_FORMAT : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
+    "format" : { _HELP : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
                  "🤟 1 × 3 🤟" : "#3-format-H", "🤟 3 × 1 🤟" : "#3-format-V", "2 × 2" : "#4-format", _BACK : "pdf" },
-    "comocr" : { _H_COMP_OCR : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
-    "trade" : { _H_WATERMARK : "nabilanavab|trade", _H_WATER : "pdf|wa", _H_STAMP : "pdf|stp", _BACK : "pdf" },
-    "filter" : { _H_FILTER : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
-    "addlt" : { _H_ADD_DEL : "nabilanavab|add", _ADD : "close|dev", _DEL : "#deletePg", _BACK : "pdf" },
+    "comocr" : { _HELP : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
+    "trade" : { _HELP : "nabilanavab|trade", _H_WATER : "pdf|wa", _H_STAMP : "pdf|stp", _BACK : "pdf" },
+    "filter" : { _HELP : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
+    "addlt" : { _HELP : "nabilanavab|add", _ADD : "close|dev", _DEL : "#deletePg", _BACK : "pdf" },
     "toImage" : { _P2IMG : "nabilanavab", _P2I : "pdf|img|img", _P2D : "pdf|img|doc", _P2Z : "pdf|img|zip", _P2T : "pdf|img|tar", _BACK : "pdf" },
     "imgRange" : { _P2IMG_ : "nabilanavab", _ALL : "#p2img|{}A", _CUSTOM : "#p2img|{}C", _BACK : "pdf|img" },
     "rotate" : { _B_ROTATE : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
@@ -334,20 +330,13 @@ DOCUMENT = {
     "bigCB" : { _BIG_SUPP : "https://github.com/nabilanavab/ilovepdf" }, "imageAdded" : _IMG_ADDED}
 AIO = {
     "true" : _TRUE, "false" : _FALSE, "aio" : _PASS_REQUIRED, "waitPASS" : _WAIT_TXT, "passMSG" : _AIO_QN,
-    "aio_button" : {_H_AIO :"nabilanavab|aioInput", _YES:"aioInput|enc", _NO :"aioInput|dec", _MOVE :"aioInput|dec" },
+    "aio_button" : {_HELP :"nabilanavab|aioInput", _YES:"aioInput|enc", _NO :"aioInput|dec", _MOVE :"aioInput|dec" },
     "out_button" : { _META : "nabilanavab|aio|met", _PREVIEW : "nabilanavab|aio|pre", _H_COMPRESS: "nabilanavab|aio|com", _B_TEXT_T : "nabilanavab|aio|txt", _ROTATE : "nabilanavab|aio|rot", _FORMAT : "nabilanavab|aio|for",
         _ENCRYPT_CB : "nabilanavab|aio|enc", _WATERMARK : "nabilanavab|aio|wat", _RENAME : "nabilanavab|aio|rnm", _BACK : "aio", _PROCEED : "processAIO" },
     "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|com|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|for|{F}", "aio|enc|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]}
 gDOCUMENT = { "admin" : _ADMIN_ONLY, "notDOC" : _NOT_DOC, "Gadmin" : _G_ADMIN, "adminO" : _NOT_YOUR }
 gDOCUMENT.update(DOCUMENT)
 noHelp = _WASTE
-pdf2TXT = {
-    "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,
-    "font_btn" : {"TXT@PDF » SET FONT" : "nabilanavab", "Times" : "pdf|font|t", "Courier" : "pdf|font|c", "Helvetica (Default)" : "pdf|font|h",
-        "Symbol" : "pdf|font|s", "Zapfdingbats" : "pdf|font|z", _CLOSE : "close|me"},
-    "size_btn" : {
-        "TXT@PDF » {} » SET SCALE" : "nabilanavab", "Portarate" : "t2p|{}|p", "Landscape" : "t2p|{}|l", _BACK: "pdf|T2P"
-    }, "askT" : _TEXT2PDF, "askC" : _TEXT2PDF_P}
 URL = {
     "notPDF" : _CODEC, "close" : { _CLOSE : "close|all" }, "get" : { _GET_TG_PDF : "getFile"}, "error" : _ERROR, "view" : _VIEW_ONLY,
     "done" : _DONE, "_error_" : _TEXT_REPLY, "openCB" : {_OPEN_BROW : "{}"}, "_error" : _ERROR,"_get" : _TG_PDF }
@@ -373,5 +362,13 @@ INLINE = {
     "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
     'min' : _MIN_SEARCH, 'process' : _PROCESSING, 'nothing' : _NO_RESULT, "select" : _GET_PDF, 'description' : _INLINE_DES,
     'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}
-BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA}
+BETA = {"cant": _CANT_USE, 'refer': _REFER, 'nowbeta': _NOW_BETA, 'nownotbeta': _NOW_NOT_BETA }
+pdf2TXT = {
+    "upload" : DOCUMENT['upFile'], "exit" : _EXIT, "nothing" : _NOTHING, "TEXT" : _TEXT2PDF, "start" : _TEXT2PDF_S,  "askC" : _TEXT2PDF_P,
+    "fifteen" : { "{}" : "nabilanavab", "1" : "{}|1", "2" : "{}|2", "3" : "{}|3", "4" : "{}|4", "5" : "{}|5", "6" : "{}|6", "7" : "{}|7",
+    "8" : "{}|8", "9" : "{}|9", "10" : "{}|10","11" : "{}|11", "12" : "{}|12", "13" : "{}|13", "14" : "{}|14", "15" : "{}|15", 
+    _USE_DEFAULT : "{}|_"}, "askT" : _TEXT2PDF_T, "size_btn" : {_SELECT_SCALE : "nabilanavab", "1" : "t2p|1", "2" : "t2p|2", _CLOSE : "close|me"},
+    "six_" : { "{}" : "nabilanavab", "1" : "{}|1:", "2" : "{}|2:", "3" : "{}|3:", "4" : "{}|4:", "5" : "{}|5:", "6" : "{}|6:", _USE_DEFAULT : "{}|_:"},
+    "six" : { "{}" : "nabilanavab", "1" : "{}|1", "2" : "{}|2", "3" : "{}|3", "4" : "{}|4", "5" : "{}|5", "6" : "{}|6", _USE_DEFAULT : "{}|_"},
+    "error" : _ERROR }
 HELP = {}
