@@ -41,7 +41,7 @@ COLOR = {
         6 : { "color" : "blue", "code" : (0, 0, 255) }
 }
 
-BACKGROUND_P = {
+BACKGROUND_L = {
         1 : { "isColor" : True, "code" : (255, 255, 255), 'position' : ['w', 20,  'w', 10] },
         2 : { "isColor" : False, "code" : f"{path}/IMAGES/black.png", 'position' : ['w', 20,  'w', 10] },
         3 : { "isColor" : True, "code" : (128, 128, 128), 'position' : ['w', 20,  'w', 10] },
