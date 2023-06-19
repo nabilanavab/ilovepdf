@@ -79,7 +79,7 @@ async def text_to_pdf(bot, callbackQuery):
             await callbackQuery.message.reply(CHUNK['exit'], quote=True)
             del TXT[callbackQuery.message.chat.id]; return await work.work(callbackQuery, "delete", False)
         else:
-            TXT[callbackQuery.message.chat.id].append(None if title is None else title[:20])
+            TXT[callbackQuery.message.chat.id].append(None if title is None else title)
         
         nabilanavab = True
         while(nabilanavab):
@@ -127,7 +127,7 @@ async def text_to_pdf(bot, callbackQuery):
             POSITION = ['w', 20, 'w', 10]
         
         if TXT[callbackQuery.message.chat.id][0] != None:
-            pdf.cell(pdf.w if POSITION[0]=='w' else POSITION[0], POSITION[1],
+            pdf.multi_cell(pdf.w-40 if POSITION[0]=='w' else POSITION[0], POSITION[1],
                      txt=get_display(reshape(TXT[callbackQuery.message.chat.id][0])), ln=True, align="C")
         
         pdf.add_font('paraFont', '', FONT[p_font], uni=True)
