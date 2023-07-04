@@ -1,4 +1,10 @@
-# This file is part of nabilanavab/iLovePDF [a completely free software]
+# This module is part of https://github.com/nabilanavab/ilovepdf
+# Feel free to use and contribute to this project. Your contributions are welcome!
+
+import os, asyncio
+import shutil, sys
+from logger import logger
+from pyrogram import Client as ILovePDF
 
 __author__ = "nabilanavab"
 __email__ = "nabilanavab@gmail.com"
@@ -14,3 +20,6 @@ iLovePDF = '''
                          ❤ Email: nabilanavab@gmail.com
                          ❤ Telegram: @nabilanavab
 '''
+
+# If you have any questions or suggestions, please feel free to reach out.
+# Together, we can make this project even better, Happy coding!  XD
