@@ -2,19 +2,20 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-from .__init__ import *
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/__main__.py"
 
-from configs.db import *
-from pyromod import listen
-from lang import __users__
-from pyrogram import errors
-from plugins.utils import *
-from configs.log import log
-from configs.beta import BETA
-from telebot import async_telebot
-from configs.config import bot, settings, images
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
+import asyncio, os, shutil, sys
+from plugins.utils         import *
+from configs.db            import *
+from configs.log           import log
+from configs.beta          import BETA
+from logger                import logger
+from pyromod               import listen
+from lang                  import __users__
+from telebot.async_telebot import AsyncTeleBot
+from configs.config        import bot, settings, images
+from pyrogram              import Client as ILovePDF, errors
+from pyrogram.types        import InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
 
 if dataBASE.MONGODB_URI:
     from database import db
