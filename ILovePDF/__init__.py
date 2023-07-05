@@ -2,11 +2,6 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-import os, asyncio, time
-from logger import logger
-import shutil, sys, math, re
-from pyrogram import Client as ILovePDF, filters
-
 __author__ = "nabilanavab"
 __email__ = "nabilanavab@gmail.com"
 __telegram__ = "telegram.dog/nabilanavab"
@@ -21,8 +16,6 @@ iLovePDF = '''
                          ❤ Email: nabilanavab@gmail.com
                          ❤ Telegram: @nabilanavab
 '''
-
-__all__ = ['os']
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
