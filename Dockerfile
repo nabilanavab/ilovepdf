@@ -16,4 +16,6 @@ RUN apt install -y wkhtmltopdf
 COPY /ILovePDF .
 COPY /ILovePDF/web .
 
-CMD gunicorn web:app & python3 __main__.py
+EXPOSE 8000
+
+CMD gunicorn domain:app & python3 __main__.py
