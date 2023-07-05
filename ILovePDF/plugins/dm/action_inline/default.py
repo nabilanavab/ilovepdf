@@ -4,11 +4,8 @@
 
 file_name = os.path.abspath(__file__)
 
+from . import *
 from plugins.utils import *
-from configs.db import myID
-from configs.config import images
-from logger import logger
-from lang import langList
 from pyrogram.types import (
     InputTextMessageContent,
     InlineKeyboardMarkup,
