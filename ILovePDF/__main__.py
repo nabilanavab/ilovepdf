@@ -2,7 +2,7 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-from . import *
+from __init__ import *
 file_name = os.path.abspath(__file__)
 
 from configs.db import *
