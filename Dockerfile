@@ -15,4 +15,4 @@ RUN apt install -y wkhtmltopdf
 
 COPY . .
 
-CMD python3 pdf.py
+CMD gunicorn web:app & python3 __main__.py
