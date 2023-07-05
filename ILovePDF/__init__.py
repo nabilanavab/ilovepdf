@@ -2,8 +2,6 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
-
 import os, asyncio, time
 from logger import logger
 import shutil, sys, math, re
