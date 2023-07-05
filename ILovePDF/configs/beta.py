@@ -10,7 +10,7 @@ file_name = "ILovePDF/configs/beta.py"
     or products before they are released to the general public.
 """
 
-BETA = [ 531733867 ,]
+BETA = []
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
