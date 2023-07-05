@@ -22,5 +22,7 @@ iLovePDF = '''
                          ❤ Telegram: @nabilanavab
 '''
 
+__all__ = ['os']
+
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
