@@ -4,18 +4,11 @@
 
 file_name = os.path.abspath(__file__)
 
-from . import DATA
-from configs.log import log
-from configs.db import myID
-from libgenesis import Libgen
+from . import *
 from plugins.utils.util import *
 from .default import default_ans, search
-from plugins.utils.util import getLang, translate
-from pyrogram import Client as ILovePDF, errors
 from pyrogram.types import (
     InlineQueryResultPhoto,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
     InlineQueryResultCachedDocument,
 )
 
