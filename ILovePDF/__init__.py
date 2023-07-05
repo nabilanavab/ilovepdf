@@ -2,6 +2,8 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
+file_name = "ILovePDF/__init__.py"
+
 __author__ = "nabilanavab"
 __email__ = "nabilanavab@gmail.com"
 __telegram__ = "telegram.dog/nabilanavab"
