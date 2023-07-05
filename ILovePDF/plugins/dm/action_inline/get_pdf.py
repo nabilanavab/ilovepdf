@@ -4,16 +4,9 @@
 
 file_name = os.path.abspath(__file__)
 
-from configs.log import log
-from libgenesis import Libgen
-from plugins.utils.work import work
-from plugins.utils.util import getLang, translate
-from pyrogram import Client as ILovePDF, filters, errors
-from pyrogram.types import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    InputMediaDocument,
-)
+
+from . import *
+from pyrogram.types import InputMediaDocument
 
 
 async def download(current, total, bot, callbackQuery):
