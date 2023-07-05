@@ -5,16 +5,9 @@
 file_name = os.path.abspath(__file__)
 
 
-from typing import Union
-from configs.db import myID
-from pyrogram import errors
-from configs.log import log
+from . import *
 from plugins.utils import *
-from libgenesis import Libgen
-from plugins.utils.work import work
 from pyrogram.enums import MessageMediaType
-from plugins.utils.util import getLang, translate
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 async def download(current, total, bot, message):
