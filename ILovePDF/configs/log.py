@@ -2,16 +2,18 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/configs/log.py"
 
-
+import os
+from asyncio import sleep
 from logger import logger
 from plugins.utils import *
 from pyrogram.enums import ChatType
 from configs.config import settings
-from configs.db import dataBASE, myID
 from pyrogram.errors import FloodWait
+from configs.db import dataBASE, myID
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 
 if dataBASE.MONGODB_URI:
     from database import db
