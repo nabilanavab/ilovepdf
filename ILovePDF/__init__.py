@@ -7,7 +7,7 @@ file_name = os.path.abspath(__file__)
 import os, asyncio, time
 import shutil, sys, math
 from logger import logger
-from pyrogram import Client as ILovePDF
+from pyrogram import Client as ILovePDF, filters
 
 __author__ = "nabilanavab"
 __email__ = "nabilanavab@gmail.com"
