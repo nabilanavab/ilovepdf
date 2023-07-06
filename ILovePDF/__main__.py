@@ -14,7 +14,6 @@ from lang import __users__
 from plugins.utils import *
 from configs.log import log
 from configs.beta import BETA
-from telebot import async_telebot
 from configs.config import bot, settings, images
 from pyrogram import Client as ILovePDF, errors
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
@@ -26,9 +25,6 @@ if dataBASE.MONGODB_URI:
 if not bot.API_TOKEN or not bot.API_HASH or not bot.API_ID:
     logger.debug(f"bot.API_TOKEN, bot.API_HASH, bot.API_ID : MANDATORY")
     sys.exit()
-
-pyTgLovePDF = async_telebot.AsyncTeleBot(bot.API_TOKEN, parse_mode="Markdown")
-# TELEBOT (pyTelegramBotAPI) Asyncio [for uploading group doc, imgs]
 
 # PYROGRAM
 class Bot(ILovePDF):
