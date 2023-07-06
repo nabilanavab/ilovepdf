@@ -2,16 +2,17 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/dm/callBack/file_process/previewPDF.py"
 
 media = {}
 
-import fitz
+import fitz, os
 from PIL import Image
+from logger import logger
 from asyncio import sleep
+from pyrogram import enums
 from pdf import pyTgLovePDF
 from plugins.utils import *
-from pyrogram import enums
 from telebot.types import InputMediaPhoto
 
 

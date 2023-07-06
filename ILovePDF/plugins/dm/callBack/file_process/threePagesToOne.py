@@ -2,9 +2,10 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/dm/callBack/file_process/threePagesToOne.py"
 
 import fitz
+from logger import logger
 
 
 async def threePagesToOne(input_file: str, cDIR: str) -> (bool, str):

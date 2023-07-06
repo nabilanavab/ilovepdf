@@ -2,9 +2,10 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/dm/callBack/file_process/watermark45.py"
 
 import fitz
+from logger import logger 
 
 
 async def add_text_watermark(input_file, output_file, watermark_text):
