@@ -24,6 +24,17 @@ from plugins import *
 from . import *
 
 __all__ = [
+    "re",
+    "os",
+    "sys",
+    "math",
+    "time",
+    "shutil"
+    "logger",
+    "ILovePDF",
+    "filters",
+    "enums",
+    "asyncio",
     "previewPDF",
     "textPDF",
     "zoomPDF",
