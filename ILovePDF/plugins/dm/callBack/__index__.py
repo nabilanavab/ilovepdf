@@ -4,7 +4,7 @@
 
 file_name = "ILovePDF/plugins/dm/callBack/__index__.py"
 
-from . import *
+from plugins import *
 from plugins.utils import *
 from .file_process import *
 from configs.config import images

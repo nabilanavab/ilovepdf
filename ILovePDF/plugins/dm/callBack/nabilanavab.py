@@ -4,6 +4,7 @@
 
 file_name = "ILovePDF/plugins/dm/callBack/nabilanavab.py"
 
+from plugins import *
 from plugins.utils import *
 
 @ILovePDF.on_callback_query(filters.regex("^nabilanavab"))
