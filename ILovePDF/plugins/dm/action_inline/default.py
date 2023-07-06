@@ -103,4 +103,4 @@ async def search(inline_query) -> list:
         logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)
 
 # If you have any questions or suggestions, please feel free to reach out.
-# Together, we can make this project even better, Happy coding!  XD
+# Together, we can make this project even better, Happy coding!   XD
