@@ -2,10 +2,11 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/dm/callBack/file_process/compressPDF.py"
 
 import subprocess
 from PIL import Image
+from logger import logger
 from plugins.utils import *
 # from PyPDF2 import PdfReader, PdfWriter
 

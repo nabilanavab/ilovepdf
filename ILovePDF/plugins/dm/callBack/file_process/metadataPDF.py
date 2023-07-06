@@ -2,11 +2,12 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/dm/callBack/file_process/metadataPDF.py"
 
 import fitz
-from plugins.utils import *
+from logger import logger
 from pyrogram import enums
+from plugins.utils import *
 
 
 async def metadataPDF(input_file: str, cDIR: str, message) -> (bool, str):

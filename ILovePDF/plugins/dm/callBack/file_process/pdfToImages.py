@@ -2,14 +2,16 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/dm/callBack/file_process/pdfToImages.py"
 
-import fitz
+import fitz, os
 from PIL import Image
-from pyrogram import enums
+import shutil, asyncio
+from logger import logger
 from pyromod import listen
 from plugins.utils import *
 from pdf import pyTgLovePDF
+from pyrogram import filters, enums
 from pyrogram.types import ForceReply
 from telebot.types import InputMediaPhoto, InputMediaDocument
 

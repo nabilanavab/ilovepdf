@@ -2,7 +2,9 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/dm/callBack/file_process/ocrPDF.py"
+
+from logger import logger
 
 try:
     nabilanavab = False  # Change to False else never work
