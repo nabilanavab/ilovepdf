@@ -5,6 +5,7 @@
 file_name = "ILovePDF/plugins/dm/callBack/file_process/link.py"
 
 import base64
+from . import *
 from asyncio import sleep
 from pyrogram import enums
 from plugins.utils import *
