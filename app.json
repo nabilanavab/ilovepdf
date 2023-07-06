@@ -1,0 +1,61 @@
+{
+	"name": "ilovepdf_bot",
+	"description": "A Telegram Bot that helps you to domany this with pdf.",
+	"keywords": [
+		"Telegram", "Telegram Bot", "pdf bot",
+		"ilovepdf", "nabilabavab", "python",
+		"ilovepdf_bot", "complete pdf bot"
+	],
+	"website": "https://github.com/nabilanavab/ilovepdf",
+	"repository": "https://github.com/nabilanavab/ilovepdf",
+	"logo": "https://te.legra.ph/file/84c63dd1fabde3b33cf90.jpg",
+	"success_url": "https://github.com/nabilanavab/ilovepdf",
+	"stack": "container",
+	"env": {
+		"API_ID": {
+			"description": "API_ID from my.telegram.org",
+			"required": true
+		},
+		"API_HASH": {
+			"description": "API_ID from my.telegram.org",
+			"required": true
+		},
+		"API_TOKEN": {
+			"description": "API_TOKEN from @botfather",
+			"required": true
+		},
+		"MONGODB_URI": {
+			"description": "MongoDB Url",
+			"required":true
+		},
+		"UPDATE_CHANNEL": {
+			"description": "ChannelId if you need force Subscription",
+			"required": false
+		},
+		"ADMINS": {
+			"description": "Admins id seperated by free space",
+			"required": false
+		},
+		"ADMIN_ONLY": {
+			"description": "If True only admins can use it",
+			"required": false
+		},
+		"MAX_FILE_SIZE": {
+			"description": "for preventing overload (in mb)",
+			"required": false
+		},
+		"BANNED_USER": {
+			"description": "Baned Users Id",
+			"required": false
+		},
+		"LOG_CHANNEL": {
+			"description": "Database Channel",
+			"required": false
+		}
+	},
+	"buildpacks": [
+		{
+			"url": "heroku/python"
+		}
+	]
+}

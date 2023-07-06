@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "nablanavab/ilovepdf"
+version = "5.0.1"
+description = "Telegram PDF Bot.."
+authors = ["Nabil A Navab <nabil.a.navab@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pyrogram = "2.0.57"
+TgCrypto = "1.2.3"
+pillow = "9.5.0"
+PyMuPdf = "1.22.2"
+PyPDF2 = "3.0.1"
+convertapi = "1.6.0"
+pyromod = "2.0.0"
+fpdf = "1.7.2"
+ocrmypdf = "14.1.0"
+motor = "4.1.9"
+psutil = "5.9.5"
+pymongo = { version = "4.2.0", extras = ["srv"] }
+hachoir = "3.2.0"
+pytelegrambotapi = "4.11.0"
+aiohttp = "3.8.4"
+aspose-words = "23.4.0"
+pdfkit = "1.0.0"
+beautifulsoup4 = "4.12.2"
+requests = "2.30.0"
+arabic-reshaper = "3.0.0"
+python-bidi = "0.4.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
