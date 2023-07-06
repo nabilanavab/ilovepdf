@@ -210,7 +210,6 @@ if __name__ == "__main__":
         shutil.rmtree(f"{os.path.abspath(os.getcwd())}/work")
     os.makedirs("work/nabilanavab")
 
-    pyTgLovePDF.polling()
     app = Bot()
     app.run()
 

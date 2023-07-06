@@ -15,6 +15,8 @@ works = {"u": [], "g": []}  # broken works
 pyTgLovePDF = async_telebot.AsyncTeleBot(bot.API_TOKEN, parse_mode="Markdown")
 # TELEBOT (pyTelegramBotAPI) Asyncio [for uploading group doc, imgs]
 
+pyTgLovePDF.polling()
+
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
