@@ -13,7 +13,7 @@ from lang import __users__
 from plugins.utils import *
 from configs.log import log
 from configs.beta import BETA
-from telebot.async_telebot import AsyncTeleBot
+from telebot import async_telebot
 from configs.config import bot, settings, images
 from pyrogram import Client as ILovePDF, errors
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
