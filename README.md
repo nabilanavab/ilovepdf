@@ -64,6 +64,3 @@ it was specially developed for creating PDF's from images.. And Now, Bot Support
 </h4>
 <img src="https://telegra.ph/file/ec0047cc76e7080f818ff.png">
 <br/>
-
-
-"# fetchPDF" 
