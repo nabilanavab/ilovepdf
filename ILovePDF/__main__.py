@@ -4,6 +4,18 @@
 
 file_name = "ILovePDF/__main__.py"
 
+
+iLovePDF = '''
+  _   _                  ___  ___  ____ ™
+ | | | |   _____ _____  | _ \|   \|  __| 
+ | | | |__/ _ \ V / -_) |  _/| |) |  _|  
+ |_| |___,\___/\_/\___| |_|  |___/|_|    
+                         ❤ [Nabil A Navab] 
+                         ❤ Email: nabilanavab@gmail.com
+                         ❤ Telegram: @nabilanavab
+'''
+
+
 import asyncio, os
 import shutil, sys
 from pdf import works
