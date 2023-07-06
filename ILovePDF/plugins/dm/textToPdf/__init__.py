@@ -9,6 +9,11 @@ __email__ = "nabilanavab@gmail.com"
 __telegram__ = "telegram.dog/nabilanavab"
 __copyright__ = "Copyright 2021, nabilanavab"
 
+import os, asyncio, time
+from logger import logger
+import shutil, sys, math, re
+from pyrogram import Client as ILovePDF, filters
+
 iLovePDF = '''
   _   _                  ___  ___  ____ ™
  | | | |   _____ _____  | _ \|   \|  __| 
