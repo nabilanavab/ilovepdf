@@ -2,10 +2,11 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/utils/render.py"
 
 import fitz
 from .util import *
+from plugins import *
 from .work import work
 from pyrogram.types import Message
 from configs.config import dm, settings
