@@ -2,10 +2,11 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = os.path.abspath(__file__)
+file_name = "ILovePDF/plugins/utils/fncta.py"
 
-from configs.db import *
+from plugins import *
 from PIL import Image
+from configs.db import *
 from pyrogram.enums import ChatType
 from hachoir.parser import createParser
 from configs.config import settings, images
