@@ -4,6 +4,8 @@
 
 file_name = "ILovePDF/plugins/dm/textToPdf/handler.py"
 
+from . import *
+from plugins import *
 from fpdf import FPDF
 from PIL import Image
 from plugins.utils import *
@@ -12,7 +14,6 @@ from arabic_reshaper import reshape
 from pyrogram.types import ForceReply
 from bidi.algorithm import get_display
 from configs.config import settings, images
-from pyrogram import filters, Client as ILovePDF, enums
 
 
 async def ask_for_title(bot, callbackQuery, text: str, num: int = False):

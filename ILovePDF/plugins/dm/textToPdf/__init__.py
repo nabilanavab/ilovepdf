@@ -9,7 +9,6 @@ __email__ = "nabilanavab@gmail.com"
 __telegram__ = "telegram.dog/nabilanavab"
 __copyright__ = "Copyright 2021, nabilanavab"
 
-from plugins import *
 
 iLovePDF = '''
   _   _                  ___  ___  ____ ™
