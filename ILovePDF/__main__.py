@@ -103,7 +103,6 @@ class Bot(ILovePDF):
                 await asyncio.sleep(10)
                 if time % 10 == 0:
                     logger.debug(f"Remaining seconds: {time}")
-            await asyncio.sleep(e.value)
             await super().start()
 
         myID.append(await app.get_me())
