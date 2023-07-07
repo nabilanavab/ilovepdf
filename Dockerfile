@@ -21,4 +21,5 @@ RUN tree
 
 EXPOSE 8000
 
-CMD gunicorn domain:app & python3 __main__.py
+CMD gunicorn domain:app
+CMD python3 __main__.py
