@@ -342,7 +342,7 @@ async def _close(bot, callbackQuery):
                 button="INDEX['_canceledCB']",
                 lang_code=lang_code,
             )
-            await callbackQuery.answer(_)
+            await callbackQuery.answer(_.replace("`", ""))
             return await callbackQuery.edit_message_reply_markup(canceled)
         elif data == "dev":
             lang_code = await util.getLang(callbackQuery.from_user.id)
