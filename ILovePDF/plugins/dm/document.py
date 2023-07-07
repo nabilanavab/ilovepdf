@@ -159,7 +159,7 @@ async def documents(bot, message):
         CHUNK, _ = await util.translate(text="DOCUMENT", lang_code=lang_code)
         if await work.work(message, "check", True):
             tBTN = await util.createBUTTON(
-                await editDICT(inDir=CHUNK["refresh"], value="refresh")
+                await util.editDICT(inDir=CHUNK["refresh"], value="refresh")
             )  # sends refresh msg if any
             return await message.reply_text(
                 CHUNK["inWork"], reply_markup=tBTN, quote=True
