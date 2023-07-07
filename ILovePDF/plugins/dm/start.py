@@ -335,6 +335,7 @@ async def _close(bot, callbackQuery):
                 return await callbackQuery.answer(_)
             return await callbackQuery.message.delete()
         elif data == "P2I":
+            await work.work(callbackQuery, "delete", False)
             lang_code = await util.getLang(callbackQuery.from_user.id)
             _, canceled = await util.translate(
                 text="INDEX['cancelCB']",
@@ -342,8 +343,7 @@ async def _close(bot, callbackQuery):
                 lang_code=lang_code,
             )
             await callbackQuery.answer(_)
-            await callbackQuery.edit_message_reply_markup(canceled)
-            return await work.work(callbackQuery, "delete", False)
+            return await callbackQuery.edit_message_reply_markup(canceled)
         elif data == "dev":
             lang_code = await util.getLang(callbackQuery.from_user.id)
             _, __ = await util.translate(text="cbAns", lang_code=lang_code)
