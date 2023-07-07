@@ -4,6 +4,7 @@
 
 file_name = "ILovePDF/plugins/dm/textToPdf/command.py"
 
+from plugins import *
 from plugins.utils import *
 
 

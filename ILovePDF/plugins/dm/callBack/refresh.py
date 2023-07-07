@@ -4,6 +4,7 @@
 
 file_name = "ILovePDF/plugins/dm/callBack/refresh.py"
 
+from plugins import *
 from ..photo import images
 from plugins.utils import *
 from configs.db import myID

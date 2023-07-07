@@ -4,6 +4,7 @@
 
 file_name = "ILovePDF/plugins/dm/textToPdf/callBack.py"
 
+from plugins import *
 from plugins.utils import *
 from pyrogram.types import InputMediaPhoto
 
