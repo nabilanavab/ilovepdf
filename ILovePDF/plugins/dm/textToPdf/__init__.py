@@ -20,6 +20,8 @@ iLovePDF = '''
                          ❤ Telegram: @nabilanavab
 '''
 
+path = "plugins/dm/textToPdf"
+
 TXT = {}
 
 SCALE = { 1: "Landscape", 2: "Portrait" }
