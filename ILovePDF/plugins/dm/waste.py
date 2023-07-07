@@ -4,8 +4,10 @@
 
 file_name = "ILovePDF/plugins/dm/waste.py"
 
+from plugins import *
 from plugins.utils import *
 from configs.config import dm
+
 
 # WASTE/DPAMMING MESSAGES 
 @ILovePDF.on_message(filters.private & filters.incoming & ~filters.user(dm.ADMINS))
