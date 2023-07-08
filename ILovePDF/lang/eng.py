@@ -306,7 +306,7 @@ BUTTONS = {
     "imgRange" : { _P2IMG_ : "nabilanavab", _ALL : "#p2img|{}A", _CUSTOM : "#p2img|{}C", _BACK : "pdf|img" },
     "rotate" : { _B_ROTATE : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
     "txt" : { _B_TEXT : "nabilanavab", _B_TEXT_M : "#textM", "🧾 TXT 🧾" : "#textT", "🌐 HTML 🌐" : "#textH", "🎀 JSON 🎀" : "#textJ", _BACK : "pdf" },
-    "type" : { _B_WATERMARK : "nabilanavab", _B_TEXT_T : "pdf|wa|txt", _IMAGE : "pdf|wa|img", _B_PDF : "pdf|wa|pdf", _BACK : "pdf|trade" },
+    "type" : { _B_WATERMARK : "nabilanavab", _B_TEXT_T : "pdf|wa|txt", _IMAGE : "pdf|wa|img", _B_PDF : "pdf|wa|pdf", _BACK : "pdf" },
     "op" : { _WATER_OP : "nabilanavab", "𝟙𝟘" : "pdf|wa|{}|o01", "𝟚𝟘" : "pdf|wa|{}|o02", "𝟛𝟘" : "pdf|wa|{}|o03", "𝟜𝟘" : "pdf|wa|{}|o04",
         "𝟝𝟘" : "pdf|wa|{}|o05", "𝟞𝟘" : "pdf|wa|{}|o06", "𝟟𝟘" : "pdf|wa|{}|o07", "𝟠𝟘" : "pdf|wa|{}|o08", "𝟡𝟘" : "pdf|wa|{}|o09",
         "𝟙𝟘𝟘" : "pdf|wa|{}|o10", _BACK : "pdf|wa" },
@@ -318,7 +318,7 @@ BUTTONS = {
     "stamp" : { _B_STAMP : "nabilanavab", "Not For Public Release 🤧" : "pdf|stp|10", "For Public Release 🥱" : "pdf|stp|8",
         "Confidential 🤫" : "pdf|stp|2", "Departmental 🤝" : "pdf|stp|3", "Experimental 🔬" : "pdf|stp|4", "Expired 🐀" : "pdf|stp|5",
         "Final 🔧" : "pdf|stp|6", "For Comment 🗯️" : "pdf|stp|7", "Not Approved 😒" : "pdf|stp|9", "Approved 🥳" : "pdf|stp|0",
-        "Sold ✊" : "pdf|stp|11", "Top Secret 😷" : "pdf|stp|12", "Draft 👀" : "pdf|stp|13", "AsIs 🤏" : "pdf|stp|1", _BACK : "pdf|trade"},
+        "Sold ✊" : "pdf|stp|11", "Top Secret 😷" : "pdf|stp|12", "Draft 👀" : "pdf|stp|13", "AsIs 🤏" : "pdf|stp|1", _BACK : "pdf"},
     "stampA" : { _STAMP_COLOR : "nabilanavab", "Red ❤️" : "#spP|{}|r", "Blue 💙" : "#spP|{}|b", "Green 💚" : "#spP|{}|g", "Yellow 💛" : "#spP|{}|c1",
         "Pink 💜" : "#spP|{}|c2", "Hue 💚" : "#spP|{}|c3", "White 🤍" : "#spP|{}|c4", "Black 🖤" : "#spP|{}|c5", _BACK : "pdf|stp" }}
 PROGRESS = {"progress" : _PROGRESS , "upFileCB" : {f"📤 .. {_UPLOADING} .. 📤" : "nabilanavab"}, "cbPRO_D" : ["📤 {:.2f}% 📤", _CANCEL], "cbPRO_U" : ["📤 {:.2f}% 📤", _CANCEL]}
