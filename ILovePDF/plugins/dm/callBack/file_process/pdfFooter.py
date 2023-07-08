@@ -37,7 +37,7 @@ async def pdfFooter(input_file: str, cDIR: str, text: str) -> (bool, str):
             doc.save(output_path)
         return True, output_path
 
-    except Exception as e:
+    except Exception as Error:
         logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)
         return False, Error
 

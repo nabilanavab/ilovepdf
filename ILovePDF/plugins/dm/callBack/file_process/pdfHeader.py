@@ -42,7 +42,7 @@ async def pdfHeader(input_file: str, cDIR: str, text: str) -> (bool, str):
     try:
         output_path = f"{cDIR}/outPut.pdf"
 
-        header_text = f"<div style='text-align: center; font-size: 12px;'>{text}</div>"
+        header_html = f"<div style='text-align: center; font-size: 12px;'>{text}</div>"
         with fitz.open(input_file) as doc:
             for page_number in range(doc.page_count):
                 page = doc.load_page(page_number)
@@ -52,7 +52,7 @@ async def pdfHeader(input_file: str, cDIR: str, text: str) -> (bool, str):
             doc.save(output_path)
         return True, output_path
 
-    except Exception as e:
+    except Exception as Error:
         logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)
         return False, Error
 
