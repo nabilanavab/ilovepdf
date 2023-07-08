@@ -85,7 +85,7 @@ async def __index__(bot, callbackQuery):
                 await work.work(callbackQuery, "delete", False)
                 return await newName.reply(CHUNK["exit"], quote=True)
         elif data in ["header", "footer"]:
-            notExit, hfData = await renamePDF.askText(
+            notExit, hfData = await pdfHeader.askText(
                 bot, callbackQuery, question=CHUNK["pyromodASK_2"]
             )
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
