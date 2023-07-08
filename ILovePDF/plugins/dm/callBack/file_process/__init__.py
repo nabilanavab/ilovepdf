@@ -52,6 +52,8 @@ __all__ = [
     "metadataPDF",
     "watermark45",
     "invertPDF",
+    "pdfFooter",
+    "pdfHeader",
 ]
 
 

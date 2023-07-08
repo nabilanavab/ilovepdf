@@ -84,6 +84,14 @@ async def __index__(bot, callbackQuery):
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await newName.reply(CHUNK["exit"], quote=True)
+        elif data in ["header", "footer"]:
+            notExit, hfData = await renamePDF.askText(
+                bot, callbackQuery, question=CHUNK["pyromodASK_2"]
+            )
+            # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
+            if not notExit:
+                await work.work(callbackQuery, "delete", False)
+                return await hfData.reply(CHUNK["exit"], quote=True)
         elif data == "merge":
             notExit, mergeId = await mergePDF.askPDF(
                 bot,
@@ -180,8 +188,18 @@ async def __index__(bot, callbackQuery):
         elif data == "rename":
             isSuccess, output_file = await renamePDF.renamePDF(input_file=input_file)
 
+        elif data == "header":
+            isSuccess, output_file = await pdfHeader.pdfHeader(
+                input_file=input_file, cDIR=cDIR, text=hfData.text
+            )
+
+        elif data == "footer":
+            isSuccess, output_file = await pdfFooter.pdfFooter(
+                input_file=input_file, cDIR=cDIR, text=hfData.text
+            )
+
         elif data == "ocr":
-            isSuccess, output_file = await renamePDF.renamePDF(input_file=input_file)
+            isSuccess, output_file = await ocrPDF.ocrPDF(input_file=input_file)
 
         elif data == "baw":
             isSuccess, output_file = await blackAndWhitePdf.blackAndWhitePdf(
