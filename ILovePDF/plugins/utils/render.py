@@ -133,7 +133,7 @@ async def checkPdf(
                         + CHUNK["pg"].format(doc.page_count)
                         + "\n\n"
                         + pdfMetaData,
-                        reply_markup=await createBUTTON(CHUNK["pdf_button"]),
+                        reply_markup=callbackQuery.message.reply_markup,
                     )
                 return "pass", doc.page_count
     # CODEC ERROR
