@@ -53,24 +53,21 @@ _FEEDBACK = "Write a FEEDBACK 📋"
 _PG_NUM = "`Number of Pages: •{}•` 🌟" # always add • before and after pg number
 _PDF_REPLY = "`What should I do with this file.?`\n\nFile Name : `{}`\nFile Size : `{}`"
 _META = "⭐ META£ATA ⭐"
+_PREVIEW = "📸 PREVIEW 📸"
 _IMAGE = "🖼️ IMAGES 🖼️"
 _TEXT = "📑 TEXT 📑"
 _ROTATE = "🤸 ROTATE 🤸"
-_SPLIT_MERGE = "✂️ SPLIT/MERGE 🧬"
-_ENC_DECRYPT = "🔐 ENCRY/DECRY 🔓"
 _FORMAT = "😗 FORMAT 😗"
 _WATERMARK = "💦 WATERMARK 💦"
-_COMP_OCR = "🗜 COMPRESS/OCR 🔎"
 _RENAME = "✏️ RENAME ✏️"
 _ZOOM = "🔎 ZOOM 🔎"
 _URL = "🔗 URL 🔗"
 _FILTER = "👻 FILTERS 👻"
-_ADD_DELETE = "🟢 ADD/DLT 🔴"
 _CODEC = "__I can't do anything with this file.__ 😏\n\n🐉  `CODEC ERROR`  🐉"
 _CODEC_CB = "❌ ERROR IN CODEC ❌"
 _ENCRYTED_FILE = "`FILE IS ENCRYPTED` 🔐\n\nFile Name: `{}`\nFile Size: `{}`"
-_DECRYPT_CB = "🔓 DECRYPT 🔓"
-_ENCRYPT_CB = "🔐 ENCRYPT 🔐"
+_DECRYPT = "🔓 DECRYPT 🔓"
+_ENCRYPT = "🔐 ENCRYPT 🔐"
 _REASON = "\n\nREASON: {}"
 _BAN = "Hey {}\n\nFOR SOME REASON YOU CANT USE THIS BOT :("
 _BAN_G = "{} NEVER EXPECT A GOOD RESPONSE FROM ME\n\nADMINS RESTRICTED ME FROM WORKING HERE.. 🤭"
@@ -81,20 +78,21 @@ _FORCE = "Wait [{}](tg://user?id={})..!!\n\nDue To The Huge Traffic Only **Chann
 _JOIN_CHANNEL =  "🌟 JOIN CHANNEL 🌟"
 _REFRESH = "♻️ Refresh ♻️"
 _BACK = "« BACK «"
-_ONLY_META = "✔ ONLY METADATA ✔"
-_ALL_META = "✅ WITH PREVIEW ✅"
-_H_SPLIT = "✂️ SPLIT ✂️"
-_H_MERGE = "🧬 MERGE 🧬"
-_H_COMPRESS = "🗜 COMPRESS 🗜"
-_H_OCR = "📝 OCR 📝"
-_H_WATER = "💦 WATERMARK 💦"
-_H_STAMP = "™️ STAMP ™️"
-_H_DRAW = "🎨 DRAW 🎨"
-_H_BAW = "⚫ BLACK/WHITE ⚪"
-_H_SAT = "🪐 SATURARE 🪐"
-_H_INV = "🖌 INVERT 🖌"
-_ADD = "🟢 ADD PAGES 🟢"
-_DEL = "🔴 DELETE PAGES 🔴"
+_SPLIT = "✂️ SPLIT ✂️"
+_MERGE = "🧬 MERGE 🧬"
+_COMPRESS = "🗜 COMPRESS 🗜"
+_OCR = "📝 OCR 📝"
+_WATER = "💦 WATERMARK 💦"
+_STAMP = "™️ STAMP ™️"
+_DRAW = "🎨 DRAW 🎨"
+_BAW = "⚫ BLACK/WHITE ⚪"
+_SAT = "🪐 SATURARE 🪐"
+_INV = "🖌 INVERT 🖌"
+_ADD_PG = "🟢 ADD PGS 🟢"
+_DEL_PG = "🔴 DLT PGS 🔴"
+_ADD_PGNUM = "🔢 NUMBER 🔢"
+_MORE = "MORE ↓"
+_LESS = "LESS ⬆️"
 _P2IMG = "⚙️ PDF » IMAGES ↓"
 _P2IMG_ = "⚙️ PDF » IMAGES » {} ↓"
 _P2I = "🖼 IMG 🖼"
@@ -159,7 +157,6 @@ _NO = "🔴 NO 🔴"
 _MOVE = "⏭ MOVE ⏭"
 _WAIT_TXT = "Now send me any text message.. 😪"
 _AIO_QN = "`What should I do with this file.?`🤔💭\n\nInput:\n\tFile Name : `{}`\n\tFile Size   : `{}`\n\tPassword : ||•{}•||\n\nOutput:\n\tFile Name   : `•{}•`\n\tWatermark : `•{}•`\n\tPassword    : ||•{}•||"
-_PREVIEW = "📸 PREVIEW 📸"
 _PROCEED = "🆗 PROCESS 🆗"
 _EXIT = "`Process Cancelled..` 😏"
 _NOTHING = "Nothing to create.. 😏"
@@ -182,7 +179,7 @@ _NOTHING_OFF = "Nothing Official About it.. 😅"
 _SEARCH = "️♻️ SEARCH ♻️"
 _OPEN_BOT = "😇 open in bot 😇"
 _TOTAL = "The query search yielded {} results.. 🎁"
-_H_LANG = "help's to set your comfortable language 😇"
+_LANG = "help's to set your comfortable language 😇"
 _SEARCH_PDF = "🔎 SEARCH PDF 🔎"
 _SEARCH_DES = "You can now search through a vast library of PDF documents with ease and convenience. Using the inline search mode, you can simply type in the name of the document that you are looking for"
 _MIN_SEARCH = "🔎 Type to search PDF Files.."
@@ -247,6 +244,7 @@ _SELECT_COLOR = "🎨 Select Color 🎨"
 _USE_DEFAULT = "» Use Default »"
 _SELECT_BG_COLOR = "🎨 Select Background Image 🎨"
 
+
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
     "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : [_SEARCH_PDF, _BETA_MSG],
@@ -288,15 +286,20 @@ BAN = {
     "cbNotU" : _BAN_CB, "Fool" : _FOOL, "Force" : _FORCE, "ForceCB" : { _JOIN_CHANNEL : "{0}", _REFRESH : "refresh{1}" },
     "banCB" : {_CREATE_BOT : f"{settings.SOURCE_CODE}", _SOURCE : f"{settings.SOURCE_CODE}", _CHANNEL : "https://t.me/ilovepdf_bot"}}
 PDF_MESSAGE = {
-    "pg" : _PG_NUM , "pdf" : _PDF_REPLY, "encryptCB" : { _DECRYPT_CB : "#decrypt", _CLOSE : "close|all" },
-    "pdf_button" : { _META : "pdf|meta", _IMAGE : "pdf|img", _TEXT : "pdf|txt", _ROTATE : "pdf|rotate", _SPLIT_MERGE : "pdf|trim",
-        _ENC_DECRYPT : "pdf|lock", _FORMAT : "pdf|format", _WATERMARK : "pdf|trade", _COMP_OCR : "pdf|comocr",
-        _RENAME : "#rename", _ZOOM : "#zoom", _URL : "link", _FILTER : "pdf|filter", _ADD_DELETE : "pdf|addlt", _CLOSE : "close|all"},
+    "pg" : _PG_NUM , "pdf" : _PDF_REPLY, "encryptCB" : { _DECRYPT : "#decrypt", _CLOSE : "close|all" },
+    "pdf_button" : { _META[:-1] : "#metadata", _PREVIEW[1:] : "#preview", _ENCRYPT[:-1] : "#encrypt", _DECRYPT[1:] : "#decrypt", _SPLIT[:-1] : "#split",
+        _MERGE[1:] : "#merge", _RENAME[:-1] : "#rename", _URL[1:] : "link", _WATERMARK[:-1] : "pdf|wa", _STAMP[1:] : "pdf|stp", 
+        _IMAGE[:-1] : "pdf|img", _TEXT[1:] : "pdf|txt", _COMPRESS[:-1] : "#compress", _MORE : "pdf|more", _CLOSE : "close|all" },
+    "all_pdf_button" : { _META[:-1] : "#metadata", _PREVIEW[1:] : "#preview", _ENCRYPT[:-1] : "#encrypt", _DECRYPT[1:] : "#decrypt",
+        _SPLIT[:-1] : "#split", _MERGE[1:] : "#merge", _RENAME[:-1] : "#rename", _URL[1:] : "link", _WATERMARK[:-1] : "pdf|wa",
+        _STAMP[1:] : "pdf|stp", _IMAGE[:-1] : "pdf|img", _TEXT[1:] : "pdf|txt", _COMPRESS[:-1] : "#compress", _OCR[1:] : "#ocr",
+        _ROTATE[:-1] : "pdf|rotate", _FORMAT[1:] : "pdf|format", _ADD_PG[:-1] : "close|dev", _DEL_PG[1:] : "#deletePg",
+        _FILTER[:-1] : "pdf|filter", _ZOOM[1:] : "#zoom", _ADD_PGNUM[:-1] : "close|dev", _LESS : "pdf", _CLOSE : "close|all" },
     "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,}
 BUTTONS = {
     "format" : { _HELP : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
                  "🤟 1 × 3 🤟" : "#3-format-H", "🤟 3 × 1 🤟" : "#3-format-V", "2 × 2" : "#4-format", _BACK : "pdf" },
-    "filter" : { _HELP : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
+    "filter" : { _HELP : "nabilanavab|format", _DRAW : "#draw", _BAW : "#baw", _SAT : "#sat", _INV : "#inv", _BACK : "pdf" },
     "toImage" : { _P2IMG : "nabilanavab", _P2I : "pdf|img|img", _P2D : "pdf|img|doc", _P2Z : "pdf|img|zip", _P2T : "pdf|img|tar", _BACK : "pdf" },
     "imgRange" : { _P2IMG_ : "nabilanavab", _ALL : "#p2img|{}A", _CUSTOM : "#p2img|{}C", _BACK : "pdf|img" },
     "rotate" : { _B_ROTATE : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
@@ -328,8 +331,8 @@ DOCUMENT = {
 AIO = {
     "true" : _TRUE, "false" : _FALSE, "aio" : _PASS_REQUIRED, "waitPASS" : _WAIT_TXT, "passMSG" : _AIO_QN,
     "aio_button" : {_HELP :"nabilanavab|aioInput", _YES:"aioInput|enc", _NO :"aioInput|dec", _MOVE :"aioInput|dec" },
-    "out_button" : { _META : "nabilanavab|aio|met", _PREVIEW : "nabilanavab|aio|pre", _H_COMPRESS: "nabilanavab|aio|com", _B_TEXT_T : "nabilanavab|aio|txt", _ROTATE : "nabilanavab|aio|rot", _FORMAT : "nabilanavab|aio|for",
-        _ENCRYPT_CB : "nabilanavab|aio|enc", _WATERMARK : "nabilanavab|aio|wat", _RENAME : "nabilanavab|aio|rnm", _BACK : "aio", _PROCEED : "processAIO" },
+    "out_button" : { _META : "nabilanavab|aio|met", _PREVIEW : "nabilanavab|aio|pre", _COMPRESS: "nabilanavab|aio|com", _B_TEXT_T : "nabilanavab|aio|txt", _ROTATE : "nabilanavab|aio|rot", _FORMAT : "nabilanavab|aio|for",
+        _ENCRYPT : "nabilanavab|aio|enc", _WATERMARK : "nabilanavab|aio|wat", _RENAME : "nabilanavab|aio|rnm", _BACK : "aio", _PROCEED : "processAIO" },
     "out_values": ["aio|met|{F}", "aio|pre|{F}", "aio|com|{F}", "aio|txt|{F}", "aio|rot|{F}", "aio|for|{F}", "aio|enc|{F}", "aio|wat|{F}", "aio|rnm|{F}" ]}
 gDOCUMENT = { "admin" : _ADMIN_ONLY, "notDOC" : _NOT_DOC, "Gadmin" : _G_ADMIN, "adminO" : _NOT_YOUR }
 gDOCUMENT.update(DOCUMENT)
@@ -355,7 +358,7 @@ INDEX = {
     "sizeLoad" : _SIZE_LOAD, "mergeDl" : _MERGE_DL, "merge" : _START_MERGE, "watermark_txt" : _WATERMARK_TXT, "watermark_pdf" : _WATERMARK_PDF,
     "watermark_img" : _WATERMARK_IMG, "adding_wa" : _ADD_WATERMARK, "readAgain" : _READ_AGAIN, "zipTAR" : _ZIP_CONVERT, "aio" : _AIO_PROCESS,}
 INLINE = {
-    "search" : _SEARCH, "openBot" : _OPEN_BOT, 'query' : _TOTAL, 'lang_t' : _SET_LANG, "lang_d" : _H_LANG, 'caption' : _INLINE_CAP,
+    "search" : _SEARCH, "openBot" : _OPEN_BOT, 'query' : _TOTAL, 'lang_t' : _SET_LANG, "lang_d" : _LANG, 'caption' : _INLINE_CAP,
     "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
     'min' : _MIN_SEARCH, 'process' : _PROCESSING, 'nothing' : _NO_RESULT, "select" : _GET_PDF, 'description' : _INLINE_DES,
     'cbNotU' : BAN['cbNotU'], 'old' : _OLD_QUEUE, 'inWork' : _W_I_P, 'edit' : [_GET_PDF, _SEARCH_PDF, _OPEN_BOT], 'refer_d' : _REFER_D,}

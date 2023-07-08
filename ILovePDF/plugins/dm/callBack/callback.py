@@ -52,7 +52,7 @@ async def _pdf(bot, callbackQuery):
 
         if data == "more":
             tTXT, tBTN = await util.translate(
-                button="BUTTONS['rotate']", order=1221, lang_code=lang_code
+                button="PDF_MESSAGE['all_pdf_button']", order=222222222221, lang_code=lang_code
             )
         elif data == "rotate":
             tTXT, tBTN = await util.translate(
