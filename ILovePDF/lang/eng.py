@@ -294,9 +294,6 @@ PDF_MESSAGE = {
         _RENAME : "#rename", _ZOOM : "#zoom", _URL : "link", _FILTER : "pdf|filter", _ADD_DELETE : "pdf|addlt", _CLOSE : "close|all"},
     "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,}
 BUTTONS = {
-    "meta" : { _HELP : "nabilanavab|meta", _ONLY_META : "#metadata", _ALL_META : "#preview", _BACK : "pdf" },
-    "lock" : { _HELP : "nabilanavab|lock", _ENCRYPT_CB : "#encrypt", _DECRYPT_CB : "#decrypt", _BACK : "pdf" },
-    "trim" : { _SPLIT_MERGE : "nabilanavab|trim", _H_SPLIT : "#split", _H_MERGE : "#merge", _BACK : "pdf" },
     "format" : { _HELP : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
                  "🤟 1 × 3 🤟" : "#3-format-H", "🤟 3 × 1 🤟" : "#3-format-V", "2 × 2" : "#4-format", _BACK : "pdf" },
     "comocr" : { _HELP : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
