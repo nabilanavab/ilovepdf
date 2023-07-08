@@ -50,7 +50,11 @@ async def _pdf(bot, callbackQuery):
 
         data = data.split("|", 1)[1]
 
-        if data == "rotate":
+        if data == "more":
+            tTXT, tBTN = await util.translate(
+                button="BUTTONS['rotate']", order=1221, lang_code=lang_code
+            )
+        elif data == "rotate":
             tTXT, tBTN = await util.translate(
                 button="BUTTONS['rotate']", order=1221, lang_code=lang_code
             )
@@ -69,14 +73,6 @@ async def _pdf(bot, callbackQuery):
         elif data == "filter":
             tTXT, tBTN = await util.translate(
                 button="BUTTONS['filter']", order=1221, lang_code=lang_code
-            )
-        elif data == "comocr":
-            tTXT, tBTN = await util.translate(
-                button="BUTTONS['comocr']", order=121, lang_code=lang_code
-            )
-        elif data == "addlt":
-            tTXT, tBTN = await util.translate(
-                button="BUTTONS['addlt']", order=121, lang_code=lang_code
             )
         elif data == "T2P":
             tTXT, tBTN = await util.translate(

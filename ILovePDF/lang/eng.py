@@ -296,10 +296,7 @@ PDF_MESSAGE = {
 BUTTONS = {
     "format" : { _HELP : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
                  "🤟 1 × 3 🤟" : "#3-format-H", "🤟 3 × 1 🤟" : "#3-format-V", "2 × 2" : "#4-format", _BACK : "pdf" },
-    "comocr" : { _HELP : "nabilanavab|comocr", _H_COMPRESS : "#compress", _H_OCR : "#ocr", _BACK : "pdf" },
-    "trade" : { _HELP : "nabilanavab|trade", _H_WATER : "pdf|wa", _H_STAMP : "pdf|stp", _BACK : "pdf" },
     "filter" : { _HELP : "nabilanavab|format", _H_DRAW : "#draw", _H_BAW : "#baw", _H_SAT : "#sat", _H_INV : "#inv", _BACK : "pdf" },
-    "addlt" : { _HELP : "nabilanavab|add", _ADD : "close|dev", _DEL : "#deletePg", _BACK : "pdf" },
     "toImage" : { _P2IMG : "nabilanavab", _P2I : "pdf|img|img", _P2D : "pdf|img|doc", _P2Z : "pdf|img|zip", _P2T : "pdf|img|tar", _BACK : "pdf" },
     "imgRange" : { _P2IMG_ : "nabilanavab", _ALL : "#p2img|{}A", _CUSTOM : "#p2img|{}C", _BACK : "pdf|img" },
     "rotate" : { _B_ROTATE : "nabilanavab", "90°" : "#rot90", "180°" : "#rot180", "270°" : "#rot270", "360°" : "#rot360", _BACK : "pdf" },
