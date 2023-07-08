@@ -35,7 +35,7 @@ async def pdfFooter(input_file: str, cDIR: str, text: str) -> (bool, str):
                 footer_annot = fitz.Rect(0, page.rect.height - 50, page.rect.width, page.rect.height)
                 page.add_annot(footer_annot, "footer", footer.prettify().encode())
             doc.save(output_path)
-        return True output_path
+        return True, output_path
 
     except Exception as e:
         logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)

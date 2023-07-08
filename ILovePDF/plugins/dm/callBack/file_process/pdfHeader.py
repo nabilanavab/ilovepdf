@@ -50,7 +50,7 @@ async def pdfHeader(input_file: str, cDIR: str, text: str) -> (bool, str):
                 header_annot = fitz.Rect(0, 0, page.rect.width, 50)
                 page.add_annot(header_annot, "header", header.prettify().encode())
             doc.save(output_path)
-        return True output_path
+        return True, output_path
 
     except Exception as e:
         logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)
