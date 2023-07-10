@@ -29,6 +29,7 @@ async def stop(bot, message):
     try:
         settings.STOP_BOT = not settings.STOP_BOT
         reply = "`bot stoped..`" if settings.STOP_BOT else "`bot started..`"
+        await message.reply(reply)
         if not settings.STOP_BOT:
             for user in ping_me:
                 try:
