@@ -31,7 +31,7 @@ async def stop(bot, message):
         reply = "`bot stoped..`" if settings.STOP_BOT else "`bot started..`"
         await message.reply(reply)
         if not settings.STOP_BOT:
-            for user in ping_me:
+            for user in ping_list:
                 try:
                     await bot.send_message(
                         chat_id=user, text="`Bot Restarted..`"
