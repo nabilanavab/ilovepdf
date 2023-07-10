@@ -10,7 +10,7 @@ from configs.config   import settings
 _CLOSE = "🚶 CLOSE 🚶"
 _RESTART = "☠ `𝐎𝐕𝐄𝐑𝐋𝐎𝐀𝐃 𝐃𝐄𝐂𝐓𝐄𝐂𝐓𝐄𝐃`☠:\n__𝐬𝐞𝐫𝐯𝐞𝐫 𝐫𝐞𝐬𝐭𝐚𝐫𝐭𝐞𝐝__ \n\nI noticed that your work was also in queue\n\nCan you please try again..!"
 _STOP = "Hey {}..!!\n{} is here to make your life easier..\n\nBut, Due to Some Server-sidel maintainance its down\n\nDon't worry click the below button to notify then its up.. "
-_STOP_CB = {"🔔 Ping me when its UP 🔔", "ping_me"}
+_STOP_CB = {"🔔 Ping me when its UP 🔔" : "ping_me"}
 _SETTINGS = "⚙️ SETTINGS ⚙️"
 _LANGUAGE = "🌍 LANGUAGE 🌍"
 _HELP = "📚 HELP 📚"
