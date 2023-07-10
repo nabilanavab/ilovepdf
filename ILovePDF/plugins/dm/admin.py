@@ -6,8 +6,6 @@ file_name = "ILovePDF/plugins/dm/admin.py"
 
 import datetime
 from plugins import *
-from configs.config import dm
-from configs.db import dataBASE
 from pyrogram.errors import (
     InputUserDeactivated,
     UserNotParticipant,
@@ -15,10 +13,45 @@ from pyrogram.errors import (
     UserIsBlocked,
     PeerIdInvalid,
 )
+from configs.config import dm, settings
+from configs.db import dataBASE, ping_list
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
 
 if dataBASE.MONGODB_URI:
     from database import db
+
+
+#  ADMIN MESSAGES 
+@ILovePDF.on_message(
+    filters.command("stop")
+    & filters.user(dm.ADMINS)
+    & filters.private
+    & filters.incoming
+)
+async def stop(bot, message):
+    try:
+        settings.STOP_BOT = not settings.STOP_BOT
+        reply = "`bot stoped..`" if settings.STOP_BOT else "`bot started..`"
+        if not settings.STOP_BOT:
+            for user in ping_me:
+                try:
+                    await bot.send_message(
+                        chat_id=user, text="`Bot Restarted..`"
+                    )
+                except FloodWait as e:
+                    await asyncio.sleep(e.value)
+    except Exception as error:
+        logger.exception("🐞 %s: %s" % (file_name, error), exc_info=True)
+
+
+@ILovePDF.on_callback_query(filters.regex("^pdf"))
+async def ping_me(bot, callbackQuery):
+    try:
+        await callbackQuery.answer("👍")
+        ping_me.append(callbackQuery.from_user.id)
+    except Exception as error:
+        logger.exception("🐞 %s: %s" % (file_name, error), exc_info=True)
+
 
 #  ADMIN MESSAGES 
 @ILovePDF.on_message(

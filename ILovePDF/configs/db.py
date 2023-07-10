@@ -12,6 +12,8 @@ myID = []  # saves bot info if UPDATE_CHANNEL
 
 GROUPS = []  # save groups id and checks each times
 
+ping_list = [] # save users how need notify after bot reastart from stop
+
 invite_link = []  # just saves invitation link
 
 BANNED_USR_DB, BANNED_GRP_DB = [], []  # Load Banned Users Id

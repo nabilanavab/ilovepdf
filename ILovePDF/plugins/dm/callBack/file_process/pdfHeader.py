@@ -4,11 +4,10 @@
 
 file_name = "ILovePDF/plugins/dm/callBack/file_process/pdfHeader.py"
 
-import fitz
+from fpdf import FPDF
 from logger import logger
 from pyromod import listen
 from pyrogram import filters
-from bs4 import BeautifulSoup
 from pyrogram.types import ForceReply
 
 
@@ -27,6 +26,15 @@ async def askText(bot, callbackQuery, question):
         return False, Error
 
 
+class header(FPDF):
+
+    def header(self, text: str):
+        self.set_font("Arial" , "U", 11)
+        self.cell(0, 5, text, align="C", border=1)
+        self.set_xy(0, 0)
+
+
+
 async def pdfHeader(input_file: str, cDIR: str, text: str) -> (bool, str):
     """
     Adds Header to pdf files
@@ -42,14 +50,7 @@ async def pdfHeader(input_file: str, cDIR: str, text: str) -> (bool, str):
     try:
         output_path = f"{cDIR}/outPut.pdf"
 
-        header_html = f"<div style='text-align: center; font-size: 12px;'>{text}</div>"
-        with fitz.open(input_file) as doc:
-            for page_number in range(doc.page_count):
-                page = doc.load_page(page_number)
-                header = BeautifulSoup(header_html, "html.parser")
-                header_annot = fitz.Rect(0, 0, page.rect.width, 50)
-                page.add_annot(header_annot, "header", header.prettify().encode())
-            doc.save(output_path)
+        pdf = header()
         return True, output_path
 
     except Exception as Error:

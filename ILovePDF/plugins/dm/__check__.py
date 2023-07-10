@@ -11,15 +11,42 @@ from pyrogram import enums
 from configs.log import log
 from plugins.utils import *
 from configs.config import *
-from configs.db import dataBASE
 from .start import extract_data
 from pyrogram.types import Message
 from lang.__users__ import userLang
+from configs.db import dataBASE, myID
 from pyrogram.errors import UserNotParticipant
 from pyrogram import Client as ILovePDF, filters
 
 if dataBASE.MONGODB_URI:
     from database import db
+
+
+async def stopBot(_, __, message: Message):
+    return True if settings.STOP_BOT else False
+
+
+_stop_bot = filters.create(stopBot)
+@ILovePDF.on_message(_stop_bot & filters.incoming)
+async def stop_bot(bot, message):
+    try:
+        lang_code = await utils.getLang(message.chat.id)
+        await message.reply_chat_action(enums.ChatAction.TYPING)
+        if dataBASE.MONGODB_URI:  # CHECK IF USER IN DATABASE
+            await log.newUser(bot, message, lang_code, referID)
+        trans_txt, trans_btn = await util.translate(
+            text="_STOP", button="_STOP_CB", lang_code=lang_code
+        )
+        return await message.reply_photo(
+            photo=images.WELCOME_PIC,
+            reply_markup=trans_btn,
+            caption=trans_txt.format(
+                message.from_user.mention, , myID[0].mention
+            )
+        )
+    except Exception as Error:
+        logger.exception("🐞 %s bannedUsr: %s" % (file_name, Error))
+
 
 # BANNED USER
 async def bannedUsers(_, __, message: Message):

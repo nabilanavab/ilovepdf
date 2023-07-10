@@ -99,6 +99,8 @@ class settings(object):
 
     REFER_BETA = False if os.environ.get("REFER_BETA", "False") == "False" else True
 
+    STOP_BOT = os.environ.get("STOP_BOT", False)
+
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
