@@ -42,7 +42,7 @@ async def stop(bot, message):
         logger.exception("🐞 %s: %s" % (file_name, error), exc_info=True)
 
 
-@ILovePDF.on_callback_query(filters.regex("^pdf"))
+@ILovePDF.on_callback_query(filters.regex("ping_me"))
 async def ping_me(bot, callbackQuery):
     try:
         await callbackQuery.answer("👍")
