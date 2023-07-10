@@ -30,7 +30,7 @@ _stop_bot = filters.create(stopBot)
 @ILovePDF.on_message(_stop_bot & filters.incoming)
 async def stop_bot(bot, message):
     try:
-        lang_code = await utils.getLang(message.chat.id)
+        lang_code = await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         if dataBASE.MONGODB_URI:  # CHECK IF USER IN DATABASE
             await log.newUser(bot, message, lang_code, referID)
@@ -63,7 +63,7 @@ banned_user = filters.create(bannedUsers)
 @ILovePDF.on_message(filters.private & banned_user & filters.incoming)
 async def bannedUsr(bot, message):
     try:
-        lang_code = await utils.getLang(message.chat.id)
+        lang_code = await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         # IF USER BANNED FROM DATABASE
         if message.from_user.id in BANNED_USR_DB:
@@ -114,7 +114,7 @@ set_db = filters.create(setDb)
 @ILovePDF.on_message(filters.group & set_db & banned_group & filters.incoming)
 async def bannedGrp(bot, message):
     try:
-        lang_code = await utils.getLang(message.chat.id)
+        lang_code = await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         if message.chat.id in BANNED_GRP_DB:
             ban = await db.get_key(id=message.chat.id, key="banned", typ="group")
