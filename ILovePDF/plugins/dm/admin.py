@@ -7,11 +7,8 @@ file_name = "ILovePDF/plugins/dm/admin.py"
 import datetime
 from plugins import *
 from pyrogram.errors import (
-    InputUserDeactivated,
-    UserNotParticipant,
-    FloodWait,
-    UserIsBlocked,
-    PeerIdInvalid,
+    InputUserDeactivated, UserNotParticipant,
+    FloodWait, UserIsBlocked, PeerIdInvalid,
 )
 from configs.config import dm, settings
 from configs.db import dataBASE, ping_list
@@ -101,8 +98,6 @@ async def sand(bot, message):
         logger.exception("🐞 %s: %s" % (file_name, error), exc_info=True)
 
 
-#  ADMIN SEMD CALLBACK 
-send = filters.create(lambda _, __, query: query.data.startswith("send"))
 # ❌ MESSAGE BROADCAST ❌
 async def broadcast_messages(user_id: int, message, info):
     try:
@@ -128,7 +123,7 @@ async def broadcast_messages(user_id: int, message, info):
         return False, "Error"
 
 
-@ILovePDF.on_callback_query(send)
+@ILovePDF.on_callback_query(filters.regex("^send"))
 async def _send(bot, callbackQuery):
     try:
         data = callbackQuery.data
