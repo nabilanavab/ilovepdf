@@ -46,7 +46,7 @@ async def stop(bot, message):
 async def ping_me(bot, callbackQuery):
     try:
         await callbackQuery.answer("👍")
-        ping_me.append(callbackQuery.from_user.id)
+        ping_list.append(callbackQuery.from_user.id)
     except Exception as error:
         logger.exception("🐞 %s: %s" % (file_name, error), exc_info=True)
 
