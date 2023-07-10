@@ -41,7 +41,7 @@ async def stop_bot(bot, message):
             photo=images.WELCOME_PIC,
             reply_markup=trans_btn,
             caption=trans_txt.format(
-                message.from_user.mention, , myID[0].mention
+                message.from_user.mention, myID[0].mention
             )
         )
     except Exception as Error:
