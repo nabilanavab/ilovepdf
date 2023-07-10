@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+    worker:
+        build: .
+            environment:
+                API_ID: $API_ID  # defaults to None
+                API_HASH: $API_HASH  # defaults to None
+                API_TOKEN: $API_TOKEN  # defaults to None

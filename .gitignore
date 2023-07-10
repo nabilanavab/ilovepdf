@@ -1,0 +1,4 @@
+**/__pycache__
+*.session
+*.pyc
+.idea
