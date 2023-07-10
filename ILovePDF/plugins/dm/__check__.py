@@ -23,6 +23,8 @@ if dataBASE.MONGODB_URI:
 
 
 async def stopBot(_, __, message: Message):
+    if (message.chat.id in dm.ADMIN_ONLY) and message.text == "/stop":
+        return False
     return True if settings.STOP_BOT else False
 
 
