@@ -94,6 +94,8 @@ _DEL_PG = "🔴 DELETE PAGES 🔴"
 _ADD_PGNUM = "🔢 ADD NUMBER 🔢"
 _MORE = "MORE OPTIONS ↓"
 _LESS = "SHOW LESS ↑"
+_HEADER = "🤕 ADD HEADER 🤕"
+_FOOTER = "🐾 ADD FOOTER 🐾"
 _P2IMG = "⚙️ PDF » IMAGES ↓"
 _P2IMG_ = "⚙️ PDF » IMAGES » {} ↓"
 _P2I = "🖼 IMG 🖼"
@@ -244,8 +246,6 @@ _SELECT_PARA_FONT = "🪂 Select Paragraph Font 🪂"
 _SELECT_COLOR = "🎨 Select Color 🎨"
 _USE_DEFAULT = "» Use Default »"
 _SELECT_BG_COLOR = "🎨 Select Background Image 🎨"
-_HEADER = "🤕 HEADER 🤕"
-_FOOTER = "🐾 FOOTER 🐾"
 
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
@@ -289,15 +289,15 @@ BAN = {
     "banCB" : {_CREATE_BOT : f"{settings.SOURCE_CODE}", _SOURCE : f"{settings.SOURCE_CODE}", _CHANNEL : "https://t.me/ilovepdf_bot"}}
 PDF_MESSAGE = {
     "pg" : _PG_NUM , "pdf" : _PDF_REPLY, "encryptCB" : { _DECRYPT : "#decrypt", _CLOSE : "close|all" },
-    "pdf_button" : { _META[:-1] : "#metadata", _PREVIEW[1:] : "#preview", _ENCRYPT[:-1] : "#encrypt", _DECRYPT[1:] : "#decrypt", _SPLIT[:-1] : "#split",
-        _MERGE[1:] : "#merge", _RENAME[:-1] : "#rename", _URL[1:] : "link", _WATERMARK[:-1] : "pdf|wa", _STAMP[1:] : "pdf|stp", 
-        _IMAGE[:-1] : "pdf|img", _TEXT[1:] : "pdf|txt", _COMPRESS[:-1] : "#compress", _MORE : "pdf|more", _CLOSE : "close|all" },
-    "all_pdf_button" : { _META[:-1] : "#metadata", _PREVIEW[1:] : "#preview", _ENCRYPT[:-1] : "#encrypt", _DECRYPT[1:] : "#decrypt",
-        _SPLIT[:-1] : "#split", _MERGE[1:] : "#merge", _RENAME[:-1] : "#rename", _URL[1:] : "link", _WATERMARK[:-1] : "pdf|wa",
-        _STAMP[1:] : "pdf|stp", _IMAGE[:-1] : "pdf|img", _TEXT[1:] : "pdf|txt", _COMPRESS[:-1] : "#compress", _OCR[1:] : "#ocr",
-        _ROTATE[:-1] : "pdf|rotate", _FORMAT[1:] : "pdf|format", _ADD_PG[:-1] : "close|dev", _DEL_PG[1:] : "#deletePg",
-        _FILTER[:-1] : "pdf|filter", _ZOOM[1:] : "#zoom", _HEADER[:-1] : "close|dev", _FOOTER[1:] : "close|dev",
-        _ADD_PGNUM[:-1] : "close|dev", _LESS : "pdf", _CLOSE : "close|all" },
+    "pdf_button" : { _META[1:] : "#metadata", _PREVIEW[1:] : "#preview", _ENCRYPT[1:] : "#encrypt", _DECRYPT[1:] : "#decrypt", _SPLIT[1:] : "#split",
+        _MERGE[1:] : "#merge", _RENAME[1:] : "#rename", _URL[1:] : "link", _WATERMARK[1:] : "pdf|wa", _STAMP[1:] : "pdf|stp", 
+        _IMAGE[1:] : "pdf|img", _TEXT[1:] : "pdf|txt", _COMPRESS[1:] : "#compress", _MORE : "pdf|more", _CLOSE : "close|all" },
+    "all_pdf_button" : { _META[1:] : "#metadata", _PREVIEW[1:] : "#preview", _ENCRYPT[1:] : "#encrypt", _DECRYPT[1:] : "#decrypt",
+        _SPLIT[1:] : "#split", _MERGE[1:] : "#merge", _RENAME[1:] : "#rename", _URL[1:] : "link", _WATERMARK[1:] : "pdf|wa",
+        _STAMP[1:] : "pdf|stp", _IMAGE[1:] : "pdf|img", _TEXT[1:] : "pdf|txt", _COMPRESS[1:] : "#compress", _OCR[1:] : "#ocr",
+        _ROTATE[1:] : "pdf|rotate", _FORMAT[1:] : "pdf|format", _ADD_PG[1:] : "close|dev", _DEL_PG[1:] : "#deletePg",
+        _FILTER[1:] : "pdf|filter", _ZOOM[1:] : "#zoom", _HEADER[1:] : "close|dev", _FOOTER[1:] : "close|dev",
+        _ADD_PGNUM[1:] : "close|dev", _LESS : "pdf", _CLOSE : "close|all" },
     "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,}
 BUTTONS = {
     "format" : { _HELP : "nabilanavab|format", "1 × 1" : "#1-format", "✌ 1 × 2 ✌" : "#2-format-H", "✌ 2 × 1 ✌" : "#2-format-V",
