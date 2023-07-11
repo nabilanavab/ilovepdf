@@ -247,6 +247,7 @@ _SELECT_COLOR = "🎨 Select Color 🎨"
 _USE_DEFAULT = "» Use Default »"
 _SELECT_BG_COLOR = "🎨 Select Background Image 🎨"
 
+
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
     "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : [_SEARCH_PDF, _BETA_MSG],
