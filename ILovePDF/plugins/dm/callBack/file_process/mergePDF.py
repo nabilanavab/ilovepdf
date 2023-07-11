@@ -4,7 +4,7 @@
 
 file_name = "ILovePDF/plugins/dm/callBack/file_process/mergePDF.py"
 
-import fitz, time
+import os, fitz, time
 from logger import logger
 from plugins.utils import *
 from configs.config import settings
