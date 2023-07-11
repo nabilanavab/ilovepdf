@@ -18,10 +18,33 @@
             font-size: 24px;
             margin-bottom: 20px;
         }
+
+        .reload-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reload-button:hover {
+            background-color: #555;
+        }
+
     </style>
 </head>
 <body>
     <h1>Please Don't Say Just Hello In Chat</h1>
-    <div class="quote">{{ quote }}</div>
+    <div class="quote">{{ quote }}</div></br></br>
+    <button class="reload-button" onclick="reloadPage()">Reload</button>
+
+    <script>
+        function reloadPage() {
+            location.reload();
+        }
+    </script>
 </body>
 </html>
