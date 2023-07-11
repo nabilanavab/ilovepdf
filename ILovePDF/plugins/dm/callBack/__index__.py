@@ -33,7 +33,7 @@ async def __index__(bot, callbackQuery):
         ):
             await work.work(callbackQuery, "delete", False)
             return await callbackQuery.message.reply_text(
-                "#old_queue 💔/n/n`try by sending new file`", reply_markup=_, quote=True
+                "#old_queue 💔\n\n`try by sending new file`", reply_markup=_, quote=True
             )
 
         elif data == "rot360":
@@ -423,7 +423,7 @@ async def __index__(bot, callbackQuery):
             quote=True,
             document=output_file,
             thumb=THUMBNAIL,
-            caption=f"{_caption}/n/n{FILE_CAPT}",
+            caption=f"{_caption}\n\n{FILE_CAPT}",
             progress=render._progress,
             progress_args=(dlMSG, time.time()),
         )
