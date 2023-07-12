@@ -2,7 +2,7 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # copyright ©️ 2021 nabilanavab
 
-file_name = "ILovePDF/lang/eng.py"
+file_name = "ILovePDF/lang/frn.py"
 
 from configs.config   import settings
 
