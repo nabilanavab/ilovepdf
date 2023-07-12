@@ -10,7 +10,7 @@ from configs.config   import settings
 _CLOSE = "🚶 YOPISH 🚶"
 _RESTART = "☠ `Yuklama aniqlandi`☠:\n__𝐬𝐞𝐫𝐞𝐞 𝐭𝐚𝐫𝐭𝐞𝐝__ \n\nIshingiz hali ham navbatda turganini payqadim\n\nQayta urinib koʻring..!"
 _STOP = "Salom {}!\n{} hayotingizni osonlashtirish uchun shu yerda,\n\n`lekin afsuski, u hozirda server tomonida texnik xizmat koʻrsatmoqda.`\n\n__Xavotirlanishga hojat yoʻq, shunchaki tugmani bosing. Quyida va u qayta tiklangani va muammosiz ishlashi bilanoq sizga xabar beraman.__"
-_STOP_CB = {"🔔 U yoqilganda menga ping yuboring 🔔" : "ping_me"}
+_STOP_CB_ = "🔔 U yoqilganda menga ping yuboring 🔔"
 _SETTINGS = "⚙️ Sozlamalar"
 _LANGUAGE = "🌍 Til"
 _HELP = "📚 Yordam"
@@ -248,6 +248,7 @@ _USE_DEFAULT = "» Standartdan foydalanish »"
 _SELECT_BG_COLOR = "🎨 Fon rasmini tanlash 🎨"
 
 
+_STOP_CB = { _STOP_CB_ : "ping_me"}
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
     "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : [_SEARCH_PDF, _BETA_MSG],

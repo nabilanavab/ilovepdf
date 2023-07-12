@@ -10,7 +10,7 @@ from configs.config   import settings
 _CLOSE = "🚶 اغلاق 🚶"
 _RESTART = "☠ `𝐎𝐕𝐄𝐑𝐋𝐎𝐀𝐃 𝐃𝐄𝐂𝐓𝐄𝐂𝐓𝐄𝐃`☠:\n__𝐬𝐞𝐫𝐯𝐞𝐫 𝐫𝐞𝐬𝐭𝐚𝐫𝐭𝐞𝐝__\n\n لقد لاحظت أن عملك كان أيضًا في قائمة الانتظار\n\n هل يمكنك المحاولة مرة أخرى ..!"
 _STOP = "مرحبًا {}!\n إن {} هنا لجعل حياتك أسهل ،\n\n` ولكن للأسف ، هناك حاليًا بعض الصيانة من جانب الخادم.\n\n__ لا داعي للقلق ، على الرغم من ذلك ، فقط انقر فوق الزر أدناه ، وسأخبرك بمجرد إعادة تشغيله بسلاسة .__ "
-_STOP_CB = {"🔔 بينغ لي عندما يكون الأمر 🔔" : "ping_me"}
+_STOP_CB_ = "🔔 بينغ لي عندما يكون الأمر 🔔"
 _SETTINGS = "⚙️ الإعدادات ⚙️"
 _LANGUAGE = "🌍 اللغة 🌍"
 _HELP = "📚 مساعدة 📚"
@@ -248,6 +248,7 @@ _USE_DEFAULT = "» استخدام الافتراضي »"
 _SELECT_BG_COLOR = "🎨 حدد صورة الخلفية 🎨"
 
 
+_STOP_CB = { _STOP_CB_ : "ping_me"}
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
     "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : [_SEARCH_PDF, _BETA_MSG],

@@ -10,7 +10,7 @@ from configs.config   import settings
 _CLOSE = "🚶 CLOSE 🚶"
 _RESTART = "☠ `𝐎𝐕𝐄𝐑𝐋𝐎𝐀𝐃 𝐃𝐄𝐂𝐓𝐄𝐂𝐓𝐄𝐃`☠:\n__𝐬𝐞𝐫𝐯𝐞𝐫 𝐫𝐞𝐬𝐭𝐚𝐫𝐭𝐞𝐝__ \n\nI noticed that your work was also in queue\n\nCan you please try again..!"
 _STOP = "Hey {}!\nThe {} is here to make your life easier,\n\n`but unfortunately.it's currently experiencing some server-side maintenance.`\n\n__No need to worry though, just click the button below, and I'll let you know as soon as it's back up and running smoothly.__"
-_STOP_CB = {"🔔 Ping me when its UP 🔔" : "ping_me"}
+_STOP_CB_ = "🔔 Ping me when its UP 🔔"
 _SETTINGS = "⚙️ SETTINGS ⚙️"
 _LANGUAGE = "🌍 LANGUAGE 🌍"
 _HELP = "📚 HELP 📚"
@@ -248,6 +248,7 @@ _USE_DEFAULT = "» Use Default »"
 _SELECT_BG_COLOR = "🎨 Select Background Image 🎨"
 
 
+_STOP_CB = { _STOP_CB_ : "ping_me"}
 RESTART = { "msg" : _RESTART, "btn" : { _CLOSE : "close|mee" }}
 HOME = {
     "HomeA" : _HOME_A, "HomeB" : _HOME_B, "HomeC" : _HOME_C, "HomeD" : _HOME_D, "search" : [_SEARCH_PDF, _BETA_MSG],
