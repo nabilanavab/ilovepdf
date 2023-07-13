@@ -302,7 +302,7 @@ PDF_MESSAGE = {
         _SPLIT[1:] : "#split", _MERGE[1:] : "#merge", _RENAME[1:] : "#rename", _URL[1:] : "link", _WATERMARK[1:] : "pdf|wa",
         _STAMP[1:] : "pdf|stp", _IMAGE[1:] : "pdf|img", _TEXT[1:] : "pdf|txt", _COMPRESS[1:] : "#compress", _OCR[1:] : "#ocr",
         _ROTATE[1:] : "pdf|rotate", _FORMAT[1:] : "pdf|format", _ADD_PG[1:] : "close|dev", _DEL_PG[1:] : "#deletePg",
-        _FILTER[1:] : "pdf|filter", _ZOOM[1:] : "#zoom", _PART_PDF[1:] : "#partPDF", _REMOVE_LINKS[1:] : "close|dev",
+        _FILTER[1:] : "pdf|filter", _ZOOM[1:] : "#zoom", _PART_PDF[1:] : "#partPDF", _REMOVE_LINKS[1:] : "#urlRemover",
         _HEADER[1:] : "close|dev", _FOOTER[1:] : "close|dev", _ADD_PGNUM[1:] : "close|dev", _LESS : "pdf", _CLOSE : "close|all" },
     "error" : _CODEC, "errorCB" : { _CODEC_CB : "error", _CLOSE : "close|all" }, "encrypt" : _ENCRYTED_FILE,}
 BUTTONS = {
