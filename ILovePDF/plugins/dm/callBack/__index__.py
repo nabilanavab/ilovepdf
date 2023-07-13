@@ -449,13 +449,14 @@ async def __index__(bot, callbackQuery):
                     file_name=FILE_NAME
                     if os.path.splitext(FILE_NAME)[1]
                     else f"{FILE_NAME}_{_index}.pdf",
-                    quote=True,
                     document=_file,
                     thumb=THUMBNAIL,
                     caption=f"{_caption}\n\n{FILE_CAPT}",
                     progress=render._progress,
                     progress_args=(dlMSG, time.time()),
                 )
+            await dlMSG.edit("👇")
+            await work.work(callbackQuery, "delete", False)
         else:
             await callbackQuery.message.reply_document(
                 file_name=FILE_NAME
@@ -468,8 +469,8 @@ async def __index__(bot, callbackQuery):
                 progress=render._progress,
                 progress_args=(dlMSG, time.time()),
             )
-        await dlMSG.delete()
-        await work.work(callbackQuery, "delete", False)
+            await dlMSG.delete()
+            await work.work(callbackQuery, "delete", False)
 
     except Exception as Error:
         logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)
