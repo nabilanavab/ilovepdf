@@ -57,12 +57,12 @@ async def partPDF(input_file: str, cDIR: str, part: list) -> (bool, list):
     try:
         input_pdf_obj = PdfReader(input_file)
         num_pages = int(len(input_pdf_obj.pages))
-        pages_per_part = num_pages // part  # Integer division
-        remainder = num_pages % part
         start_page = 0
 
         if part.startswith(":"):
             part = int(part.split(":")[1])
+            pages_per_part = num_pages // part  # Integer division
+            remainder = num_pages % part
 
             for i in range(part):
                 part_pdf = PdfWriter()
@@ -87,6 +87,10 @@ async def partPDF(input_file: str, cDIR: str, part: list) -> (bool, list):
                 start_page = end_page  # Set the start page for the next part
 
         else:
+            part = int(part)
+            pages_per_part = num_pages // part  # Integer division
+            remainder = num_pages % part
+
             for i in range(pages_per_part):
                 part_pdf = PdfWriter()
 
