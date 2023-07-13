@@ -109,7 +109,7 @@ async def partPDF(input_file: str, cDIR: str, part: list) -> (bool, list):
                 for page_num in range(start_page, num_pages):
                     part_pdf.add_page(input_pdf_obj.pages[page_num])
 
-                part_filename = f"{cDIR}/{pages_per_part}.pdf"
+                part_filename = f"{cDIR}/{pages_per_part+1}.pdf"
                 with open(part_filename, "wb") as part_file:
                     part_pdf.write(part_file)
 

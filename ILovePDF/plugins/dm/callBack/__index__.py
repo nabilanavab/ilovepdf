@@ -153,7 +153,7 @@ async def __index__(bot, callbackQuery):
                         callbackQuery.message.text.split("•")[1]
                         if "•" in callbackQuery.message.text
                         else "_",
-                        splitData[1].text if splitData[1].text else splitData[1]
+                        splitData[1].text if type(splitData[1])!="str" else splitData[1]
                     ),
                     quote=True,
                 )
