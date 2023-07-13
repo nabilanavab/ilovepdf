@@ -54,6 +54,8 @@ __all__ = [
     "invertPDF",
     "pdfFooter",
     "pdfHeader",
+    "partPDF",
+    "urlRemover",
 ]
 
 

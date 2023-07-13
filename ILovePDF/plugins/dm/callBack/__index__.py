@@ -139,6 +139,23 @@ async def __index__(bot, callbackQuery):
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
                 return await watermark.reply(CHUNK["exit"], quote=True)
+        elif data == "partPDF":
+            notExit, splitData = await partPDF.askPartPdf(
+                bot, callbackQuery, question=CHUNK["pyromodASK_3"],
+                limit=int(callbackQuery.message.text.split("•")[1])
+                if "•" in callbackQuery.message.text else None
+            )
+            # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
+            if not notExit:
+                await work.work(callbackQuery, "delete", False)
+                return await splitData.reply(
+                    CHUNK["pdfSplitError"].format(
+                        callbackQuery.message.text.split("•")[1]
+                        if "•" in callbackQuery.message.text
+                        else "_", splitData.text
+                    ),
+                    quote=True,
+                )
 
         dlMSG = await callbackQuery.message.reply_text(
             CHUNK["download"], reply_markup=_, quote=True
@@ -187,6 +204,11 @@ async def __index__(bot, callbackQuery):
 
         elif data == "rename":
             isSuccess, output_file = await renamePDF.renamePDF(input_file=input_file)
+
+        elif data == "partPDF":
+            isSuccess, output_file = await renamePDF.renamePDF(
+                input_file=input_file, cDIR=cDIR, split=splitData.text
+            )
 
         elif data == "header":
             isSuccess, output_file = await pdfHeader.pdfHeader(
@@ -416,17 +438,34 @@ async def __index__(bot, callbackQuery):
             FILE_NAME = FILE_NAME[:-4] + ext[data]
 
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
-        await callbackQuery.message.reply_document(
-            file_name=FILE_NAME
-            if os.path.splitext(FILE_NAME)[1]
-            else f"{FILE_NAME}.pdf",
-            quote=True,
-            document=output_file,
-            thumb=THUMBNAIL,
-            caption=f"{_caption}\n\n{FILE_CAPT}",
-            progress=render._progress,
-            progress_args=(dlMSG, time.time()),
-        )
+
+        if data == "partPDF":
+            docs = [os.path.join(cDIR, file) for file in os.listdir(cDIR)]
+            docs.sort(key=os.path.getctime)
+            for _index, _file in enumerate(docs):
+                await callbackQuery.message.reply_media_group(
+                    file_name=FILE_NAME
+                    if os.path.splitext(FILE_NAME)[1]
+                    else f"{FILE_NAME}_{_index}.pdf",
+                    quote=True,
+                    document=_file,
+                    thumb=THUMBNAIL,
+                    caption=f"{_caption}\n\n{FILE_CAPT}",
+                    progress=render._progress,
+                    progress_args=(dlMSG, time.time()),
+                )
+        else:
+            await callbackQuery.message.reply_document(
+                file_name=FILE_NAME
+                if os.path.splitext(FILE_NAME)[1]
+                else f"{FILE_NAME}.pdf",
+                quote=True,
+                document=output_file,
+                thumb=THUMBNAIL,
+                caption=f"{_caption}\n\n{FILE_CAPT}",
+                progress=render._progress,
+                progress_args=(dlMSG, time.time()),
+            )
         await dlMSG.delete()
         await work.work(callbackQuery, "delete", False)
 
