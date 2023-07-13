@@ -37,7 +37,7 @@ async def askPartPdf(bot, callbackQuery, question, limit: int = None):
         return False, Error
 
 
-async def partPDF(input_file: str, cDIR: str, split: list) -> (bool, list):
+async def partPDF(input_file: str, cDIR: str, part: list) -> (bool, list):
     """
      With this feature, you can specify the desired number of pages per part, and the
      PDF splitting tool will automatically divide the document accordingly. For example,
@@ -57,15 +57,16 @@ async def partPDF(input_file: str, cDIR: str, split: list) -> (bool, list):
     try:
         input_pdf_obj = PdfReader(input_file)
 
-        if split.startswith(":"):
+        if part.startswith(":"):
+            part = int(part.split(":")[1])
             num_pages = len(input_pdf_obj.pages)
 
-            pages_per_part = num_pages // split  # Integer division
-            remainder = num_pages % split
+            pages_per_part = num_pages // part  # Integer division
+            remainder = num_pages % part
 
             start_page = 0
 
-            for i in range(split):
+            for i in range(part):
                 part_pdf = PdfWriter()
 
                 # Calculate the end page for the current part
