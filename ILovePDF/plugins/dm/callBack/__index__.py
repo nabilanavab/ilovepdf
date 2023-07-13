@@ -444,7 +444,7 @@ async def __index__(bot, callbackQuery):
             docs = [os.path.join(cDIR, file) for file in os.listdir(cDIR)]
             docs.sort(key=os.path.getctime)
             for _index, _file in enumerate(docs):
-                await callbackQuery.message.reply_media_group(
+                await callbackQuery.message.reply_document(
                     file_name=FILE_NAME
                     if os.path.splitext(FILE_NAME)[1]
                     else f"{FILE_NAME}_{_index}.pdf",
