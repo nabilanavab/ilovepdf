@@ -229,6 +229,11 @@ async def __index__(bot, callbackQuery):
                 cDIR=cDIR, input_file=input_file
             )
 
+        elif data == "urlRemover":
+            isSuccess, output_file = await urlRemover.urlRemover(
+                cDIR=cDIR, input_file=input_file
+            )
+
         elif data == "sat":
             isSuccess, output_file = await saturatePDF.saturatePDF(
                 cDIR=cDIR, input_file=input_file
