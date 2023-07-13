@@ -23,14 +23,14 @@ async def askPartPdf(bot, callbackQuery, question, limit: int = None):
         if splitData.text.startswith(":"):
             pgData = splitData.text.split(":")[1]
             if not pgData.isdigit():
-                return False, "NotInteger:PageNumberMustBeAnInt"
+                return False, (splitData, "NotInteger:PageNumberMustBeAnInt")
             if limit and int(pgData)>int(limit):
-                return False, "TypeANumberLessThanPageNumber"
+                return False, (splitData, "TypeANumberLessThanPageNumber")
         else:
-            if not pgData.isdigit():
-                return False, "NotInteger:PageNumberMustBeAnInt"
+            if not splitData.text.isdigit():
+                return False, (splitData, "NotInteger:PageNumberMustBeAnInt")
             if limit and int(splitData.text)>int(limit):
-                return False, "TypeANumberLessThanPageNumber"
+                return False, (splitData, "TypeANumberLessThanPageNumber")
         return (True, splitData) if splitData.text != "/exit" else (False, splitData)
     except Exception as Error:
         logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)

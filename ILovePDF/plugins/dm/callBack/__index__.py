@@ -148,12 +148,12 @@ async def __index__(bot, callbackQuery):
             # CANCEL DECRYPTION PROCESS IF MESSAGE == /exit
             if not notExit:
                 await work.work(callbackQuery, "delete", False)
-                return await splitData.reply(
+                return await splitData[0].reply(
                     CHUNK["pdfSplitError"].format(
                         callbackQuery.message.text.split("•")[1]
                         if "•" in callbackQuery.message.text
                         else "_",
-                        splitData.text if splitData.text else splitData
+                        splitData[1].text if splitData[1].text else splitData[1]
                     ),
                     quote=True,
                 )
