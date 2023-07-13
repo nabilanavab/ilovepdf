@@ -56,15 +56,13 @@ async def partPDF(input_file: str, cDIR: str, part: list) -> (bool, list):
     """
     try:
         input_pdf_obj = PdfReader(input_file)
+        num_pages = int(len(input_pdf_obj.pages))
+        pages_per_part = num_pages // part  # Integer division
+        remainder = num_pages % part
+        start_page = 0
 
         if part.startswith(":"):
             part = int(part.split(":")[1])
-            num_pages = len(input_pdf_obj.pages)
-
-            pages_per_part = num_pages // part  # Integer division
-            remainder = num_pages % part
-
-            start_page = 0
 
             for i in range(part):
                 part_pdf = PdfWriter()
@@ -87,6 +85,29 @@ async def partPDF(input_file: str, cDIR: str, part: list) -> (bool, list):
                     part_pdf.write(part_file)
                 
                 start_page = end_page  # Set the start page for the next part
+
+        else:
+            for i in range(pages_per_part):
+                part_pdf = PdfWriter()
+
+                end_page = start_page + part
+
+                for page_num in range(start_page, end_page):
+                    part_pdf.add_page(input_pdf_obj.pages[page_num])
+
+                part_filename = f"{cDIR}/{i+1}.pdf"
+                with open(part_filename, "wb") as part_file:
+                    part_pdf.write(part_file)
+
+                start_page = end_page
+
+            if remainder:
+                for page_num in range(start_page, num_pages):
+                    part_pdf.add_page(input_pdf_obj.pages[page_num])
+
+                part_filename = f"{cDIR}/{pages_per_part}.pdf"
+                with open(part_filename, "wb") as part_file:
+                    part_pdf.write(part_file)
 
         os.remove(input_file)
         return True, cDIR

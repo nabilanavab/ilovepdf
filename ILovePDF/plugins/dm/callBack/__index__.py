@@ -152,7 +152,8 @@ async def __index__(bot, callbackQuery):
                     CHUNK["pdfSplitError"].format(
                         callbackQuery.message.text.split("•")[1]
                         if "•" in callbackQuery.message.text
-                        else "_", splitData.text
+                        else "_",
+                        splitData.text if splitData.text else splitData
                     ),
                     quote=True,
                 )
