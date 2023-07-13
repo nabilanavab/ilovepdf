@@ -60,12 +60,12 @@ async def partPDF(input_file: str, cDIR: str, split: list) -> (bool, list):
         if split.startswith(":"):
             num_pages = len(input_pdf_obj.pages)
 
-            pages_per_part = num_pages // num_parts  # Integer division
-            remainder = num_pages % num_parts
+            pages_per_part = num_pages // split  # Integer division
+            remainder = num_pages % split
 
             start_page = 0
 
-            for i in range(num_parts):
+            for i in range(split):
                 part_pdf = PdfWriter()
 
                 # Calculate the end page for the current part
