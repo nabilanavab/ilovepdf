@@ -206,7 +206,7 @@ async def __index__(bot, callbackQuery):
             isSuccess, output_file = await renamePDF.renamePDF(input_file=input_file)
 
         elif data == "partPDF":
-            isSuccess, output_file = await renamePDF.renamePDF(
+            isSuccess, output_file = await partPDF.partPDF(
                 input_file=input_file, cDIR=cDIR, split=splitData.text
             )
 
