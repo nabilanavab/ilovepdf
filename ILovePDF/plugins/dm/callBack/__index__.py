@@ -208,7 +208,7 @@ async def __index__(bot, callbackQuery):
 
         elif data == "partPDF":
             isSuccess, output_file = await partPDF.partPDF(
-                input_file=input_file, cDIR=cDIR, split=splitData.text
+                input_file=input_file, cDIR=cDIR, part=splitData.text
             )
 
         elif data == "header":
