@@ -442,6 +442,7 @@ async def __index__(bot, callbackQuery):
 
         if data == "partPDF":
             docs = [os.path.join(cDIR, file) for file in os.listdir(cDIR)]
+            logger.debug(docs)
             docs.sort(key=os.path.getctime)
             for _index, _file in enumerate(docs):
                 await callbackQuery.message.reply_document(
