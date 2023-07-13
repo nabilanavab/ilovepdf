@@ -7,6 +7,7 @@ file_name = "ILovePDF/plugins/dm/callBack/file_process/partPDF.py"
 import os
 from logger import logger
 from pyrogram import filters
+from pyrogram.types import ForceReply
 from PyPDF2 import PdfWriter, PdfReader
 
 
