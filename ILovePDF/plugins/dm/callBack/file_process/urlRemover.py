@@ -26,7 +26,11 @@ async def urlRemover(input_file: str, cDIR: str) -> (bool, str):
             with fitz.open() as oUTPUT:
                 for page in iNPUT:
                     logger.debug(page)
-                    pg = oUTPUT.new_page(-1, width=width, height=height)
+                    pg = oUTPUT.new_page(
+                        pno=-1,
+                        width=page.rect.width,
+                        height=page.rect.height
+                    )
                     pg.show_pdf_page(pg.rect, iNPUT, page.number)
                 oUTPUT.save(output_path, garbage=3, deflate=True)
         return True, output_path
