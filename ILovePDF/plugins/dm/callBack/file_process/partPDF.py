@@ -106,6 +106,7 @@ async def partPDF(input_file: str, cDIR: str, part: list) -> (bool, list):
                 start_page = end_page
 
             if remainder:
+                part_pdf = PdfWriter()
                 for page_num in range(start_page, num_pages):
                     part_pdf.add_page(input_pdf_obj.pages[page_num])
 

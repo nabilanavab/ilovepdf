@@ -153,7 +153,7 @@ async def __index__(bot, callbackQuery):
                         callbackQuery.message.text.split("•")[1]
                         if "•" in callbackQuery.message.text
                         else "_",
-                        splitData[1].text if type(splitData[1])!="str" else splitData[1]
+                        splitData[1].text if isinstance(splitData[1], str) else splitData[1]
                     ),
                     quote=True,
                 )
@@ -447,7 +447,6 @@ async def __index__(bot, callbackQuery):
 
         if data == "partPDF":
             docs = [os.path.join(cDIR, file) for file in os.listdir(cDIR)]
-            logger.debug(docs)
             docs.sort(key=os.path.getctime)
             for _index, _file in enumerate(docs):
                 await callbackQuery.message.reply_document(
@@ -456,7 +455,7 @@ async def __index__(bot, callbackQuery):
                     else f"{FILE_NAME}_{_index}.pdf",
                     document=_file,
                     thumb=THUMBNAIL,
-                    caption=f"`part: {_index}`\n\n{FILE_CAPT}",
+                    caption=f"`part: {_index+1}`\n\n{FILE_CAPT}",
                     progress=render._progress,
                     progress_args=(dlMSG, time.time()),
                 )
