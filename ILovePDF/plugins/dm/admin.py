@@ -171,9 +171,9 @@ async def _send(bot, callbackQuery):
         
         if ___ in ["broad", "not"]:
             if ___ == "not" and not (settings.UPDATE_CHANNEL):
-                return callbackQuery.answer("First ADD and updates channel.. 😏")
+                return await callbackQuery.answer("First ADD and updates channel.. 😏")
             if BROADCAST:
-                return callbackQuery.answer("Broadcasting Some Other Message.. 🙄")
+                return await callbackQuery.answer("Broadcasting Some Other Message.. 🙄")
             BROADCAST = not BROADCAST
             # stops bot: else huge work can cause restart
             await stop(bot, callbackQuery.message)
