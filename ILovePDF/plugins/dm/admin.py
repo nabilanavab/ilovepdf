@@ -30,7 +30,9 @@ BROADCAST = False
 async def stop(bot, message):
     try:
         if BROADCAST:
-            return await message.reply("Sorry, Broadcasting some message 🥱")
+            return await message.reply(
+                "Sorry, Broadcasting some message 🥱", quote=True
+            )
         if message.text == "/stop":
             settings.STOP_BOT = not settings.STOP_BOT
         reply = "`bot stoped..`" if settings.STOP_BOT else "`bot started..`"
