@@ -5,6 +5,7 @@
 file_name = "ILovePDF/plugins/dm/admin.py"
 
 import datetime
+import os, shutil
 from plugins import *
 from pyrogram.errors import (
     InputUserDeactivated, UserNotParticipant,
@@ -17,6 +18,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceRepl
 if dataBASE.MONGODB_URI:
     from database import db
 
+BROADCAST = False
 
 #  ADMIN MESSAGES 
 @ILovePDF.on_message(
@@ -27,6 +29,8 @@ if dataBASE.MONGODB_URI:
 )
 async def stop(bot, message):
     try:
+        if BROADCAST:
+            return await message.reply("Sorry, Broadcasting some message 🥱")
         settings.STOP_BOT = not settings.STOP_BOT
         reply = "`bot stoped..`" if settings.STOP_BOT else "`bot started..`"
         await message.reply(reply)
@@ -58,7 +62,7 @@ async def ping_me(bot, callbackQuery):
     & filters.private
     & filters.incoming
 )
-async def sand(bot, message):
+async def send(bot, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
         if not message.reply_to_message:
@@ -68,40 +72,53 @@ async def sand(bot, message):
 
         msg = await message.reply_to_message.reply("⚙️ `Processing..`", quote=True)
         await message.delete()
+        button = []
+        button.append(
+            InlineKeyboardButton("📢 ↓ BROADCAST ↓ 📢", callback_data="nabilanavab")
+        )
+        button.append(
+            InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|broad"),
+            InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|broad")
+        )
+        button.append(
+            InlineKeyboardButton("👤 ↓ PM ↓ 👤", callback_data="nabilanavab")
+        )
+        button.append(
+            InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|pm"),
+            InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|pm"),
+        )
+        if settings.UPDATE_CHANNEL:
+            button.append(
+                InlineKeyboardButton("📢 NOT SUBSCRIBED 📢", callback_data="nabilanavab")
+            )
+            button.append(
+                InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|not"),
+                InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|not"),
+            )
         return await msg.edit(
             text="⚙️SEND MESSAGE: \n\n`Now, Select any Option Below.. `",
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "📢 ↓ BROADCAST ↓ 📢", callback_data="nabilanavab"
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "🔸 COPY 🔸", callback_data="send|copy|broad"
-                        ),
-                        InlineKeyboardButton(
-                            "🔸 FORWARD 🔸", callback_data="send|forw|broad"
-                        ),
-                    ],
-                    [InlineKeyboardButton("👤 ↓ PM ↓ 👤", callback_data="nabilanavab")],
-                    [
-                        InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|pm"),
-                        InlineKeyboardButton(
-                            "🔸 FORWARD 🔸", callback_data="send|forw|pm"
-                        ),
-                    ],
-                ]
-            ),
+            reply_markup=InlineKeyboardMarkup(button)
         )
     except Exception as error:
         logger.exception("🐞 %s: %s" % (file_name, error), exc_info=True)
 
 
 # ❌ MESSAGE BROADCAST ❌
-async def broadcast_messages(user_id: int, message, info):
+async def broadcast_messages(user_id: int, message, info, force=False):
     try:
+        if force:
+            try:
+                userStatus = await bot.get_chat_member(
+                    str(settings.UPDATE_CHANNEL), user_id
+                )
+                if userStatus.status != "kicked":  # IF USER BANNED FROM CHANNEL
+                    pass
+                else:
+                    return False, "Subscribed"
+            except UserNotParticipant:
+                pass
+            except Exception as e:
+                pass
         if info == "copy":
             await message.copy(chat_id=user_id)
             return True, "Success"
@@ -112,12 +129,12 @@ async def broadcast_messages(user_id: int, message, info):
         await asyncio.sleep(e.value)
         return await broadcast_messages(user_id, message, info)
     except InputUserDeactivated:
-        # await db.delete_user(int(user_id))
+        await db.delete_user(int(user_id))
         return False, "Deleted"
     except UserIsBlocked:
         return False, "Blocked"
     except PeerIdInvalid:
-        # await db.delete_user(int(user_id))
+        await db.delete_user(int(user_id))
         return False, "Error"
     except Exception as e:
         logger.exception("🐞 %s: %s" % (file_name, e), exc_info=True)
@@ -127,24 +144,48 @@ async def broadcast_messages(user_id: int, message, info):
 @ILovePDF.on_callback_query(filters.regex("^send"))
 async def _send(bot, callbackQuery):
     try:
+        global BROADCAST
         data = callbackQuery.data
         _, __, ___ = callbackQuery.data.split("|")
 
         if ___ == "broad" and not dataBASE.MONGODB_URI:
             return await callbackQuery.answer("Can't Use this feature ={")
-
         await callbackQuery.answer("⚙️ Processing.. ")
-        if ___ == "broad":
+        
+        if ___ in ["broad", "not"]:
+            if ___ == "not" and not (settings.UPDATE_CHANNEL):
+                return callbackQuery.answer("First ADD and updates channel.. 😏")
+            if BROADCAST:
+                return callbackQuery.answer("Broadcasting Some Other Message.. 🙄")
+            BROADCAST = not BROADCAST
+            # stops bot: else huge work can cause restart
+            await stop(bot, callbackQuery.message)
+            if os.path.exists(f"./work/nabilanavab"):
+                for chat in os.listdir("./work/nabilanavab"):
+                    if f"{chat}".startswith("-100"):
+                        await bot.send_message(
+                            chat_id=chat, text="bot stopped.."
+                        )
+                    else:
+                        await bot.send_message(
+                            chat_id=chat, text="bot stopped..\n\nwill ping you once's its up.."
+                        )
+                        ping_list.append(callbackQuery.from_user.id)
+                shutil.rmtree(f"./work")
+            os.makedirs("./work/nabilanavab")
+
             users = await db.get_all_users()
             broadcast_msg = callbackQuery.message.reply_to_message
             total_users = await db.total_users_count()
             await callbackQuery.message.edit(
                 text=f"⚙️ Started Broadcasting..\nTOTAL {total_users} USERS 😍\n\n↓ MESSAGE ↓"
-                f"\n`{broadcast_msg.text if broadcast_msg.text else '📂 Media 📂'}`",
+                    f"\n`{broadcast_msg.text if broadcast_msg.text else '📂 Media 📂'}`",
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            "🔸 asForward 🔸" if __ == "forw" else "🔸 asCopy 🔸", callback_data="nabilanavab",)
+                            "🔸 asForward 🔸" if __ == "forw" else "🔸 asCopy 🔸",
+                            callback_data="nabilanavab",
+                        )
                     ]]
                 ),
             )
@@ -154,10 +195,12 @@ async def _send(bot, callbackQuery):
             deleted = 0
             failed = 0
             success = 0
+            subscribed = 0
 
             async for user in users:
                 iSuccess, feed = await broadcast_messages(
-                    int(user["id"]), broadcast_msg, __
+                    user_id=int(user["id"]), message=broadcast_msg,
+                    info=__, force=True if ___ == "not" else False
                 )
                 if iSuccess:
                     success += 1
@@ -168,6 +211,9 @@ async def _send(bot, callbackQuery):
                         deleted += 1
                     elif feed == "Error":
                         failed += 1
+                    elif feed == "Subscribed":
+                        subscribed += 1
+
                 done += 1
                 await asyncio.sleep(1)
                 if done % 20 == 0:
@@ -179,29 +225,36 @@ async def _send(bot, callbackQuery):
                                         f"🔸 asForward({done*100}/{total_users}) 🔸"
                                         if __ == "forw"
                                         else f"🔸 asCopy({done*100/total_users}) 🔸",
-                                        callback_data="nabilanavab")
+                                        callback_data="nabilanavab"
+                                    )
                                 ]]
                             )
                         )
-                    except:
+                    except Exception:
                         logger.debug("edit error - broadcast")
             time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
             return await callbackQuery.message.edit(
-                text=f"`Broadcast Completed:`\n__Completed in__ {time_taken} __seconds ⏰__\n\n"
-                f"__Total Users:__ {total_users} 😎\n__Completed:__   {done} / {total_users} 👑\n"
-                f"__Success:__     {success} ✅\n__Blocked:__     {blocked} ❌\n"
-                f"__Deleted:__     {deleted} ⚰️\n\n",
+                text=f"`Broadcast Completed:`\n"
+                     f"__Completed in__ {time_taken} __seconds ⏰__\n\n"
+                     f"__Total Users:__ {total_users} 😎\n"
+                     f"__Completed:__   {done} / {total_users} 👑\n"
+                     f"__Success:__     {success} ✅\n"
+                     f"__Blocked:__     {blocked} ❌\n"
+                     f"__Deleted:__     {deleted} ⚰️\n\n" + 
+                     f"__Subscribed:__  {subscribed} 🎉" if ___ == "not" else "",
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            "🔸 asForward 🔸" if __ == "forw" else "🔸 asCopy 🔸", callback_data="nabilanavab",)
+                            "🔸 asForward 🔸" if __ == "forw" else "🔸 asCopy 🔸",
+                            callback_data="nabilanavab",)
                     ]]
                 ),
             )
+        
         elif ___ == "pm":
             userID_msg = await bot.ask(
                 text="__Now Send me the traget ID/Username__ 😅\n\n"
-                "/exit for cancelling current process 🤐",
+                     "/exit for cancelling current process 🤐",
                 chat_id=callbackQuery.from_user.id,
                 reply_to_message_id=callbackQuery.message.id,
                 reply_markup=ForceReply(True),
@@ -216,33 +269,34 @@ async def _send(bot, callbackQuery):
             except Exception:  # if username [Exception]
                 pass
             try:
-                typ = "user"
-                userINFO = await bot.get_users(chat)
-            except Exception:
-                typ = "group"
-            if typ == "group":
                 try:
+                    userINFO = await bot.get_users(chat)
+                except Exception:
                     userINFO = await bot.get_chat(chat)
-                except Exception as e:
-                    return await userID_msg.reply(
-                        f"__Can't forward message__\n__REASON:__ `{e}`", quote=True
-                    )
+            except Exception as e:
+                return await userID_msg.reply(
+                    f"__Can't forward message__\n\n__REASON:__ `{e}`",
+                    quote=True
+                )
             forward_msg = callbackQuery.message.reply_to_message
             try:
                 if __ == "copy":
                     await forward_msg.copy(userINFO.id)
                 else:
                     await forward_msg.forward(userINFO.id)
-            except Exception:
+            except Exception as Error:
                 return await userID_msg.reply(
-                    f"__Can't forward message__\n__REASON:__ `{e}`"
+                    f"__Can't forward message__\n__REASON:__ `{Error}`"
                 )
             else:
                 return await userID_msg.reply("Successfully forwarded")
         else:
             return
     except Exception as e:
-        logger.exception("🐞 %s: %s" % (file_name, e), exc_info=True)
+        logger.exception("🐞 %s: %s" %(file_name, e), exc_info=True)
+    finally:
+        BROADCAST = not BROADCAST
+        await stop(bot, callbackQuery.message)
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
