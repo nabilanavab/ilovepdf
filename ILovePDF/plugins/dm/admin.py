@@ -72,32 +72,49 @@ async def send(bot, message):
 
         msg = await message.reply_to_message.reply("⚙️ `Processing..`", quote=True)
         await message.delete()
-        button = []
-        button.append(
-            InlineKeyboardButton("📢 ↓ BROADCAST ↓ 📢", callback_data="nabilanavab")
-        )
-        button.append(
-            [InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|broad"),
-            InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|broad")]
-        )
-        button.append(
-            InlineKeyboardButton("👤 ↓ PM ↓ 👤", callback_data="nabilanavab")
-        )
-        button.append(
-            [InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|pm"),
-            InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|pm")]
-        )
-        if settings.UPDATE_CHANNEL:
-            button.append(
-                InlineKeyboardButton("📢 NOT SUBSCRIBED 📢", callback_data="nabilanavab")
-            )
-            button.append(
-                [InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|not"),
-                InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|not")]
-            )
         return await msg.edit(
             text="⚙️SEND MESSAGE: \n\n`Now, Select any Option Below.. `",
-            reply_markup=InlineKeyboardMarkup(button)
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            "📢 ↓ BROADCAST ↓ 📢", callback_data="nabilanavab"
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "🔸 COPY 🔸", callback_data="send|copy|broad"
+                        ),
+                        InlineKeyboardButton(
+                            "🔸 FORWARD 🔸", callback_data="send|forw|broad"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "👤 ↓ PM ↓ 👤", callback_data="nabilanavab")
+                        ],
+                    [
+                        InlineKeyboardButton(
+                            "🔸 COPY 🔸", callback_data="send|copy|pm"
+                        ),
+                        InlineKeyboardButton(
+                            "🔸 FORWARD 🔸", callback_data="send|forw|pm"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "📢 NOT SUBSCRIBED 📢", callback_data="nabilanavab")
+                        ],
+                    [
+                        InlineKeyboardButton(
+                            "🔸 COPY 🔸", callback_data="send|copy|not"
+                        ),
+                        InlineKeyboardButton(
+                            "🔸 FORWARD 🔸", callback_data="send|forw|not"
+                        ),
+                    ],
+                ]
+            ),
         )
     except Exception as error:
         logger.exception("🐞 %s: %s" % (file_name, error), exc_info=True)
