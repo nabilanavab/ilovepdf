@@ -4,6 +4,7 @@
 
 file_name = "ILovePDF/plugins/dm/callBack/file_process/compressPDF.py"
 
+import os
 import subprocess
 from PIL import Image
 from logger import logger
