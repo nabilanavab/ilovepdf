@@ -43,7 +43,7 @@ async def openInBot(bot, message, md5: Union[str, int]) -> bool:
                 return await messaage.reply(trCHUNK["old"])
             md5 = getMSG.caption.splitlines()[0].split(":")[1].strip()
 
-        if await work(message, "check", True):
+        if await work.work(message, "check", True):
             return await message.reply(
                 text=trCHUNK["inWork"],
                 quote=True,
@@ -54,7 +54,7 @@ async def openInBot(bot, message, md5: Union[str, int]) -> bool:
                     ]]
                 ),
             )
-        cDIR = await work(message, "create", True)
+        cDIR = await work.work(message, "create", True)
 
         markup = InlineKeyboardMarkup(
             [[
@@ -110,10 +110,10 @@ async def openInBot(bot, message, md5: Union[str, int]) -> bool:
         )
 
         await reply.edit_reply_markup(reply_markup=None)
-        return await work(message, "delete", True)
+        return await work.work(message, "delete", True)
     except Exception as e:
         logger.exception("🐞 %s: %s" % (file_name, e), exc_info=True)
-        return await work(message, "delete", True)
+        return await work.work(message, "delete", True)
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
