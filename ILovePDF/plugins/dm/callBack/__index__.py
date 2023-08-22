@@ -141,7 +141,7 @@ async def __index__(bot, callbackQuery):
                 return await watermark.reply(CHUNK["exit"], quote=True)
         elif data == "partPDF":
             notExit, splitData = await partPDF.askPartPdf(
-                bot, callbackQuery, question=CHUNK["pyromodASK_3"],
+                bot, callbackQuery, question=CHUNK["pyromodASK_4"],
                 limit=int(callbackQuery.message.text.split("•")[1])
                 if "•" in callbackQuery.message.text else None
             )
