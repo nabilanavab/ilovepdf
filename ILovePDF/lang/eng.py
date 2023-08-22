@@ -366,7 +366,7 @@ INDEX = {
     "_cancelCB" : {_CANCEL : "close|P2I"}, "_canceledCB" : {_CANCELED_CB : "close|P2IDONE"}, "_completed" : {_COMPLETED : "close|P2ICOMP"},
     "sizeLoad" : _SIZE_LOAD, "mergeDl" : _MERGE_DL, "merge" : _START_MERGE, "watermark_txt" : _WATERMARK_TXT, "watermark_pdf" : _WATERMARK_PDF,
     "watermark_img" : _WATERMARK_IMG, "adding_wa" : _ADD_WATERMARK, "readAgain" : _READ_AGAIN, "zipTAR" : _ZIP_CONVERT, "aio" : _AIO_PROCESS,
-    "pyromodASK_3" : _ASK_PG, "pdfSplitError" : _ASK_PGERROR}
+    "pyromodASK_4" : _ASK_PG, "pdfSplitError" : _ASK_PGERROR}
 INLINE = {
     "search" : _SEARCH, "openBot" : _OPEN_BOT, 'query' : _TOTAL, 'lang_t' : _SET_LANG, "lang_d" : _LANG, 'caption' : _INLINE_CAP,
     "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
