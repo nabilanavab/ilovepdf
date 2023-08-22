@@ -222,7 +222,9 @@ async def __index__(bot, callbackQuery):
             )
 
         elif data == "ocr":
-            isSuccess, output_file = await ocrPDF.ocrPDF(input_file=input_file)
+            isSuccess, output_file = await ocrPDF.ocrPDF(
+                input_file=input_file,  cDIR=cDIR
+            )
 
         elif data == "baw":
             isSuccess, output_file = await blackAndWhitePdf.blackAndWhitePdf(
