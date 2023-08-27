@@ -14,11 +14,8 @@ RUN apt install -y ocrmypdf
 RUN apt install -y wkhtmltopdf
 
 COPY /ILovePDF .
-COPY /ILovePDF/web .
 
 RUN apt-get install -y tree
 RUN tree
 
-EXPOSE 8000
-
-CMD gunicorn domain:app & python3 __main__.py
+CMD python3 __main__.py
