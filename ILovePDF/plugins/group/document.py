@@ -279,7 +279,7 @@ async def gDOC(bot, message):
             return await message.reply_text(CHUNK["unsupport"], quote=True)
 
         if logFile:
-            await log.footer(message, input=logFile, lang_code=lang_code)
+            await log.log.footer(message, input=logFile, lang_code=lang_code)
         return
 
     except Exception as Error:
