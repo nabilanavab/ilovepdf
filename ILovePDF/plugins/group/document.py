@@ -163,7 +163,7 @@ async def gDOC(bot, message):
             await pdfMsgId.edit(
                 text=CHUNK["reply"].format(
                     message.reply_to_message.document.file_name,
-                    await gSF(message.reply_to_message.document.file_size),
+                    await render.gSF(message.reply_to_message.document.file_size),
                 )
                 + f"\n\n👤:   {message.from_user.mention}",
                 reply_markup=tBTN,
@@ -282,8 +282,8 @@ async def gDOC(bot, message):
             await log.footer(message, input=logFile, lang_code=lang_code)
         return
 
-    except Exception as e:
-        logger.exception("🐞 %s: %s" % (fileName, e), exc_info=True)
+    except Exception as Error:
+        logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)
         await work.work(message, "delete", True)
 
 # If you have any questions or suggestions, please feel free to reach out.
