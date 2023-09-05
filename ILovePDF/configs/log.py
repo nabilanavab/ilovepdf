@@ -105,9 +105,8 @@ class log:
                     await db.set_key(message.from_user.id, "lang", lang_code)
 
     async def footer(message, input=None, output=None, lang_code=settings.DEFAULT_LANG):
-        file = (
-            input.reply_to_message if input else output
-        )  # input here means /check will be message so file will be replied message
+        file = ( input.reply_to_message if input else output )
+        # input here means /check will be message so file will be replied message
         # await asyncio.sleep(10)
         # tTXT, _ = await translate(text="feedbackMsg", lang_code=lang_code)
         # await message.reply(tTXT)
