@@ -8,14 +8,15 @@ import fitz
 from .util import *
 from plugins import *
 from .work import work
+from logger import logger
 from pyrogram.types import Message
-from configs.config import dm, settings
 from pyrogram import Client, filters
+from configs.config import dm, settings
 from pyrogram.enums import ChatMemberStatus, ChatType, ChatAction
 
 # CHECKS CALLBACKQUERY USER 
 async def header(
-    bot, callbackQuery, lang_code: str = settings.DEFAULT_LANG, doc: bool=True
+    bot, callbackQuery, lang_code: str=settings.DEFAULT_LANG, doc: bool=True
 ):
     """
     This function is designed to check if a certain process needs to be executed [only for callbackQuery],
@@ -49,8 +50,7 @@ async def header(
         # or if they are in a group and the bot admin, before executing the code."
         if (
             callbackQuery.message.chat.type != ChatType.PRIVATE
-            and callbackQuery.from_user.id
-            != callbackQuery.message.reply_to_message.from_user.id
+            and callbackQuery.from_user.id != callbackQuery.message.reply_to_message.from_user.id
             and callbackQuery.from_user.id not in dm.ADMINS
         ):
             userStat = await bot.get_chat_member(
