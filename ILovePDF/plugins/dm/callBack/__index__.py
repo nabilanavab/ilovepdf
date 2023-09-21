@@ -33,7 +33,8 @@ async def __index__(bot, callbackQuery):
         ):
             await work.work(callbackQuery, "delete", False)
             return await callbackQuery.message.reply_text(
-                "#old_queue 💔\n\n`try by sending new file`", reply_markup=_, quote=True
+                "#old_queue 💔\n\n`try by sending new file`",
+                reply_markup=_, quote=True
             )
 
         elif data == "rot360":
@@ -110,7 +111,7 @@ async def __index__(bot, callbackQuery):
             notExit, imageList = await pdfToImages.askimageList(
                 bot,
                 callbackQuery,
-                question=CHUNK["askImage"],
+                question=CHUNK["pyromodASK_4"],
                 limit=int(callbackQuery.message.text.split("•")[1])
                 if "•" in callbackQuery.message.text
                 else 1000,
