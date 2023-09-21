@@ -197,7 +197,7 @@ _CANT_COMP = "cant compress more 🙂"
 _ASK_NAME = "Enter PDF new Name:\n\n/exit to cancel"
 _ASK_MERGE = "__MERGE pdfs » Total PDFs in queue: {}\n\n/exit to cancel\n/merge to merge__"
 _ASK_PASS = "_PDF {} »\nNow, please enter the PASSWORD :__\n\n/exit __to cancel__"
-_ASK_PG = "Please enter the PDF page syntax that you would like to use,\n\nSyntax:\n\tRange of page: `[start, end]`,\n\tSpecific page: `separated by commas`.\n\nExample: `1,3,5,12:19`"
+_ASK_PG_ = "Please enter the PDF page syntax that you would like to use,\n\nSyntax:\n\tRange of page: `[start, end]`,\n\tSpecific page: `separated by commas`.\n\nExample: `1,3,5,12:19`"
 _ASK_PG_ERROR = "`Invalid syntax for page number`\n`NB: Pdf only have {} pages` ⭐.\n\nPlease enter a valid syntax for the page number,\nsuch as `[start:end]` or `[page_numbers]`."
 _MORE_PGS = "It contains too many pages, send me a pdf fewer than 5 pages 😐"
 _YOUR_ERROR = "You have some big problem..🙂"
@@ -366,7 +366,7 @@ INDEX = {
     "_cancelCB" : {_CANCEL : "close|P2I"}, "_canceledCB" : {_CANCELED_CB : "close|P2IDONE"}, "_completed" : {_COMPLETED : "close|P2ICOMP"},
     "sizeLoad" : _SIZE_LOAD, "mergeDl" : _MERGE_DL, "merge" : _START_MERGE, "watermark_txt" : _WATERMARK_TXT, "watermark_pdf" : _WATERMARK_PDF,
     "watermark_img" : _WATERMARK_IMG, "adding_wa" : _ADD_WATERMARK, "readAgain" : _READ_AGAIN, "zipTAR" : _ZIP_CONVERT, "aio" : _AIO_PROCESS,
-    "pyromodASK_4" : _ASK_PG, "pdfSplitError" : _ASK_PGERROR}
+    "pyromodASK_4" : _ASK_PG_, "pdfSplitError" : _ASK_PGERROR}
 INLINE = {
     "search" : _SEARCH, "openBot" : _OPEN_BOT, 'query' : _TOTAL, 'lang_t' : _SET_LANG, "lang_d" : _LANG, 'caption' : _INLINE_CAP,
     "lang_b" : { _SELECT_LANG : "nabilanavab" }, 'sear_t' : _SEARCH_PDF, 'sear_d' : _SEARCH_DES, 'noDB' : '🏃‍♂️🏃‍♂️', 'refer_t' : _REFER_T,
