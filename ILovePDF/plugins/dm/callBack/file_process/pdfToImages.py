@@ -34,6 +34,9 @@ async def askimageList(bot, callbackQuery, question, limit: int = 1000) -> (bool
             filters=filters.text,
             reply_markup=ForceReply(True, "Eg: 7:13 [start:end], 2, 3, 21:27.."),
         )
+        if input_str.text == "/exit":
+            logger.debug(f"delete log later : {file_name} : {input_str.text}")
+            return False, "Exit"
         my_list = []
         for elem in input_str.text.split(","):
             try:
