@@ -33,7 +33,8 @@ async def __index__(bot, callbackQuery):
         ):
             await work.work(callbackQuery, "delete", False)
             return await callbackQuery.message.reply_text(
-                "#old_queue 💔\n\n`try by sending new file`", reply_markup=_, quote=True
+                "#old_queue 💔\n\n`try by sending new file`",
+                reply_markup=_, quote=True
             )
 
         elif data == "rot360":
@@ -141,7 +142,7 @@ async def __index__(bot, callbackQuery):
                 return await watermark.reply(CHUNK["exit"], quote=True)
         elif data == "partPDF":
             notExit, splitData = await partPDF.askPartPdf(
-                bot, callbackQuery, question=CHUNK["pyromodASK_4"],
+                bot, callbackQuery, question=CHUNK["askImage"],
                 limit=int(callbackQuery.message.text.split("•")[1])
                 if "•" in callbackQuery.message.text else None
             )
