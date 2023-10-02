@@ -35,6 +35,9 @@ async def stop_bot(bot, message):
         lang_code = await util.getLang(message.chat.id)
         await message.reply_chat_action(enums.ChatAction.TYPING)
         if dataBASE.MONGODB_URI:  # CHECK IF USER IN DATABASE
+            lang_code, referID, get_pdf, md5_str = await extract_data(
+                f"{message.text}-"
+            )
             await log.newUser(bot, message, lang_code, referID)
         trans_txt, trans_btn = await util.translate(
             text="_STOP", button="_STOP_CB_", lang_code=lang_code
