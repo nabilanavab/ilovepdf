@@ -182,11 +182,11 @@ async def _send(bot, callbackQuery):
                 for chat in os.listdir("./work/nabilanavab"):
                     if f"{chat}".startswith("-100"):
                         await bot.send_message(
-                            chat_id=chat, text="bot stopped.."
+                            chat_id=chat, text="Bot Stopped..\n__Some Server maintenance underway__ 😊"
                         )
                     else:
                         await bot.send_message(
-                            chat_id=chat, text="bot stopped..\n\nwill ping you once's its up.."
+                            chat_id=chat, text="Bot is paused. \n\nWill notify you when it's back up! 🔥"
                         )
                         ping_list.append(callbackQuery.from_user.id)
                 shutil.rmtree(f"./work")
@@ -197,7 +197,7 @@ async def _send(bot, callbackQuery):
             total_users = await db.total_users_count()
             await callbackQuery.message.edit(
                 text=f"⚙️ Started Broadcasting..\nTOTAL {total_users} USERS 😍\n\n↓ MESSAGE ↓"
-                    f"\n`{broadcast_msg.text if broadcast_msg.text else '📂 Media 📂'}`",
+                     f"\n`{broadcast_msg.text if broadcast_msg.text else '📂 Media 📂'}`",
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
