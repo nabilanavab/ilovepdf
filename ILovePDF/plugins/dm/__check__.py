@@ -40,7 +40,7 @@ async def stop_bot(bot, message):
             )
             await log.newUser(bot, message, lang_code, referID)
         trans_txt, trans_btn = await util.translate(
-            text="_STOP", button="_STOP_CB_", lang_code=lang_code
+            text="_STOP", button="_STOP_CB", lang_code=lang_code
         )
         return await message.reply_photo(
             photo=images.WELCOME_PIC,
