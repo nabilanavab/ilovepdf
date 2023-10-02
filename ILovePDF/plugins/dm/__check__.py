@@ -37,7 +37,7 @@ async def stop_bot(bot, message):
         if dataBASE.MONGODB_URI:  # CHECK IF USER IN DATABASE
             await log.newUser(bot, message, lang_code, referID)
         trans_txt, trans_btn = await util.translate(
-            text="_STOP", button="_STOP_CB", lang_code=lang_code
+            text="_STOP", button="_STOP_CB_", lang_code=lang_code
         )
         return await message.reply_photo(
             photo=images.WELCOME_PIC,
@@ -47,7 +47,7 @@ async def stop_bot(bot, message):
             )
         )
     except Exception as Error:
-        logger.exception("🐞 %s bannedUsr: %s" % (file_name, Error))
+        logger.exception("🐞 %s stop_bot: %s" % (file_name, Error))
 
 
 # BANNED USER
