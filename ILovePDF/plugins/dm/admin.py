@@ -40,9 +40,7 @@ async def stop(bot, message):
         if not settings.STOP_BOT:
             for user in ping_list:
                 try:
-                    await bot.send_message(
-                        chat_id=user, text="`Bot Restarted..`"
-                    )
+                    await bot.send_message(chat_id=user, text="💡")
                 except FloodWait as e:
                     await asyncio.sleep(e.value)
     except Exception as error:
