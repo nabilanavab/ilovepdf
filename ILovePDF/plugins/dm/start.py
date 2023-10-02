@@ -272,19 +272,18 @@ async def _status(bot, callbackQuery):
                 try:
                     text += f"[{user['name']}](tg://user?id={user['id']})"
                 except Exception:
-                    logger.debug(f"error user: {user}")
+                    logger.debug(f"••• error user: {user}")
                 if user.get("banned", False):
                     text += " `Banned ⚠️`"
                 text += "\n"
                 if rollnumber % 100 == 0:
-                    logger.debug(f"••• {text}")
-                    with open("users.txt", "w+") as outfile:
+                    with open(f"{myID[0].username}.txt", "w+") as outfile:
                         outfile.write(text)
                     text == ""
-            with open("users.txt", "w+") as outfile:
+            with open(f"{myID[0].username}.txt", "w+") as outfile:
                 outfile.write(text)
-            await callbackQuery.message.reply_document("users.txt")
-            os.remove("users.txt")
+            await callbackQuery.message.reply_document(f"{myID[0].username}.txt")
+            os.remove(f"{myID[0].username}.txt")
 
         elif __ == "home":
             tTXT, tBTN = await util.translate(
