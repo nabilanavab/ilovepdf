@@ -51,7 +51,7 @@ _OPEN_BROW = "🔗 Open In Browser 🔗"
 _ERROR_DB = "Something went wrong while retrieving data from the database"
 _START = "Welcome message.."
 _TXT2PDF = "Create text PDF's"
-_FEEDBACK = "Your donation fuels the bot's growth.\n\nGive generously. No amount is too small 🍟"
+_FEEDBACK = "Your donation fuels the bot's growth. 🚀\n\nGive generously. No amount is too small 🍟"
 _PG_NUM = "`Number of Pages: •{}•` 🌟" # always add • before and after pg number
 _PDF_REPLY = "`What should I do with this file.?`\n\nFile Name : `{}`\nFile Size : `{}`"
 _META = "⭐ PDF META£ATA ⭐"
@@ -289,7 +289,7 @@ STATUS_MSG = {
                "**◍ RAM Usage     :** `{}`%\n**◍ Current Work  :** `{}`\n**◍ Message Id     :** `{}`",
     "USERS" : "Users in Database are.", "NO_DB" : "No dataBASE set Yet 💩", "ADMIN" : "**Total ADMIN:** __{}__\n",
     "BACK" : { _BACK_HOME : "status|home" }, "HOME" : "`Now, select any option below to get current STATUS 💱.. `",}
-feedbackMsg = { "message": f"[{_FEEDBACK}]({settings.FEEDBACK})", "button": { _BUY_ME_A_COFFEE : COFFEE }}
+feedbackMsg = { "message": f"{_FEEDBACK}", "button": { _BUY_ME_A_COFFEE : COFFEE }}
 BAN = {
     "UCantUse" : _BAN, "UCantUseDB" : _BAN + _REASON, "GroupCantUse" : _BAN_G, "GroupCantUseDB" : _BAN_G + _REASON,
     "cbNotU" : _BAN_CB, "Fool" : _FOOL, "Force" : _FORCE, "ForceCB" : { _JOIN_CHANNEL : "{0}", _REFRESH : "refresh{1}" },
