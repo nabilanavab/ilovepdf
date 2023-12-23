@@ -5,7 +5,7 @@
 file_name = "ILovePDF/configs/log.py"
 
 import os
-from asyncio
+import asyncio
 from logger import logger
 from plugins.utils import *
 from pyrogram.enums import ChatType
