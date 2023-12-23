@@ -26,14 +26,9 @@ async def chosen_inline_result(bot, chosen_inline_result):
             + f"\n\nUSER ID: {chosen_inline_result.from_user.id}"
             f"\nView Profile: {chosen_inline_result.from_user.mention}",
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "✅ B@N ✅",
-                            callback_data=f"banC|{chosen_inline_result.from_user.id}",
-                        )
-                    ]
-                ]
+                [[
+                    InlineKeyboardButton("✅ B@N ✅", callback_data=f"banC|{chosen_inline_result.from_user.id}",)
+                ]]
             ),
         )
 
@@ -43,24 +38,21 @@ async def chosen_inline_result(bot, chosen_inline_result):
         await bot.edit_inline_reply_markup(
             inline_message_id=chosen_inline_result.inline_message_id,
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text=trCHUNK[0],
-                            callback_data=f"lib|{log_msg.id}|{chosen_inline_result.from_user.id}",
-                        ),
-                        InlineKeyboardButton(
-                            text=trCHUNK[1],
-                            switch_inline_query_current_chat=f"{chosen_inline_result.query}",
-                        ),
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            text=trCHUNK[2],
-                            url=f"https://t.me/{myID[0].username}?start=-m{log_msg.id}",
-                        )
-                    ],
-                ]
+                [[
+                    InlineKeyboardButton(
+                        text=trCHUNK[0],
+                        callback_data=f"lib|{log_msg.id}|{chosen_inline_result.from_user.id}",
+                    ),
+                    InlineKeyboardButton(
+                        text=trCHUNK[1],
+                        switch_inline_query_current_chat=f"{chosen_inline_result.query}",
+                    ),
+                ],[
+                    InlineKeyboardButton(
+                        text=trCHUNK[2],
+                        url=f"https://t.me/{myID[0].username}?start=-m{log_msg.id}",
+                    )
+                ],]
             ),
         )
         # if inline cache is 0 set below line
