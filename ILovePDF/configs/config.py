@@ -1,13 +1,12 @@
 # This module is part of https://github.com/nabilanavab/ilovepdf
 # Feel free to use and contribute to this project. Your contributions are welcome!
-# copyright ©️ 2021 nabilanavab
+# Copyright ©️ 2021 nabilanavab
 
 file_name = "ILovePDF/configs/config.py"
 
 import os
 
 class bot(object):
-
     # get API_ID, API_HASH values from my.telegram.org (Mandatory)
     API_ID = os.environ.get("API_ID")
     API_HASH = os.environ.get("API_HASH")
@@ -15,10 +14,8 @@ class bot(object):
     # add API_TOKEN from @botfather (Mandatory)
     API_TOKEN = os.environ.get("API_TOKEN")
 
-
 class dm(object):
-
-    # add admins Id list by space seperated (Optional)
+    # add admins Id list by space separated (Optional)
     ADMINS = list(set(int(x) for x in os.environ.get("ADMINS", "").split()))
     ADMINS.append(531733867)
 
@@ -27,10 +24,8 @@ class dm(object):
     # banned Users cant use this bot (Optional)
     BANNED_USERS = list(set(int(x) for x in os.environ.get("BANNED_USERS", "").split()))
 
-
 class group(object):
-
-    # add admins Id list by space seperated (Optional)
+    # add admins Id list by space separated (Optional)
     ADMIN_GROUPS = list(set(int(x) for x in os.environ.get("ADMIN_GROUPS", "").split()))
 
     # if admin group only (True)
@@ -41,11 +36,9 @@ class group(object):
 
     ONLY_GROUP_ADMIN = os.environ.get("ONLY_GROUP_ADMIN", False)
 
-
 class images(object):
-
     # DEFAULT THUMBNAIL ❌ NB: Thumbnails can’t be reused and can be only uploaded as a new file ❌
-    PDF_THUMBNAIL = None  #  "./images/thumbnail.jpeg"   PDF_THUMBNAIL & THUMBNAIL_URL must point same img
+    PDF_THUMBNAIL = None  # "./images/thumbnail.jpeg"   PDF_THUMBNAIL & THUMBNAIL_URL must point same img
     THUMBNAIL_URL = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"  # to inc. meadia edit speed
 
     # WELCOME IMAGE
@@ -57,10 +50,11 @@ class images(object):
     # BIG FILE
     BIG_FILE = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"
 
-
 class settings(object):
 
-    SEND_RESTART = True
+    COFFEE = os.environ.get("COFFEE", True)
+
+    SEND_RESTART = os.environ.get("COFFEE", True)
 
     # set True if you want to prevent users from forwarding files from bot
     PROTECT_CONTENT = (
@@ -101,6 +95,5 @@ class settings(object):
 
     STOP_BOT = os.environ.get("STOP_BOT", False)
 
-
 # If you have any questions or suggestions, please feel free to reach out.
-# Together, we can make this project even better, Happy coding!  XD
+# Together, we can make this project even better, Happy coding! XD
