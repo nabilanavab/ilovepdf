@@ -102,7 +102,7 @@ class log:
         if settings.COFFEE and coffee:
             # coffee=True: it only sends once the work is done
             await asyncio.sleep(2)
-            tTXT, tBTN = await translate(
+            tTXT, tBTN = await util.translate(
                 text="feedbackMsg['message']", button="feedbackMsg['button']", lang_code=lang_code
             )
             await message.reply(tTXT, reply_markup=tBTN)
