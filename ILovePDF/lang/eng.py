@@ -284,7 +284,7 @@ STATUS_MSG = {
         "📊 ↓ SERVER ↓ 📊" : "nabilanavab", "📶 STORAGE 📶" : "status|server", "🥥 DATABASE 🥥" : "status|db",
         "🌝 ↓ GET LIST ↓ 🌝": "nabilanavab", "💎 ADMIN 💎" : "status|admin", "👤 USERS 👤" : "status|users", _BACK_HOME : "Home|A"},
     "DB" : """📂 DATABASE :\n\n**◍ Database Users :** `{}` 📍\n**◍ Database Chats :** `{}` 📍""",
-    "SERVER" : "**◍ Total Space     :** `{}`\n**◍ Used Space     :** `{}({}%)`\n**◍ Free Space      :** `{}`\n**◍ CPU Usage      :** `{}`%"
+    "SERVER" : "**◍ Total Space     :** `{}`\n**◍ Used Space     :** `{}({}%)`\n**◍ Free Space      :** `{}`\n**◍ CPU Usage      :** `{}%`\n"
                "**◍ RAM Usage     :** `{}`%\n**◍ Current Work  :** `{}`\n**◍ Message Id     :** `{}`",
     "USERS" : "Users in Database are.", "NO_DB" : "No dataBASE set Yet 💩", "ADMIN" : "**Total ADMIN:** __{}__\n",
     "BACK" : { _BACK_HOME : "status|home" }, "HOME" : "`Now, select any option below to get current STATUS 💱.. `",}
