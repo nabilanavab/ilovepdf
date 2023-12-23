@@ -152,7 +152,7 @@ async def _GEN(bot, callbackQuery):
             os.remove(location)
         except Exception:
             pass
-        await log.footer(callbackQuery.message, output=logFile, lang_code=lang_code)
+        await log.footer(callbackQuery.message, output=logFile, lang_code=lang_code, coffee=True)
     except Exception as e:
         tTXT, tBTN = await util.translate(
             text="DOCUMENT['error']",
