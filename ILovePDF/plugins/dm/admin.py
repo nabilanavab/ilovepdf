@@ -7,6 +7,7 @@ file_name = "ILovePDF/plugins/dm/admin.py"
 import datetime
 import os, shutil
 from plugins import *
+from plugins.utils import *
 from pyrogram.errors import (
     InputUserDeactivated, UserNotParticipant,
     FloodWait, UserIsBlocked, PeerIdInvalid,
@@ -20,23 +21,20 @@ if dataBASE.MONGODB_URI:
 
 BROADCAST = False
 
-#  ADMIN MESSAGES 
-@ILovePDF.on_message(
-    filters.command("stop")
-    & filters.user(dm.ADMINS)
-    & filters.private
-    & filters.incoming
-)
+# Stop bot by using /stop [only for admins]
+@ILovePDF.on_message(filters.command("stop") & filters.user(dm.ADMINS) & filters.private & filters.incoming)
 async def stop(bot, message):
     try:
+        # response to admins
         if BROADCAST:
             return await message.reply(
-                "Sorry, Broadcasting some message 🥱", quote=True
+                "MESSAGE FOR ADMIN: Currently Broadsting Something.. 🥱", quote=True
             )
-        if message.text == "/stop":
-            settings.STOP_BOT = not settings.STOP_BOT
-        reply = "`bot stoped..`" if settings.STOP_BOT else "`bot started..`"
+        settings.STOP_BOT = not settings.STOP_BOT
+        reply = "MESSAGE FOR ADMIN: `bot stoped..` 🗽" if settings.STOP_BOT else "MESSAGE FOR ADMIN: `bot started..` ✨"
         await message.reply(reply)
+
+        # when the bot get started it notifies the users asked to notify
         if not settings.STOP_BOT:
             for user in ping_list:
                 try:
@@ -56,13 +54,8 @@ async def ping_me(bot, callbackQuery):
         logger.exception("🐞 %s: %s" % (file_name, error), exc_info=True)
 
 
-#  ADMIN MESSAGES 
-@ILovePDF.on_message(
-    filters.command("send")
-    & filters.user(dm.ADMINS)
-    & filters.private
-    & filters.incoming
-)
+# Broadcast Message [only for admins]
+@ILovePDF.on_message(filters.command("send") & filters.user(dm.ADMINS) & filters.private & filters.incoming)
 async def send(bot, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
@@ -78,47 +71,22 @@ async def send(bot, message):
         return await msg.edit(
             text="⚙️ SEND MESSAGE: \n\n`Now, Select any Option Below.. `",
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "📢 ↓ BROADCAST ↓ 📢", callback_data="nabilanavab"
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "🔸 COPY 🔸", callback_data="send|copy|broad"
-                        ),
-                        InlineKeyboardButton(
-                            "🔸 FORWARD 🔸", callback_data="send|forw|broad"
-                        ),
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "👤 ↓ PM ↓ 👤", callback_data="nabilanavab"
-                        ),
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "🔸 COPY 🔸", callback_data="send|copy|pm"
-                        ),
-                        InlineKeyboardButton(
-                            "🔸 FORWARD 🔸", callback_data="send|forw|pm"
-                        ),
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "📢 NOT SUBSCRIBED 📢", callback_data="nabilanavab"
-                        ),
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "🔸 COPY 🔸", callback_data="send|copy|not"
-                        ),
-                        InlineKeyboardButton(
-                            "🔸 FORWARD 🔸", callback_data="send|forw|not"
-                        ),
-                    ],
-                ]
+                [[
+                    InlineKeyboardButton("📢 ↓ BROADCAST ↓ 📢", callback_data="nabilanavab")
+                ],[
+                    InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|broad"),
+                    InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|broad"),
+                ],[
+                    InlineKeyboardButton("👤 ↓ PM ↓ 👤", callback_data="nabilanavab"),
+                ],[
+                    InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|pm"),
+                    InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|pm"),
+                ],[
+                    InlineKeyboardButton("📢 NoN SUBSCRIBERS 📢", callback_data="nabilanavab"),
+                ],[
+                    InlineKeyboardButton("🔸 COPY 🔸", callback_data="send|copy|not"),
+                    InlineKeyboardButton("🔸 FORWARD 🔸", callback_data="send|forw|not"),
+                ],]
             ),
         )
     except Exception as error:
@@ -214,12 +182,7 @@ async def _send(bot, callback_query):
             )
             
             start_time = time.time()
-            done = 0
-            blocked = 0
-            deleted = 0
-            failed = 0
-            success = 0
-            subscribed = 0
+            done, blocked, deleted, failed, success, subscribed = 0, 0, 0, 0, 0, 0
 
             async for user in users:
                 i_success, feed = await broadcast_messages(
@@ -257,9 +220,7 @@ async def _send(bot, callback_query):
                     except Exception:
                         logger.debug("edit error - broadcast")
             time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
-            return await callback_query.message
-
-.edit(
+            return await callback_query.message.edit(
                 text=f"`Broadcast Completed:`\n"
                      f"__Completed in__ {time_taken} __seconds ⏰__\n\n"
                      f"__Total Users:__ {total_users} 😎\n"
@@ -302,7 +263,7 @@ async def _send(bot, callback_query):
                     user_info = await bot.get_chat(chat)
             except Exception as e:
                 return await user_id_msg.reply(
-                    f"__Can't forward message__\n\n__REASON:__ `{e}`",
+                    f"__Can't Process This message__\n\n__REASON:__ `{e}`",
                     quote=True
                 )
             

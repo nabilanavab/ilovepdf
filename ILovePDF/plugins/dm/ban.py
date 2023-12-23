@@ -16,12 +16,7 @@ if dataBASE.MONGODB_URI:
     from database import db
 
 #  BANNED USER 
-@ILovePDF.on_message(
-    filters.incoming
-    & filters.command("ban")
-    & filters.private
-    & filters.user(dm.ADMINS)
-)
+@ILovePDF.on_message(filters.incoming & filters.command("ban") & filters.private & filters.user(dm.ADMINS))
 async def _banUser(bot, message):
     try:
         if not dataBASE.MONGODB_URI:
@@ -74,12 +69,7 @@ async def _banUser(bot, message):
         logger.exception("1️⃣: 🐞 %s: %s" % (file_name, Error), exc_info=True)
 
 
-@ILovePDF.on_message(
-    filters.incoming
-    & filters.command("unban")
-    & filters.private
-    & filters.user(dm.ADMINS)
-)
+@ILovePDF.on_message(filters.incoming & filters.command("unban") & filters.private & filters.user(dm.ADMINS))
 async def _unbanUser(bot, message):
     try:
         if not dataBASE.MONGODB_URI:
@@ -122,9 +112,7 @@ async def _unbanUser(bot, message):
         logger.exception("2️⃣: 🐞 %s: %s" % (file_name, Error), exc_info=True)
 
 
-banUser = filters.create(
-    lambda _, __, query: query.data.startswith(tuple(["banU|", "banC|"]))
-)
+banUser = filters.create(lambda _, __, query: query.data.startswith(tuple(["banU|", "banC|"])))
 @ILovePDF.on_callback_query(banUser)
 async def _banUserCB(bot, callbackQuery):
     try:
@@ -171,9 +159,7 @@ async def _banUserCB(bot, callbackQuery):
         logger.exception("3️⃣: 🐞 %s: %s" % (file_name, Error), exc_info=True)
 
 
-unbanUser = filters.create(
-    lambda _, __, query: query.data.startswith(tuple(["unbanU|", "unbanC|"]))
-)
+unbanUser = filters.create(lambda _, __, query: query.data.startswith(tuple(["unbanU|", "unbanC|"])))
 @ILovePDF.on_callback_query(unbanUser)
 async def _unbanUserCB(bot, callbackQuery):
     try:

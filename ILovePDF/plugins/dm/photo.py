@@ -15,9 +15,7 @@ from configs.config import settings
 from pyrogram import filters, enums
 
 #  REPLY TO /HD 
-@ILovePDF.on_message(
-    (filters.private | filters.group) & filters.command("hd") & filters.incoming
-)
+@ILovePDF.on_message((filters.private | filters.group) & filters.command("hd") & filters.incoming)
 async def _hd(bot, message):
     try:
         if isinstance(PDF.get(message.chat.id), list):
