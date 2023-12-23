@@ -169,29 +169,18 @@ class Bot(ILovePDF):
                 if log.LOG_FILE and log.LOG_FILE[-4:] == ".log":
                     doc = f"./{log.LOG_FILE}"
                     markUp = InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    "♻️ refresh log ♻️", callback_data="log"
-                                )
-                            ],
-                            [
-                                InlineKeyboardButton(
-                                    "◍ Close ◍", callback_data="close|admin"
-                                )
-                            ],
-                        ]
+                        [[
+                            InlineKeyboardButton("♻️ refresh log ♻️", callback_data="log")
+                        ],[
+                            InlineKeyboardButton("◍ Close ◍", callback_data="close|admin")
+                        ],]
                     )
                 else:
                     doc = images.THUMBNAIL_URL
                     markUp = InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    "◍ close ◍", callback_data="close|admin"
-                                )
-                            ]
-                        ]
+                        [[
+                            InlineKeyboardButton("◍ close ◍", callback_data="close|admin")
+                        ]]
                     )
                 await app.send_document(
                     chat_id=int(log.LOG_CHANNEL),
