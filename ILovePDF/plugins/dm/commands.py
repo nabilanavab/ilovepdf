@@ -17,9 +17,7 @@ if dataBASE.MONGODB_URI:
 
 
 # ❌ CANCELS CURRENT PDF TO IMAGES WORK ❌
-@ILovePDF.on_message(
-    (filters.private | filters.group) & filters.command(["cancel"]) & filters.incoming
-)
+@ILovePDF.on_message((filters.private | filters.group) & filters.command(["cancel"]) & filters.incoming)
 async def cancelP2I(bot, message):
     try:
         await work.work(message, "delete", True)
@@ -29,9 +27,7 @@ async def cancelP2I(bot, message):
 
 
 # ❌ DELETS CURRENT IMAGES TO PDF QUEUE (/delete) ❌
-@ILovePDF.on_message(
-    (filters.private | filters.group) & filters.command(["delete"]) & filters.incoming
-)
+@ILovePDF.on_message((filters.private | filters.group) & filters.command(["delete"]) & filters.incoming)
 async def _cancelI2P(bot, message):
     try:
         lang_code = await util.getLang(message.chat.id)
