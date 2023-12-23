@@ -26,16 +26,16 @@ class Database:
     def new_user(self, id, name, lang_code):
         if lang_code != settings.DEFAULT_LANG:
             return dict(
-                id=id,
-                name=name,
-                join_date=datetime.date.today().isoformat(),
-                lang=lang_code,
+                id = id,
+                name = name,
+                join_date = datetime.date.today().isoformat(),
+                lang = lang_code,
             )
-        return dict(id=id, name=name, join_date=datetime.date.today().isoformat())
+        return dict( id = id, name = name, join_date = datetime.date.today().isoformat() )
 
     # ADD NEW GROUP TO DB
     def new_group(self, id, title):
-        return dict(id=id, title=title, join_date=datetime.date.today().isoformat())
+        return dict( id = id, title = title, join_date = datetime.date.today().isoformat() )
 
     # ----- DELETE USER FROM DB -----
     async def delete_user(self, user_id):
