@@ -243,7 +243,7 @@ async def text_to_pdf(bot, callbackQuery):
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
         await processMessage.edit(CHUNK["upload"])
 
-        _COFFEE, COFFEE = await util.translate("feedbackMsg['button']", lang_code=lang_code)
+        _COFFEE, COFFEE = await util.translate(button="feedbackMsg['button']", lang_code=lang_code)
 
         logFile = await callbackQuery.message.reply_document(
             file_name=FILE_NAME,
