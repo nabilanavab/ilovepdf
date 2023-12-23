@@ -8,6 +8,7 @@ import psutil
 from .photo import HD
 from plugins import *
 from plugins.utils import *
+from ..utils.render import gSF
 from .settings import _settings
 from lang import langList, disLang
 from pyrogram.enums import ChatType
