@@ -246,6 +246,7 @@ _SELECT_PARA_FONT = "🪂 Seleziona carattere paragrafo 🪂"
 _SELECT_COLOR = "🎨 Seleziona Colore 🎨"
 _USE_DEFAULT = "» Usa predefinito »"
 _SELECT_BG_COLOR = "🎨 Seleziona l'immagine di sfondo 🎨"
+_BUY_ME_A_COFFEE = "☕ Comprami un caffè ☕"
 
 
 _STOP_CB = { _STOP_CB_ : "ping_me"}
@@ -274,6 +275,7 @@ SETTINGS = {
     "capt" : [{ _SET_CAPT : "nabilanavab", _ADD : "set|capt+", _BACK_HOME : "Home|B2S"},
               { _SET_CAPT : "nabilanavab", _CHANGE : "set|capt+", _DELETE : "set|capt-", _BACK_HOME : "Home|B2S"}] }
 BOT_COMMAND = { "start" : _START, "txt2pdf" : _TXT2PDF }
+COFFEE = "https://www.buymeacoffee.com/nabilanavab"
 STATUS_MSG = {
     "_HOME" : {
         "📊 ↓ SERVER ↓ 📊" : "nabilanavab", "📶 STORAGE 📶" : "status|server", "🥥 DATABASE 🥥" : "status|db",
@@ -284,7 +286,7 @@ STATUS_MSG = {
                "**◍ RAM Usage     :** `{}`%\n**◍ Current Work  :** `{}`\n**◍ Message Id     :** `{}`",
     "USERS" : "Users in Database are.", "NO_DB" : "No dataBASE set Yet 💩", "ADMIN" : "**Total ADMIN:** __{}__\n",
     "BACK" : { _BACK_HOME : "status|home" }, "HOME" : "`Now, select any option below to get current STATUS 💱.. `",}
-feedbackMsg = f"[{_FEEDBACK}]({settings.FEEDBACK})"
+feedbackMsg = { "message": f"[{_FEEDBACK}]({settings.FEEDBACK})", "button": { _BUY_ME_A_COFFEE : COFFEE }}
 BAN = {
     "UCantUse" : _BAN, "UCantUseDB" : _BAN + _REASON, "GroupCantUse" : _BAN_G, "GroupCantUseDB" : _BAN_G + _REASON,
     "cbNotU" : _BAN_CB, "Fool" : _FOOL, "Force" : _FORCE, "ForceCB" : { _JOIN_CHANNEL : "{0}", _REFRESH : "refresh{1}" },

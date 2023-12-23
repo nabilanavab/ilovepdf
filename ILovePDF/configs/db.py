@@ -1,30 +1,36 @@
 # This module is part of https://github.com/nabilanavab/ilovepdf
 # Feel free to use and contribute to this project. Your contributions are welcome!
-# copyright ©️ 2021 nabilanavab
+# Copyright ©️ 2021 nabilanavab
 
 file_name = "ILovePDF/configs/db.py"
 
 import os
 
-DATA = {}  # save user api, fname, capt
+# Save user API, first name, caption
+DATA = {}
 
-myID = []  # saves bot info if UPDATE_CHANNEL
+# Saves bot info if UPDATE_CHANNEL
+myID = []
 
-GROUPS = []  # save groups id and checks each times
+# Save groups ID and check each time
+GROUPS = []
 
-ping_list = [] # save users how need notify after bot reastart from stop
+# Save users who need notification after bot restarts from stop
+ping_list = []
 
-invite_link = []  # just saves invitation link
+# Save invitation links
+invite_link = []
 
-BANNED_USR_DB, BANNED_GRP_DB = [], []  # Load Banned Users Id
+# Load Banned Users ID
+BANNED_USR_DB, BANNED_GRP_DB = [], []
 
-CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C = [], []  # Load UsersId with custom thumbnail
+# Load Users ID with custom thumbnail
+CUSTOM_THUMBNAIL_U, CUSTOM_THUMBNAIL_C = [], []
 
-
-class dataBASE(object):
-
-    MONGODB_URI = os.environ.get("MONGODB_URI", False)  # mongoDB Url (Optional)
+# MongoDB URL (Optional)
+class dataBASE:
+    MONGODB_URI = os.environ.get("MONGODB_URI", False)
 
 
 # If you have any questions or suggestions, please feel free to reach out.
-# Together, we can make this project even better, Happy coding!  XD
+# Together, we can make this project even better. Happy coding! XD

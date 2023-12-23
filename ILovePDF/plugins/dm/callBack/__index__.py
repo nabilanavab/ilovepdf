@@ -7,7 +7,7 @@ file_name = "ILovePDF/plugins/dm/callBack/__index__.py"
 from plugins import *
 from plugins.utils import *
 from .file_process import *
-from configs.config import images
+from configs.config import images, settings
 
 
 index = filters.create(lambda _, __, query: query.data.startswith("#"))
@@ -448,6 +448,10 @@ async def __index__(bot, callbackQuery):
 
         await callbackQuery.message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
 
+        _COFFEE, COFFEE = await util.translate(
+            button="feedbackMsg['button']", lang_code=lang_code
+        )
+
         if data == "partPDF":
             docs = [os.path.join(cDIR, file) for file in os.listdir(cDIR)]
             docs.sort(key=os.path.getctime)
@@ -459,6 +463,7 @@ async def __index__(bot, callbackQuery):
                     document=_file,
                     thumb=THUMBNAIL,
                     caption=f"`part: {_index+1}`\n\n{FILE_CAPT}",
+                    reply_markup=COFFEE if settings.COFFEE else None,
                     progress=render._progress,
                     progress_args=(dlMSG, time.time()),
                 )
@@ -470,6 +475,7 @@ async def __index__(bot, callbackQuery):
                 if os.path.splitext(FILE_NAME)[1]
                 else f"{FILE_NAME}.pdf",
                 quote=True,
+                reply_markup=COFFEE,
                 document=output_file,
                 thumb=THUMBNAIL,
                 caption=f"{_caption}\n\n{FILE_CAPT}",
