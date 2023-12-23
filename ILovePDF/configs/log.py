@@ -105,7 +105,7 @@ class log:
             tTXT, tBTN = await util.translate(
                 text="feedbackMsg['message']", button="feedbackMsg['button']", lang_code=lang_code
             )
-            await message.reply(tTXT, reply_markup=tBTN)
+            await message.reply(tTXT, reply_markup=tBTN, disable_web_page_preview=True)
 
         if log.LOG_CHANNEL and file:
             if message.chat.type == ChatType.PRIVATE:
