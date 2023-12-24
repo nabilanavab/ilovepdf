@@ -105,7 +105,9 @@ async def broadcast_messages(user_id: int, message, info, force=False):
                     pass
                 else:
                     return False, "Subscribed"
-            except UserNotParticipant:
+            except FloodWait as e:
+                await asyncio.sleep(e.value)
+            except UserNotParticipant as e:
                 pass
             except Exception as e:
                 pass
@@ -141,13 +143,13 @@ async def _send(bot, callback_query):
 
         if ___ == "broad" and not dataBASE.MONGODB_URI:
             return await callback_query.answer("Can't Use this feature ={")
-        await callback_query.answer("⚙️ Processing.. ")
         
         if ___ in ["broad", "not"]:
             if ___ == "not" and not (settings.UPDATE_CHANNEL):
                 return await callback_query.answer("First ADD and updates channel.. 😏")
             if BROADCAST:
                 return await callback_query.answer("Broadcasting Some Other Message.. 🙄")
+            await callback_query.answer("⚙️ Processing.. ")
             BROADCAST = not BROADCAST
             await stop(bot, callback_query.message)
             
@@ -241,6 +243,7 @@ async def _send(bot, callback_query):
             await stop(bot, callback_query.message)
         
         elif ___ == "pm":
+            await callback_query.answer("⚙️ Processing.. ")
             user_id_msg = await bot.ask(
                 text="__Now Send me the target ID/Username__ 😅\n\n"
                      "/exit for cancelling current process 🤐",
