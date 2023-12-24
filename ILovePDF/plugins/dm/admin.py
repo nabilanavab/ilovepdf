@@ -237,6 +237,8 @@ async def _send(bot, callback_query):
                     ]]
                 ),
             )
+            BROADCAST = not BROADCAST
+            await stop(bot, callback_query.message)
         
         elif ___ == "pm":
             user_id_msg = await bot.ask(
@@ -283,9 +285,6 @@ async def _send(bot, callback_query):
             return
     except Exception as e:
         logger.exception("🐞 %s: %s" % (file_name, e), exc_info=True)
-    finally:
-        BROADCAST = not BROADCAST
-        await stop(bot, callback_query.message)
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
