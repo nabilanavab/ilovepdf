@@ -25,8 +25,9 @@ BROADCAST = False
 @ILovePDF.on_message(filters.command("stop") & filters.user(dm.ADMINS) & filters.private & filters.incoming)
 async def stop(bot, message):
     try:
+        global BROADCAST
         # response to admins
-        if message.text and message.text="/stop" and BROADCAST:
+        if message.text and message.text=="/stop" and BROADCAST:
             return await message.reply(
                 "MESSAGE FOR ADMIN: Currently Broadsting Something.. 🥱", quote=True
             )
