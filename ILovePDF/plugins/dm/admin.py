@@ -27,7 +27,7 @@ async def stop(bot, message):
     try:
         global BROADCAST
         # response to admins
-        if message.text and message.text=="/stop" and BROADCAST:
+        if (message and message.text=="/stop" and BROADCAST):
             return await message.reply(
                 "MESSAGE FOR ADMIN: Currently Broadsting Something.. 🥱", quote=True
             )
