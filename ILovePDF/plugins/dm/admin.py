@@ -105,7 +105,9 @@ async def broadcast_messages(user_id: int, message, info, force=False):
                     pass
                 else:
                     return False, "Subscribed"
-            except UserNotParticipant:
+            except FloodWait as e:
+                await asyncio.sleep(e.value)
+            except UserNotParticipant as e:
                 pass
             except Exception as e:
                 pass
