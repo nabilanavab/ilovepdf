@@ -26,7 +26,7 @@ BROADCAST = False
 async def stop(bot, message):
     try:
         # response to admins
-        if BROADCAST:
+        if message.text and message.text="/stop" and BROADCAST:
             return await message.reply(
                 "MESSAGE FOR ADMIN: Currently Broadsting Something.. 🥱", quote=True
             )
