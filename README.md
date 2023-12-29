@@ -5,10 +5,6 @@
   <meta name="author" content="Nabil A Navab">
 </head>
 
-<a href="https://www.buymeacoffee.com/nabilanavab">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="40%" align="right">
-</a>
-
 > **Note** 
 > : Something big awaits you. Don't forget to star the project 🌟
 
