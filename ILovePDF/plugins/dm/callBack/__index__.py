@@ -413,7 +413,7 @@ async def __index__(bot, callbackQuery):
             location = await bot.download_media(
                 message=THUMBNAIL, file_name=f"{cDIR}/temp.jpeg"
             )
-            THUMBNAIL = await formatThumb(location)
+            THUMBNAIL = await fncta.formatThumb(location)
 
         # caption for "encrypt", "rename"
         if data == "encrypt":
