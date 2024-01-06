@@ -163,7 +163,7 @@ async def gDOC(bot, message):
             await pdfMsgId.edit(
                 text=CHUNK["reply"].format(
                     message.reply_to_message.document.file_name,
-                    await gSF(message.reply_to_message.document.file_size),
+                    await render.gSF(message.reply_to_message.document.file_size),
                 )
                 + f"\n\n👤:   {message.from_user.mention}",
                 reply_markup=tBTN,
