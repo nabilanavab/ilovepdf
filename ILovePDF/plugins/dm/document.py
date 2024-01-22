@@ -310,7 +310,7 @@ async def documents(bot, message):
                 location = await bot.download_media(
                     message=THUMBNAIL, file_name=f"{cDIR}/thumb.jpeg"
                 )
-                THUMBNAIL = await formatThumb(location)
+                THUMBNAIL = await fncta.formatThumb(location)
 
             await pdfMsgId.edit(CHUNK["upFile"], reply_markup=tBTN)
             await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
