@@ -235,7 +235,7 @@ async def _url(bot, message):
                         location = await bot.download_media(
                             message=THUMBNAIL, file_name=f"{cDIR}/thumb.jpeg"
                         )
-                        THUMBNAIL = await formatThumb(location)
+                        THUMBNAIL = await fncta.formatThumb(location)
 
                     await message.reply_chat_action(enums.ChatAction.UPLOAD_DOCUMENT)
                     tTXT, _ = await util.translate(
