@@ -127,7 +127,7 @@ async def _GEN(bot, callbackQuery):
             location = await bot.download_media(
                 message=THUMBNAIL, file_name=f"{callbackQuery.message.id}.jpeg"
             )
-            THUMBNAIL = await formatThumb(location)
+            THUMBNAIL = await fncta.formatThumb(location)
 
         tTXT, tBTN = await util.translate(
             button="PROGRESS['upFileCB']", lang_code=lang_code
