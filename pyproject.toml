@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "nablanavab/ilovepdf"
+name = "nabilanavab/ilovepdf"
 version = "5.0.1"
 description = "Telegram PDF Bot.."
 authors = ["Nabil A Navab <nabil.a.navab@gmail.com>"]
