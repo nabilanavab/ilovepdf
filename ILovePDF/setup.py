@@ -7,7 +7,7 @@ file_name = "ILovePDF/setup.py"
 from setuptools import setup, find_packages
 
 setup(
-    name="nabilanava/ilovepdf",
+    name="nabilanavab/ilovepdf",
     version="5.0.1",
     description="Telegram PDF Bot",
     author="Nabil A Navab",
