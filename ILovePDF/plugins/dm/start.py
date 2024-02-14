@@ -271,7 +271,8 @@ async def _status(bot, callbackQuery):
                     except:
                         pass
                 try:
-                    text += f"[{user['name']}](tg://user?id={user['id']})"
+                    #text += f"[{user['name']}](tg://user?id={user['id']})"
+                    text += f"{user['id']}"
                 except Exception:
                     logger.debug(f"••• error user: {user}")
                 if user.get("banned", False):
