@@ -75,7 +75,7 @@ async def text_to_pdf_cb(bot, callbackQuery):
 
             return await callbackQuery.edit_message_media(
                 media=InputMediaPhoto(
-                    media=media, caption=f"```{callbackQuery.message.caption}```"
+                    media=media, caption=f"`{callbackQuery.message.caption}`"
                 ),
                 reply_markup=tTXT,
             )
