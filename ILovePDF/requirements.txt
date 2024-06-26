@@ -1,4 +1,4 @@
-pyrogram==2.0.106
+https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.21.zip
 TgCrypto==1.2.3
 pillow==9.5.0
 PyMuPdf==1.22.2
