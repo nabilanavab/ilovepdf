@@ -12,6 +12,7 @@ psutil==5.9.0
 pymongo[srv]==4.3.3
 hachoir==3.2.0
 pytelegrambotapi==4.11.0
+python-dotenv
 aiohttp==3.8.4
 aspose-words==23.9.0
 pdfkit==1.0.0
