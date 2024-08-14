@@ -1,3 +1,5 @@
+# thank drxxstrange@gmail.com for update.py ♥️
+
 from os import path as opath, getenv
 from logging import FileHandler, StreamHandler, INFO, basicConfig, error as log_error, info as log_info
 from logging.handlers import RotatingFileHandler
@@ -23,8 +25,6 @@ if UPSTREAM_REPO is not None:
         srun(["rm", "-rf", ".git"])
         
     update = srun([f"git init -q \
-                     && git config --global user.email drxxstrange@gmail.com \
-                     && git config --global user.name SilentDemonSD \
                      && git add . \
                      && git commit -sm update -q \
                      && git remote add origin {UPSTREAM_REPO} \
