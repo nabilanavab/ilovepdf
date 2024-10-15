@@ -139,7 +139,7 @@ class Database:
         return (await self.db.command("dbstats"))["dataSize"]
 
 if dataBASE.MONGODB_URI:
-    db = Database(dataBASE.MONGODB_URI, "nabilanavab-iLovePDF")
+    db: Database = Database(dataBASE.MONGODB_URI, "nabilanavab-iLovePDF")
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
