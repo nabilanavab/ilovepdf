@@ -4,6 +4,7 @@
 
 # thank drxxstrange@gmail.com for update.py ♥️
 
+
 file_name: str = "ILovePDF\update.py"
 
 import os, logging, dotenv
@@ -71,6 +72,7 @@ update_repository(
     upstream_repo = os.getenv('upstream_repo'),
     upstream_branch = os.getenv('upstream_branch')
 )
+
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD

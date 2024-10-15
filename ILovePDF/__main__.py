@@ -124,7 +124,7 @@ class Bot(ILovePDF):
 
         # Set bot commands
         command, _ = await util.translate(
-            text="BOT_COMMAND", lang_code=settings.DEFAULT_LANG
+            text = "BOT_COMMAND", lang_code = settings.DEFAULT_LANG
         )
         await app.set_bot_commands(
             [ BotCommand(i, command[i]) for i in command ],

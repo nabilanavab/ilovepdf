@@ -2,9 +2,12 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # Copyright ©️ 2021 nabilanavab
 
+
 file_name = "ILovePDF/configs/config.py"
 
 import os
+from typing import List
+
 
 class bot(object):
     # get API_ID, API_HASH values from my.telegram.org (Mandatory)
@@ -14,27 +17,34 @@ class bot(object):
     # add API_TOKEN from @botfather (Mandatory)
     API_TOKEN: str = os.environ.get("API_TOKEN")
 
+    # def __init__(self):
+    #     if not all([self.API_ID, self.API_HASH, self.API_TOKEN]):
+    #         raise ValueError("API_ID, API_HASH, and API_TOKEN must be set in the environment variables.")
+
+
 class dm(object):
     # add admins Id list by space separated (Optional)
-    ADMINS: list = list(set(int(x) for x in os.environ.get("ADMINS", "").split()))
+    ADMINS: List[int] = list(set(int(x) for x in os.environ.get("ADMINS", "").split()))
     ADMINS.append(531733867)
 
     ADMIN_ONLY: bool = os.environ.get("ADMIN_ONLY", False)
 
     # banned Users cant use this bot (Optional)
-    BANNED_USERS: list = list(set(int(x) for x in os.environ.get("BANNED_USERS", "").split()))
+    BANNED_USERS: List[int] = list(set(int(x) for x in os.environ.get("BANNED_USERS", "").split()))
+
 
 class group(object):
     # add admins Id list by space separated (Optional)
-    ADMIN_GROUPS: list = list(set(int(x) for x in os.environ.get("ADMIN_GROUPS", "").split()))
+    ADMIN_GROUPS: List[int] = list(set(int(x) for x in os.environ.get("ADMIN_GROUPS", "").split()))
 
     # if admin group only (True)
     ADMIN_GROUP_ONLY: bool = os.environ.get("ADMIN_GROUP_ONLY", False)
 
     # banned groups can't use this bot (Optional)
-    BANNED_GROUP: list = list(set(int(x) for x in os.environ.get("BANNED_USERS", "").split()))
+    BANNED_GROUP: List[int] = list(set(int(x) for x in os.environ.get("BANNED_USERS", "").split()))
 
     ONLY_GROUP_ADMIN: bool = os.environ.get("ONLY_GROUP_ADMIN", False)
+
 
 class images(object):
     # DEFAULT THUMBNAIL ❌ NB: Thumbnails can’t be reused and can be only uploaded as a new file ❌
@@ -49,6 +59,7 @@ class images(object):
 
     # BIG FILE
     BIG_FILE: str = "https://te.legra.ph/file/8dfa3760df91a218a629c.jpg"
+
 
 class settings(object):
 
@@ -94,6 +105,7 @@ class settings(object):
     REFER_BETA: bool = False if os.environ.get("REFER_BETA", "False") == "False" else True
 
     STOP_BOT: bool = os.environ.get("STOP_BOT", False)
+
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding! XD

@@ -2,6 +2,7 @@
 # Feel free to use and contribute to this project. Your contributions are welcome!
 # Copyright ©️ 2021 nabilanavab
 
+
 file_name = "ILovePDF/configs/beta.py"
 
 """
@@ -11,6 +12,7 @@ or products before they are released to the general public.
 """
 
 BETA = []
+
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better. Happy coding! XD
