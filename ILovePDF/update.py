@@ -4,6 +4,8 @@
 
 # thank drxxstrange@gmail.com for update.py ♥️
 
+file_name: str = "ILovePDF\update.py"
+
 import os, logging, dotenv
 from subprocess import run
 from typing import List, Optional
