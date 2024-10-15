@@ -23,7 +23,7 @@ class Database:
         self.grp = self.db.groups
 
     # ADD NEW USER TO DB
-    def new_user(self, id, name, lang_code):
+    def new_user(self, id, name, lang_code) -> dict:
         if lang_code != settings.DEFAULT_LANG:
             return dict(
                 id = id,
@@ -34,7 +34,7 @@ class Database:
         return dict( id = id, name = name, join_date = datetime.date.today().isoformat() )
 
     # ADD NEW GROUP TO DB
-    def new_group(self, id, title):
+    def new_group(self, id, title) -> dict:
         return dict( id = id, title = title, join_date = datetime.date.today().isoformat() )
 
     # ----- DELETE USER FROM DB -----
