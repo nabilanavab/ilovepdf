@@ -10,7 +10,7 @@ import datetime
 from configs.db import dataBASE
 from configs.config import settings
 from typing import Dict, Any, Tuple, List
-from motor.motor_asyncio import AsyncIOMotorClient, Cursor
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
 class Database:
@@ -295,7 +295,7 @@ class Database:
         return await self.grp.find_one({"id": int(id)}) or None
 
 
-    async def get_all_users(self) -> Cursor:
+    async def get_all_users(self):
         """
         Retrieve all users from the database.
         
@@ -305,7 +305,7 @@ class Database:
         return self.col.find({})
 
 
-    async def get_all_chats(self) -> Cursor:
+    async def get_all_chats(self):
         """
         Retrieve all chats (groups) from the database.
         

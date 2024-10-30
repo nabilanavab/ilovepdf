@@ -7,6 +7,9 @@ file_name = "ILovePDF/configs/config.py"
 
 import os
 from typing import List
+from dotenv import load_dotenv
+
+load_dotenv(".env")
 
 
 class bot(object):

@@ -7,14 +7,14 @@ convertapi==1.6.0
 pyromod==1.5
 fpdf2==2.7.4
 ocrmypdf==13.6.0
-motor==3.1.2
+motor==3.5.1
 psutil==5.9.0
-pymongo[srv]==4.3.3
+pymongo==4.8.0
 hachoir==3.2.0
 pytelegrambotapi==4.11.0
 python-dotenv
 aiohttp==3.8.4
-aspose-words==23.9.0
+aspose-words==24.10.0
 pdfkit==1.0.0
 beautifulsoup4==4.12.2
 requests==2.30.0
