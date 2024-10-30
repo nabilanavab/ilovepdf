@@ -1,12 +1,3 @@
-# This module is part of https://github.com/nabilanavab/ilovepdf
-# Feel free to use and contribute to this project. Your contributions are welcome!
-# copyright ©️ 2024 nabilanavab
-
-# thank drxxstrange@gmail.com for update.py ♥️
-
-
-file_name: str = "ILovePDF\update.py"
-
 import os, logging, dotenv
 from subprocess import run
 from typing import List, Optional
