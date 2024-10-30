@@ -3,3 +3,6 @@
 *.pyc
 .idea
 *.pdf
+env/
+ILovePDF/Python-3.10.6.tgz
+ILovePDF/ILovePDF.session-journal

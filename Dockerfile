@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.10.6-slim-buster
 RUN mkdir /pdf && chmod 777 /pdf
 
 WORKDIR /ILovePDF
@@ -14,8 +14,5 @@ RUN apt install -y ocrmypdf
 RUN apt install -y wkhtmltopdf
 
 COPY /ILovePDF .
-
-RUN apt-get install -y tree
-RUN tree
 
 CMD bash run.sh

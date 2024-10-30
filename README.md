@@ -5,6 +5,8 @@
   <meta name="author" content="Nabil A Navab">
 </head>
 
+[![Deploy To Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy/?template=https://github.com/Ashrafmdmatin41/ilovepdf)
+
 > **NOTE**
 > : _**Please take a look at <a href="https://telegram.dog/ilovepdf_bot">@ilovepdf_bot</a> before hosting it yourself.**._
 
