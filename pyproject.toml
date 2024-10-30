@@ -18,7 +18,7 @@ fpdf = "1.7.2"
 ocrmypdf = "14.1.0"
 motor = "4.1.9"
 psutil = "5.9.5"
-motor== "3.5.1"
+motor == "3.5.1"
 pymongo = { version = "4.8.0", extras = ["srv"] }
 hachoir = "3.2.0"
 pytelegrambotapi = "4.11.0"
