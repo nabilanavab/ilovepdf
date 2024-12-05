@@ -7,9 +7,9 @@ convertapi==1.6.0
 pyromod==1.5
 fpdf2==2.7.4
 ocrmypdf==13.6.0
-motor==3.1.2
+motor==3.6.0
 psutil==5.9.0
-pymongo[srv]==4.3.3
+pymongo[srv]==4.9.2
 hachoir==3.2.0
 pytelegrambotapi==4.11.0
 python-dotenv
