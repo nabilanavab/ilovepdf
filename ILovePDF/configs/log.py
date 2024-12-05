@@ -14,7 +14,7 @@ from pyrogram.enums import ChatType
 from configs.config import settings
 from pyrogram.errors import FloodWait
 from configs.db import dataBASE, myID
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ChatType
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 if dataBASE.MONGODB_URI:
     from database import db
