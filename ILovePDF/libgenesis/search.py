@@ -73,7 +73,7 @@ class Libgen:
             "tags",
             "extension",
         ]
-        self.__libgen_url = "http://libgen.rs"
+        self.__libgen_url = "http://libgen.is"
         self.__json_url = f"{self.__libgen_url}/json.php?"
         self.__search_url = f"{self.__libgen_url}/search.php?"
 
