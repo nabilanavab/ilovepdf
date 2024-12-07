@@ -88,9 +88,7 @@ class LibgenDownload:
                             if cr_time - st_time > 1:
                                 if progress:
                                     await progress(current, total_size, *progress_args)
-                                logg.debug(
-                                    f"Downloading: {current} of {total_size} Done."
-                                )
+                                
                                 st_time = cr_time
         except Exception as e:
             logg.exception(e)
