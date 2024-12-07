@@ -134,7 +134,7 @@ class Database:
             None: This method does not return a value.
         """
         await self.col.insert_one(
-            user = self.new_user(id, name, lang_code)
+            self.new_user(id, name, lang_code)
         )
 
 
