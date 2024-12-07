@@ -1,4 +1,4 @@
-https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.21.zip
+git+https://github.com/KurimuzonAkuma/pyrogram.git
 TgCrypto==1.2.3
 pillow==9.5.0
 PyMuPdf==1.22.2
@@ -7,9 +7,9 @@ convertapi==1.6.0
 pyromod==1.5
 fpdf2==2.7.4
 ocrmypdf==13.6.0
-motor==3.6.0
+motor==3.1.2
 psutil==5.9.0
-pymongo[srv]==4.9.2
+pymongo[srv]==4.3.3
 hachoir==3.2.0
 pytelegrambotapi==4.11.0
 python-dotenv
@@ -20,5 +20,3 @@ beautifulsoup4==4.12.2
 requests==2.30.0
 arabic-reshaper==3.0.0
 python-bidi==0.4.2
-flask==2.3.2
-gunicorn==20.1.0
