@@ -25,12 +25,12 @@ async def download(current, total, bot, callbackQuery):
             )
         )
     except errors.MessageNotModified as e:
-        logger.debug("🐞 %s: %s" % (fileName, e))
+        logger.debug("🐞 %s: %s" % (file_name, e))
     except errors.FloodWait as e:
-        logger.debug("🐞 %s: %s" % (fileName, e))
+        logger.debug("🐞 %s: %s" % (file_name, e))
         await asyncio.sleep(e.x)
     except Exception as e:
-        logger.debug("🐞 %s: %s" % (fileName, e))
+        logger.debug("🐞 %s: %s" % (file_name, e))
 
 
 @ILovePDF.on_callback_query(filters.regex("lib"))
@@ -105,7 +105,7 @@ async def pdfDriver(bot, callbackQuery):
         return await work(callbackQuery, "delete", False)
 
     except Exception as Error:
-        logger.exception("🐞 %s: %s" % (fileName, Error), exc_info=True)
+        logger.exception("🐞 %s: %s" % (file_name, Error), exc_info=True)
         await work(callbackQuery, "delete", False)
 
 
